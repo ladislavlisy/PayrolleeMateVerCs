@@ -25,7 +25,7 @@ namespace PayrolleeMate.EngineService
 		private readonly Int32 __MaximumIncomeToApplyWithholdTax;
 		private readonly Int32 __MinimumIncomeToApplySolidaryIncrease;
 
-		public static ITaxingGuides Guides2015()
+		public static TaxingGuides Guides2015()
 		{
 			return new TaxingGuides (
 				TaxingProperties2015.ALLOWANCE_PAYER_BASIC,

@@ -17,6 +17,7 @@ namespace PayrolleeMate.EngineService
 
 		public IEngineProfile BuildEngineProfile (MonthPeriod period)
 		{
+			throw new NotImplementedException ();
 		}
 	}
 }

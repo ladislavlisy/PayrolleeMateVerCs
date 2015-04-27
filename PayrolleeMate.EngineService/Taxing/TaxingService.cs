@@ -1,9 +1,10 @@
 ﻿using System;
 using PayrolleeMate.EngineService.Interfaces;
+using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Taxing
 {
-	public class TaxingService
+	public class TaxingService : ITaxingService
 	{
 		private readonly string CLASS_NAME_PREFIX = "PayrolleeMate.EngineService.Periods.TaxingEngines";
 
@@ -19,6 +20,14 @@ namespace PayrolleeMate.EngineService.Taxing
 
 		private readonly ITaxingEngine defaultProfile = null;
 
+		#region ITaxingService implementation
+
+		public ITaxingService FindService (MonthPeriod period)
+		{
+			throw new NotImplementedException ();
+		}
+
+		#endregion
 	}
 }
 

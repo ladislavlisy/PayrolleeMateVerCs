@@ -3,7 +3,7 @@ using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Interfaces
 {
-	interface ITaxingEngine
+	public interface ITaxingEngine
 	{
 		ITaxingGuides Guides();
 
