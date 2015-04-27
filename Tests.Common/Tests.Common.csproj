@@ -34,11 +34,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestDecimalRounding.cs" />
-    <Compile Include="TestIntegerRounding.cs" />
+    <Compile Include="Rounding\TestDecimalRoundingDown.cs" />
+    <Compile Include="Rounding\TestDecimalRoundingHundredsDown.cs" />
+    <Compile Include="Rounding\TestDecimalRoundingHundredsUp.cs" />
+    <Compile Include="Rounding\TestDecimalRoundingToInt.cs" />
+    <Compile Include="Rounding\TestDecimalRoundingUp.cs" />
+    <Compile Include="Rounding\TestIntegerRoundingDown.cs" />
+    <Compile Include="Rounding\TestIntegerRoundingHundredsDown.cs" />
+    <Compile Include="Rounding\TestIntegerRoundingHundredsUp.cs" />
+    <Compile Include="Rounding\TestIntegerRoundingUp.cs" />
+    <Compile Include="Periods\TestMonthPeriod.cs" />
+    <Compile Include="Periods\TestSpanOfYears.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Payrollee.Common\Payrollee.Common.csproj">
+      <Project>{075817F0-6776-46E6-BF92-C5D0D5E16756}</Project>
+      <Name>Payrollee.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Rounding\" />
+    <Folder Include="Periods\" />
   </ItemGroup>
 </Project>

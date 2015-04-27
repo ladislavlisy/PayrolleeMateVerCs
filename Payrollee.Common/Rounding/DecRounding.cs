@@ -7,12 +7,16 @@ namespace PayrolleeMate.Common.Rounding
 	{
 		public static decimal RoundUp(decimal valueDec)
 		{
-			return (valueDec < 0m ? decimal.Negate(decimal.Ceiling(Math.Abs(valueDec))) : decimal.Ceiling(Math.Abs(valueDec)));
+			decimal roundRet = decimal.Ceiling (Math.Abs (valueDec));
+
+			return (valueDec < 0m ? decimal.Negate(roundRet) : roundRet);
 		}
 
 		public static decimal RoundDown(decimal valueDec)
 		{
-			return (valueDec < 0m ? decimal.Negate(decimal.Floor(Math.Abs(valueDec))) : decimal.Floor(Math.Abs(valueDec)));
+			decimal roundRet = decimal.Floor (Math.Abs (valueDec));
+
+			return (valueDec < 0m ? decimal.Negate(roundRet) : roundRet);
 		}
 
 		public static decimal NearRoundUp(decimal valueDec, int nearest = 100)
