@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{39AD919F-8AC7-4FE3-8B15-534D42018C7B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PayrolleeMate.EngineService</RootNamespace>
+    <AssemblyName>PayrolleeMate.EngineService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EngineService.cs" />
+    <Compile Include="Interfaces\IEngineService.cs" />
+    <Compile Include="Interfaces\IEngineProfile.cs" />
+    <Compile Include="Interfaces\ITaxingEngine.cs" />
+    <Compile Include="Interfaces\IHealthEngine.cs" />
+    <Compile Include="Interfaces\ISocialEngine.cs" />
+    <Compile Include="EngineProfile.cs" />
+    <Compile Include="Constants\TaxingProperties.cs" />
+    <Compile Include="Taxing\TaxingGuides.cs" />
+    <Compile Include="Taxing\ITaxingGuides.cs" />
+    <Compile Include="Taxing\TaxingEnginePrototype.cs" />
+    <Compile Include="Taxing\ITaxingService.cs" />
+    <Compile Include="Periods.TaxingEngines\TaxingEngine2015.cs" />
+    <Compile Include="Taxing\TaxingService.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="Taxing\" />
+    <Folder Include="Constants\" />
+    <Folder Include="Periods.TaxingEngines\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">
+      <Project>{075817F0-6776-46E6-BF92-C5D0D5E16756}</Project>
+      <Name>PayrolleeMate.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

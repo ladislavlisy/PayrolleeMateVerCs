@@ -1,0 +1,168 @@
+﻿using System;
+using PayrolleeMate.EngineService.Constants;
+
+namespace PayrolleeMate.EngineService
+{
+	public class TaxingGuides : ITaxingGuides
+	{
+		private static readonly Int32 ALLOWANCE_DIS_CHILD_MULTIPLIER = 2;
+
+		private readonly Int32 __PayerBasicAllowance;
+		private readonly Int32 __DisabilityDgr1Allowance;
+		private readonly Int32 __DisabilityDgr2Allowance;
+		private readonly Int32 __DisabilityDgr3Allowance;
+		private readonly Int32 __StudyingAllowance;
+		private readonly Int32 __ChildrenRank1stAllowance;
+		private readonly Int32 __ChildrenRank2ndAllowance;
+		private readonly Int32 __ChildrenRank3rdAllowance;
+		private readonly decimal __AdvancesFactor;
+		private readonly decimal __WithholdFactor;
+		private readonly decimal __SolidaryFactor;
+		private readonly Int32 __MinimumValidAmountOfTaxBonus;
+		private readonly Int32 __MaximumValidAmountOfTaxBonus;
+		private readonly Int32 __MinimumIncomeRequiredForTaxBonus;
+		private readonly Int32 __MaximumIncomeToApplyRoundingToSingles;
+		private readonly Int32 __MaximumIncomeToApplyWithholdTax;
+		private readonly Int32 __MinimumIncomeToApplySolidaryIncrease;
+
+		public static ITaxingGuides Guides2015()
+		{
+			return new TaxingGuides (
+				TaxingProperties2015.ALLOWANCE_PAYER_BASIC,
+				TaxingProperties2015.ALLOWANCE_PAYER_DIS_1ST,
+				TaxingProperties2015.ALLOWANCE_PAYER_DIS_2ND,
+				TaxingProperties2015.ALLOWANCE_PAYER_DIS_3RD,
+				TaxingProperties2015.ALLOWANCE_PAYER_STUDYING,
+				TaxingProperties2015.ALLOWANCE_CHILD_RANK_1ST,
+				TaxingProperties2015.ALLOWANCE_CHILD_RANK_2ND,
+				TaxingProperties2015.ALLOWANCE_CHILD_RANK_3RD,
+				TaxingProperties2015.FACTOR_ADVANCES,
+				TaxingProperties2015.FACTOR_WITHHOLD,
+				TaxingProperties2015.FACTOR_SOLIDARY,
+				TaxingProperties2015.MIN_VALID_AMOUNT_OF_TAXBONUS,
+				TaxingProperties2015.MAX_VALID_AMOUNT_OF_TAXBONUS,
+				TaxingProperties2015.MIN_INCOME_REQUIRED_FOR_TAXBONUS,
+				TaxingProperties2015.MAX_INCOME_APPLY_SINGELS_ROUNDING,
+				TaxingProperties2015.MAX_INCOME_APPLY_WITHHOLD_TAX,
+				TaxingProperties2015.MIN_INCOME_APPLY_SOLIDARY_INCREASE);
+		}
+
+		private TaxingGuides(
+			Int32 payerBasic,
+			Int32 payerDisab1,
+			Int32 payerDisab2,
+			Int32 payerDisab3, 
+			Int32 payerStudy,
+			Int32 childRank1,
+			Int32 childRank2,
+			Int32 childRank3,
+			decimal factorAdvances,
+			decimal factorWithhold,
+			decimal factorSolidary, 
+			Int32 minToValidBonus,
+			Int32 maxToValidBonus,
+			Int32 minToClaimBonus,
+			Int32 maxToSingleRound,
+			Int32 maxToWithholdTax,
+			Int32 minToSolidaryInc)
+		{
+			__PayerBasicAllowance = payerBasic;
+			__DisabilityDgr1Allowance = payerDisab1;
+			__DisabilityDgr2Allowance = payerDisab2;
+			__DisabilityDgr3Allowance = payerDisab3;
+			__StudyingAllowance = payerStudy;
+			__ChildrenRank1stAllowance = childRank1;
+			__ChildrenRank2ndAllowance = childRank2;
+			__ChildrenRank3rdAllowance = childRank3;
+			__AdvancesFactor = factorAdvances;
+			__WithholdFactor = factorWithhold;
+			__SolidaryFactor = factorSolidary;
+			__MinimumValidAmountOfTaxBonus = minToValidBonus;
+			__MaximumValidAmountOfTaxBonus = maxToValidBonus;
+			__MinimumIncomeRequiredForTaxBonus = minToClaimBonus;
+			__MaximumIncomeToApplyRoundingToSingles = maxToSingleRound;
+			__MaximumIncomeToApplyWithholdTax = maxToWithholdTax;
+			__MinimumIncomeToApplySolidaryIncrease = minToSolidaryInc;
+		}
+
+		public Int32 PayerBasicAllowance() 
+		{
+			return __PayerBasicAllowance;
+		}
+		public Int32 DisabilityDgr1Allowance() 
+		{ 
+			return __DisabilityDgr1Allowance; 
+		}
+		public Int32 DisabilityDgr2Allowance() 
+		{ 
+			return __DisabilityDgr2Allowance; 
+		}
+		public Int32 DisabilityDgr3Allowance() 
+		{ 
+			return __DisabilityDgr3Allowance; 
+		}
+		public Int32 StudyingAllowance() 
+		{ 
+			return __StudyingAllowance; 
+		}
+		public Int32 ChildrenRank1stAllowance() 
+		{ 
+			return __ChildrenRank1stAllowance; 
+		}
+		public Int32 ChildrenRank2ndAllowance() 
+		{ 
+			return __ChildrenRank2ndAllowance; 
+		}
+		public Int32 ChildrenRank3rdAllowance() 
+		{ 
+			return __ChildrenRank3rdAllowance; 
+		}
+		public decimal AdvancesFactor() 
+		{ 
+			return __AdvancesFactor; 
+		}
+		public decimal WithholdFactor() 
+		{ 
+			return __WithholdFactor; 
+		}
+		public decimal SolidaryFactor() 
+		{ 
+			return __SolidaryFactor; 
+		}
+		public Int32 MinimumValidAmountOfTaxBonus() 
+		{ 
+			return __MinimumValidAmountOfTaxBonus; 
+		}
+		public Int32 MaximumValidAmountOfTaxBonus() 
+		{ 
+			return __MaximumValidAmountOfTaxBonus; 
+		}
+		public Int32 MinimumIncomeRequiredForTaxBonus() 
+		{ 
+			return __MinimumIncomeRequiredForTaxBonus; 
+		}
+		public Int32 MaximumIncomeToApplyRoundingToSingles() 
+		{ 
+			return __MaximumIncomeToApplyRoundingToSingles; 
+		}
+		public Int32 MaximumIncomeToApplyWithholdTax() 
+		{ 
+			return __MaximumIncomeToApplyWithholdTax; 
+		}
+		public Int32 MinimumIncomeToApplySolidaryIncrease() 
+		{ 
+			return __MinimumIncomeToApplySolidaryIncrease; 
+		}
+		public bool SolidaryIncreaseEnabled() 
+		{ 
+			return (__MinimumIncomeToApplySolidaryIncrease > 0); 
+		}
+
+		public virtual object Clone()
+		{
+			TaxingGuides other = (TaxingGuides)this.MemberwiseClone();
+			return other;
+		}
+	}
+}
+

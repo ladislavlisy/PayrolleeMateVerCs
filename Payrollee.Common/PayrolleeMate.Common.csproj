@@ -39,11 +39,13 @@
     <Compile Include="Periods\SpanOfYears.cs" />
     <Compile Include="Periods\SpanOfMonths.cs" />
     <Compile Include="Periods\SeqOfYears.cs" />
+    <Compile Include="Factories\GeneralFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Rounding\" />
     <Folder Include="Operation\" />
     <Folder Include="Periods\" />
+    <Folder Include="Factories\" />
   </ItemGroup>
 </Project>

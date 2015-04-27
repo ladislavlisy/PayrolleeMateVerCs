@@ -51,9 +51,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Payrollee.Common\Payrollee.Common.csproj">
+    <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">
       <Project>{075817F0-6776-46E6-BF92-C5D0D5E16756}</Project>
-      <Name>Payrollee.Common</Name>
+      <Name>PayrolleeMate.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
