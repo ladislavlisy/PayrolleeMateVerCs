@@ -5,7 +5,13 @@ namespace PayrolleeMate.EngineService
 {
 	public class TaxingGuides : ITaxingGuides
 	{
-		private static readonly Int32 ALLOWANCE_DIS_CHILD_MULTIPLIER = 2;
+		private const Int32 ALLOWANCE_DISABILITY_MULTIPLIER = 2;
+
+		private const byte ALLOWANCE_CHILDREN_RANK_1ST = 1;
+			
+		private const byte ALLOWANCE_CHILDREN_RANK_2ND = 2;
+
+		private const byte ALLOWANCE_CHILDREN_RANK_3RD = 3;
 
 		private readonly Int32 __PayerBasicAllowance;
 		private readonly Int32 __DisabilityDgr1Allowance;
@@ -104,6 +110,27 @@ namespace PayrolleeMate.EngineService
 		public Int32 StudyingAllowance() 
 		{ 
 			return __StudyingAllowance; 
+		}
+		public Int32 ChildrenAllowance(byte rank, bool disability) 
+		{ 
+			switch (rank) 
+			{
+			case ALLOWANCE_CHILDREN_RANK_1ST:
+				return ChildrenAllowanceValue (__ChildrenRank1stAllowance, disability);
+			case ALLOWANCE_CHILDREN_RANK_2ND:
+				return ChildrenAllowanceValue (__ChildrenRank2ndAllowance, disability);
+			case ALLOWANCE_CHILDREN_RANK_3RD:
+				return ChildrenAllowanceValue (__ChildrenRank3rdAllowance, disability);
+			}
+			return 0; 
+		}
+		public Int32 ChildrenAllowanceValue(Int32 value, bool disability) 
+		{ 
+			if (disability) {
+				return ALLOWANCE_DISABILITY_MULTIPLIER * value;
+			} else {
+				return value;
+			}
 		}
 		public Int32 ChildrenRank1stAllowance() 
 		{ 

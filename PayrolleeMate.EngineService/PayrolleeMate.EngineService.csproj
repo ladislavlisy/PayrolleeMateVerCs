@@ -45,7 +45,10 @@
     <Compile Include="Taxing\TaxingEnginePrototype.cs" />
     <Compile Include="Taxing\ITaxingService.cs" />
     <Compile Include="Periods.TaxingEngines\TaxingEngine2015.cs" />
-    <Compile Include="Taxing\TaxingService.cs" />
+    <Compile Include="Core\GeneralEngines.cs" />
+    <Compile Include="Core\EngineFactory.cs" />
+    <Compile Include="Taxing\TaxingEngines.cs" />
+    <Compile Include="Core\IEngines.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -53,6 +56,7 @@
     <Folder Include="Taxing\" />
     <Folder Include="Constants\" />
     <Folder Include="Periods.TaxingEngines\" />
+    <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">

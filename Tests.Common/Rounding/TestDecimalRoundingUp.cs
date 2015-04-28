@@ -7,7 +7,7 @@ namespace Tests.Common.Rounding
 	[TestFixture ()]
 	public class TestDecimalRoundingUp
 	{
-		private readonly decimal TEST_POS_RESULT_NUMBER = 1001m;
+		private const decimal TEST_POS_RESULT_NUMBER = 1001m;
 
 		[Test()]
 		public void Should_return_Rounded_1001_for_Decimal_with_01_Cents()
@@ -45,7 +45,7 @@ namespace Tests.Common.Rounding
 			Assert.AreEqual(TEST_POS_RESULT_NUMBER, testResult);
 		}
 
-		private readonly decimal TEST_NEG_RESULT_NUMBER = -1001m;
+		private const decimal TEST_NEG_RESULT_NUMBER = -1001m;
 
 		[Test()]
 		public void Should_return_Rounded_Negative_1001_for_Decimal_with_01_Cents()

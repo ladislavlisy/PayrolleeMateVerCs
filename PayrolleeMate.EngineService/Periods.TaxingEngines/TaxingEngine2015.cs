@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayrolleeMate.EngineService
+namespace PayrolleeMate.EngineService.Periods.TaxingEngines
 {
 	public class TaxingEngine2015 : TaxingEnginePrototype
 	{

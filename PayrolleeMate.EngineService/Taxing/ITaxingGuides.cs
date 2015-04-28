@@ -14,6 +14,8 @@ namespace PayrolleeMate.EngineService
 
 		Int32 StudyingAllowance ();
 
+		Int32 ChildrenAllowance (byte rank, bool disability);
+
 		Int32 ChildrenRank1stAllowance (); 
 
 		Int32 ChildrenRank2ndAllowance ();

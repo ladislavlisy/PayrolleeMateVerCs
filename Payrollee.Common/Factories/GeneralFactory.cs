@@ -4,20 +4,9 @@ namespace Payrollee.Common
 {
 	public class GeneralFactory<T>
 	{
-		public GeneralFactory (string prefixName, string symbolName)
+		public static T InstanceFor(string namespacePrefix, string className)
 		{
-			__classNamePrefix = prefixName;
-
-			__classSymbolName = symbolName;
-		}
-
-		private string __classNamePrefix;
-
-		private string __classSymbolName;
-
-		public T InstanceFor(string symbolDescription)
-		{
-			string statuteClass = ClassNameFor(__classNamePrefix, symbolDescription);
+			string statuteClass = ClassNameFor(namespacePrefix, className);
 
 			Type statuteType = Type.GetType(statuteClass);
 
@@ -33,11 +22,11 @@ namespace Payrollee.Common
 			return statuteInstance;
 		}
 
-		public static string ClassNameFor(string prefixName, string symbolDescription)
+		public static string ClassNameFor(string namespacePrefix, string className)
 		{
-			string className = prefixName + symbolDescription;
+			string fullClassName = namespacePrefix + className;
 
-			return className;
+			return fullClassName;
 		}
 	}
 }

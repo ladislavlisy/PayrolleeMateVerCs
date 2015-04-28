@@ -117,6 +117,12 @@ namespace PayrolleeMate.EngineService
 		{ 
 			return __guides.StudyingAllowance(); 
 		}
+
+		public int ChildrenAllowance (byte rank, bool disability)
+		{
+			return __guides.ChildrenAllowance(rank, disability); 
+		}
+
 		public Int32 ChildrenRank1stAllowance() 
 		{ 
 			return __guides.ChildrenRank1stAllowance(); 
