@@ -3,7 +3,7 @@ using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Rounding;
 using PayrolleeMate.Common.Operation;
 
-namespace PayrolleeMate.EngineService
+namespace PayrolleeMate.EngineService.Engines.Taxing
 {
 	public class TaxingEnginePrototype : ITaxingEngine, ITaxingGuides
 	{
@@ -16,86 +16,12 @@ namespace PayrolleeMate.EngineService
 
 		private ITaxingGuides __guides;
 
-		#region ITaxingEngine implementation
+		#region ITaxingGuides implementation
 
 		public ITaxingGuides Guides ()
 		{
 			return __guides;
 		}
-
-		public decimal AdvancesBasisRoundedWithPartial(decimal taxableHealth, decimal taxableSocial, decimal taxableIncome)
-		{
-			decimal taxableSuper = taxableIncome + taxableHealth + taxableSocial;
-
-			return AdvancesBasisRounded(taxableSuper);
-		}
-
-		public decimal AdvancesBasisRounded(decimal taxableIncome)
-		{
-			decimal amountForCalc = taxableIncome;
-
-			if (BasisOfIncomeShouldBeEqualToZero(taxableIncome))
-			{
-				amountForCalc = 0;
-			}
-
-			decimal advanceBase = 0m;
-
-			if (BasisShouldbeRoundedUpToHundreds(amountForCalc))
-			{
-				advanceBase = DecTaxRoundUpHundreds(amountForCalc);
-			}
-			else
-			{
-				advanceBase = DecTaxRoundUp(amountForCalc);
-			}
-			return advanceBase;
-		}
-
-		public decimal SolidaryBasis(decimal income)
-		{
-			decimal solidaryLimit = MinimumIncomeToApplySolidaryIncrease();
-
-			decimal solidaryBasis = Math.Max(0, income - solidaryLimit);
-
-			return solidaryBasis;
-		}
-
-		public long AdvancesPartResult(decimal generallBasis)
-		{
-			decimal factorResult = DecTaxFactorResult(generallBasis, AdvancesFactor());
-
-			long taxStandard = IntTaxRoundUp(factorResult);
-
-			return taxStandard;
-		}
-
-		public long SolidaryPartResult(decimal solidaryBasis)
-		{
-			decimal factorResult = DecTaxFactorResult(solidaryBasis, SolidaryFactor());
-
-			long taxSolidary = IntTaxRoundUp(factorResult);
-
-			return taxSolidary;
-		}
-
-		public long AdvancesResult(decimal taxableIncome, decimal generallBasis, decimal solidaryBasis)
-		{
-			long taxStandard = AdvancesPartResult(generallBasis);
-
-			if (SolidaryIncreaseEnabled())
-			{
-				long taxSolidary = SolidaryPartResult(solidaryBasis);
-
-				return (taxStandard + taxSolidary);
-			}
-
-			return taxStandard;
-		}
-
-		#endregion
-
-		#region ITaxingGuides implementation
 
 		public Int32 PayerBasicAllowance() 
 		{
@@ -178,6 +104,80 @@ namespace PayrolleeMate.EngineService
 
 		#endregion
 
+		#region ITaxingGuides implementation
+
+		public decimal AdvancesBasisRoundedWithPartial(decimal taxableHealth, decimal taxableSocial, decimal taxableIncome)
+		{
+			decimal taxableSuper = taxableIncome + taxableHealth + taxableSocial;
+
+			return AdvancesBasisRounded(taxableSuper);
+		}
+
+		public decimal AdvancesBasisRounded(decimal taxableIncome)
+		{
+			decimal amountForCalc = taxableIncome;
+
+			if (BasisOfIncomeShouldBeEqualToZero(taxableIncome))
+			{
+				amountForCalc = 0;
+			}
+
+			decimal advanceBase = 0m;
+
+			if (BasisShouldbeRoundedUpToHundreds(amountForCalc))
+			{
+				advanceBase = DecTaxRoundUpHundreds(amountForCalc);
+			}
+			else
+			{
+				advanceBase = DecTaxRoundUp(amountForCalc);
+			}
+			return advanceBase;
+		}
+
+		public decimal SolidaryBasis(decimal income)
+		{
+			decimal solidaryLimit = MinimumIncomeToApplySolidaryIncrease();
+
+			decimal solidaryBasis = Math.Max(0, income - solidaryLimit);
+
+			return solidaryBasis;
+		}
+
+		public long AdvancesPartResult(decimal generallBasis)
+		{
+			decimal factorResult = DecTaxFactorResult(generallBasis, AdvancesFactor());
+
+			long taxStandard = IntTaxRoundUp(factorResult);
+
+			return taxStandard;
+		}
+
+		public long SolidaryPartResult(decimal solidaryBasis)
+		{
+			decimal factorResult = DecTaxFactorResult(solidaryBasis, SolidaryFactor());
+
+			long taxSolidary = IntTaxRoundUp(factorResult);
+
+			return taxSolidary;
+		}
+
+		public long AdvancesResult(decimal taxableIncome, decimal generallBasis, decimal solidaryBasis)
+		{
+			long taxStandard = AdvancesPartResult(generallBasis);
+
+			if (SolidaryIncreaseEnabled())
+			{
+				long taxSolidary = SolidaryPartResult(solidaryBasis);
+
+				return (taxStandard + taxSolidary);
+			}
+
+			return taxStandard;
+		}
+
+		#endregion
+
 		/// <summary>
 		/// basis should be rounded up to hundreds
 		/// </summary>
@@ -235,6 +235,6 @@ namespace PayrolleeMate.EngineService
 		{
 			return DecOperation.Multiply(valueDec, factor);
 		}
-		}
+	}
 }
 

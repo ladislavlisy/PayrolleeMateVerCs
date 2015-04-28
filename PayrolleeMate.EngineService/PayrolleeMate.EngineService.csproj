@@ -40,26 +40,50 @@
     <Compile Include="Interfaces\ISocialEngine.cs" />
     <Compile Include="EngineProfile.cs" />
     <Compile Include="Constants\TaxingProperties.cs" />
-    <Compile Include="Taxing\TaxingGuides.cs" />
-    <Compile Include="Taxing\ITaxingGuides.cs" />
-    <Compile Include="Taxing\TaxingEnginePrototype.cs" />
     <Compile Include="Core\EngineFactory.cs" />
     <Compile Include="Core\IEnginesHistory.cs" />
     <Compile Include="Core\GeneralEnginesHistory.cs" />
-    <Compile Include="Taxing\TaxingEnginesHistory.cs" />
     <Compile Include="History.TaxingEngines\TaxingEngine2015.cs" />
     <Compile Include="History.TaxingEngines\TaxingEngine2014.cs" />
     <Compile Include="History.TaxingEngines\TaxingEngine2013.cs" />
     <Compile Include="History.TaxingEngines\TaxingEngine2012.cs" />
     <Compile Include="History.TaxingEngines\TaxingEngine2011.cs" />
+    <Compile Include="Engines.Taxing\TaxingGuides.cs" />
+    <Compile Include="Engines.Taxing\ITaxingGuides.cs" />
+    <Compile Include="Engines.Taxing\TaxingEnginePrototype.cs" />
+    <Compile Include="Engines.Taxing\TaxingEnginesHistory.cs" />
+    <Compile Include="Engines.Health\HealthGuides.cs" />
+    <Compile Include="Engines.Health\IHealthGuides.cs" />
+    <Compile Include="Engines.Social\SocialGuides.cs" />
+    <Compile Include="Engines.Social\ISocialGuides.cs" />
+    <Compile Include="Constants\SocialProperties.cs" />
+    <Compile Include="Constants\HealthProperties.cs" />
+    <Compile Include="Engines.Social\SocialEnginePrototype.cs" />
+    <Compile Include="Engines.Health\HealthEnginePrototype.cs" />
+    <Compile Include="Engines.Social\SocialEnginesHistory.cs" />
+    <Compile Include="Engines.Health\HealthEnginesHistory.cs" />
+    <Compile Include="History.HealthEngines\HealthEngine2015.cs" />
+    <Compile Include="History.SocialEngines\SocialEngine2015.cs" />
+    <Compile Include="History.HealthEngines\HealthEngine2014.cs" />
+    <Compile Include="History.HealthEngines\HealthEngine2013.cs" />
+    <Compile Include="History.HealthEngines\HealthEngine2012.cs" />
+    <Compile Include="History.HealthEngines\HealthEngine2011.cs" />
+    <Compile Include="History.SocialEngines\SocialEngine2014.cs" />
+    <Compile Include="History.SocialEngines\SocialEngine2013.cs" />
+    <Compile Include="History.SocialEngines\SocialEngine2012.cs" />
+    <Compile Include="History.SocialEngines\SocialEngine2011.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Interfaces\" />
-    <Folder Include="Taxing\" />
     <Folder Include="Constants\" />
     <Folder Include="Core\" />
     <Folder Include="History.TaxingEngines\" />
+    <Folder Include="Engines.Taxing\" />
+    <Folder Include="Engines.Health\" />
+    <Folder Include="Engines.Social\" />
+    <Folder Include="History.HealthEngines\" />
+    <Folder Include="History.SocialEngines\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">

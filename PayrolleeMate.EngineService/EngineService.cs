@@ -2,7 +2,9 @@
 using PayrolleeMate.Common.Periods;
 using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.EngineService.Core;
-using PayrolleeMate.EngineService.Taxing;
+using PayrolleeMate.EngineService.Engines.Taxing;
+using PayrolleeMate.EngineService.Engines.Health;
+using PayrolleeMate.EngineService.Engines.Social;
 
 namespace PayrolleeMate.EngineService
 {
@@ -17,16 +19,16 @@ namespace PayrolleeMate.EngineService
 		{
 			HistoryOfTaxing = TaxingEnginesHistory.CreateEngines ();
 
-			HistoryOfHealth = null;
+			HistoryOfHealth = HealthEnginesHistory.CreateEngines ();
 
-			HistoryOfSocial = null;
+			HistoryOfSocial = SocialEnginesHistory.CreateEngines ();
 		}
 
 		public IEngineProfile BuildEngineProfile (MonthPeriod period)
 		{
 			ITaxingEngine taxingEngine = HistoryOfTaxing.FindEngine (period);
-			IHealthEngine healthEngine = null;
-			ISocialEngine socialEngine = null;
+			IHealthEngine healthEngine = HistoryOfHealth.FindEngine (period);
+			ISocialEngine socialEngine = HistoryOfSocial.FindEngine (period);
 
 			return new EngineProfile(taxingEngine, healthEngine, socialEngine);
 		}

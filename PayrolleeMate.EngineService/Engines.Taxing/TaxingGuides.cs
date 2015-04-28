@@ -1,7 +1,7 @@
 ﻿using System;
 using PayrolleeMate.EngineService.Constants;
 
-namespace PayrolleeMate.EngineService
+namespace PayrolleeMate.EngineService.Engines.Taxing
 {
 	public class TaxingGuides : ITaxingGuides
 	{

@@ -1,28 +1,28 @@
 ﻿using System;
 using PayrolleeMate.EngineService.Core;
 using PayrolleeMate.EngineService.Interfaces;
-using PayrolleeMate.EngineService.History.TaxingEngines;
+using PayrolleeMate.EngineService.History.SocialEngines;
 using PayrolleeMate.Common.Periods;
 
-namespace PayrolleeMate.EngineService.Taxing
+namespace PayrolleeMate.EngineService.Engines.Social
 {
-	public class TaxingEnginesHistory : GeneralEnginesHistory<ITaxingEngine>
+	public class SocialEnginesHistory : GeneralEnginesHistory<ISocialEngine>
 	{
-		private const string NAME_SPACE_PREFIX = "PayrolleeMate.EngineService.History.TaxingEngines";
+		private const string NAME_SPACE_PREFIX = "PayrolleeMate.EngineService.History.SocialEngines";
 
-		private const string CLASS_NAME_PREFIX = "TaxingEngine";
+		private const string CLASS_NAME_PREFIX = "SocialEngine";
 
 		private const ushort DEFAULT_YEAR = 2015;
 
 		private readonly ushort[] SPAN_HISTORY = new ushort[] {2011, 2012, 2013, 2014, DEFAULT_YEAR};
 
-		private TaxingEnginesHistory ()
+		private SocialEnginesHistory ()
 		{
 		}
 
-		public static IEnginesHistory<ITaxingEngine> CreateEngines()
+		public static IEnginesHistory<ISocialEngine> CreateEngines()
 		{
-			return new TaxingEnginesHistory();
+			return new SocialEnginesHistory();
 		}
 
 		#region implemented abstract members of GeneralEngines

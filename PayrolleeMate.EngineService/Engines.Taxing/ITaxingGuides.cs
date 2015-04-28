@@ -1,6 +1,6 @@
 using System;
 
-namespace PayrolleeMate.EngineService
+namespace PayrolleeMate.EngineService.Engines.Taxing
 {
 	public interface ITaxingGuides
 	{
