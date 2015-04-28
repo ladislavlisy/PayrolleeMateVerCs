@@ -3,7 +3,7 @@ using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Core
 {
-	public interface IEngines<T>
+	public interface IEnginesHistory<T>
 	{
 		void InitEngines();
 

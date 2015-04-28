@@ -10,17 +10,17 @@ namespace Tests.EngineService
 	[TestFixture ()]
 	public class TestTaxingService
 	{
-		private const string NAME_SPACE_PREFIX = "PayrolleeMate.EngineService.Periods.TaxingEngines";
+		private const string NAME_SPACE_PREFIX = "PayrolleeMate.EngineService.History.TaxingEngines";
 
 		private const string CLASS_NAME_PREFIX = "TaxingEngine";
 
 		private const string SHORT_CLASS_NAME_2015 = "TaxingEngine2015";
 
-		private const string FULL_CLASS_NAME_2015 = "PayrolleeMate.EngineService.Periods.TaxingEngines.TaxingEngine2015";
+		private const string FULL_CLASS_NAME_2015 = "PayrolleeMate.EngineService.History.TaxingEngines.TaxingEngine2015";
 
-		private IEngines<ITaxingEngine> CreateEngine()
+		private IEnginesHistory<ITaxingEngine> CreateEngine()
 		{
-			IEngines<ITaxingEngine> engine = TaxingEngines.CreateEngines ();
+			IEnginesHistory<ITaxingEngine> engine = TaxingEnginesHistory.CreateEngines ();
 
 			engine.InitEngines ();
 
@@ -40,7 +40,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_TaxingEngine2015_for_DefaultEngine_when_Year_2015()
 		{
-			IEngines<ITaxingEngine> engines = CreateEngine ();
+			IEnginesHistory<ITaxingEngine> engines = CreateEngine ();
 
 			ITaxingEngine engine2015 = engines.DefaultEngine ();
 

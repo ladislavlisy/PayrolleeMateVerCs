@@ -5,9 +5,9 @@ using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Core
 {
-	public abstract class GeneralEngines<T> : IEngines<T>
+	public abstract class GeneralEnginesHistory<T> : IEnginesHistory<T>
 	{
-		public GeneralEngines ()
+		public GeneralEnginesHistory ()
 		{
 			DefaultInstance = default(T);
 		}

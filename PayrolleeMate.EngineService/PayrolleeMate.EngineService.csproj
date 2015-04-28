@@ -43,20 +43,19 @@
     <Compile Include="Taxing\TaxingGuides.cs" />
     <Compile Include="Taxing\ITaxingGuides.cs" />
     <Compile Include="Taxing\TaxingEnginePrototype.cs" />
-    <Compile Include="Taxing\ITaxingService.cs" />
-    <Compile Include="Periods.TaxingEngines\TaxingEngine2015.cs" />
-    <Compile Include="Core\GeneralEngines.cs" />
     <Compile Include="Core\EngineFactory.cs" />
-    <Compile Include="Taxing\TaxingEngines.cs" />
-    <Compile Include="Core\IEngines.cs" />
+    <Compile Include="Core\IEnginesHistory.cs" />
+    <Compile Include="Core\GeneralEnginesHistory.cs" />
+    <Compile Include="Taxing\TaxingEnginesHistory.cs" />
+    <Compile Include="History.TaxingEngines\TaxingEngine2015.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Interfaces\" />
     <Folder Include="Taxing\" />
     <Folder Include="Constants\" />
-    <Folder Include="Periods.TaxingEngines\" />
     <Folder Include="Core\" />
+    <Folder Include="History.TaxingEngines\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">
