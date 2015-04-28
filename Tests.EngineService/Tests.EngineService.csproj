@@ -35,6 +35,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Taxing\TestTaxingService.cs" />
+    <Compile Include="Taxing\TestTaxingConstants2015.cs" />
+    <Compile Include="Taxing\TestTaxingConstants2014.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

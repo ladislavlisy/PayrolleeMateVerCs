@@ -7,11 +7,11 @@ namespace PayrolleeMate.EngineService
 	{
 		private const Int32 ALLOWANCE_DISABILITY_MULTIPLIER = 2;
 
-		private const byte ALLOWANCE_CHILDREN_RANK_1ST = 1;
+		public const byte ALLOWANCE_CHILDREN_RANK_1ST = 1;
 			
-		private const byte ALLOWANCE_CHILDREN_RANK_2ND = 2;
+		public const byte ALLOWANCE_CHILDREN_RANK_2ND = 2;
 
-		private const byte ALLOWANCE_CHILDREN_RANK_3RD = 3;
+		public const byte ALLOWANCE_CHILDREN_RANK_3RD = 3;
 
 		private readonly Int32 __PayerBasicAllowance;
 		private readonly Int32 __DisabilityDgr1Allowance;
@@ -51,6 +51,94 @@ namespace PayrolleeMate.EngineService
 				TaxingProperties2015.MAX_INCOME_APPLY_SINGELS_ROUNDING,
 				TaxingProperties2015.MAX_INCOME_APPLY_WITHHOLD_TAX,
 				TaxingProperties2015.MIN_INCOME_APPLY_SOLIDARY_INCREASE);
+		}
+
+		public static TaxingGuides Guides2014()
+		{
+			return new TaxingGuides (
+				TaxingProperties2014.ALLOWANCE_PAYER_BASIC,
+				TaxingProperties2014.ALLOWANCE_PAYER_DIS_1ST,
+				TaxingProperties2014.ALLOWANCE_PAYER_DIS_2ND,
+				TaxingProperties2014.ALLOWANCE_PAYER_DIS_3RD,
+				TaxingProperties2014.ALLOWANCE_PAYER_STUDYING,
+				TaxingProperties2014.ALLOWANCE_CHILD_RANK_1ST,
+				TaxingProperties2014.ALLOWANCE_CHILD_RANK_2ND,
+				TaxingProperties2014.ALLOWANCE_CHILD_RANK_3RD,
+				TaxingProperties2014.FACTOR_ADVANCES,
+				TaxingProperties2014.FACTOR_WITHHOLD,
+				TaxingProperties2014.FACTOR_SOLIDARY,
+				TaxingProperties2014.MIN_VALID_AMOUNT_OF_TAXBONUS,
+				TaxingProperties2014.MAX_VALID_AMOUNT_OF_TAXBONUS,
+				TaxingProperties2014.MIN_INCOME_REQUIRED_FOR_TAXBONUS,
+				TaxingProperties2014.MAX_INCOME_APPLY_SINGELS_ROUNDING,
+				TaxingProperties2014.MAX_INCOME_APPLY_WITHHOLD_TAX,
+				TaxingProperties2014.MIN_INCOME_APPLY_SOLIDARY_INCREASE);
+		}
+
+		public static TaxingGuides Guides2013()
+		{
+			return new TaxingGuides (
+				TaxingProperties2013.ALLOWANCE_PAYER_BASIC,
+				TaxingProperties2013.ALLOWANCE_PAYER_DIS_1ST,
+				TaxingProperties2013.ALLOWANCE_PAYER_DIS_2ND,
+				TaxingProperties2013.ALLOWANCE_PAYER_DIS_3RD,
+				TaxingProperties2013.ALLOWANCE_PAYER_STUDYING,
+				TaxingProperties2013.ALLOWANCE_CHILD_RANK_1ST,
+				TaxingProperties2013.ALLOWANCE_CHILD_RANK_2ND,
+				TaxingProperties2013.ALLOWANCE_CHILD_RANK_3RD,
+				TaxingProperties2013.FACTOR_ADVANCES,
+				TaxingProperties2013.FACTOR_WITHHOLD,
+				TaxingProperties2013.FACTOR_SOLIDARY,
+				TaxingProperties2013.MIN_VALID_AMOUNT_OF_TAXBONUS,
+				TaxingProperties2013.MAX_VALID_AMOUNT_OF_TAXBONUS,
+				TaxingProperties2013.MIN_INCOME_REQUIRED_FOR_TAXBONUS,
+				TaxingProperties2013.MAX_INCOME_APPLY_SINGELS_ROUNDING,
+				TaxingProperties2013.MAX_INCOME_APPLY_WITHHOLD_TAX,
+				TaxingProperties2013.MIN_INCOME_APPLY_SOLIDARY_INCREASE);
+		}
+
+		public static TaxingGuides Guides2012()
+		{
+			return new TaxingGuides (
+				TaxingProperties2012.ALLOWANCE_PAYER_BASIC,
+				TaxingProperties2012.ALLOWANCE_PAYER_DIS_1ST,
+				TaxingProperties2012.ALLOWANCE_PAYER_DIS_2ND,
+				TaxingProperties2012.ALLOWANCE_PAYER_DIS_3RD,
+				TaxingProperties2012.ALLOWANCE_PAYER_STUDYING,
+				TaxingProperties2012.ALLOWANCE_CHILD_RANK_1ST,
+				TaxingProperties2012.ALLOWANCE_CHILD_RANK_2ND,
+				TaxingProperties2012.ALLOWANCE_CHILD_RANK_3RD,
+				TaxingProperties2012.FACTOR_ADVANCES,
+				TaxingProperties2012.FACTOR_WITHHOLD,
+				TaxingProperties2012.FACTOR_SOLIDARY,
+				TaxingProperties2012.MIN_VALID_AMOUNT_OF_TAXBONUS,
+				TaxingProperties2012.MAX_VALID_AMOUNT_OF_TAXBONUS,
+				TaxingProperties2012.MIN_INCOME_REQUIRED_FOR_TAXBONUS,
+				TaxingProperties2012.MAX_INCOME_APPLY_SINGELS_ROUNDING,
+				TaxingProperties2012.MAX_INCOME_APPLY_WITHHOLD_TAX,
+				TaxingProperties2012.MIN_INCOME_APPLY_SOLIDARY_INCREASE);
+		}
+
+		public static TaxingGuides Guides2011()
+		{
+			return new TaxingGuides (
+				TaxingProperties2011.ALLOWANCE_PAYER_BASIC,
+				TaxingProperties2011.ALLOWANCE_PAYER_DIS_1ST,
+				TaxingProperties2011.ALLOWANCE_PAYER_DIS_2ND,
+				TaxingProperties2011.ALLOWANCE_PAYER_DIS_3RD,
+				TaxingProperties2011.ALLOWANCE_PAYER_STUDYING,
+				TaxingProperties2011.ALLOWANCE_CHILD_RANK_1ST,
+				TaxingProperties2011.ALLOWANCE_CHILD_RANK_2ND,
+				TaxingProperties2011.ALLOWANCE_CHILD_RANK_3RD,
+				TaxingProperties2011.FACTOR_ADVANCES,
+				TaxingProperties2011.FACTOR_WITHHOLD,
+				TaxingProperties2011.FACTOR_SOLIDARY,
+				TaxingProperties2011.MIN_VALID_AMOUNT_OF_TAXBONUS,
+				TaxingProperties2011.MAX_VALID_AMOUNT_OF_TAXBONUS,
+				TaxingProperties2011.MIN_INCOME_REQUIRED_FOR_TAXBONUS,
+				TaxingProperties2011.MAX_INCOME_APPLY_SINGELS_ROUNDING,
+				TaxingProperties2011.MAX_INCOME_APPLY_WITHHOLD_TAX,
+				TaxingProperties2011.MIN_INCOME_APPLY_SOLIDARY_INCREASE);
 		}
 
 		private TaxingGuides(

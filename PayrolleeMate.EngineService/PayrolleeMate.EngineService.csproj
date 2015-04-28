@@ -48,6 +48,10 @@
     <Compile Include="Core\GeneralEnginesHistory.cs" />
     <Compile Include="Taxing\TaxingEnginesHistory.cs" />
     <Compile Include="History.TaxingEngines\TaxingEngine2015.cs" />
+    <Compile Include="History.TaxingEngines\TaxingEngine2014.cs" />
+    <Compile Include="History.TaxingEngines\TaxingEngine2013.cs" />
+    <Compile Include="History.TaxingEngines\TaxingEngine2012.cs" />
+    <Compile Include="History.TaxingEngines\TaxingEngine2011.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
