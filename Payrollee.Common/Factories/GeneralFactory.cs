@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Reflection;
 
-namespace Payrollee.Common
+namespace PayrolleeMate.Common
 {
 	public class GeneralFactory<T>
 	{
-		public static T InstanceFor(string namespacePrefix, string className)
+		public static T InstanceFor(Assembly assembly, string namespacePrefix, string className)
 		{
 			string statuteClass = ClassNameFor(namespacePrefix, className);
 
-			Type statuteType = Type.GetType(statuteClass);
+			Type statuteType = assembly.GetType(statuteClass);
 
 			if (statuteType == null)
 			{
@@ -24,7 +25,7 @@ namespace Payrollee.Common
 
 		public static string ClassNameFor(string namespacePrefix, string className)
 		{
-			string fullClassName = namespacePrefix + className;
+			string fullClassName = string.Join(".", new string[] { namespacePrefix, className });
 
 			return fullClassName;
 		}

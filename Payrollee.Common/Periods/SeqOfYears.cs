@@ -17,7 +17,7 @@ namespace PayrolleeMate.Common.Periods
 
 		public SpanOfYears SpanForPeriod(MonthPeriod period)
 		{
-			SpanOfYears validInterval = Milestones.Aggregate (new SpanOfYears (), (agr, x) => {
+			SpanOfYears validSpan = Milestones.Aggregate (new SpanOfYears (), (agr, x) => {
 				UInt16 intFrom = agr.YearFrom;
 				UInt16 intUpto = agr.YearUpto;
 				UInt16 intYear = x;
@@ -35,12 +35,12 @@ namespace PayrolleeMate.Common.Periods
 				}
 				return new SpanOfYears(intFrom, intUpto);
 			});
-			return validInterval;
+			return validSpan;
 		}
 
 		public SpanOfYears[] ToArray()
 		{
-			SpanOfYears[] intervals = Milestones.Aggregate (new SpanOfYears[0], (agr, x) => {
+			SpanOfYears[] history = Milestones.Aggregate (new SpanOfYears[0], (agr, x) => {
 				SpanOfYears[] firsts = agr.TakeWhile((y) => (y.YearUpto != 0)).ToArray();
 				if (agr.Length == 0)
 				{
@@ -54,26 +54,40 @@ namespace PayrolleeMate.Common.Periods
 
 					if (x == 0)
 					{
-						UInt16 intervalFrom = last.YearFrom;
-						UInt16 intervalUpto = END_YEAR_INTER;
+						UInt16 historyFrom = last.YearFrom;
+						UInt16 historyUpto = END_YEAR_INTER;
 
 						return firsts.Concat( new SpanOfYears[] { 
-							new SpanOfYears(intervalFrom, intervalUpto)
+							new SpanOfYears(historyFrom, historyUpto)
 						} ).ToArray();
 					}
 					else
 					{
-						UInt16 intervalFrom = last.YearFrom;
-						UInt16 intervalUpto = (UInt16)(x-1);
+						UInt16 historyFrom = last.YearFrom;
+						UInt16 historyUpto = Math.Max((UInt16)(x-1), historyFrom);
 
 						return firsts.Concat( new SpanOfYears[] { 
-							new SpanOfYears(intervalFrom, intervalUpto),
+							new SpanOfYears(historyFrom, historyUpto),
 							new SpanOfYears(x, 0) 
 						} ).ToArray();
 					}
 				}
 			});
-			return intervals;
+
+			SpanOfYears historylast = history.Last();	
+
+			if (historylast.YearUpto == 0)
+			{
+				SpanOfYears[] historyFirsts = history.TakeWhile((y) => (y.YearUpto != 0)).ToArray();
+
+				UInt16 historyFrom = historylast.YearFrom;
+				UInt16 historyUpto = historylast.YearFrom;
+
+				return historyFirsts.Concat( new SpanOfYears[] { 
+					new SpanOfYears(historyFrom, historyUpto)
+				} ).ToArray();
+			}
+			return history;
 		}
 	}
 }

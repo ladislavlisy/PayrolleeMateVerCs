@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using PayrolleeMate.Common.Periods;
 using System.Linq;
+using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Core
 {
@@ -9,7 +9,7 @@ namespace PayrolleeMate.EngineService.Core
 	{
 		public GeneralEngines ()
 		{
-			DefaultEngine = default(T);
+			DefaultInstance = default(T);
 		}
 
 		public void InitEngines ()
@@ -20,7 +20,7 @@ namespace PayrolleeMate.EngineService.Core
 
 			MonthPeriod defaultPeriod =  MonthPeriod.BeginYear(DefaultYear());
 
-			DefaultEngine = FindEngine (defaultPeriod);
+			DefaultInstance = FindEngine (defaultPeriod);
 		}
 
 		protected abstract ushort DefaultYear ();
@@ -31,9 +31,9 @@ namespace PayrolleeMate.EngineService.Core
 
 		protected abstract string ClassnamePrefix ();
 
-		protected T DefaultEngine { get; set;}
+		protected T DefaultInstance { get; set;}
 
-		public IDictionary<SpanOfYears, T> Engines { get; private set; }
+		protected IDictionary<SpanOfYears, T> Engines { get; private set; }
 
 		public void InitWithHistory(SpanOfYears[] setupHistory)
 		{
@@ -47,7 +47,7 @@ namespace PayrolleeMate.EngineService.Core
 			SpanOfYears periodSpan = SpanFromEngines(period);
 			if (periodSpan == null)
 			{
-				return DefaultEngine;
+				return DefaultInstance;
 			}
 			T baseEngine;
 			if (Engines.ContainsKey(periodSpan))
@@ -56,14 +56,19 @@ namespace PayrolleeMate.EngineService.Core
 			}
 			else
 			{
-				baseEngine = DefaultEngine;
+				baseEngine = DefaultInstance;
 			}
 			return baseEngine;
 		}
 
+		public T DefaultEngine ()
+		{
+			return DefaultInstance;
+		}
+
 		private T CreateEngineFor(SpanOfYears span)
 		{
-			T engine = EngineFactory<T>.InstanceFor(FullClassNamePrefix(), span);
+			T engine = EngineFactory<T>.InstanceFor(NamespacePrefix(), ClassnamePrefix(), span);
 
 			return engine;
 		}
@@ -86,10 +91,6 @@ namespace PayrolleeMate.EngineService.Core
 			return validSpan;
 		}
 
-		private string FullClassNamePrefix()
-		{
-			return string.Join(".", new string[] { NamespacePrefix(), ClassnamePrefix() });
-		}
 	}
 }
 

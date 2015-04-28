@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Common", "Tests.Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.EngineService", "PayrolleeMate.EngineService\PayrolleeMate.EngineService.csproj", "{39AD919F-8AC7-4FE3-8B15-534D42018C7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.EngineService", "Tests.EngineService\Tests.EngineService.csproj", "{0D1DAC7B-2DEF-439B-9FF0-2E6011F66193}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{075817F0-6776-46E6-BF92-C5D0D5E16756}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{075817F0-6776-46E6-BF92-C5D0D5E16756}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{075817F0-6776-46E6-BF92-C5D0D5E16756}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D1DAC7B-2DEF-439B-9FF0-2E6011F66193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D1DAC7B-2DEF-439B-9FF0-2E6011F66193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D1DAC7B-2DEF-439B-9FF0-2E6011F66193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D1DAC7B-2DEF-439B-9FF0-2E6011F66193}.Release|Any CPU.Build.0 = Release|Any CPU
 		{39AD919F-8AC7-4FE3-8B15-534D42018C7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{39AD919F-8AC7-4FE3-8B15-534D42018C7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39AD919F-8AC7-4FE3-8B15-534D42018C7B}.Release|Any CPU.ActiveCfg = Release|Any CPU

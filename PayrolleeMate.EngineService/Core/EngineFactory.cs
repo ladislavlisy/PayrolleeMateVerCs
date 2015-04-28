@@ -1,18 +1,28 @@
 using System;
 using System.Collections.Generic;
-using PayrolleeMate.Common.Periods;
 using System.Linq;
-using Payrollee.Common;
+using PayrolleeMate.Common;
+using PayrolleeMate.Common.Periods;
+using System.Reflection;
 
 namespace PayrolleeMate.EngineService.Core
 {
 	public static class EngineFactory<T>
 	{
-		public static T InstanceFor (string namespacePrefix, SpanOfYears span)
+		public static T InstanceFor (string namespacePrefix, string classnamePrefix, SpanOfYears span)
 		{
-			return GeneralFactory<T>.InstanceFor(namespacePrefix, span.ToString());
+			Assembly assembly = typeof(EngineService).Assembly;
+
+			return GeneralFactory<T>.InstanceFor(assembly, namespacePrefix, ClassNameFor(classnamePrefix, span));
 		}
-	}
+
+		public static string ClassNameFor(string classnamePrefix, SpanOfYears span)
+		{
+			string className = classnamePrefix + span.ClassName();
+
+			return className;
+		}
+		}
 
 }
 
