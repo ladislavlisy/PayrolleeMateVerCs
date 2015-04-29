@@ -1,8 +1,9 @@
 ﻿using System;
 using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Rounding;
-using PayrolleeMate.Common.Operation;
+using PayrolleeMate.Common.Operations;
 using PayrolleeMate.Common.Periods;
+using PayrolleeMate.EngineService.Constants;
 
 namespace PayrolleeMate.EngineService.Engines.Taxing
 {
@@ -16,13 +17,13 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		#region ITaxingGuides implementation
 
 		// AdvancesTax
-		public long AdvancesResult(MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis)
+		public Int32 AdvancesResult(MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis)
 		{
-			long taxStandard = AdvancesRegularyTax(period, generalBasis);
+			Int32 taxStandard = AdvancesRegularyTax(period, generalBasis);
 
 			if (SolidaryIncreaseEnabled())
 			{
-				long taxSolidary = AdvancesSolidaryTax(period, solidaryBasis);
+				Int32 taxSolidary = AdvancesSolidaryTax(period, solidaryBasis);
 
 				return (taxStandard + taxSolidary);
 			}
@@ -31,25 +32,25 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		}
 
 		// AdvancesRegularyTax
-		public long AdvancesRegularyTax(MonthPeriod period, decimal generallBasis)
+		public Int32 AdvancesRegularyTax(MonthPeriod period, decimal generallBasis)
 		{
 			decimal advancesFactor = PeriodAdvancesFactor (period);
 
 			decimal advancesResult = TaxingOperations.DecFactorResult(generallBasis, advancesFactor);
 
-			long taxRegulary = TaxingOperations.IntRoundUp(advancesResult);
+			Int32 taxRegulary = TaxingOperations.IntRoundUp(advancesResult);
 
 			return taxRegulary;
 		}
 
 		// AdvancesSolidaryTax
-		public long AdvancesSolidaryTax(MonthPeriod period, decimal solidaryBasis)
+		public Int32 AdvancesSolidaryTax(MonthPeriod period, decimal solidaryBasis)
 		{
 			decimal solidaryFactor = PeriodSolidaryFactor (period);
 
 			decimal solidaryResult = TaxingOperations.DecFactorResult(solidaryBasis, solidaryFactor);
 
-			long taxSolidary = TaxingOperations.IntRoundUp(solidaryResult);
+			Int32 taxSolidary = TaxingOperations.IntRoundUp(solidaryResult);
 
 			return taxSolidary;
 		}
@@ -95,15 +96,92 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		}
 
 		// AdvancesTaxableHealth
+		public decimal AdvancesTaxableHealth(MonthPeriod period, bool isStatementSign, bool isResidencyCz, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentHealth)
+		{
+			return 0m;
+		}
+
 		// AdvancesTaxableSocial
+		public decimal AdvancesTaxableSocial(MonthPeriod period, bool isStatementSign, bool isResidencyCz, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentSocial)
+		{
+			return 0m;
+		}
+
 		// AdvancesTaxableIncome
+		public decimal AdvancesTaxableIncome(MonthPeriod period, bool isStatementSign, bool isResidencyCz, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentIncome)
+		{
+			return 0m;
+		}
+
 		// PayerBasicAllowance
+		public Int32 StatementPayerBasicAllowance(bool isStatementSign, bool isResidencyCz)
+		{
+			if (isStatementSign) 
+			{
+				return __guides.PayerBasicAllowance ();
+			}
+			return 0;
+		}
 		// ChildrenAllowance
+		public Int32 StatementChildrenAllowance(bool isStatementSign, byte inPerOrder, bool disabChildren)
+		{
+			if (isStatementSign) 
+			{
+				return __guides.ChildrenAllowance (inPerOrder, disabChildren);
+			}
+			return 0;
+		}
 		// PayerDisabAllowance
-		// PayerStudyAllowance
-		// PayerTaxRebate
+		public Int32 StatementPayerDisabAllowance(bool isStatementSign, byte inDegree)
+		{
+			if (isStatementSign) 
+			{
+				return __guides.PayerDisabilityAllowance (inDegree);
+			}
+			return 0;
+		}
+		// StatementPayerStudyAllowance
+		public Int32 StatementPayerStudyAllowance(bool isStatementSign)
+		{
+			if (isStatementSign) 
+			{
+				return __guides.StudyingAllowance ();
+			}
+			return 0;
+		}
+		// StatementPayerTaxRebate
+		public Int32 StatementPayerTaxRebate(Int32 advancesTax, Int32 payerAllowance, Int32 disabAllowance, Int32 studyAllowance)
+		{
+			decimal rebateApply = 0m;
+
+			decimal claimsValue = payerAllowance + disabAllowance + studyAllowance;
+
+			Int32 rebateValue = TaxingOperations.RebateResult (advancesTax, rebateApply, claimsValue);
+
+			return rebateValue;
+		}
 		// ChildrenRebate
+		public Int32 StatementChildrenRebate(Int32 advancesTax, Int32 payerRebate, Int32 childrenAllowance)
+		{
+			decimal claimsValue = childrenAllowance;
+
+			Int32 rebateValue = TaxingOperations.RebateResult (advancesTax, payerRebate, claimsValue);
+
+			return rebateValue;
+		}
 		// ChildrenBonus
+		public Int32 StatementChildrenBonus(Int32 advancesTax, Int32 payerRebate, Int32 childrenAllowance, Int32 childrenRebate)
+		{
+			decimal bonusMaxChild = MaximumValidAmountOfTaxBonus ();
+
+			decimal bonusMinChild = MinimumValidAmountOfTaxBonus ();
+
+			decimal bonusForChild = decimal.Negate(Math.Min(0, childrenRebate - childrenAllowance));
+
+			decimal bonusResult = TaxingOperations.LimitToMinMax (bonusForChild, bonusMinChild, bonusMaxChild);
+
+			return IntRounding.RoundToInt( bonusResult );
+		}
 
 		// WithholdTax
 		// WithholdRoundedBasis
@@ -126,6 +204,10 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		{
 			return __guides.PayerBasicAllowance();
 		}
+		public Int32 PayerDisabilityAllowance (byte inDegree)
+		{
+			return __guides.PayerDisabilityAllowance(inDegree); 
+		}
 		public Int32 DisabilityDgr1Allowance() 
 		{ 
 			return __guides.DisabilityDgr1Allowance(); 
@@ -142,12 +224,10 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		{ 
 			return __guides.StudyingAllowance(); 
 		}
-
-		public int ChildrenAllowance (byte rank, bool disability)
+		public Int32 ChildrenAllowance (byte rank, bool disability)
 		{
 			return __guides.ChildrenAllowance(rank, disability); 
 		}
-
 		public Int32 ChildrenRank1stAllowance() 
 		{ 
 			return __guides.ChildrenRank1stAllowance(); 

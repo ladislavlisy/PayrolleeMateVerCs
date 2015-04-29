@@ -1,5 +1,5 @@
 ﻿using System;
-using PayrolleeMate.Common.Operation;
+using PayrolleeMate.Common.Operations;
 
 namespace PayrolleeMate.Common.Rounding
 {
@@ -19,21 +19,21 @@ namespace PayrolleeMate.Common.Rounding
 			return (valueDec < 0m ? decimal.Negate(roundRet) : roundRet);
 		}
 
-		public static decimal NearRoundUp(decimal valueDec, int nearest = 100)
+		public static decimal NearRoundUp(decimal valueDec, Int32 nearest = 100)
 		{
-			decimal dividRet = DecOperation.Divide (valueDec, nearest);
+			decimal dividRet = DecOperations.Divide (valueDec, nearest);
 
-			decimal multiRet = DecOperation.Multiply (RoundUp (dividRet), nearest);
+			decimal multiRet = DecOperations.Multiply (RoundUp (dividRet), nearest);
 
 			return multiRet;
 		}
 
 
-		public static decimal NearRoundDown(decimal valueDec, int nearest = 100)
+		public static decimal NearRoundDown(decimal valueDec, Int32 nearest = 100)
 		{
-			decimal dividRet = DecOperation.Divide (valueDec, nearest);
+			decimal dividRet = DecOperations.Divide (valueDec, nearest);
 
-			decimal multiRet = DecOperation.Multiply (RoundDown (dividRet), nearest);
+			decimal multiRet = DecOperations.Multiply (RoundDown (dividRet), nearest);
 
 			return multiRet;
 		}

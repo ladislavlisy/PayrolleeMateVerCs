@@ -8,11 +8,11 @@ namespace PayrolleeMate.EngineService.Interfaces
 	{
 		ITaxingGuides Guides();
 
-		long AdvancesResult (MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis);
+		Int32 AdvancesResult (MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis);
 
-		long AdvancesRegularyTax (MonthPeriod period, decimal generallBasis);
+		Int32 AdvancesRegularyTax (MonthPeriod period, decimal generallBasis);
 
-		long AdvancesSolidaryTax (MonthPeriod period, decimal solidaryBasis);
+		Int32 AdvancesSolidaryTax (MonthPeriod period, decimal solidaryBasis);
 
 		decimal AdvancesSolidaryBasis (MonthPeriod period, decimal taxableIncome);
 

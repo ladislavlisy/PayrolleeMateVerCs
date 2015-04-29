@@ -1,7 +1,7 @@
 ﻿using System;
 using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Rounding;
-using PayrolleeMate.Common.Operation;
+using PayrolleeMate.Common.Operations;
 using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Engines.Social
@@ -26,7 +26,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		{
 			decimal employeeFactor = PeriodEmployeeFactor (period, PENSION_SCHEME_NON);
 
-			long resultPaymentValue = EmployeeContributionWithFactor (employeeBase, employeeFactor);
+			Int32 resultPaymentValue = EmployeeContributionWithFactor (employeeBase, employeeFactor);
 
 			return resultPaymentValue;
 		}
@@ -36,7 +36,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		{
 			decimal employeeFactor = PeriodEmployeeFactor (period, PENSION_SCHEME_YES);
 
-			long resultPaymentValue = EmployeeContributionWithFactor (employeeBase, employeeFactor);
+			Int32 resultPaymentValue = EmployeeContributionWithFactor (employeeBase, employeeFactor);
 
 			return resultPaymentValue;
 		}
@@ -46,7 +46,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		{
 			decimal employerFactor = PeriodEmployerFactor (period);
 
-			long resultPaymentValue = EmployerContributionWithFactor (employerBase, employerFactor);
+			Int32 resultPaymentValue = EmployerContributionWithFactor (employerBase, employerFactor);
 
 			return resultPaymentValue;
 		}
@@ -82,7 +82,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		{
 			decimal employeeFactor = PeriodEmployeePensionsFactor (period, PENSION_SCHEME_YES);
 
-			long resultPaymentValue = PensionContributionWithFactor (employeeBase, employeeFactor);
+			Int32 resultPaymentValue = PensionContributionWithFactor (employeeBase, employeeFactor);
 
 			return resultPaymentValue;
 		}
@@ -96,7 +96,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		#region ISocialGuides implementation
 
-		public int MandatoryBasis ()
+		public Int32 MandatoryBasis ()
 		{
 			return __guides.MandatoryBasis();
 		}
@@ -127,29 +127,29 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		#endregion
 
-		private long EmployeeContributionWithFactor(decimal employeeBase, decimal employeeFactor)
+		private Int32 EmployeeContributionWithFactor(decimal employeeBase, decimal employeeFactor)
 		{
-			decimal decimalResult = DecOperation.Multiply (employeeBase, employeeFactor);
+			decimal decimalResult = DecOperations.Multiply (employeeBase, employeeFactor);
 
-			long roundedResult = SocialOperations.IntRoundUp(decimalResult);
+			Int32 roundedResult = SocialOperations.IntRoundUp(decimalResult);
 
 			return roundedResult;
 		}
 
-		private long EmployerContributionWithFactor(decimal employerBase, decimal employerFactor)
+		private Int32 EmployerContributionWithFactor(decimal employerBase, decimal employerFactor)
 		{
-			decimal decimalResult = DecOperation.Multiply (employerBase, employerFactor);
+			decimal decimalResult = DecOperations.Multiply (employerBase, employerFactor);
 
-			long roundedResult = SocialOperations.IntRoundUp(decimalResult);
+			Int32 roundedResult = SocialOperations.IntRoundUp(decimalResult);
 
 			return roundedResult;
 		}
 
-		private long PensionContributionWithFactor(decimal employeeBase, decimal employeeFactor)
+		private Int32 PensionContributionWithFactor(decimal employeeBase, decimal employeeFactor)
 		{
-			decimal decimalResult = DecOperation.Multiply (employeeBase, employeeFactor);
+			decimal decimalResult = DecOperations.Multiply (employeeBase, employeeFactor);
 
-			long roundedResult = SocialOperations.IntRoundUp(decimalResult);
+			Int32 roundedResult = SocialOperations.IntRoundUp(decimalResult);
 
 			return roundedResult;
 		}

@@ -75,6 +75,7 @@
     <Compile Include="Engines.Taxing\TaxingOperations.cs" />
     <Compile Include="Engines.Social\SocialOperations.cs" />
     <Compile Include="Engines.Health\HealthOperations.cs" />
+    <Compile Include="Constants\WorkRelationTerms.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

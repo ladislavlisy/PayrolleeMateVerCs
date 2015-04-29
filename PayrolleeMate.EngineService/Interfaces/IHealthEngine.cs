@@ -8,11 +8,11 @@ namespace PayrolleeMate.EngineService.Interfaces
 	{
 		IHealthGuides Guides ();
 
-		long EmployeeContribution (MonthPeriod period, decimal generalBasis, decimal employeeBasis);
+		Int32 EmployeeContribution (MonthPeriod period, decimal generalBasis, decimal employeeBasis);
 
-		long EmployerContribution (MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis);
+		Int32 EmployerContribution (MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis);
 
-		long CompoundContribution (MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis);
+		Int32 CompoundContribution (MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis);
 
 		decimal CalculatedBasis (MonthPeriod period, bool isNegativeIncluded, bool isMinBaseRequired, decimal employeeIncome, decimal accumulatedBase);
 

@@ -13,6 +13,12 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		public const byte ALLOWANCE_CHILDREN_RANK_3RD = 3;
 
+		public const byte ALLOWANCE_DISAB_DEGREE_1ST = 1;
+
+		public const byte ALLOWANCE_DISAB_DEGREE_2ND = 2;
+
+		public const byte ALLOWANCE_DISAB_DEGREE_3RD = 3;
+
 		private readonly Int32 __PayerBasicAllowance;
 		private readonly Int32 __DisabilityDgr1Allowance;
 		private readonly Int32 __DisabilityDgr2Allowance;
@@ -183,6 +189,19 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		{
 			return __PayerBasicAllowance;
 		}
+		public Int32 PayerDisabilityAllowance (byte inDegree)
+		{
+			switch (inDegree) 
+			{
+			case ALLOWANCE_DISAB_DEGREE_1ST:
+				return DisabilityDgr1Allowance ();
+			case ALLOWANCE_DISAB_DEGREE_2ND:
+				return DisabilityDgr2Allowance ();
+			case ALLOWANCE_DISAB_DEGREE_3RD:
+				return DisabilityDgr3Allowance ();
+			}
+			return 0; 
+		}
 		public Int32 DisabilityDgr1Allowance() 
 		{ 
 			return __DisabilityDgr1Allowance; 
@@ -199,9 +218,9 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		{ 
 			return __StudyingAllowance; 
 		}
-		public Int32 ChildrenAllowance(byte rank, bool disability) 
+		public Int32 ChildrenAllowance(byte inPerOrder, bool disability) 
 		{ 
-			switch (rank) 
+			switch (inPerOrder) 
 			{
 			case ALLOWANCE_CHILDREN_RANK_1ST:
 				return ChildrenAllowanceValue (__ChildrenRank1stAllowance, disability);

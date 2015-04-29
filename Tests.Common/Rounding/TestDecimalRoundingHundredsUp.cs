@@ -9,7 +9,7 @@ namespace Tests.Common.Rounding
 	{
 		private const decimal TEST_POS_RESULT_NUMBER = 1100m;
 
-		private const int TEST_NEAREST_NUMBER = 100;
+		private const Int32 TEST_NEAREST_NUMBER = 100;
 
 		[Test()]
 		public void Should_return_Rounded_1100_for_Decimal_1090_with_01_Cents()

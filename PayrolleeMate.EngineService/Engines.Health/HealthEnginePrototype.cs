@@ -1,7 +1,7 @@
 ﻿using System;
 using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Rounding;
-using PayrolleeMate.Common.Operation;
+using PayrolleeMate.Common.Operations;
 using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Engines.Health
@@ -18,31 +18,31 @@ namespace PayrolleeMate.EngineService.Engines.Health
 		#region IHealthEngine implementation
 
 		// EmployeeContribution
-		public long EmployeeContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis)
+		public Int32 EmployeeContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis)
 		{
 			decimal employeeFactor = PeriodEmployeeFactor (period);
 
 			decimal employerFactor = PeriodEmployerFactor (period);
 
-			long resultPaymentValue = EmployeeContributionWithFactor(generalBasis, employeeBasis, employeeFactor, employerFactor);
+			Int32 resultPaymentValue = EmployeeContributionWithFactor(generalBasis, employeeBasis, employeeFactor, employerFactor);
 
 			return resultPaymentValue;
 		}
 
 		// EmployerContribution
-		public long EmployerContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis)
+		public Int32 EmployerContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis)
 		{
 			decimal employeeFactor = PeriodEmployeeFactor (period);
 
 			decimal employerFactor = PeriodEmployerFactor (period);
 
-			long resultPaymentValue = EmployerContributionWithFactor(generalBasis, employeeBasis, employerBasis, employeeFactor, employerFactor);
+			Int32 resultPaymentValue = EmployerContributionWithFactor(generalBasis, employeeBasis, employerBasis, employeeFactor, employerFactor);
 
 			return resultPaymentValue;
 		}
 
 		// CompoundContribution
-		public long CompoundContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis)
+		public Int32 CompoundContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis)
 		{
 			decimal employeeFactor = PeriodEmployeeFactor (period);
 
@@ -50,7 +50,7 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 			decimal compoundBasis = CompoundBasis(generalBasis, employeeBasis, employerBasis);
 
-			long resultPaymentValue = CompoundContributionWithFactor(compoundBasis, employeeFactor, employerFactor);
+			Int32 resultPaymentValue = CompoundContributionWithFactor(compoundBasis, employeeFactor, employerFactor);
 
 			return resultPaymentValue;
 		}
@@ -106,7 +106,7 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 		#region IHealthGuides implementation
 
-		public int MandatoryBasis ()
+		public Int32 MandatoryBasis ()
 		{
 			return __guides.MandatoryBasis();
 		}
@@ -129,39 +129,39 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 		#endregion
 
-		private long EmployeeContributionWithFactor (decimal generalBasis, decimal employeeBasis, decimal employeeFactor, decimal employerFactor)
+		private Int32 EmployeeContributionWithFactor (decimal generalBasis, decimal employeeBasis, decimal employeeFactor, decimal employerFactor)
 		{
 			decimal compoundFactor = decimal.Add (employeeFactor, employerFactor);
 
-			decimal decimalResult1 = DecOperation.Multiply (employeeBasis, compoundFactor);
+			decimal decimalResult1 = DecOperations.Multiply (employeeBasis, compoundFactor);
 
-			decimal decimalResult2 = DecOperation.MultiplyAndDivide(generalBasis, compoundFactor, 3);
+			decimal decimalResult2 = DecOperations.MultiplyAndDivide(generalBasis, compoundFactor, 3);
 
-			long resultPaymentValue = HealthOperations.IntRoundUp (decimal.Add (decimalResult1, decimalResult2));
+			Int32 resultPaymentValue = HealthOperations.IntRoundUp (decimal.Add (decimalResult1, decimalResult2));
 
 			return resultPaymentValue;
 		}
 
-		private long EmployerContributionWithFactor (decimal generalBasis, decimal employeeBasis, decimal employerBasis, decimal employeeFactor, decimal employerFactor)
+		private Int32 EmployerContributionWithFactor (decimal generalBasis, decimal employeeBasis, decimal employerBasis, decimal employeeFactor, decimal employerFactor)
 		{
 			decimal compoundBasis = CompoundBasis(generalBasis, employeeBasis, employerBasis);
 
-			long compoundPaymentValue = CompoundContributionWithFactor(compoundBasis, employeeFactor, employerFactor);
+			Int32 compoundPaymentValue = CompoundContributionWithFactor(compoundBasis, employeeFactor, employerFactor);
 
-			long employeePaymentValue = EmployeeContributionWithFactor(generalBasis, employeeBasis, employeeFactor, employerFactor);
+			Int32 employeePaymentValue = EmployeeContributionWithFactor(generalBasis, employeeBasis, employeeFactor, employerFactor);
 
-			long resultPaymentValue = (compoundPaymentValue - employeePaymentValue);
+			Int32 resultPaymentValue = (compoundPaymentValue - employeePaymentValue);
 
 			return resultPaymentValue;
 		}
 
-		private long CompoundContributionWithFactor (decimal compoundBasis, decimal employeeFactor, decimal employerFactor)
+		private Int32 CompoundContributionWithFactor (decimal compoundBasis, decimal employeeFactor, decimal employerFactor)
 		{
 			decimal compoundFactor = decimal.Add (employeeFactor, employerFactor);
 
-			decimal compoundResult = DecOperation.Multiply (compoundBasis, compoundFactor);
+			decimal compoundResult = DecOperations.Multiply (compoundBasis, compoundFactor);
 
-			long resultPaymentValue = HealthOperations.IntRoundUp (compoundResult);
+			Int32 resultPaymentValue = HealthOperations.IntRoundUp (compoundResult);
 
 			return resultPaymentValue;
 		}
@@ -175,7 +175,7 @@ namespace PayrolleeMate.EngineService.Engines.Health
 			return compoundBasis;
 		}
 
-		public int PeriodMandatoryBasis (MonthPeriod period, bool isMinBaseRequired)
+		public Int32 PeriodMandatoryBasis (MonthPeriod period, bool isMinBaseRequired)
 		{
 			if (isMinBaseRequired) 
 			{

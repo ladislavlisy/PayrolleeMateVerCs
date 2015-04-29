@@ -1,6 +1,6 @@
 ﻿using System;
 using PayrolleeMate.Common.Rounding;
-using PayrolleeMate.Common.Operation;
+using PayrolleeMate.Common.Operations;
 
 namespace PayrolleeMate.EngineService
 {
@@ -11,7 +11,7 @@ namespace PayrolleeMate.EngineService
 			return DecRounding.RoundUp(valueDec);
 		}
 
-		public static long IntRoundUp(decimal valueDec)
+		public static Int32 IntRoundUp(decimal valueDec)
 		{
 			return IntRounding.RoundUp(valueDec);
 		}
@@ -21,14 +21,14 @@ namespace PayrolleeMate.EngineService
 			return DecRounding.RoundDown(valueDec);
 		}
 
-		public static long IntRoundDown(decimal valueDec)
+		public static Int32 IntRoundDown(decimal valueDec)
 		{
 			return IntRounding.RoundDown(valueDec);
 		}
 
 		public static decimal MinMaxValue (decimal valueToMinMax, decimal accumulValue, decimal minLimitTo, decimal maxLimitTo)
 		{
-			return DecOperation.MinMaxValue(valueToMinMax, accumulValue, minLimitTo, maxLimitTo);
+			return DecOperations.MinIncMaxDecValue(valueToMinMax, accumulValue, minLimitTo, maxLimitTo);
 		}
 	}
 }

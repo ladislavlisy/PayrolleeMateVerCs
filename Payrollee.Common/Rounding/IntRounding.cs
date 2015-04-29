@@ -1,5 +1,5 @@
 ﻿using System;
-using PayrolleeMate.Common.Operation;
+using PayrolleeMate.Common.Operations;
 
 namespace PayrolleeMate.Common.Rounding
 {
@@ -7,42 +7,42 @@ namespace PayrolleeMate.Common.Rounding
 	{
 		private static readonly decimal INT_ROUNDING_CONST = 0.5m;
 
-		public static long RoundToInt(decimal valueDec)
+		public static Int32 RoundToInt(decimal valueDec)
 		{
 			decimal roundRet = decimal.Floor (Math.Abs (valueDec) + INT_ROUNDING_CONST);
 
 			return decimal.ToInt32(valueDec < 0m ? decimal.Negate(roundRet) : roundRet);
 		}
 
-		public static long RoundUp(decimal valueDec)
+		public static Int32 RoundUp(decimal valueDec)
 		{
 			decimal roundRet = decimal.Ceiling (Math.Abs (valueDec));
 
 			return decimal.ToInt32(valueDec < 0m ? decimal.Negate(roundRet) : roundRet);
 		}
 
-		public static long RoundDown(decimal valueDec)
+		public static Int32 RoundDown(decimal valueDec)
 		{
 			decimal roundRet = decimal.Floor (Math.Abs (valueDec));
 
 			return decimal.ToInt32(valueDec < 0m ? decimal.Negate(roundRet) : roundRet);
 		}
 
-		public static long NearRoundUp(decimal valueDec, int nearest = 100)
+		public static Int32 NearRoundUp(decimal valueDec, Int32 nearest = 100)
 		{
-			decimal dividRet = DecOperation.Divide (valueDec, nearest);
+			decimal dividRet = DecOperations.Divide (valueDec, nearest);
 
-			decimal multiRet = DecOperation.Multiply (RoundUp (dividRet), nearest);
+			decimal multiRet = DecOperations.Multiply (RoundUp (dividRet), nearest);
 
 			return RoundToInt(multiRet);
 		}
 
 
-		public static long NearRoundDown(decimal valueDec, int nearest = 100)
+		public static Int32 NearRoundDown(decimal valueDec, Int32 nearest = 100)
 		{
-			decimal dividRet = DecOperation.Divide (valueDec, nearest);
+			decimal dividRet = DecOperations.Divide (valueDec, nearest);
 
-			decimal multiRet = DecOperation.Multiply (RoundDown (dividRet), nearest);
+			decimal multiRet = DecOperations.Multiply (RoundDown (dividRet), nearest);
 
 			return RoundToInt(multiRet);
 		}

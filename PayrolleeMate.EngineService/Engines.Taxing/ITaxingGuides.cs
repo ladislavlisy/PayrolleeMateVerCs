@@ -6,6 +6,8 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 	{
 		Int32 PayerBasicAllowance ();
 
+		Int32 PayerDisabilityAllowance (byte inDegree);
+
 		Int32 DisabilityDgr1Allowance ();
 
 		Int32 DisabilityDgr2Allowance ();
@@ -14,7 +16,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		Int32 StudyingAllowance ();
 
-		Int32 ChildrenAllowance (byte rank, bool disability);
+		Int32 ChildrenAllowance (byte inPerOrder, bool disability);
 
 		Int32 ChildrenRank1stAllowance (); 
 

@@ -34,18 +34,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rounding\DecRounding.cs" />
     <Compile Include="Rounding\IntRounding.cs" />
-    <Compile Include="Operation\DecOperation.cs" />
     <Compile Include="Periods\MonthPeriod.cs" />
     <Compile Include="Periods\SpanOfYears.cs" />
     <Compile Include="Periods\SpanOfMonths.cs" />
     <Compile Include="Periods\SeqOfYears.cs" />
     <Compile Include="Factories\GeneralFactory.cs" />
+    <Compile Include="Operations\DecOperations.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Rounding\" />
-    <Folder Include="Operation\" />
     <Folder Include="Periods\" />
     <Folder Include="Factories\" />
+    <Folder Include="Operations\" />
   </ItemGroup>
 </Project>
