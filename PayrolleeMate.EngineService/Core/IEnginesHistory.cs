@@ -9,7 +9,7 @@ namespace PayrolleeMate.EngineService.Core
 
 		void InitWithHistory (SpanOfYears[] setupHistory);
 
-		T FindEngine (MonthPeriod period);
+		T ResolveEngine (MonthPeriod period);
 
 		T DefaultEngine ();
 	}

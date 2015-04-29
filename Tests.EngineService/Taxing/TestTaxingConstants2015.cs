@@ -27,7 +27,7 @@ namespace Tests.EngineService
 		{          
 			IEnginesHistory<ITaxingEngine> engines = CreateEngine ();
 
-			ITaxingEngine engine = engines.FindEngine (period2015);
+			ITaxingEngine engine = engines.ResolveEngine (period2015);
 
 			Assert.AreEqual(2070, engine.Guides().PayerBasicAllowance());
 			Assert.AreEqual( 210, engine.Guides().DisabilityDgr1Allowance());
@@ -50,7 +50,7 @@ namespace Tests.EngineService
 		{          
 			IEnginesHistory<ITaxingEngine> engines = CreateEngine ();
 
-			ITaxingEngine engine = engines.FindEngine (period2015);
+			ITaxingEngine engine = engines.ResolveEngine (period2015);
 
 			Assert.AreEqual(15.0m, engine.Guides().AdvancesFactor());
 			Assert.AreEqual(15.0m, engine.Guides().WithholdFactor());
@@ -62,7 +62,7 @@ namespace Tests.EngineService
 		{          
 			IEnginesHistory<ITaxingEngine> engines = CreateEngine ();
 
-			ITaxingEngine engine = engines.FindEngine (period2015);
+			ITaxingEngine engine = engines.ResolveEngine (period2015);
 
 			Assert.AreEqual(    50, engine.Guides().MinimumValidAmountOfTaxBonus());
 			Assert.AreEqual(  9200, engine.Guides().MinimumIncomeRequiredForTaxBonus());
@@ -74,7 +74,7 @@ namespace Tests.EngineService
 		{          
 			IEnginesHistory<ITaxingEngine> engines = CreateEngine ();
 
-			ITaxingEngine engine = engines.FindEngine (period2015);
+			ITaxingEngine engine = engines.ResolveEngine (period2015);
 
 			Assert.AreEqual( 5025, engine.Guides().MaximumValidAmountOfTaxBonus());
 			Assert.AreEqual(  100, engine.Guides().MaximumIncomeToApplyRoundingToSingles());

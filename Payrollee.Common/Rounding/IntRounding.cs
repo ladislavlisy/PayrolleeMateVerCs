@@ -7,28 +7,28 @@ namespace PayrolleeMate.Common.Rounding
 	{
 		private static readonly decimal INT_ROUNDING_CONST = 0.5m;
 
-		public static int RoundToInt(decimal valueDec)
+		public static long RoundToInt(decimal valueDec)
 		{
 			decimal roundRet = decimal.Floor (Math.Abs (valueDec) + INT_ROUNDING_CONST);
 
 			return decimal.ToInt32(valueDec < 0m ? decimal.Negate(roundRet) : roundRet);
 		}
 
-		public static int RoundUp(decimal valueDec)
+		public static long RoundUp(decimal valueDec)
 		{
 			decimal roundRet = decimal.Ceiling (Math.Abs (valueDec));
 
 			return decimal.ToInt32(valueDec < 0m ? decimal.Negate(roundRet) : roundRet);
 		}
 
-		public static int RoundDown(decimal valueDec)
+		public static long RoundDown(decimal valueDec)
 		{
 			decimal roundRet = decimal.Floor (Math.Abs (valueDec));
 
 			return decimal.ToInt32(valueDec < 0m ? decimal.Negate(roundRet) : roundRet);
 		}
 
-		public static int NearRoundUp(decimal valueDec, int nearest = 100)
+		public static long NearRoundUp(decimal valueDec, int nearest = 100)
 		{
 			decimal dividRet = DecOperation.Divide (valueDec, nearest);
 
@@ -38,7 +38,7 @@ namespace PayrolleeMate.Common.Rounding
 		}
 
 
-		public static int NearRoundDown(decimal valueDec, int nearest = 100)
+		public static long NearRoundDown(decimal valueDec, int nearest = 100)
 		{
 			decimal dividRet = DecOperation.Divide (valueDec, nearest);
 

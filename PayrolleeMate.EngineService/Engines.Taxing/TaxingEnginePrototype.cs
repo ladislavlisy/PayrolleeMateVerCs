@@ -2,26 +2,125 @@
 using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Rounding;
 using PayrolleeMate.Common.Operation;
+using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Engines.Taxing
 {
 	public class TaxingEnginePrototype : ITaxingEngine, ITaxingGuides
 	{
-		private static readonly int NUMBER_ONE_HUNDRED = 100;
-
 		public TaxingEnginePrototype (TaxingGuides currentGuides)
 		{
 			__guides = currentGuides.Clone() as TaxingGuides;
 		}
 
-		private ITaxingGuides __guides;
-
 		#region ITaxingGuides implementation
+
+		// AdvancesTax
+		public long AdvancesResult(MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis)
+		{
+			long taxStandard = AdvancesRegularyTax(period, generalBasis);
+
+			if (SolidaryIncreaseEnabled())
+			{
+				long taxSolidary = AdvancesSolidaryTax(period, solidaryBasis);
+
+				return (taxStandard + taxSolidary);
+			}
+
+			return taxStandard;
+		}
+
+		// AdvancesRegularyTax
+		public long AdvancesRegularyTax(MonthPeriod period, decimal generallBasis)
+		{
+			decimal advancesFactor = PeriodAdvancesFactor (period);
+
+			decimal advancesResult = TaxingOperations.DecFactorResult(generallBasis, advancesFactor);
+
+			long taxRegulary = TaxingOperations.IntRoundUp(advancesResult);
+
+			return taxRegulary;
+		}
+
+		// AdvancesSolidaryTax
+		public long AdvancesSolidaryTax(MonthPeriod period, decimal solidaryBasis)
+		{
+			decimal solidaryFactor = PeriodSolidaryFactor (period);
+
+			decimal solidaryResult = TaxingOperations.DecFactorResult(solidaryBasis, solidaryFactor);
+
+			long taxSolidary = TaxingOperations.IntRoundUp(solidaryResult);
+
+			return taxSolidary;
+		}
+
+		// AdvancesSolidaryBasis
+		public decimal AdvancesSolidaryBasis(MonthPeriod period, decimal taxableIncome)
+		{
+			decimal solidaryLimit = MinimumIncomeToApplySolidaryIncrease();
+
+			decimal solidaryBasis = Math.Max(0, taxableIncome - solidaryLimit);
+
+			return solidaryBasis;
+		}
+
+		// AdvancesRoundedBasis
+		public decimal AdvancesRoundedBasisWithPartial(MonthPeriod period, decimal taxableHealth, decimal taxableSocial, decimal taxableIncome)
+		{
+			decimal taxableSuper = taxableIncome + taxableHealth + taxableSocial;
+
+			return AdvancesRoundedBasis(period, taxableSuper);
+		}
+
+		public decimal AdvancesRoundedBasis(MonthPeriod period, decimal taxableIncome)
+		{
+			decimal amountForCalc = taxableIncome;
+
+			if (BasisOfIncomeShouldBeEqualToZero(taxableIncome))
+			{
+				amountForCalc = 0;
+			}
+
+			decimal advanceBase = 0m;
+
+			if (BasisShouldbeRoundedUpToHundreds(amountForCalc))
+			{
+				advanceBase = TaxingOperations.DecRoundUpHundreds(amountForCalc);
+			}
+			else
+			{
+				advanceBase = TaxingOperations.DecRoundUp(amountForCalc);
+			}
+			return advanceBase;
+		}
+
+		// AdvancesTaxableHealth
+		// AdvancesTaxableSocial
+		// AdvancesTaxableIncome
+		// PayerBasicAllowance
+		// ChildrenAllowance
+		// PayerDisabAllowance
+		// PayerStudyAllowance
+		// PayerTaxRebate
+		// ChildrenRebate
+		// ChildrenBonus
+
+		// WithholdTax
+		// WithholdRoundedBasis
+		// WithholdTaxableHealth
+		// WithholdTaxableSocial
+		// WithholdTaxableIncome
 
 		public ITaxingGuides Guides ()
 		{
 			return __guides;
 		}
+
+		#endregion
+
+		private ITaxingGuides __guides;
+
+		#region ITaxingGuides implementation
 
 		public Int32 PayerBasicAllowance() 
 		{
@@ -104,79 +203,15 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		#endregion
 
-		#region ITaxingGuides implementation
-
-		public decimal AdvancesBasisRoundedWithPartial(decimal taxableHealth, decimal taxableSocial, decimal taxableIncome)
-		{
-			decimal taxableSuper = taxableIncome + taxableHealth + taxableSocial;
-
-			return AdvancesBasisRounded(taxableSuper);
+		private decimal PeriodAdvancesFactor(MonthPeriod period) 
+		{ 
+			return __guides.AdvancesFactor(); 
 		}
 
-		public decimal AdvancesBasisRounded(decimal taxableIncome)
-		{
-			decimal amountForCalc = taxableIncome;
-
-			if (BasisOfIncomeShouldBeEqualToZero(taxableIncome))
-			{
-				amountForCalc = 0;
-			}
-
-			decimal advanceBase = 0m;
-
-			if (BasisShouldbeRoundedUpToHundreds(amountForCalc))
-			{
-				advanceBase = DecTaxRoundUpHundreds(amountForCalc);
-			}
-			else
-			{
-				advanceBase = DecTaxRoundUp(amountForCalc);
-			}
-			return advanceBase;
+		private decimal PeriodSolidaryFactor(MonthPeriod period) 
+		{ 
+			return __guides.SolidaryFactor(); 
 		}
-
-		public decimal SolidaryBasis(decimal income)
-		{
-			decimal solidaryLimit = MinimumIncomeToApplySolidaryIncrease();
-
-			decimal solidaryBasis = Math.Max(0, income - solidaryLimit);
-
-			return solidaryBasis;
-		}
-
-		public long AdvancesPartResult(decimal generallBasis)
-		{
-			decimal factorResult = DecTaxFactorResult(generallBasis, AdvancesFactor());
-
-			long taxStandard = IntTaxRoundUp(factorResult);
-
-			return taxStandard;
-		}
-
-		public long SolidaryPartResult(decimal solidaryBasis)
-		{
-			decimal factorResult = DecTaxFactorResult(solidaryBasis, SolidaryFactor());
-
-			long taxSolidary = IntTaxRoundUp(factorResult);
-
-			return taxSolidary;
-		}
-
-		public long AdvancesResult(decimal taxableIncome, decimal generallBasis, decimal solidaryBasis)
-		{
-			long taxStandard = AdvancesPartResult(generallBasis);
-
-			if (SolidaryIncreaseEnabled())
-			{
-				long taxSolidary = SolidaryPartResult(solidaryBasis);
-
-				return (taxStandard + taxSolidary);
-			}
-
-			return taxStandard;
-		}
-
-		#endregion
 
 		/// <summary>
 		/// basis should be rounded up to hundreds
@@ -206,35 +241,6 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			return (income <= 0);
 		}
 
-		public static decimal DecTaxRoundUp(decimal valueDec)
-		{
-			return DecRounding.RoundUp(valueDec);
-		}
-
-		public static int IntTaxRoundUp(decimal valueDec)
-		{
-			return IntRounding.RoundUp(valueDec);
-		}
-
-		public static decimal DecTaxRoundDown(decimal valueDec)
-		{
-			return DecRounding.RoundDown(valueDec);
-		}
-
-		public static int IntTaxRoundDown(decimal valueDec)
-		{
-			return IntRounding.RoundDown(valueDec);
-		}
-
-		public static decimal DecTaxRoundUpHundreds(decimal valueDec)
-		{
-			return DecRounding.NearRoundUp(valueDec, NUMBER_ONE_HUNDRED);
-		}
-
-		public static decimal DecTaxFactorResult(decimal valueDec, decimal factor)
-		{
-			return DecOperation.Multiply(valueDec, factor);
-		}
 	}
 }
 

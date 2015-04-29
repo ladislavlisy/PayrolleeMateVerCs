@@ -15,35 +15,35 @@ namespace Tests.Common.Rounding
 		public void Should_return_Rounded_1000_for_Decimal_1090_with_01_Cents()
 		{
 			decimal testInputs = 1090.01m;
-			int testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
+			long testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
 			Assert.AreEqual(TEST_POS_RESULT_NUMBER, testResult);
 		}
 		[Test()]
 		public void Should_return_Rounded_1000_for_Decimal_1090_with_20_Cents()
 		{
 			decimal testInputs = 1090.20m;
-			int testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
+			long testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
 			Assert.AreEqual(TEST_POS_RESULT_NUMBER, testResult);
 		}
 		[Test()]
 		public void Should_return_Rounded_1000_for_Decimal_1090_with_50_Cents()
 		{
 			decimal testInputs = 1090.50m;
-			int testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
+			long testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
 			Assert.AreEqual(TEST_POS_RESULT_NUMBER, testResult);
 		}
 		[Test()]
 		public void Should_return_Rounded_1000_for_Decimal_1090_with_60_Cents()
 		{
 			decimal testInputs = 1090.60m;
-			int testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
+			long testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
 			Assert.AreEqual(TEST_POS_RESULT_NUMBER, testResult);
 		}
 		[Test()]
 		public void Should_return_Rounded_1000_for_Decimal_1090_with_99_Cents()
 		{
 			decimal testInputs = 1090.99m;
-			int testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
+			long testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
 			Assert.AreEqual(TEST_POS_RESULT_NUMBER, testResult);
 		}
 
@@ -53,35 +53,35 @@ namespace Tests.Common.Rounding
 		public void Should_return_Rounded_Negative_1000_for_Decimal_1090_with_01_Cents()
 		{
 			decimal testInputs = -1090.01m;
-			int testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
+			long testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
 			Assert.AreEqual(TEST_NEG_RESULT_NUMBER, testResult);
 		}
 		[Test()]
 		public void Should_return_Rounded_Negative_1000_for_Decimal_1090_with_20_Cents()
 		{
 			decimal testInputs = -1090.20m;
-			int testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
+			long testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
 			Assert.AreEqual(TEST_NEG_RESULT_NUMBER, testResult);
 		}
 		[Test()]
 		public void Should_return_Rounded_Negative_1000_for_Decimal_1090_with_50_Cents()
 		{
 			decimal testInputs = -1090.50m;
-			int testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
+			long testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
 			Assert.AreEqual(TEST_NEG_RESULT_NUMBER, testResult);
 		}
 		[Test()]
 		public void Should_return_Rounded_Negative_1000_for_Decimal_1090_with_60_Cents()
 		{
 			decimal testInputs = -1090.60m;
-			int testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
+			long testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
 			Assert.AreEqual(TEST_NEG_RESULT_NUMBER, testResult);
 		}
 		[Test()]
 		public void Should_return_Rounded_Negative_1000_for_Decimal_1090_with_99_Cents()
 		{
 			decimal testInputs = -1090.99m;
-			int testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
+			long testResult = IntRounding.NearRoundDown(testInputs, TEST_NEAREST_NUMBER);
 			Assert.AreEqual(TEST_NEG_RESULT_NUMBER, testResult);
 		}
 

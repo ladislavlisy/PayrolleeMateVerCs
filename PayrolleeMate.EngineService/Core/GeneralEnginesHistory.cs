@@ -20,7 +20,7 @@ namespace PayrolleeMate.EngineService.Core
 
 			MonthPeriod defaultPeriod =  MonthPeriod.BeginYear(DefaultYear());
 
-			DefaultInstance = FindEngine (defaultPeriod);
+			DefaultInstance = ResolveEngine (defaultPeriod);
 		}
 
 		protected abstract ushort DefaultYear ();
@@ -42,7 +42,7 @@ namespace PayrolleeMate.EngineService.Core
 			Engines = setupHistory.Aggregate(initProfiles, (agr, x) => (MergeEngineToDict(agr, x)));
 		}
 
-		public T FindEngine(MonthPeriod period)
+		public T ResolveEngine(MonthPeriod period)
 		{
 			SpanOfYears periodSpan = SpanFromEngines(period);
 			if (periodSpan == null)

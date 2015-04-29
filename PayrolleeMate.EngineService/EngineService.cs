@@ -26,9 +26,9 @@ namespace PayrolleeMate.EngineService
 
 		public IEngineProfile BuildEngineProfile (MonthPeriod period)
 		{
-			ITaxingEngine taxingEngine = HistoryOfTaxing.FindEngine (period);
-			IHealthEngine healthEngine = HistoryOfHealth.FindEngine (period);
-			ISocialEngine socialEngine = HistoryOfSocial.FindEngine (period);
+			ITaxingEngine taxingEngine = HistoryOfTaxing.ResolveEngine (period);
+			IHealthEngine healthEngine = HistoryOfHealth.ResolveEngine (period);
+			ISocialEngine socialEngine = HistoryOfSocial.ResolveEngine (period);
 
 			return new EngineProfile(taxingEngine, healthEngine, socialEngine);
 		}

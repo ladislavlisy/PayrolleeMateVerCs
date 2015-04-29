@@ -36,6 +36,37 @@ namespace PayrolleeMate.Common.Operation
 			return new decimal(number);
 		}
 
+		public static decimal MinMaxValue (decimal valueToMinMax, decimal accumulValue, decimal minLimitTo, decimal maxLimitTo)
+		{
+			decimal minBase = MinValue(valueToMinMax, minLimitTo);
+
+			decimal maxBase = MaxValue(minBase, accumulValue, maxLimitTo);
+
+			return maxBase;
+		}
+
+		public static decimal MinValue(decimal valueToMin, decimal limitTo)
+		{
+			if (limitTo > 0m)
+			{
+				if (limitTo > valueToMin)
+				{
+					return limitTo;
+				}
+			}
+			return valueToMin;
+		}
+
+		private static decimal MaxValue(decimal valueToMax, decimal valueAccum, decimal limitTo)
+		{
+			if (limitTo.Equals(0m))
+			{
+				return valueToMax;
+			}
+			decimal valueToReduce = Math.Min(decimal.Add(valueToMax, valueAccum), limitTo);
+
+			return Math.Max(0, decimal.Subtract(valueToReduce, valueAccum));
+		}
 	}
 }
 

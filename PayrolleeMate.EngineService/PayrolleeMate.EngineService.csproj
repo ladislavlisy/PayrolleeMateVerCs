@@ -72,6 +72,9 @@
     <Compile Include="History.SocialEngines\SocialEngine2013.cs" />
     <Compile Include="History.SocialEngines\SocialEngine2012.cs" />
     <Compile Include="History.SocialEngines\SocialEngine2011.cs" />
+    <Compile Include="Engines.Taxing\TaxingOperations.cs" />
+    <Compile Include="Engines.Social\SocialOperations.cs" />
+    <Compile Include="Engines.Health\HealthOperations.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

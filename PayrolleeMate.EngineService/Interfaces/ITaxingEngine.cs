@@ -8,17 +8,17 @@ namespace PayrolleeMate.EngineService.Interfaces
 	{
 		ITaxingGuides Guides();
 
-		decimal AdvancesBasisRoundedWithPartial(decimal taxableHealth, decimal taxableSocial, decimal taxableIncome);
+		long AdvancesResult (MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis);
 
-		decimal AdvancesBasisRounded(decimal taxableIncome);
+		long AdvancesRegularyTax (MonthPeriod period, decimal generallBasis);
 
-		decimal SolidaryBasis(decimal income);
+		long AdvancesSolidaryTax (MonthPeriod period, decimal solidaryBasis);
 
-		long AdvancesPartResult(decimal generallBasis);
+		decimal AdvancesSolidaryBasis (MonthPeriod period, decimal taxableIncome);
 
-		long SolidaryPartResult(decimal solidaryBasis);
+		decimal AdvancesRoundedBasisWithPartial (MonthPeriod period, decimal taxableHealth, decimal taxableSocial, decimal taxableIncome);
 
-		long AdvancesResult(decimal taxableIncome, decimal generallBasis, decimal solidaryBasis);
+		decimal AdvancesRoundedBasis (MonthPeriod period, decimal taxableIncome);
 	}
 
 }

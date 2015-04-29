@@ -62,7 +62,7 @@ namespace Tests.EngineService
 
 			MonthPeriod period2015 = new MonthPeriod (2015, 1);
 
-			ITaxingEngine engine2015 = engines.FindEngine (period2015);
+			ITaxingEngine engine2015 = engines.ResolveEngine (period2015);
 
 			Assert.AreEqual (FULL_CLASS_NAME_2015, engine2015.GetType ().ToString ());
 		}
@@ -74,7 +74,7 @@ namespace Tests.EngineService
 
 			MonthPeriod period2014 = new MonthPeriod (2014, 1);
 
-			ITaxingEngine engine2014 = engines.FindEngine (period2014);
+			ITaxingEngine engine2014 = engines.ResolveEngine (period2014);
 
 			Assert.AreEqual (FULL_CLASS_NAME_2014, engine2014.GetType ().ToString ());
 		}
@@ -86,7 +86,7 @@ namespace Tests.EngineService
 
 			MonthPeriod period2013 = new MonthPeriod (2013, 1);
 
-			ITaxingEngine engine2013 = engines.FindEngine (period2013);
+			ITaxingEngine engine2013 = engines.ResolveEngine (period2013);
 
 			Assert.AreEqual (FULL_CLASS_NAME_2013, engine2013.GetType ().ToString ());
 		}
@@ -98,7 +98,7 @@ namespace Tests.EngineService
 
 			MonthPeriod period2012 = new MonthPeriod (2012, 1);
 
-			ITaxingEngine engine2012 = engines.FindEngine (period2012);
+			ITaxingEngine engine2012 = engines.ResolveEngine (period2012);
 
 			Assert.AreEqual (FULL_CLASS_NAME_2012, engine2012.GetType ().ToString ());
 		}
@@ -110,7 +110,7 @@ namespace Tests.EngineService
 
 			MonthPeriod period2011 = new MonthPeriod (2011, 1);
 
-			ITaxingEngine engine2011 = engines.FindEngine (period2011);
+			ITaxingEngine engine2011 = engines.ResolveEngine (period2011);
 
 			Assert.AreEqual (FULL_CLASS_NAME_2011, engine2011.GetType ().ToString ());
 		}
