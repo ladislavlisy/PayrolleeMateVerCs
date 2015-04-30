@@ -9,31 +9,31 @@ using PayrolleeMate.EngineService;
 namespace Tests.EngineService
 {
 	[TestFixture ()]
-	public class TestSocialConstants2013
+	public class TestSocialConstants2012
 	{
-		private static readonly MonthPeriod testPeriod = new MonthPeriod (2013, 1);
+		private static readonly MonthPeriod testPeriod = new MonthPeriod (2012, 1);
 
 		public const bool PENSION_SCHEME_YES = true;
 
 		public const bool PENSION_SCHEME_NON = false;
 
 		[Test ()]
-		public void Should_return_Factor_Constants_for_Social_Engine_when_Year_2013()
+		public void Should_return_Factor_Constants_for_Social_Engine_when_Year_2012()
 		{          
 			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			ISocialEngine engine = engines.ResolveEngine (testPeriod);
 
 			Assert.AreEqual(  6.5m, engine.PeriodEmployeeFactor(testPeriod, PENSION_SCHEME_NON));
-			Assert.AreEqual(  3.5m, engine.PeriodEmployeeFactor(testPeriod, PENSION_SCHEME_YES));
-			Assert.AreEqual(  5.0m, engine.PeriodEmployeePensionsFactor(testPeriod));
-			Assert.AreEqual(  3.0m, engine.PeriodPensionsReduceFactor(testPeriod));
+			Assert.AreEqual(  6.5m, engine.PeriodEmployeeFactor(testPeriod, PENSION_SCHEME_YES));
+			Assert.AreEqual(  0.0m, engine.PeriodEmployeePensionsFactor(testPeriod));
+			Assert.AreEqual(  0.0m, engine.PeriodPensionsReduceFactor(testPeriod));
 			Assert.AreEqual( 25.0m, engine.PeriodEmployerFactor(testPeriod));
 			Assert.AreEqual( 26.0m, engine.PeriodEmployerElevatedFactor(testPeriod));
 		}
 
 		[Test ()]
-		public void Should_return_Minimum_Constants_for_Social_Engine_when_Year_2013()
+		public void Should_return_Minimum_Constants_for_Social_Engine_when_Year_2012()
 		{          
 			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
@@ -43,13 +43,13 @@ namespace Tests.EngineService
 		}
 
 		[Test ()]
-		public void Should_return_Maximum_Constants_for_Social_Engine_when_Year_2013()
+		public void Should_return_Maximum_Constants_for_Social_Engine_when_Year_2012()
 		{          
 			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			ISocialEngine engine = engines.ResolveEngine (testPeriod);
 
-			Assert.AreEqual(1242432m, engine.PeriodMaximumAnnualBasis(testPeriod));
+			Assert.AreEqual(1206576m, engine.PeriodMaximumAnnualBasis(testPeriod));
 		}
 	}
 }
