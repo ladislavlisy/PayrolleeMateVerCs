@@ -13,19 +13,10 @@ namespace Tests.EngineService
 	{
 		private static readonly MonthPeriod testPeriod = new MonthPeriod (2013, 1);
 
-		private IEnginesHistory<IHealthEngine> CreateEngine()
-		{
-			IEnginesHistory<IHealthEngine> engine = HealthEnginesHistory.CreateEngines ();
-
-			engine.InitEngines ();
-
-			return engine;
-		}
-
 		[Test ()]
 		public void Should_return_Factor_Constants_for_Health_Engine_when_Year_2013()
 		{          
-			IEnginesHistory<IHealthEngine> engines = CreateEngine ();
+			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 
 			IHealthEngine engine = engines.ResolveEngine (testPeriod);
 
@@ -37,7 +28,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_Minimum_Constants_for_Health_Engine_when_Year_2013()
 		{          
-			IEnginesHistory<IHealthEngine> engines = CreateEngine ();
+			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 
 			IHealthEngine engine = engines.ResolveEngine (testPeriod);
 
@@ -49,7 +40,7 @@ namespace Tests.EngineService
 		{          
 			MonthPeriod testPeriod07 = new MonthPeriod (2013, 7);
 
-			IEnginesHistory<IHealthEngine> engines = CreateEngine ();
+			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 
 			IHealthEngine engine = engines.ResolveEngine (testPeriod07);
 
@@ -61,7 +52,7 @@ namespace Tests.EngineService
 		{          
 			MonthPeriod testPeriod08 = new MonthPeriod (2013, 8);
 
-			IEnginesHistory<IHealthEngine> engines = CreateEngine ();
+			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 
 			IHealthEngine engine = engines.ResolveEngine (testPeriod08);
 
@@ -73,7 +64,7 @@ namespace Tests.EngineService
 		{          
 			MonthPeriod testPeriod12 = new MonthPeriod (2013, 12);
 
-			IEnginesHistory<IHealthEngine> engines = CreateEngine ();
+			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 
 			IHealthEngine engine = engines.ResolveEngine (testPeriod12);
 
@@ -83,7 +74,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_Maximum_Constants_for_Health_Engine_when_Year_2013()
 		{          
-			IEnginesHistory<IHealthEngine> engines = CreateEngine ();
+			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 
 			IHealthEngine engine = engines.ResolveEngine (testPeriod);
 

@@ -79,6 +79,7 @@
     <Compile Include="Interfaces\IPeriodSocialGuides.cs" />
     <Compile Include="Interfaces\IPeriodHealthGuides.cs" />
     <Compile Include="Interfaces\IPeriodTaxingGuides.cs" />
+    <Compile Include="Core\EngineGeneralGuides.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

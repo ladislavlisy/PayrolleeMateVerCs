@@ -96,25 +96,25 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		}
 
 		// AdvancesTaxableHealth
-		public decimal AdvancesTaxableHealth(MonthPeriod period, bool isStatementSign, bool isResidencyCz, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentHealth)
+		public decimal AdvancesTaxableHealth(MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentHealth)
 		{
 			return 0m;
 		}
 
 		// AdvancesTaxableSocial
-		public decimal AdvancesTaxableSocial(MonthPeriod period, bool isStatementSign, bool isResidencyCz, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentSocial)
+		public decimal AdvancesTaxableSocial(MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentSocial)
 		{
 			return 0m;
 		}
 
 		// AdvancesTaxableIncome
-		public decimal AdvancesTaxableIncome(MonthPeriod period, bool isStatementSign, bool isResidencyCz, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentIncome)
+		public decimal AdvancesTaxableIncome(MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentIncome)
 		{
 			return 0m;
 		}
 
 		// PayerBasicAllowance
-		public Int32 StatementPayerBasicAllowance(MonthPeriod period, bool isStatementSign, bool isResidencyCz)
+		public Int32 StatementPayerBasicAllowance(MonthPeriod period, bool isStatementSign, bool isResidentCzech)
 		{
 			if (isStatementSign) 
 			{

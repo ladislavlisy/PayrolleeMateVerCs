@@ -13,19 +13,10 @@ namespace Tests.EngineService
 	{
 		private static readonly MonthPeriod testPeriod = new MonthPeriod (2013, 1);
 
-		private IEnginesHistory<ISocialEngine> CreateEngine()
-		{
-			IEnginesHistory<ISocialEngine> engine = SocialEnginesHistory.CreateEngines ();
-
-			engine.InitEngines ();
-
-			return engine;
-		}
-
 		[Test ()]
 		public void Should_return_Factor_Constants_for_Social_Engine_when_Year_2013()
 		{          
-			IEnginesHistory<ISocialEngine> engines = CreateEngine ();
+			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			ISocialEngine engine = engines.ResolveEngine (testPeriod);
 
@@ -39,7 +30,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_Minimum_Constants_for_Social_Engine_when_Year_2013()
 		{          
-			IEnginesHistory<ISocialEngine> engines = CreateEngine ();
+			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			ISocialEngine engine = engines.ResolveEngine (testPeriod);
 
@@ -49,7 +40,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_Maximum_Constants_for_Social_Engine_when_Year_2013()
 		{          
-			IEnginesHistory<ISocialEngine> engines = CreateEngine ();
+			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			ISocialEngine engine = engines.ResolveEngine (testPeriod);
 

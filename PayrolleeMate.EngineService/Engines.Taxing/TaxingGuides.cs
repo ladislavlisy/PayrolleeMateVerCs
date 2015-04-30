@@ -3,7 +3,7 @@ using PayrolleeMate.EngineService.Constants;
 
 namespace PayrolleeMate.EngineService.Engines.Taxing
 {
-	public class TaxingGuides : ITaxingGuides
+	public class TaxingGuides : EngineGeneralGuides, ITaxingGuides
 	{
 		private const Int32 ALLOWANCE_DISABILITY_MULTIPLIER = 2;
 
@@ -39,7 +39,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		public static TaxingGuides Guides2015()
 		{
-			return new TaxingGuides (
+			return new TaxingGuides (TaxingProperties2015.YEAR_2015,
 				TaxingProperties2015.ALLOWANCE_PAYER_BASIC,
 				TaxingProperties2015.ALLOWANCE_PAYER_DIS_1ST,
 				TaxingProperties2015.ALLOWANCE_PAYER_DIS_2ND,
@@ -61,7 +61,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		public static TaxingGuides Guides2014()
 		{
-			return new TaxingGuides (
+			return new TaxingGuides (TaxingProperties2014.YEAR_2014,
 				TaxingProperties2014.ALLOWANCE_PAYER_BASIC,
 				TaxingProperties2014.ALLOWANCE_PAYER_DIS_1ST,
 				TaxingProperties2014.ALLOWANCE_PAYER_DIS_2ND,
@@ -83,7 +83,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		public static TaxingGuides Guides2013()
 		{
-			return new TaxingGuides (
+			return new TaxingGuides (TaxingProperties2013.YEAR_2013,
 				TaxingProperties2013.ALLOWANCE_PAYER_BASIC,
 				TaxingProperties2013.ALLOWANCE_PAYER_DIS_1ST,
 				TaxingProperties2013.ALLOWANCE_PAYER_DIS_2ND,
@@ -105,7 +105,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		public static TaxingGuides Guides2012()
 		{
-			return new TaxingGuides (
+			return new TaxingGuides (TaxingProperties2012.YEAR_2012,
 				TaxingProperties2012.ALLOWANCE_PAYER_BASIC,
 				TaxingProperties2012.ALLOWANCE_PAYER_DIS_1ST,
 				TaxingProperties2012.ALLOWANCE_PAYER_DIS_2ND,
@@ -127,7 +127,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		public static TaxingGuides Guides2011()
 		{
-			return new TaxingGuides (
+			return new TaxingGuides (TaxingProperties2011.YEAR_2011,
 				TaxingProperties2011.ALLOWANCE_PAYER_BASIC,
 				TaxingProperties2011.ALLOWANCE_PAYER_DIS_1ST,
 				TaxingProperties2011.ALLOWANCE_PAYER_DIS_2ND,
@@ -148,6 +148,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		}
 
 		private TaxingGuides(
+			uint validYear,
 			Int32 payerBasic,
 			Int32 payerDisab1,
 			Int32 payerDisab2,
@@ -164,7 +165,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			Int32 minToClaimBonus,
 			Int32 maxToSingleRound,
 			Int32 maxToWithholdTax,
-			Int32 minToSolidaryInc)
+			Int32 minToSolidaryInc) : base(validYear)
 		{
 			__PayerBasicAllowance = payerBasic;
 			__DisabilityDgr1Allowance = payerDisab1;

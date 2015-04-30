@@ -1,9 +1,12 @@
 using System;
+using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Engines.Taxing
 {
 	public interface ITaxingGuides
 	{
+		bool ValidatePeriod (MonthPeriod period);
+
 		Int32 PayerBasicAllowance ();
 
 		Int32 PayerDisabilityAllowance (byte inDegree);

@@ -20,9 +20,18 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		{
 		}
 
-		public static IEnginesHistory<ITaxingEngine> CreateEngines()
+		public static IEnginesHistory<ITaxingEngine> CreateInstance()
 		{
 			return new TaxingEnginesHistory();
+		}
+
+		public static IEnginesHistory<ITaxingEngine> CreateEngines()
+		{
+			IEnginesHistory<ITaxingEngine> engine = CreateInstance ();
+
+			engine.InitEngines ();
+
+			return engine;
 		}
 
 		#region implemented abstract members of GeneralEngines

@@ -20,9 +20,18 @@ namespace PayrolleeMate.EngineService.Engines.Health
 		{
 		}
 
-		public static IEnginesHistory<IHealthEngine> CreateEngines()
+		public static IEnginesHistory<IHealthEngine> CreateInstance()
 		{
 			return new HealthEnginesHistory();
+		}
+
+		public static IEnginesHistory<IHealthEngine> CreateEngines()
+		{
+			IEnginesHistory<IHealthEngine> engine = CreateInstance ();
+
+			engine.InitEngines ();
+
+			return engine;
 		}
 
 		#region implemented abstract members of GeneralEngines

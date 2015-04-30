@@ -26,15 +26,6 @@ namespace Tests.EngineService
 
 		private const string FULL_CLASS_NAME_2011 = NAME_SPACE_PREFIX + "." + CLASS_NAME_PREFIX + "2011";
 
-		private IEnginesHistory<ISocialEngine> CreateEngine()
-		{
-			IEnginesHistory<ISocialEngine> engine = SocialEnginesHistory.CreateEngines ();
-
-			engine.InitEngines ();
-
-			return engine;
-		}
-
 		[Test ()]
 		public void Should_return_SocialEngine2015_for_ClassName_when_Year_2015()
 		{          
@@ -48,7 +39,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_SocialEngine2015_for_DefaultEngine_when_Year_2015()
 		{
-			IEnginesHistory<ISocialEngine> engines = CreateEngine ();
+			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			ISocialEngine engine2015 = engines.DefaultEngine ();
 
@@ -58,7 +49,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_SocialEngine2015_for_ClassNameEngine_when_Year_2015()
 		{
-			IEnginesHistory<ISocialEngine> engines = CreateEngine ();
+			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			MonthPeriod period2015 = new MonthPeriod (2015, 1);
 
@@ -70,7 +61,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_SocialEngine2014_for_ClassNameEngine_when_Year_2014()
 		{
-			IEnginesHistory<ISocialEngine> engines = CreateEngine ();
+			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			MonthPeriod period2014 = new MonthPeriod (2014, 1);
 
@@ -82,7 +73,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_SocialEngine2013_for_ClassNameEngine_when_Year_2013()
 		{
-			IEnginesHistory<ISocialEngine> engines = CreateEngine ();
+			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			MonthPeriod period2013 = new MonthPeriod (2013, 1);
 
@@ -94,7 +85,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_SocialEngine2012_for_ClassNameEngine_when_Year_2012()
 		{
-			IEnginesHistory<ISocialEngine> engines = CreateEngine ();
+			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			MonthPeriod period2012 = new MonthPeriod (2012, 1);
 
@@ -106,7 +97,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_SocialEngine2011_for_ClassNameEngine_when_Year_2011()
 		{
-			IEnginesHistory<ISocialEngine> engines = CreateEngine ();
+			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 
 			MonthPeriod period2011 = new MonthPeriod (2011, 1);
 

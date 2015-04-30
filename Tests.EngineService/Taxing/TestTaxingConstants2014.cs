@@ -13,19 +13,10 @@ namespace Tests.EngineService
 	{
 		private static readonly MonthPeriod testPeriod = new MonthPeriod (2014, 1);
 
-		private IEnginesHistory<ITaxingEngine> CreateEngine()
-		{
-			IEnginesHistory<ITaxingEngine> engine = TaxingEnginesHistory.CreateEngines ();
-
-			engine.InitEngines ();
-
-			return engine;
-		}
-
 		[Test ()]
 		public void Should_return_Allowance_Constants_for_Taxing_Engine_when_Year_2015()
 		{          
-			IEnginesHistory<ITaxingEngine> engines = CreateEngine ();
+			IEnginesHistory<ITaxingEngine> engines = TaxingEnginesHistory.CreateEngines ();
 
 			ITaxingEngine engine = engines.ResolveEngine (testPeriod);
 
@@ -48,7 +39,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_Factor_Constants_for_Taxing_Engine_when_Year_2015()
 		{          
-			IEnginesHistory<ITaxingEngine> engines = CreateEngine ();
+			IEnginesHistory<ITaxingEngine> engines = TaxingEnginesHistory.CreateEngines ();
 
 			ITaxingEngine engine = engines.ResolveEngine (testPeriod);
 
@@ -60,7 +51,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_Minimum_Constants_for_Taxing_Engine_when_Year_2015()
 		{          
-			IEnginesHistory<ITaxingEngine> engines = CreateEngine ();
+			IEnginesHistory<ITaxingEngine> engines = TaxingEnginesHistory.CreateEngines ();
 
 			ITaxingEngine engine = engines.ResolveEngine (testPeriod);
 
@@ -72,7 +63,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_Maximum_Constants_for_Taxing_Engine_when_Year_2015()
 		{          
-			IEnginesHistory<ITaxingEngine> engines = CreateEngine ();
+			IEnginesHistory<ITaxingEngine> engines = TaxingEnginesHistory.CreateEngines ();
 
 			ITaxingEngine engine = engines.ResolveEngine (testPeriod);
 

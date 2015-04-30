@@ -4,6 +4,8 @@ namespace PayrolleeMate.EngineService.Constants
 {
 	class TaxingProperties2011
 	{
+		public const uint YEAR_2011 = 2011;
+
 		public const Int32 ALLOWANCE_PAYER_BASIC = 1970;
 		public const Int32 ALLOWANCE_PAYER_DIS_1ST = 210; 
 		public const Int32 ALLOWANCE_PAYER_DIS_2ND = 420;
@@ -25,6 +27,8 @@ namespace PayrolleeMate.EngineService.Constants
 
 	class TaxingProperties2012
 	{
+		public const uint YEAR_2012 = 2012;
+
 		public const Int32 ALLOWANCE_PAYER_BASIC = 2070;
 		public const Int32 ALLOWANCE_PAYER_DIS_1ST = TaxingProperties2011.ALLOWANCE_PAYER_DIS_1ST; 
 		public const Int32 ALLOWANCE_PAYER_DIS_2ND = TaxingProperties2011.ALLOWANCE_PAYER_DIS_2ND;
@@ -46,6 +50,8 @@ namespace PayrolleeMate.EngineService.Constants
 
 	class TaxingProperties2013
 	{
+		public const uint YEAR_2013 = 2013;
+
 		public const Int32 ALLOWANCE_PAYER_BASIC = TaxingProperties2012.ALLOWANCE_PAYER_BASIC;
 		public const Int32 ALLOWANCE_PAYER_DIS_1ST = TaxingProperties2012.ALLOWANCE_PAYER_DIS_1ST; 
 		public const Int32 ALLOWANCE_PAYER_DIS_2ND = TaxingProperties2012.ALLOWANCE_PAYER_DIS_2ND;
@@ -67,6 +73,8 @@ namespace PayrolleeMate.EngineService.Constants
 
 	class TaxingProperties2014
 	{
+		public const uint YEAR_2014 = 2014;
+
 		public const Int32 ALLOWANCE_PAYER_BASIC = TaxingProperties2013.ALLOWANCE_PAYER_BASIC;
 		public const Int32 ALLOWANCE_PAYER_DIS_1ST = TaxingProperties2013.ALLOWANCE_PAYER_DIS_1ST; 
 		public const Int32 ALLOWANCE_PAYER_DIS_2ND = TaxingProperties2013.ALLOWANCE_PAYER_DIS_2ND;
@@ -88,6 +96,8 @@ namespace PayrolleeMate.EngineService.Constants
 
 	class TaxingProperties2015
 	{
+		public const uint YEAR_2015 = 2015;
+
 		public const Int32 ALLOWANCE_PAYER_BASIC = TaxingProperties2014.ALLOWANCE_PAYER_BASIC;
 		public const Int32 ALLOWANCE_PAYER_DIS_1ST = TaxingProperties2014.ALLOWANCE_PAYER_DIS_1ST; 
 		public const Int32 ALLOWANCE_PAYER_DIS_2ND = TaxingProperties2014.ALLOWANCE_PAYER_DIS_2ND;

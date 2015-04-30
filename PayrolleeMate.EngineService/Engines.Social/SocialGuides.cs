@@ -3,7 +3,7 @@ using PayrolleeMate.EngineService.Constants;
 
 namespace PayrolleeMate.EngineService.Engines.Social
 {
-	public class SocialGuides : ISocialGuides
+	public class SocialGuides : EngineGeneralGuides, ISocialGuides
 	{
 		private readonly decimal __basicAnnualMaximum;
 		private readonly Int32 __basisMandatory;
@@ -15,7 +15,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		public static SocialGuides Guides2015()
 		{
-			return new SocialGuides (
+			return new SocialGuides (SocialProperties2015.YEAR_2015,
 				SocialProperties2015.BASIS_ANNUAL_MAXIMUM,
 				SocialProperties2015.BASIS_MANDATORY,
 				SocialProperties2015.FACTOR_EMPLOYER,
@@ -27,7 +27,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		public static SocialGuides Guides2014()
 		{
-			return new SocialGuides (
+			return new SocialGuides (SocialProperties2014.YEAR_2014,
 				SocialProperties2014.BASIS_ANNUAL_MAXIMUM,
 				SocialProperties2014.BASIS_MANDATORY,
 				SocialProperties2014.FACTOR_EMPLOYER,
@@ -39,7 +39,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		public static SocialGuides Guides2013()
 		{
-			return new SocialGuides (
+			return new SocialGuides (SocialProperties2013.YEAR_2013,
 				SocialProperties2013.BASIS_ANNUAL_MAXIMUM,
 				SocialProperties2013.BASIS_MANDATORY,
 				SocialProperties2013.FACTOR_EMPLOYER,
@@ -51,7 +51,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		public static SocialGuides Guides2012()
 		{
-			return new SocialGuides (
+			return new SocialGuides (SocialProperties2012.YEAR_2012,
 				SocialProperties2012.BASIS_ANNUAL_MAXIMUM,
 				SocialProperties2012.BASIS_MANDATORY,
 				SocialProperties2012.FACTOR_EMPLOYER,
@@ -63,7 +63,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		public static SocialGuides Guides2011()
 		{
-			return new SocialGuides (
+			return new SocialGuides (SocialProperties2011.YEAR_2011,
 				SocialProperties2011.BASIS_ANNUAL_MAXIMUM,
 				SocialProperties2011.BASIS_MANDATORY,
 				SocialProperties2011.FACTOR_EMPLOYER,
@@ -74,13 +74,14 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		}
 
 		private SocialGuides(
+			uint validYear,
 			decimal basicAnnual,
 			Int32 basisMandatory,
 			decimal factorEmployer,
 			decimal factorElevated,
 			decimal factorEmployee,
 			decimal factorPension,
-			decimal factorReduce)
+			decimal factorReduce) : base(validYear)
 		{
 			__basicAnnualMaximum = basicAnnual;
 			__basisMandatory = basisMandatory;

@@ -20,9 +20,18 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		{
 		}
 
-		public static IEnginesHistory<ISocialEngine> CreateEngines()
+		public static IEnginesHistory<ISocialEngine> CreateInstance()
 		{
 			return new SocialEnginesHistory();
+		}
+
+		public static IEnginesHistory<ISocialEngine> CreateEngines()
+		{
+			IEnginesHistory<ISocialEngine> engine = CreateInstance ();
+
+			engine.InitEngines ();
+
+			return engine;
 		}
 
 		#region implemented abstract members of GeneralEngines

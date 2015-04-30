@@ -45,6 +45,9 @@
     <Compile Include="Social\TestSocialConstants2014.cs" />
     <Compile Include="Health\TestHealthConstants2013.cs" />
     <Compile Include="Social\TestSocialConstants2013.cs" />
+    <Compile Include="Taxing\TestTaxingAdvances2015.cs" />
+    <Compile Include="Social\TestSocialAssesmentBase2015.cs" />
+    <Compile Include="Health\TestHealthAssesmentBase2015.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

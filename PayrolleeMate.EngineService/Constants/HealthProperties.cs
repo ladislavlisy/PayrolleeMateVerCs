@@ -4,6 +4,8 @@ namespace PayrolleeMate.EngineService.Constants
 {
 	class HealthProperties2011
 	{
+		public const uint YEAR_2011 = 2011;
+
 		public const Int32 BASIS_MANDATORY = 8000;
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = 1781280m;
@@ -17,6 +19,8 @@ namespace PayrolleeMate.EngineService.Constants
 
 	class HealthProperties2012
 	{
+		public const uint YEAR_2012 = 2012;
+
 		public const Int32 BASIS_MANDATORY = HealthProperties2011.BASIS_MANDATORY;
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = 1809864m;
@@ -30,6 +34,8 @@ namespace PayrolleeMate.EngineService.Constants
 
 	class HealthProperties2013
 	{
+		public const uint YEAR_2013 = 2013;
+
 		public const Int32 BASIS_MANDATORY_FROM_01_TO_07 = 8000;
 
 		public const Int32 BASIS_MANDATORY = 8500;
@@ -45,6 +51,8 @@ namespace PayrolleeMate.EngineService.Constants
 
 	class HealthProperties2014
 	{
+		public const uint YEAR_2014 = 2014;
+
 		public const Int32 BASIS_MANDATORY = 8500;
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = HealthProperties2013.BASIS_ANNUAL_MAXIMUM;
@@ -58,6 +66,8 @@ namespace PayrolleeMate.EngineService.Constants
 
 	class HealthProperties2015
 	{
+		public const uint YEAR_2015 = 2015;
+
 		public const Int32 BASIS_MANDATORY = 9200;
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = HealthProperties2014.BASIS_ANNUAL_MAXIMUM;
