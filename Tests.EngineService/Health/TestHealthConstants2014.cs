@@ -9,9 +9,9 @@ using PayrolleeMate.EngineService;
 namespace Tests.EngineService
 {
 	[TestFixture ()]
-	public class TestHealthConstants2015
+	public class TestHealthConstants2014
 	{
-		private static readonly MonthPeriod testPeriod = new MonthPeriod (2015, 1);
+		private static readonly MonthPeriod testPeriod = new MonthPeriod (2014, 1);
 
 		private IEnginesHistory<IHealthEngine> CreateEngine()
 		{
@@ -23,7 +23,7 @@ namespace Tests.EngineService
 		}
 
 		[Test ()]
-		public void Should_return_Factor_Constants_for_Health_Engine_when_Year_2015()
+		public void Should_return_Factor_Constants_for_Health_Engine_when_Year_2014()
 		{          
 			IEnginesHistory<IHealthEngine> engines = CreateEngine ();
 
@@ -35,17 +35,17 @@ namespace Tests.EngineService
 		}
 
 		[Test ()]
-		public void Should_return_Minimum_Constants_for_Health_Engine_when_Year_2015()
+		public void Should_return_Minimum_Constants_for_Health_Engine_when_Year_2014()
 		{          
 			IEnginesHistory<IHealthEngine> engines = CreateEngine ();
 
 			IHealthEngine engine = engines.ResolveEngine (testPeriod);
 
-			Assert.AreEqual( 9200, engine.PeriodMandatoryBasis(testPeriod));
+			Assert.AreEqual( 8500, engine.PeriodMandatoryBasis(testPeriod));
 		}
 
 		[Test ()]
-		public void Should_return_Maximum_Constants_for_Health_Engine_when_Year_2015()
+		public void Should_return_Maximum_Constants_for_Health_Engine_when_Year_2014()
 		{          
 			IEnginesHistory<IHealthEngine> engines = CreateEngine ();
 

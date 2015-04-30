@@ -28,49 +28,49 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		public static SocialGuides Guides2014()
 		{
 			return new SocialGuides (
-				SocialProperties2015.BASIS_ANNUAL_MAXIMUM,
-				SocialProperties2015.BASIS_MANDATORY,
-				SocialProperties2015.FACTOR_EMPLOYER,
-				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
-				SocialProperties2015.FACTOR_EMPLOYEE,
-				SocialProperties2015.FACTOR_EMPLOYEE_PENSION,
-				SocialProperties2015.FACTOR_REDUCE_PENSION);
+				SocialProperties2014.BASIS_ANNUAL_MAXIMUM,
+				SocialProperties2014.BASIS_MANDATORY,
+				SocialProperties2014.FACTOR_EMPLOYER,
+				SocialProperties2014.FACTOR_EMPLOYER_ELEVATED,
+				SocialProperties2014.FACTOR_EMPLOYEE,
+				SocialProperties2014.FACTOR_EMPLOYEE_PENSION,
+				SocialProperties2014.FACTOR_REDUCE_PENSION);
 		}
 
 		public static SocialGuides Guides2013()
 		{
 			return new SocialGuides (
-				SocialProperties2015.BASIS_ANNUAL_MAXIMUM,
-				SocialProperties2015.BASIS_MANDATORY,
-				SocialProperties2015.FACTOR_EMPLOYER,
-				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
-				SocialProperties2015.FACTOR_EMPLOYEE,
-				SocialProperties2015.FACTOR_EMPLOYEE_PENSION,
-				SocialProperties2015.FACTOR_REDUCE_PENSION);
+				SocialProperties2013.BASIS_ANNUAL_MAXIMUM,
+				SocialProperties2013.BASIS_MANDATORY,
+				SocialProperties2013.FACTOR_EMPLOYER,
+				SocialProperties2013.FACTOR_EMPLOYER_ELEVATED,
+				SocialProperties2013.FACTOR_EMPLOYEE,
+				SocialProperties2013.FACTOR_EMPLOYEE_PENSION,
+				SocialProperties2013.FACTOR_REDUCE_PENSION);
 		}
 
 		public static SocialGuides Guides2012()
 		{
 			return new SocialGuides (
-				SocialProperties2015.BASIS_ANNUAL_MAXIMUM,
-				SocialProperties2015.BASIS_MANDATORY,
-				SocialProperties2015.FACTOR_EMPLOYER,
-				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
-				SocialProperties2015.FACTOR_EMPLOYEE,
-				SocialProperties2015.FACTOR_EMPLOYEE_PENSION,
-				SocialProperties2015.FACTOR_REDUCE_PENSION);
+				SocialProperties2012.BASIS_ANNUAL_MAXIMUM,
+				SocialProperties2012.BASIS_MANDATORY,
+				SocialProperties2012.FACTOR_EMPLOYER,
+				SocialProperties2012.FACTOR_EMPLOYER_ELEVATED,
+				SocialProperties2012.FACTOR_EMPLOYEE,
+				SocialProperties2012.FACTOR_EMPLOYEE_PENSION,
+				SocialProperties2012.FACTOR_REDUCE_PENSION);
 		}
 
 		public static SocialGuides Guides2011()
 		{
 			return new SocialGuides (
-				SocialProperties2015.BASIS_ANNUAL_MAXIMUM,
-				SocialProperties2015.BASIS_MANDATORY,
-				SocialProperties2015.FACTOR_EMPLOYER,
-				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
-				SocialProperties2015.FACTOR_EMPLOYEE,
-				SocialProperties2015.FACTOR_EMPLOYEE_PENSION,
-				SocialProperties2015.FACTOR_REDUCE_PENSION);
+				SocialProperties2011.BASIS_ANNUAL_MAXIMUM,
+				SocialProperties2011.BASIS_MANDATORY,
+				SocialProperties2011.FACTOR_EMPLOYER,
+				SocialProperties2011.FACTOR_EMPLOYER_ELEVATED,
+				SocialProperties2011.FACTOR_EMPLOYEE,
+				SocialProperties2011.FACTOR_EMPLOYEE_PENSION,
+				SocialProperties2011.FACTOR_REDUCE_PENSION);
 		}
 
 		private SocialGuides(

@@ -96,17 +96,17 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		#region IPeriodSocialGuides implementation
 
-		public Int32 PeriodMandatoryBasis (MonthPeriod period)
+		public virtual Int32 PeriodMandatoryBasis (MonthPeriod period)
 		{
 			return __guides.MandatoryBasis();
 		}
 
-		public decimal PeriodMaximumAnnualBasis(MonthPeriod period)
+		public virtual decimal PeriodMaximumAnnualBasis(MonthPeriod period)
 		{
 			return __guides.MaximumAnnualBasis();
 		}
 
-		public decimal PeriodEmployeeFactor(MonthPeriod period, bool isPension2sScheme)
+		public virtual decimal PeriodEmployeeFactor(MonthPeriod period, bool isPension2sScheme)
 		{
 			decimal reduceFactor = decimal.Zero;
 			if (isPension2sScheme) 
@@ -118,12 +118,12 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			return decimal.Subtract(employeeFactor, reduceFactor);
 		}
 
-		public decimal PeriodEmployeeFactor (MonthPeriod period)
+		public virtual decimal PeriodEmployeeFactor (MonthPeriod period)
 		{
 			return __guides.EmployeeFactor();
 		}
 
-		public decimal PeriodEmployeePensionsFactor(MonthPeriod period, bool isPension2sScheme)
+		public virtual decimal PeriodEmployeePensionsFactor(MonthPeriod period, bool isPension2sScheme)
 		{
 			decimal pensionFactor = decimal.Zero;
 			if (isPension2sScheme) 
@@ -133,22 +133,22 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			return pensionFactor;
 		}
 
-		public decimal PeriodEmployeePensionsFactor (MonthPeriod period)
+		public virtual decimal PeriodEmployeePensionsFactor (MonthPeriod period)
 		{
 			return __guides.EmployeePensionsFactor();
 		}
 
-		public decimal PeriodPensionsReduceFactor (MonthPeriod period)
+		public virtual decimal PeriodPensionsReduceFactor (MonthPeriod period)
 		{
 			return __guides.PensionsReduceFactor();
 		}
 
-		public decimal PeriodEmployerFactor (MonthPeriod period)
+		public virtual decimal PeriodEmployerFactor (MonthPeriod period)
 		{
 			return __guides.EmployerFactor();
 		}
 
-		public decimal PeriodEmployerElevatedFactor (MonthPeriod period)
+		public virtual decimal PeriodEmployerElevatedFactor (MonthPeriod period)
 		{
 			return __guides.EmployerElevatedFactor();
 		}

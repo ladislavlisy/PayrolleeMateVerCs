@@ -106,7 +106,7 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 		#region IPeriodHealthGuides implementation
 
-		public Int32 PeriodMandatoryBasis (MonthPeriod period, bool isMinBaseRequired)
+		public virtual Int32 PeriodMandatoryBasis (MonthPeriod period, bool isMinBaseRequired)
 		{
 			if (isMinBaseRequired) 
 			{
@@ -115,27 +115,27 @@ namespace PayrolleeMate.EngineService.Engines.Health
 			return 0;
 		}
 
-		public Int32 PeriodMandatoryBasis (MonthPeriod period)
+		public virtual Int32 PeriodMandatoryBasis (MonthPeriod period)
 		{
 			return __guides.MandatoryBasis();
 		}
 
-		public decimal PeriodMaximumAnnualBasis (MonthPeriod period)
+		public virtual decimal PeriodMaximumAnnualBasis (MonthPeriod period)
 		{
 			return __guides.MaximumAnnualBasis();
 		}
 
-		public decimal PeriodEmployerFactor (MonthPeriod period)
+		public virtual decimal PeriodEmployerFactor (MonthPeriod period)
 		{
 			return __guides.EmployerFactor();
 		}
 
-		public decimal PeriodEmployeeFactor (MonthPeriod period)
+		public virtual decimal PeriodEmployeeFactor (MonthPeriod period)
 		{
 			return __guides.EmployeeFactor();
 		}
 
-		public decimal PeriodCompoundFactor (MonthPeriod period)
+		public virtual decimal PeriodCompoundFactor (MonthPeriod period)
 		{
 			return __guides.CompoundFactor();
 		}

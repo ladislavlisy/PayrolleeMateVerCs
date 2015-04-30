@@ -30,6 +30,8 @@ namespace PayrolleeMate.EngineService.Constants
 
 	class HealthProperties2013
 	{
+		public const Int32 BASIS_MANDATORY_FROM_01_TO_07 = 8000;
+
 		public const Int32 BASIS_MANDATORY = 8500;
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = 0m;

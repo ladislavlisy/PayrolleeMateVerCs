@@ -14,7 +14,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			__guides = currentGuides.Clone() as TaxingGuides;
 		}
 
-		#region ITaxingGuides implementation
+		#region ITaxingEngine implementation
 
 		// AdvancesTax
 		public Int32 AdvancesResult(MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis)
@@ -200,102 +200,102 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		#region IPeriodTaxingGuides implementation
 
-		public Int32 PeriodPayerBasicAllowance(MonthPeriod period) 
+		public virtual Int32 PeriodPayerBasicAllowance(MonthPeriod period) 
 		{
 			return __guides.PayerBasicAllowance();
 		}
 
-		public Int32 PeriodPayerDisabilityAllowance (MonthPeriod period, byte inDegree)
+		public virtual Int32 PeriodPayerDisabilityAllowance (MonthPeriod period, byte inDegree)
 		{
 			return __guides.PayerDisabilityAllowance(inDegree); 
 		}
 
-		public Int32 PeriodDisabilityDgr1Allowance(MonthPeriod period) 
+		public virtual Int32 PeriodDisabilityDgr1Allowance(MonthPeriod period) 
 		{ 
 			return __guides.DisabilityDgr1Allowance(); 
 		}
 
-		public Int32 PeriodDisabilityDgr2Allowance(MonthPeriod period) 
+		public virtual Int32 PeriodDisabilityDgr2Allowance(MonthPeriod period) 
 		{ 
 			return __guides.DisabilityDgr2Allowance(); 
 		}
 
-		public Int32 PeriodDisabilityDgr3Allowance(MonthPeriod period) 
+		public virtual Int32 PeriodDisabilityDgr3Allowance(MonthPeriod period) 
 		{ 
 			return __guides.DisabilityDgr3Allowance(); 
 		}
 
-		public Int32 PeriodStudyingAllowance(MonthPeriod period) 
+		public virtual Int32 PeriodStudyingAllowance(MonthPeriod period) 
 		{ 
 			return __guides.StudyingAllowance(); 
 		}
 
-		public Int32 PeriodChildrenAllowance (MonthPeriod period, byte rank, bool disability)
+		public virtual Int32 PeriodChildrenAllowance (MonthPeriod period, byte rank, bool disability)
 		{
 			return __guides.ChildrenAllowance(rank, disability); 
 		}
 
-		public Int32 PeriodChildrenRank1stAllowance(MonthPeriod period) 
+		public virtual Int32 PeriodChildrenRank1stAllowance(MonthPeriod period) 
 		{ 
 			return __guides.ChildrenRank1stAllowance(); 
 		}
 
-		public Int32 PeriodChildrenRank2ndAllowance(MonthPeriod period) 
+		public virtual Int32 PeriodChildrenRank2ndAllowance(MonthPeriod period) 
 		{ 
 			return __guides.ChildrenRank2ndAllowance(); 
 		}
 
-		public Int32 PeriodChildrenRank3rdAllowance(MonthPeriod period) 
+		public virtual Int32 PeriodChildrenRank3rdAllowance(MonthPeriod period) 
 		{ 
 			return __guides.ChildrenRank3rdAllowance(); 
 		}
 
-		public decimal PeriodAdvancesFactor(MonthPeriod period) 
+		public virtual decimal PeriodAdvancesFactor(MonthPeriod period) 
 		{ 
 			return __guides.AdvancesFactor(); 
 		}
 
-		public decimal PeriodWithholdFactor(MonthPeriod period) 
+		public virtual decimal PeriodWithholdFactor(MonthPeriod period) 
 		{ 
 			return __guides.WithholdFactor(); 
 		}
 
-		public decimal PeriodSolidaryFactor(MonthPeriod period) 
+		public virtual decimal PeriodSolidaryFactor(MonthPeriod period) 
 		{ 
 			return __guides.SolidaryFactor(); 
 		}
 
-		public Int32 PeriodMinimumValidAmountOfTaxBonus(MonthPeriod period) 
+		public virtual Int32 PeriodMinimumValidAmountOfTaxBonus(MonthPeriod period) 
 		{ 
 			return __guides.MinimumValidAmountOfTaxBonus(); 
 		}
 
-		public Int32 PeriodMaximumValidAmountOfTaxBonus(MonthPeriod period) 
+		public virtual Int32 PeriodMaximumValidAmountOfTaxBonus(MonthPeriod period) 
 		{ 
 			return __guides.MaximumValidAmountOfTaxBonus(); 
 		}
 
-		public Int32 PeriodMinimumIncomeRequiredForTaxBonus(MonthPeriod period) 
+		public virtual Int32 PeriodMinimumIncomeRequiredForTaxBonus(MonthPeriod period) 
 		{ 
 			return __guides.MinimumIncomeRequiredForTaxBonus(); 
 		}
 
-		public Int32 PeriodMaximumIncomeToApplyRoundingToSingles(MonthPeriod period) 
+		public virtual Int32 PeriodMaximumIncomeToApplyRoundingToSingles(MonthPeriod period) 
 		{ 
 			return __guides.MaximumIncomeToApplyRoundingToSingles(); 
 		}
 
-		public Int32 PeriodMaximumIncomeToApplyWithholdTax(MonthPeriod period) 
+		public virtual Int32 PeriodMaximumIncomeToApplyWithholdTax(MonthPeriod period) 
 		{ 
 			return __guides.MaximumIncomeToApplyWithholdTax(); 
 		}
 
-		public Int32 PeriodMinimumIncomeToApplySolidaryIncrease(MonthPeriod period) 
+		public virtual Int32 PeriodMinimumIncomeToApplySolidaryIncrease(MonthPeriod period) 
 		{ 
 			return __guides.MinimumIncomeToApplySolidaryIncrease(); 
 		}
 
-		public bool PeriodSolidaryIncreaseEnabled(MonthPeriod period) 
+		public virtual bool PeriodSolidaryIncreaseEnabled(MonthPeriod period) 
 		{ 
 			return __guides.SolidaryIncreaseEnabled(); 
 		}
