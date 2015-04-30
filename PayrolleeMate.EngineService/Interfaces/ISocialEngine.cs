@@ -4,7 +4,7 @@ using PayrolleeMate.EngineService.Engines.Social;
 
 namespace PayrolleeMate.EngineService.Interfaces
 {
-	public interface ISocialEngine
+	public interface ISocialEngine : IPeriodSocialGuides
 	{
 		ISocialGuides Guides ();
 

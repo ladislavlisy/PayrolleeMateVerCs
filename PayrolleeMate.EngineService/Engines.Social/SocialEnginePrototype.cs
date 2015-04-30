@@ -6,7 +6,7 @@ using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Engines.Social
 {
-	public class SocialEnginePrototype : ISocialEngine, ISocialGuides
+	public class SocialEnginePrototype : ISocialEngine
 	{
 		public const bool PENSION_SCHEME_YES = true;
 
@@ -94,35 +94,63 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		#endregion
 
-		#region ISocialGuides implementation
+		#region IPeriodSocialGuides implementation
 
-		public Int32 MandatoryBasis ()
+		public Int32 PeriodMandatoryBasis (MonthPeriod period)
 		{
 			return __guides.MandatoryBasis();
 		}
-		public decimal MaximumAnnualBasis ()
+
+		public decimal PeriodMaximumAnnualBasis(MonthPeriod period)
 		{
 			return __guides.MaximumAnnualBasis();
 		}
-		public decimal EmployeeFactor ()
+
+		public decimal PeriodEmployeeFactor(MonthPeriod period, bool isPension2sScheme)
+		{
+			decimal reduceFactor = decimal.Zero;
+			if (isPension2sScheme) 
+			{
+				reduceFactor = PeriodPensionsReduceFactor (period);
+			}
+			decimal employeeFactor = PeriodEmployeeFactor (period);
+
+			return decimal.Subtract(employeeFactor, reduceFactor);
+		}
+
+		public decimal PeriodEmployeeFactor (MonthPeriod period)
 		{
 			return __guides.EmployeeFactor();
 		}
-		public decimal EmployeePensionsFactor ()
+
+		public decimal PeriodEmployeePensionsFactor(MonthPeriod period, bool isPension2sScheme)
+		{
+			decimal pensionFactor = decimal.Zero;
+			if (isPension2sScheme) 
+			{
+				pensionFactor = PeriodEmployeePensionsFactor (period);
+			}
+			return pensionFactor;
+		}
+
+		public decimal PeriodEmployeePensionsFactor (MonthPeriod period)
 		{
 			return __guides.EmployeePensionsFactor();
 		}
-		public decimal PensionsReduceFactor ()
+
+		public decimal PeriodPensionsReduceFactor (MonthPeriod period)
 		{
 			return __guides.PensionsReduceFactor();
 		}
-		public decimal EmployerFactor ()
+
+		public decimal PeriodEmployerFactor (MonthPeriod period)
 		{
 			return __guides.EmployerFactor();
 		}
-		public decimal EmployerExemptionFactor ()
+
+		public decimal PeriodEmployerElevatedFactor (MonthPeriod period)
 		{
-			return __guides.EmployerExemptionFactor();
+			return __guides.EmployerElevatedFactor();
 		}
 
 		#endregion
@@ -170,36 +198,6 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			decimal assesmentBase = SocialOperations.MinMaxValue(roundedBase, accumulatedBase, maxSocialLimit);
 
 			return assesmentBase;
-		}
-
-		private decimal PeriodEmployeeFactor(MonthPeriod period, bool isPension2sScheme)
-		{
-			decimal reduceFactor = decimal.Zero;
-			if (isPension2sScheme) 
-			{
-				reduceFactor = __guides.PensionsReduceFactor();
-			}
-			return decimal.Subtract(__guides.EmployeeFactor(), reduceFactor);
-		}
-
-		private decimal PeriodEmployerFactor(MonthPeriod period)
-		{
-			return __guides.EmployerFactor();
-		}
-
-		private decimal PeriodEmployeePensionsFactor(MonthPeriod period, bool isPension2sScheme)
-		{
-			decimal pensionFactor = decimal.Zero;
-			if (isPension2sScheme) 
-			{
-				pensionFactor = __guides.EmployeePensionsFactor();
-			}
-			return pensionFactor;
-		}
-
-		private decimal PeriodMaximumAnnualBasis(MonthPeriod period)
-		{
-			return __guides.MaximumAnnualBasis();
 		}
 
 	}

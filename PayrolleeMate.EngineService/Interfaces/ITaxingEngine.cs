@@ -4,7 +4,7 @@ using PayrolleeMate.EngineService.Engines.Taxing;
 
 namespace PayrolleeMate.EngineService.Interfaces
 {
-	public interface ITaxingEngine
+	public interface ITaxingEngine : IPeriodTaxingGuides
 	{
 		ITaxingGuides Guides();
 

@@ -4,7 +4,7 @@ using PayrolleeMate.EngineService.Engines.Health;
 
 namespace PayrolleeMate.EngineService.Interfaces
 {
-	public interface IHealthEngine
+	public interface IHealthEngine : IPeriodHealthGuides
 	{
 		IHealthGuides Guides ();
 

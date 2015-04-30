@@ -8,7 +8,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		private readonly decimal __basicAnnualMaximum;
 		private readonly Int32 __basisMandatory;
 		private readonly decimal __factorEmployer;
-		private readonly decimal __factorEmployerExemption;
+		private readonly decimal __factorEmployerElevated;
 		private readonly decimal __factorEmployee;
 		private readonly decimal __factorEmployeePension;
 		private readonly decimal __factorPensionReduce;
@@ -19,7 +19,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2015.BASIS_ANNUAL_MAXIMUM,
 				SocialProperties2015.BASIS_MANDATORY,
 				SocialProperties2015.FACTOR_EMPLOYER,
-				SocialProperties2015.FACTOR_EMPLOYER_EXEMPTION,
+				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2015.FACTOR_EMPLOYEE,
 				SocialProperties2015.FACTOR_EMPLOYEE_PENSION,
 				SocialProperties2015.FACTOR_REDUCE_PENSION);
@@ -31,7 +31,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2015.BASIS_ANNUAL_MAXIMUM,
 				SocialProperties2015.BASIS_MANDATORY,
 				SocialProperties2015.FACTOR_EMPLOYER,
-				SocialProperties2015.FACTOR_EMPLOYER_EXEMPTION,
+				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2015.FACTOR_EMPLOYEE,
 				SocialProperties2015.FACTOR_EMPLOYEE_PENSION,
 				SocialProperties2015.FACTOR_REDUCE_PENSION);
@@ -43,7 +43,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2015.BASIS_ANNUAL_MAXIMUM,
 				SocialProperties2015.BASIS_MANDATORY,
 				SocialProperties2015.FACTOR_EMPLOYER,
-				SocialProperties2015.FACTOR_EMPLOYER_EXEMPTION,
+				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2015.FACTOR_EMPLOYEE,
 				SocialProperties2015.FACTOR_EMPLOYEE_PENSION,
 				SocialProperties2015.FACTOR_REDUCE_PENSION);
@@ -55,7 +55,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2015.BASIS_ANNUAL_MAXIMUM,
 				SocialProperties2015.BASIS_MANDATORY,
 				SocialProperties2015.FACTOR_EMPLOYER,
-				SocialProperties2015.FACTOR_EMPLOYER_EXEMPTION,
+				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2015.FACTOR_EMPLOYEE,
 				SocialProperties2015.FACTOR_EMPLOYEE_PENSION,
 				SocialProperties2015.FACTOR_REDUCE_PENSION);
@@ -67,7 +67,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2015.BASIS_ANNUAL_MAXIMUM,
 				SocialProperties2015.BASIS_MANDATORY,
 				SocialProperties2015.FACTOR_EMPLOYER,
-				SocialProperties2015.FACTOR_EMPLOYER_EXEMPTION,
+				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2015.FACTOR_EMPLOYEE,
 				SocialProperties2015.FACTOR_EMPLOYEE_PENSION,
 				SocialProperties2015.FACTOR_REDUCE_PENSION);
@@ -77,7 +77,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			decimal basicAnnual,
 			Int32 basisMandatory,
 			decimal factorEmployer,
-			decimal factorExemption,
+			decimal factorElevated,
 			decimal factorEmployee,
 			decimal factorPension,
 			decimal factorReduce)
@@ -85,7 +85,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			__basicAnnualMaximum = basicAnnual;
 			__basisMandatory = basisMandatory;
 			__factorEmployer = factorEmployer;
-			__factorEmployerExemption = factorExemption;
+			__factorEmployerElevated = factorElevated;
 			__factorEmployee = factorEmployee;
 			__factorEmployeePension = factorPension;
 			__factorPensionReduce = factorReduce;
@@ -121,9 +121,9 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			return __factorEmployer;
 		}
 
-		public decimal EmployerExemptionFactor () 
+		public decimal EmployerElevatedFactor () 
 		{
-			return __factorEmployerExemption;
+			return __factorEmployerElevated;
 		}
 
 		public virtual object Clone()

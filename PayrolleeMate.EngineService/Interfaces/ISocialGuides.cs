@@ -17,7 +17,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		decimal EmployerFactor ();
 
-		decimal EmployerExemptionFactor ();
+		decimal EmployerElevatedFactor ();
 
 	}
 

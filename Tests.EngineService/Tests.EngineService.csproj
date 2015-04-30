@@ -37,6 +37,10 @@
     <Compile Include="Taxing\TestTaxingService.cs" />
     <Compile Include="Taxing\TestTaxingConstants2015.cs" />
     <Compile Include="Taxing\TestTaxingConstants2014.cs" />
+    <Compile Include="Health\TestHealthConstants2015.cs" />
+    <Compile Include="Social\TestSocialConstants2015.cs" />
+    <Compile Include="Social\TestSocialService.cs" />
+    <Compile Include="Health\TestHealthService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -44,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Taxing\" />
+    <Folder Include="Social\" />
+    <Folder Include="Health\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PayrolleeMate.EngineService\PayrolleeMate.EngineService.csproj">

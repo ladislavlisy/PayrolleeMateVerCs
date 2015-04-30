@@ -8,9 +8,9 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = 1781280m;
 
-		public const decimal FACTOR_EMPLOYER = 26.0m;
+		public const decimal FACTOR_EMPLOYER = 25.0m;
 
-		public const decimal FACTOR_EMPLOYER_EXEMPTION = 1.0m;
+		public const decimal FACTOR_EMPLOYER_ELEVATED = 26.0m;
 
 		public const decimal FACTOR_EMPLOYEE = 6.5m;
 
@@ -27,7 +27,7 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal FACTOR_EMPLOYER = SocialProperties2011.FACTOR_EMPLOYER;
 
-		public const decimal FACTOR_EMPLOYER_EXEMPTION = SocialProperties2011.FACTOR_EMPLOYER_EXEMPTION;
+		public const decimal FACTOR_EMPLOYER_ELEVATED = SocialProperties2011.FACTOR_EMPLOYER_ELEVATED;
 
 		public const decimal FACTOR_EMPLOYEE = SocialProperties2011.FACTOR_EMPLOYEE;
 
@@ -44,7 +44,7 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal FACTOR_EMPLOYER = SocialProperties2012.FACTOR_EMPLOYER;
 
-		public const decimal FACTOR_EMPLOYER_EXEMPTION = SocialProperties2012.FACTOR_EMPLOYER_EXEMPTION;
+		public const decimal FACTOR_EMPLOYER_ELEVATED = SocialProperties2012.FACTOR_EMPLOYER_ELEVATED;
 
 		public const decimal FACTOR_EMPLOYEE = SocialProperties2012.FACTOR_EMPLOYEE;
 
@@ -61,7 +61,7 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal FACTOR_EMPLOYER = SocialProperties2013.FACTOR_EMPLOYER;
 
-		public const decimal FACTOR_EMPLOYER_EXEMPTION = SocialProperties2013.FACTOR_EMPLOYER_EXEMPTION;
+		public const decimal FACTOR_EMPLOYER_ELEVATED = SocialProperties2013.FACTOR_EMPLOYER_ELEVATED;
 
 		public const decimal FACTOR_EMPLOYEE = SocialProperties2013.FACTOR_EMPLOYEE;
 
@@ -78,7 +78,7 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal FACTOR_EMPLOYER = SocialProperties2014.FACTOR_EMPLOYER;
 
-		public const decimal FACTOR_EMPLOYER_EXEMPTION = 0.0m;
+		public const decimal FACTOR_EMPLOYER_ELEVATED = 25.0m;
 
 		public const decimal FACTOR_EMPLOYEE = SocialProperties2014.FACTOR_EMPLOYEE;
 

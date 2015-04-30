@@ -6,7 +6,7 @@ using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Engines.Health
 {
-	public class HealthEnginePrototype : IHealthEngine, IHealthGuides
+	public class HealthEnginePrototype : IHealthEngine
 	{
 		public HealthEnginePrototype  (HealthGuides currentGuides)
 		{
@@ -104,25 +104,38 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 		#endregion
 
-		#region IHealthGuides implementation
+		#region IPeriodHealthGuides implementation
 
-		public Int32 MandatoryBasis ()
+		public Int32 PeriodMandatoryBasis (MonthPeriod period, bool isMinBaseRequired)
+		{
+			if (isMinBaseRequired) 
+			{
+				return PeriodMandatoryBasis (period);
+			}
+			return 0;
+		}
+
+		public Int32 PeriodMandatoryBasis (MonthPeriod period)
 		{
 			return __guides.MandatoryBasis();
 		}
-		public decimal MaximumAnnualBasis ()
+
+		public decimal PeriodMaximumAnnualBasis (MonthPeriod period)
 		{
 			return __guides.MaximumAnnualBasis();
 		}
-		public decimal EmployerFactor ()
+
+		public decimal PeriodEmployerFactor (MonthPeriod period)
 		{
 			return __guides.EmployerFactor();
 		}
-		public decimal EmployeeFactor ()
+
+		public decimal PeriodEmployeeFactor (MonthPeriod period)
 		{
 			return __guides.EmployeeFactor();
 		}
-		public decimal CompoundFactor ()
+
+		public decimal PeriodCompoundFactor (MonthPeriod period)
 		{
 			return __guides.CompoundFactor();
 		}
@@ -175,34 +188,6 @@ namespace PayrolleeMate.EngineService.Engines.Health
 			return compoundBasis;
 		}
 
-		public Int32 PeriodMandatoryBasis (MonthPeriod period, bool isMinBaseRequired)
-		{
-			if (isMinBaseRequired) 
-			{
-				return __guides.MandatoryBasis ();
-			}
-			return 0;
-		}
-
-		public decimal PeriodMaximumAnnualBasis (MonthPeriod period)
-		{
-			return __guides.MaximumAnnualBasis();
-		}
-
-		public decimal PeriodEmployerFactor (MonthPeriod period)
-		{
-			return __guides.EmployerFactor();
-		}
-
-		public decimal PeriodEmployeeFactor (MonthPeriod period)
-		{
-			return __guides.EmployeeFactor();
-		}
-
-		public decimal PeriodCompoundFactor (MonthPeriod period)
-		{
-			return __guides.CompoundFactor();
-		}
 	}
 }
 
