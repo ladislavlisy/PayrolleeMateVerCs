@@ -48,6 +48,19 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			return roundedResult;
 		}
 
+		public decimal BasisLegalCapBalance (MonthPeriod period, decimal accumulBasis, decimal actualBasis)
+		{
+			decimal maxHealthLimit = PeriodMaximumAnnualBasis (period);
+
+			decimal calculatedBase = Math.Max (0m, actualBasis);
+
+			decimal balancedResult = HealthOperations.MaxValueAlign(calculatedBase, accumulBasis, maxHealthLimit);
+
+			decimal legalCapsBasis = Math.Max(0, decimal.Subtract(calculatedBase, balancedResult));
+
+			return legalCapsBasis;
+		}
+
 		// EmployeeRegularContribution
 		public decimal EmployeeRegularContribution(MonthPeriod period, decimal employeeBase)
 		{
@@ -184,7 +197,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		private Int32 EmployeeContributionWithFactor(decimal employeeBase, decimal employeeFactor)
 		{
-			decimal decimalResult = DecOperations.Multiply (employeeBase, employeeFactor);
+			decimal decimalResult = SocialOperations.DecFactorResult (employeeBase, employeeFactor);
 
 			Int32 roundedResult = SocialOperations.IntRoundUp(decimalResult);
 
@@ -193,7 +206,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		private Int32 EmployerContributionWithFactor(decimal employerBase, decimal employerFactor)
 		{
-			decimal decimalResult = DecOperations.Multiply (employerBase, employerFactor);
+			decimal decimalResult = SocialOperations.DecFactorResult (employerBase, employerFactor);
 
 			Int32 roundedResult = SocialOperations.IntRoundUp(decimalResult);
 
@@ -202,7 +215,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		private Int32 PensionContributionWithFactor(decimal employeeBase, decimal employeeFactor)
 		{
-			decimal decimalResult = DecOperations.Multiply (employeeBase, employeeFactor);
+			decimal decimalResult = SocialOperations.DecFactorResult (employeeBase, employeeFactor);
 
 			Int32 roundedResult = SocialOperations.IntRoundUp(decimalResult);
 

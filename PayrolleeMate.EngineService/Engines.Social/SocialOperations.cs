@@ -26,6 +26,11 @@ namespace PayrolleeMate.EngineService
 			return IntRounding.RoundDown(valueDec);
 		}
 
+		public static decimal DecFactorResult(decimal valueDec, decimal factor)
+		{
+			return DecOperations.MultiplyAndDivide(valueDec, factor, 100m);
+		}
+
 		public static decimal MinMaxValue (decimal valueToMinMax, decimal accumulValue, decimal maxLimitTo)
 		{
 			return DecOperations.MinIncMaxDecValue(valueToMinMax, accumulValue, 0m, maxLimitTo);

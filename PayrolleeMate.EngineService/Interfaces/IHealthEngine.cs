@@ -16,7 +16,11 @@ namespace PayrolleeMate.EngineService.Interfaces
 
 		decimal BasisMandatoryBalance (MonthPeriod period, bool dutyMandatory, decimal valResult);
 
-		Int32 EmployeeContribution (MonthPeriod period, decimal generalBasis, decimal employeeBasis);
+		decimal BasisLegalCapBalance (MonthPeriod period, decimal accumulBasis, decimal actualBasis);
+
+		decimal EmployeeGeneralContribution (MonthPeriod period, bool negSuppress, decimal generalBasis);
+
+		decimal EmployeeMandatoryContribution (MonthPeriod period, bool negSuppress, decimal generalBasis, decimal mandatoryBasis);
 
 		Int32 EmployerContribution (MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis);
 

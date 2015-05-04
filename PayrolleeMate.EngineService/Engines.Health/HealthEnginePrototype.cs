@@ -55,26 +55,55 @@ namespace PayrolleeMate.EngineService.Engines.Health
 			return mandatoryBasis;
 		}
 
-		// EmployeeContribution
-		public Int32 EmployeeContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis)
+		public decimal BasisLegalCapBalance (MonthPeriod period, decimal accumulBasis, decimal actualBasis)
 		{
-			decimal employeeFactor = PeriodEmployeeFactor (period);
+			decimal maxHealthLimit = PeriodMaximumAnnualBasis (period);
 
-			decimal employerFactor = PeriodEmployerFactor (period);
+			decimal calculatedBase = Math.Max (0m, actualBasis);
 
-			Int32 resultPaymentValue = EmployeeContributionWithFactor(generalBasis, employeeBasis, employeeFactor, employerFactor);
+			decimal balancedResult = HealthOperations.MaxValueAlign(calculatedBase, accumulBasis, maxHealthLimit);
 
-			return resultPaymentValue;
+			decimal legalCapsBasis = Math.Max(0, decimal.Subtract(calculatedBase, balancedResult));
+
+			return legalCapsBasis;
 		}
+
+		public decimal EmployeeGeneralContribution (MonthPeriod period, bool negSuppress, decimal generalBasis)
+		{
+			decimal compoundFactor = PeriodCompoundFactor (period);
+
+			decimal calculatedBase = HealthOperations.DecSuppressNegative (negSuppress, generalBasis);
+
+			decimal mandatoryNones = 0m;
+
+			Int32 resultGeneralValue = EmployeeContributionWithFactor(calculatedBase, mandatoryNones, compoundFactor);
+
+			return resultGeneralValue;
+		}
+
+		public decimal EmployeeMandatoryContribution (MonthPeriod period, bool negSuppress, decimal generalBasis, decimal mandatoryBasis)
+		{
+			decimal compoundFactor = PeriodCompoundFactor (period);
+
+			decimal calculatedBase = HealthOperations.DecSuppressNegative (negSuppress, generalBasis);
+
+			decimal mandatoryNones = 0m;
+
+			Int32 resultGeneralValue = EmployeeContributionWithFactor(calculatedBase, mandatoryNones, compoundFactor);
+
+			Int32 resultCompletValue = EmployeeContributionWithFactor(calculatedBase, mandatoryBasis, compoundFactor);
+
+			return (resultCompletValue - resultGeneralValue);
+		}
+
+		// EmployeeContribution
 
 		// EmployerContribution
 		public Int32 EmployerContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis)
 		{
-			decimal employeeFactor = PeriodEmployeeFactor (period);
+			decimal compoundFactor = PeriodCompoundFactor (period);
 
-			decimal employerFactor = PeriodEmployerFactor (period);
-
-			Int32 resultPaymentValue = EmployerContributionWithFactor(generalBasis, employeeBasis, employerBasis, employeeFactor, employerFactor);
+			Int32 resultPaymentValue = EmployerContributionWithFactor(generalBasis, employeeBasis, employerBasis, compoundFactor);
 
 			return resultPaymentValue;
 		}
@@ -82,13 +111,11 @@ namespace PayrolleeMate.EngineService.Engines.Health
 		// CompoundContribution
 		public Int32 CompoundContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis)
 		{
-			decimal employeeFactor = PeriodEmployeeFactor (period);
-
-			decimal employerFactor = PeriodEmployerFactor (period);
+			decimal compoundFactor = PeriodCompoundFactor (period);
 
 			decimal compoundBasis = CompoundBasis(generalBasis, employeeBasis, employerBasis);
 
-			Int32 resultPaymentValue = CompoundContributionWithFactor(compoundBasis, employeeFactor, employerFactor);
+			Int32 resultPaymentValue = CompoundContributionWithFactor(compoundBasis, compoundFactor);
 
 			return resultPaymentValue;
 		}
@@ -163,16 +190,6 @@ namespace PayrolleeMate.EngineService.Engines.Health
 			return __guides.MaximumAnnualBasis();
 		}
 
-		public virtual decimal PeriodEmployerFactor (MonthPeriod period)
-		{
-			return __guides.EmployerFactor();
-		}
-
-		public virtual decimal PeriodEmployeeFactor (MonthPeriod period)
-		{
-			return __guides.EmployeeFactor();
-		}
-
 		public virtual decimal PeriodCompoundFactor (MonthPeriod period)
 		{
 			return __guides.CompoundFactor();
@@ -180,37 +197,35 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 		#endregion
 
-		private Int32 EmployeeContributionWithFactor (decimal generalBasis, decimal employeeBasis, decimal employeeFactor, decimal employerFactor)
+		private Int32 EmployeeContributionWithFactor (decimal generalBasis, decimal oneselfBasis, decimal compoundFactor)
 		{
-			decimal compoundFactor = decimal.Add (employeeFactor, employerFactor);
+			decimal decimalResult1 = HealthOperations.DecFactorResult (oneselfBasis, compoundFactor);
 
-			decimal decimalResult1 = DecOperations.Multiply (employeeBasis, compoundFactor);
+			decimal decimalResult2 = HealthOperations.DecFactorResult (generalBasis, compoundFactor);
 
-			decimal decimalResult2 = DecOperations.MultiplyAndDivide(generalBasis, compoundFactor, 3);
+			decimal decimalResult3 = DecOperations.Divide(decimalResult2, 3);
 
-			Int32 resultPaymentValue = HealthOperations.IntRoundUp (decimal.Add (decimalResult1, decimalResult2));
+			Int32 resultPaymentValue = HealthOperations.IntRoundUp (decimal.Add (decimalResult1, decimalResult3));
 
 			return resultPaymentValue;
 		}
 
-		private Int32 EmployerContributionWithFactor (decimal generalBasis, decimal employeeBasis, decimal employerBasis, decimal employeeFactor, decimal employerFactor)
+		private Int32 EmployerContributionWithFactor (decimal generalBasis, decimal oneselfEmpee, decimal oneselfEmper, decimal compoundFactor)
 		{
-			decimal compoundBasis = CompoundBasis(generalBasis, employeeBasis, employerBasis);
+			decimal compoundBasis = CompoundBasis(generalBasis, oneselfEmpee, oneselfEmper);
 
-			Int32 compoundPaymentValue = CompoundContributionWithFactor(compoundBasis, employeeFactor, employerFactor);
+			Int32 compoundPaymentValue = CompoundContributionWithFactor(compoundBasis, compoundFactor);
 
-			Int32 employeePaymentValue = EmployeeContributionWithFactor(generalBasis, employeeBasis, employeeFactor, employerFactor);
+			Int32 employeePaymentValue = EmployeeContributionWithFactor(generalBasis, oneselfEmpee, compoundFactor);
 
 			Int32 resultPaymentValue = (compoundPaymentValue - employeePaymentValue);
 
 			return resultPaymentValue;
 		}
 
-		private Int32 CompoundContributionWithFactor (decimal compoundBasis, decimal employeeFactor, decimal employerFactor)
+		private Int32 CompoundContributionWithFactor (decimal compoundBasis, decimal compoundFactor)
 		{
-			decimal compoundFactor = decimal.Add (employeeFactor, employerFactor);
-
-			decimal compoundResult = DecOperations.Multiply (compoundBasis, compoundFactor);
+			decimal compoundResult = HealthOperations.DecFactorResult (compoundBasis, compoundFactor);
 
 			Int32 resultPaymentValue = HealthOperations.IntRoundUp (compoundResult);
 

@@ -14,6 +14,8 @@ namespace PayrolleeMate.EngineService.Interfaces
 
 		decimal BasisGeneralAdapted (MonthPeriod period, bool negSuppress, decimal valResult);
 
+		decimal BasisLegalCapBalance (MonthPeriod period, decimal accumulBasis, decimal actualBasis);
+
 		decimal EmployeeRegularContribution (MonthPeriod period, decimal employeeBase);
 
 		decimal EmployeePensionContribution (MonthPeriod period, decimal employeeBase);

@@ -10,7 +10,7 @@ using PayrolleeMate.EngineService.Constants;
 namespace Tests.EngineService
 {
 	[TestFixture ()]
-	public class TestHealthParticip2015
+	public class TestHealthBasisParticip2015
 	{
 		private static readonly MonthPeriod testPeriod = new MonthPeriod (2015, 1);
 

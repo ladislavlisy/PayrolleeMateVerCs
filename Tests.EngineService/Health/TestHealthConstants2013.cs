@@ -20,8 +20,6 @@ namespace Tests.EngineService
 
 			IHealthEngine engine = engines.ResolveEngine (testPeriod);
 
-			Assert.AreEqual(  4.5m, engine.PeriodEmployeeFactor(testPeriod));
-			Assert.AreEqual(  9.0m, engine.PeriodEmployerFactor(testPeriod));
 			Assert.AreEqual( 13.5m, engine.PeriodCompoundFactor(testPeriod));
 		}
 

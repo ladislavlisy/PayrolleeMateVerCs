@@ -15,7 +15,7 @@ namespace Tests.EngineService
 		private static readonly MonthPeriod testPeriod = new MonthPeriod (2015, 1);
 
 		[Test ()]
-		public void Should_return_ZERO_for_Basis_when_General_Basis_is_9200()
+		public void Should_return_ZERO_for_Mandatory_Basis_when_General_Basis_is_9200()
 		{ 
 			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 
@@ -32,7 +32,7 @@ namespace Tests.EngineService
 		}
 
 		[Test ()]
-		public void Should_return_1_CZK_for_Basis_when_General_Basis_is_9199()
+		public void Should_return_1_CZK_for_Mandatory_Basis_when_General_Basis_is_9199()
 		{ 
 			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 
@@ -49,7 +49,7 @@ namespace Tests.EngineService
 		}
 
 		[Test ()]
-		public void Should_return_8199_for_Basis_when_General_Basis_is_1001()
+		public void Should_return_8199_for_Mandatory_Basis_when_General_Basis_is_1001()
 		{ 
 			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 
@@ -66,7 +66,7 @@ namespace Tests.EngineService
 		}
 
 		[Test ()]
-		public void Should_return_9200_for_Basis_when_General_Basis_is_0()
+		public void Should_return_9200_for_Mandatory_Basis_when_General_Basis_is_0()
 		{ 
 			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 
@@ -83,7 +83,7 @@ namespace Tests.EngineService
 		}
 
 		[Test ()]
-		public void Should_return_1001_for_Basis_when_General_Basis_is_1001_and_Mandatory_Duty_is_False()
+		public void Should_return_ZERO_for_Mandatory_Basis_when_General_Basis_is_1001_and_Mandatory_Duty_is_False()
 		{ 
 			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 

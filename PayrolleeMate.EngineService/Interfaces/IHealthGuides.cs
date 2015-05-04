@@ -12,10 +12,6 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 		decimal MaximumAnnualBasis ();
 
-		decimal EmployerFactor ();
-
-		decimal EmployeeFactor ();
-
 		decimal CompoundFactor ();
 	}
 }

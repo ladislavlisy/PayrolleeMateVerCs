@@ -11,10 +11,6 @@ namespace PayrolleeMate.EngineService
 
 		decimal PeriodMaximumAnnualBasis (MonthPeriod period);
 
-		decimal PeriodEmployerFactor (MonthPeriod period);
-
-		decimal PeriodEmployeeFactor (MonthPeriod period);
-
 		decimal PeriodCompoundFactor (MonthPeriod period);
 	}
 }

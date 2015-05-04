@@ -57,7 +57,7 @@ namespace PayrolleeMate.Common.Operations
 			return valueToMin;
 		}
 
-		private static decimal MaxDecAccumValue(decimal valueToMax, decimal valueAccum, decimal maxLimitTo)
+		public static decimal MaxDecAccumValue(decimal valueToMax, decimal valueAccum, decimal maxLimitTo)
 		{
 			if (maxLimitTo > 0m)
 			{

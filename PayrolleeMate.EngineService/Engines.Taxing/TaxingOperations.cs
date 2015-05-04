@@ -35,7 +35,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		public static decimal DecFactorResult(decimal valueDec, decimal factor)
 		{
-			return DecOperations.Multiply(valueDec, factor);
+			return DecOperations.MultiplyAndDivide(valueDec, factor, 100m);
 		}
 
 		public static Int32 RebateResult(decimal rebateBasis, decimal rebateApply, decimal rebateClaim)

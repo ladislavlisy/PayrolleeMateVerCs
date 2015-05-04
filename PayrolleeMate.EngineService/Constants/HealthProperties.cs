@@ -10,10 +10,6 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = 1781280m;
 
-		public const decimal FACTOR_EMPLOYER = 9.0m;
-
-		public const decimal FACTOR_EMPLOYEE = 4.5m;
-
 		public const decimal FACTOR_COMPOUND = 13.5m;
 	}
 
@@ -24,10 +20,6 @@ namespace PayrolleeMate.EngineService.Constants
 		public const Int32 BASIS_MANDATORY = HealthProperties2011.BASIS_MANDATORY;
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = 1809864m;
-
-		public const decimal FACTOR_EMPLOYER = HealthProperties2011.FACTOR_EMPLOYER;
-
-		public const decimal FACTOR_EMPLOYEE = HealthProperties2011.FACTOR_EMPLOYEE;
 
 		public const decimal FACTOR_COMPOUND = HealthProperties2011.FACTOR_COMPOUND;
 	}
@@ -42,10 +34,6 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = 0m;
 
-		public const decimal FACTOR_EMPLOYER = HealthProperties2012.FACTOR_EMPLOYER;
-
-		public const decimal FACTOR_EMPLOYEE = HealthProperties2012.FACTOR_EMPLOYEE;
-
 		public const decimal FACTOR_COMPOUND = HealthProperties2012.FACTOR_COMPOUND;
 	}
 
@@ -57,10 +45,6 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = HealthProperties2013.BASIS_ANNUAL_MAXIMUM;
 
-		public const decimal FACTOR_EMPLOYER = HealthProperties2013.FACTOR_EMPLOYER;
-
-		public const decimal FACTOR_EMPLOYEE = HealthProperties2013.FACTOR_EMPLOYEE;
-
 		public const decimal FACTOR_COMPOUND = HealthProperties2013.FACTOR_COMPOUND;
 	}
 
@@ -71,10 +55,6 @@ namespace PayrolleeMate.EngineService.Constants
 		public const Int32 BASIS_MANDATORY = 9200;
 
 		public const decimal BASIS_ANNUAL_MAXIMUM = HealthProperties2014.BASIS_ANNUAL_MAXIMUM;
-
-		public const decimal FACTOR_EMPLOYER = HealthProperties2014.FACTOR_EMPLOYER;
-
-		public const decimal FACTOR_EMPLOYEE = HealthProperties2014.FACTOR_EMPLOYEE;
 
 		public const decimal FACTOR_COMPOUND = HealthProperties2014.FACTOR_COMPOUND;
 	}
