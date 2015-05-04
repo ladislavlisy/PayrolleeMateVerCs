@@ -30,6 +30,15 @@ namespace PayrolleeMate.EngineService
 		{
 			return DecOperations.MinIncMaxDecValue(valueToMinMax, accumulValue, 0m, maxLimitTo);
 		}
+
+		public static decimal DecSuppressNegative (bool suppress, decimal valueDec)
+		{
+			if (suppress && valueDec < decimal.Zero) 
+			{
+				return decimal.Zero;
+			}
+			return valueDec;
+		}
 	}
 }
 

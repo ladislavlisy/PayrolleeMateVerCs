@@ -9,6 +9,12 @@ namespace PayrolleeMate.EngineService.Interfaces
 	{
 		ITaxingGuides Guides();
 
+		decimal SubjectTaxingSelector (MonthPeriod period, bool taxSubject, bool taxArticle, decimal valResult);
+
+		decimal SubjectHealthSelector (MonthPeriod period, bool taxSubject, bool insSubject, bool taxArticle, bool insArticle, bool insParticip, decimal valResult);
+
+		decimal SubjectSocialSelector (MonthPeriod period, bool taxSubject, bool insSubject, bool taxArticle, bool insArticle, bool insParticip, decimal valResult);
+
 		Int32 AdvancesResult (MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis);
 
 		Int32 AdvancesRegularyTax (MonthPeriod period, decimal generallBasis);

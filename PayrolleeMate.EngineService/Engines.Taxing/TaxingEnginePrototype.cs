@@ -16,6 +16,45 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		#region ITaxingEngine implementation
 
+		public decimal SubjectTaxingSelector (MonthPeriod period, bool taxSubject, bool taxArticle, decimal valResult)
+		{
+			if (taxSubject && taxArticle) 
+			{
+				return valResult;
+			}
+			return 0m;
+		}
+
+		public decimal SubjectHealthSelector (MonthPeriod period, bool taxSubject, bool insSubject, bool taxArticle, bool insArticle, bool insParticip, decimal valResult)
+		{
+			if (taxSubject && insSubject) 
+			{
+				if (taxArticle && insArticle) 
+				{
+					if (insParticip) 
+					{
+						return valResult;
+					}
+				}
+			}
+			return 0m;
+		}
+
+		public decimal SubjectSocialSelector (MonthPeriod period, bool taxSubject, bool insSubject, bool taxArticle, bool insArticle, bool insParticip, decimal valResult)
+		{
+			if (taxSubject && insSubject) 
+			{
+				if (taxArticle && insArticle) 
+				{
+					if (insParticip) 
+					{
+						return valResult;
+					}
+				}
+			}
+			return 0m;
+		}
+
 		// AdvancesTax
 		public Int32 AdvancesResult(MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis)
 		{

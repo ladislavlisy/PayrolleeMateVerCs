@@ -17,6 +17,44 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 		#region IHealthEngine implementation
 
+		public decimal SubjectHealthSelector (MonthPeriod period, bool insSubject, bool insArticle, decimal valResult)
+		{
+			if (insSubject && insArticle) 
+			{
+				return valResult;
+			}
+			return 0m;
+		}
+
+		public decimal ParticipHealthSelector (MonthPeriod period, bool insParticip, decimal valResult)
+		{
+			if (insParticip) 
+			{
+				return valResult;
+			}
+			return 0m;
+		}
+
+		public decimal BasisGeneralAdapted (MonthPeriod period, bool negSuppress, decimal valResult)
+		{
+			decimal adaptedResult = HealthOperations.DecSuppressNegative (negSuppress, valResult);
+
+			return adaptedResult;
+		}
+
+		public decimal BasisMandatoryBalance (MonthPeriod period, bool dutyMandatory, decimal valResult)
+		{
+			decimal minHealthLimit = PeriodMandatoryBasis (period, dutyMandatory);
+
+			decimal calculatedBase = Math.Max (0m, valResult);
+
+			decimal balancedResult = HealthOperations.MinValueAlign(calculatedBase, minHealthLimit);
+
+			decimal mandatoryBasis = Math.Max(0, decimal.Subtract(balancedResult, calculatedBase));
+
+			return mandatoryBasis;
+		}
+
 		// EmployeeContribution
 		public Int32 EmployeeContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis)
 		{
@@ -58,9 +96,9 @@ namespace PayrolleeMate.EngineService.Engines.Health
 		// CalculatedBasis
 		public decimal CalculatedBasis(MonthPeriod period, bool isNegativeIncluded, bool isMinBaseRequired, decimal employeeIncome, decimal accumulatedBase)
 		{
-			decimal minSocialLimit = PeriodMandatoryBasis (period, isMinBaseRequired);
+			decimal minHealthLimit = PeriodMandatoryBasis (period, isMinBaseRequired);
 
-			decimal maxSocialLimit = PeriodMaximumAnnualBasis (period);
+			decimal maxHealthLimit = PeriodMaximumAnnualBasis (period);
 
 			decimal calculatedBase = Math.Max (0m, employeeIncome);
 
@@ -71,7 +109,7 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 			decimal roundedBase = HealthOperations.DecRoundUp(calculatedBase);
 
-			decimal assesmentBase = HealthOperations.MinMaxValue(roundedBase, accumulatedBase, minSocialLimit, maxSocialLimit);
+			decimal assesmentBase = HealthOperations.MinMaxValue(roundedBase, accumulatedBase, minHealthLimit, maxHealthLimit);
 
 			return assesmentBase;
 		}

@@ -8,6 +8,12 @@ namespace PayrolleeMate.EngineService.Interfaces
 	{
 		ISocialGuides Guides ();
 
+		decimal SubjectSocialSelector (MonthPeriod period, bool insSubject, bool insArticle, decimal valResult);
+
+		decimal ParticipSocialSelector (MonthPeriod period, bool insParticip, decimal valResult);
+
+		decimal BasisGeneralAdapted (MonthPeriod period, bool negSuppress, decimal valResult);
+
 		decimal EmployeeRegularContribution (MonthPeriod period, decimal employeeBase);
 
 		decimal EmployeePensionContribution (MonthPeriod period, decimal employeeBase);

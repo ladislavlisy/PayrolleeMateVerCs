@@ -21,6 +21,33 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		#region ISocialEngine implementation
 
+		public decimal SubjectSocialSelector (MonthPeriod period, bool insSubject, bool insArticle, decimal valResult)
+		{
+			if (insSubject && insArticle) 
+			{
+				return valResult;
+			}
+			return 0m;
+		}
+
+		public decimal ParticipSocialSelector (MonthPeriod period, bool insParticip, decimal valResult)
+		{
+			if (insParticip) 
+			{
+				return valResult;
+			}
+			return 0m;
+		}
+
+		public decimal BasisGeneralAdapted (MonthPeriod period, bool negSuppress, decimal valResult)
+		{
+			decimal adaptedResult = SocialOperations.DecSuppressNegative (negSuppress, valResult);
+
+			decimal roundedResult = SocialOperations.DecRoundUp (adaptedResult);
+
+			return roundedResult;
+		}
+
 		// EmployeeRegularContribution
 		public decimal EmployeeRegularContribution(MonthPeriod period, decimal employeeBase)
 		{
