@@ -49,7 +49,6 @@
     <Compile Include="Health\TestHealthSelectors2015.cs" />
     <Compile Include="Social\TestSocialSelectors2015.cs" />
     <Compile Include="Taxing\TestTaxingSelectors2015.cs" />
-    <Compile Include="Taxing\TestTaxHealthSelectors2015.cs" />
     <Compile Include="Social\TestSocialBasisGeneral2015.cs" />
     <Compile Include="Health\TestHealthBasisGeneral2015.cs" />
     <Compile Include="Health\TestHealthBasisMandatory2015.cs" />
@@ -65,9 +64,9 @@
     <Compile Include="Social\TestGarantPayEmployee2015.cs" />
     <Compile Include="Taxing\TestTaxAdvancesSelectors2015.cs" />
     <Compile Include="Taxing\TestTaxAdvancesPayment2015.cs" />
-    <Compile Include="Taxing\TestTaxSocialSelectors2015.cs" />
     <Compile Include="Taxing\TestTaxWithholdSelectors2015.cs" />
     <Compile Include="Taxing\TestTaxWithholdPayments2015.cs" />
+    <Compile Include="Taxing\TestTaxIncreaseSelectors2015.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

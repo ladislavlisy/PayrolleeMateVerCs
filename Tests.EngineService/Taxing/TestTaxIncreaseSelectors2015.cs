@@ -138,6 +138,131 @@ namespace Tests.EngineService
 
 			Assert.AreEqual(  0, resultValue);
 		}
+
+		[Test ()]
+		public void Should_return_1000_for_Social_Selector_when_Income_is_1000_and_Select_Value_is_True()
+		{ 
+			IEnginesHistory<ITaxingEngine> engines = TaxingEnginesHistory.CreateEngines ();
+
+			ITaxingEngine engine = engines.ResolveEngine (testPeriod);
+
+			bool testTaxSubject = true;
+
+			bool testTaxArticle = true;
+
+			bool testInsSubject = true;
+
+			bool testInsArticle = true;
+
+			bool testInsParticip = true;
+
+			decimal testIncome = 1000m;
+
+			decimal resultValue = engine.SubjectSocialSelector(testPeriod, 
+				testTaxSubject, testInsSubject, testTaxArticle, testInsArticle, testInsParticip, testIncome);
+
+			Assert.AreEqual( 1000m, resultValue);
+		}
+
+		[Test ()]
+		public void Should_return_Negative_1000_for_Social_Selector_when_Income_is_Negative_1000_and_Select_Value_is_True()
+		{ 
+			IEnginesHistory<ITaxingEngine> engines = TaxingEnginesHistory.CreateEngines ();
+
+			ITaxingEngine engine = engines.ResolveEngine (testPeriod);
+
+			bool testTaxSubject = true;
+
+			bool testTaxArticle = true;
+
+			bool testInsSubject = true;
+
+			bool testInsArticle = true;
+
+			bool testInsParticip = true;
+
+			decimal testIncome = -1000m;
+
+			decimal resultValue = engine.SubjectSocialSelector(testPeriod, 
+				testTaxSubject, testInsSubject, testTaxArticle, testInsArticle, testInsParticip, testIncome);
+
+			Assert.AreEqual(-1000m, resultValue);
+		}
+
+		[Test ()]
+		public void Should_return_Zero_for_Social_Selector_when_Income_is_1000_and_Select_Subject_is_False()
+		{ 
+			IEnginesHistory<ITaxingEngine> engines = TaxingEnginesHistory.CreateEngines ();
+
+			ITaxingEngine engine = engines.ResolveEngine (testPeriod);
+
+			bool testTaxSubject = true;
+
+			bool testTaxArticle = true;
+
+			bool testInsSubject = false;
+
+			bool testInsArticle = true;
+
+			bool testInsParticip = true;
+
+			decimal testIncome = 1000m;
+
+			decimal resultValue = engine.SubjectSocialSelector(testPeriod, 
+				testTaxSubject, testInsSubject, testTaxArticle, testInsArticle, testInsParticip, testIncome);
+
+			Assert.AreEqual(  0, resultValue);
+		}
+
+		[Test ()]
+		public void Should_return_Zero_for_Social_Selector_when_Income_is_1000_and_Select_Article_is_False()
+		{ 
+			IEnginesHistory<ITaxingEngine> engines = TaxingEnginesHistory.CreateEngines ();
+
+			ITaxingEngine engine = engines.ResolveEngine (testPeriod);
+
+			bool testTaxSubject = true;
+
+			bool testTaxArticle = true;
+
+			bool testInsSubject = true;
+
+			bool testInsArticle = false;
+
+			bool testInsParticip = true;
+
+			decimal testIncome = 1000m;
+
+			decimal resultValue = engine.SubjectSocialSelector(testPeriod, 
+				testTaxSubject, testInsSubject, testTaxArticle, testInsArticle, testInsParticip, testIncome);
+
+			Assert.AreEqual(  0, resultValue);
+		}
+
+		[Test ()]
+		public void Should_return_Zero_for_Social_Selector_when_Income_is_1000_and_Select_Particip_is_False()
+		{ 
+			IEnginesHistory<ITaxingEngine> engines = TaxingEnginesHistory.CreateEngines ();
+
+			ITaxingEngine engine = engines.ResolveEngine (testPeriod);
+
+			bool testTaxSubject = true;
+
+			bool testTaxArticle = true;
+
+			bool testInsSubject = true;
+
+			bool testInsArticle = true;
+
+			bool testInsParticip = false;
+
+			decimal testIncome = 1000m;
+
+			decimal resultValue = engine.SubjectSocialSelector(testPeriod, 
+				testTaxSubject, testInsSubject, testTaxArticle, testInsArticle, testInsParticip, testIncome);
+
+			Assert.AreEqual(  0, resultValue);
+		}
 	}
 }
 
