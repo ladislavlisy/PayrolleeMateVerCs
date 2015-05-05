@@ -66,7 +66,26 @@ namespace Tests.EngineService
 		}
 
 		[Test ()]
-		public void Should_return_270_for_Mandatory_Payment_when_Basis_is_6_003_CZK_and_Mandatory_Basis_is_2_003_CZK()
+		public void Should_return_541_for_Employee_Payment_when_Basis_is_6_003_CZK_and_Mandatory_Basis_is_2_001_CZK()
+		{ 
+			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
+
+			IHealthEngine engine = engines.ResolveEngine (testPeriod);
+
+			decimal testGeneralBasis = 6003m;
+
+			decimal testMandatoryBasis = 2001m;
+
+			bool testNegativeSuppress = true;
+
+			decimal resultValue = engine.EmployeeContribution(testPeriod, 
+				testNegativeSuppress, testGeneralBasis, testMandatoryBasis);
+
+			Assert.AreEqual( 541m, resultValue);
+		}
+
+		[Test ()]
+		public void Should_return_270_for_Mandatory_Payment_when_Basis_is_6_003_CZK_and_Mandatory_Basis_is_2_001_CZK()
 		{ 
 			IEnginesHistory<IHealthEngine> engines = HealthEnginesHistory.CreateEngines ();
 

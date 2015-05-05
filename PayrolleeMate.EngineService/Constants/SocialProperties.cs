@@ -16,9 +16,9 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal FACTOR_EMPLOYEE = 6.5m;
 
-		public const decimal FACTOR_EMPLOYEE_PENSION = 0.0m;
+		public const decimal FACTOR_EMPLOYEE_GARANT = 0.0m;
 
-		public const decimal FACTOR_REDUCE_PENSION = 0.0m;
+		public const decimal FACTOR_REDUCE_GARANT = 0.0m;
 	}
 
 	class SocialProperties2012
@@ -35,9 +35,9 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal FACTOR_EMPLOYEE = SocialProperties2011.FACTOR_EMPLOYEE;
 
-		public const decimal FACTOR_EMPLOYEE_PENSION = SocialProperties2011.FACTOR_EMPLOYEE_PENSION;
+		public const decimal FACTOR_EMPLOYEE_GARANT = SocialProperties2011.FACTOR_EMPLOYEE_GARANT;
 
-		public const decimal FACTOR_REDUCE_PENSION = SocialProperties2011.FACTOR_REDUCE_PENSION;
+		public const decimal FACTOR_REDUCE_GARANT = SocialProperties2011.FACTOR_REDUCE_GARANT;
 	}
 
 	class SocialProperties2013
@@ -54,9 +54,9 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal FACTOR_EMPLOYEE = SocialProperties2012.FACTOR_EMPLOYEE;
 
-		public const decimal FACTOR_EMPLOYEE_PENSION = 5.0m;
+		public const decimal FACTOR_EMPLOYEE_GARANT = 5.0m;
 
-		public const decimal FACTOR_REDUCE_PENSION = 3.0m;
+		public const decimal FACTOR_REDUCE_GARANT = 3.0m;
 	}
 
 	class SocialProperties2014
@@ -73,9 +73,9 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal FACTOR_EMPLOYEE = SocialProperties2013.FACTOR_EMPLOYEE;
 
-		public const decimal FACTOR_EMPLOYEE_PENSION = SocialProperties2013.FACTOR_EMPLOYEE_PENSION;
+		public const decimal FACTOR_EMPLOYEE_GARANT = SocialProperties2013.FACTOR_EMPLOYEE_GARANT;
 
-		public const decimal FACTOR_REDUCE_PENSION = SocialProperties2013.FACTOR_REDUCE_PENSION;
+		public const decimal FACTOR_REDUCE_GARANT = SocialProperties2013.FACTOR_REDUCE_GARANT;
 	}
 
 	class SocialProperties2015
@@ -92,9 +92,9 @@ namespace PayrolleeMate.EngineService.Constants
 
 		public const decimal FACTOR_EMPLOYEE = SocialProperties2014.FACTOR_EMPLOYEE;
 
-		public const decimal FACTOR_EMPLOYEE_PENSION = SocialProperties2014.FACTOR_EMPLOYEE_PENSION;
+		public const decimal FACTOR_EMPLOYEE_GARANT = SocialProperties2014.FACTOR_EMPLOYEE_GARANT;
 
-		public const decimal FACTOR_REDUCE_PENSION = SocialProperties2014.FACTOR_REDUCE_PENSION;
+		public const decimal FACTOR_REDUCE_GARANT = SocialProperties2014.FACTOR_REDUCE_GARANT;
 	}
 
 }

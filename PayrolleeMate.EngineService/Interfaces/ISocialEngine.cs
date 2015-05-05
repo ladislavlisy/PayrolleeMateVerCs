@@ -16,17 +16,17 @@ namespace PayrolleeMate.EngineService.Interfaces
 
 		decimal BasisLegalCapBalance (MonthPeriod period, decimal accumulBasis, decimal actualBasis);
 
-		decimal EmployeeRegularContribution (MonthPeriod period, decimal employeeBase);
+		decimal RegularCalculatedBasis (MonthPeriod period, bool isGarantScheme, decimal socialBasis);
 
-		decimal EmployeePensionContribution (MonthPeriod period, decimal employeeBase);
+		decimal PensionCalculatedBasis (MonthPeriod period, bool isGarantScheme, decimal socialBasis);
 
-		decimal EmployerContribution (MonthPeriod period, decimal employerBase);
+		decimal EmployeeRegularContribution (MonthPeriod period, bool negSuppress, decimal employeeBase);
 
-		decimal RegularCalculatedBasis (MonthPeriod period, bool isNegativeIncluded, bool isPension2sScheme, decimal employeeIncome, decimal accumulatedBase);
+		decimal EmployeePensionContribution (MonthPeriod period, bool negSuppress, decimal employeeBase);
 
-		decimal PensionCalculatedBasis (MonthPeriod period, bool isNegativeIncluded, bool isPension2sScheme, decimal employeeIncome, decimal accumulatedBase);
+		decimal EmployerContribution (MonthPeriod period, bool negSuppress, decimal employerBase);
 
-		decimal Pension2sSchemeContribution (MonthPeriod period, decimal employeeBase);
+		decimal EmployeeGarantContribution (MonthPeriod period, bool negSuppress, decimal employeeBase);
 	}
 }
 

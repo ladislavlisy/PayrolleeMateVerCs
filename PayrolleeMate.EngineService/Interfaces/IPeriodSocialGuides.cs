@@ -13,9 +13,9 @@ namespace PayrolleeMate.EngineService
 
 		decimal PeriodEmployeeFactor (MonthPeriod period);
 
-		decimal PeriodEmployeePensionsFactor (MonthPeriod period, bool isPension2sScheme);
+		decimal PeriodEmployeeGarantFactor (MonthPeriod period, bool isPension2sScheme);
 
-		decimal PeriodEmployeePensionsFactor (MonthPeriod period);
+		decimal PeriodEmployeeGarantFactor (MonthPeriod period);
 
 		decimal PeriodPensionsReduceFactor (MonthPeriod period);
 

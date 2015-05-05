@@ -14,9 +14,9 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		decimal EmployeeFactor ();
 
-		decimal EmployeePensionsFactor ();
+		decimal EmployeeGarantFactor ();
 
-		decimal PensionsReduceFactor ();
+		decimal GarantReduceFactor ();
 
 		decimal EmployerFactor ();
 

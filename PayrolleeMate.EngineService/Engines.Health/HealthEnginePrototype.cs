@@ -97,69 +97,49 @@ namespace PayrolleeMate.EngineService.Engines.Health
 		}
 
 		// EmployeeContribution
+		public decimal EmployeeContribution (MonthPeriod period, bool negSuppress, decimal generalBasis, decimal mandatoryBasis)
+		{
+			decimal compoundFactor = PeriodCompoundFactor (period);
+
+			decimal calculatedBase = HealthOperations.DecSuppressNegative (negSuppress, generalBasis);
+
+			Int32 resultGeneralValue = EmployeeContributionWithFactor(calculatedBase, mandatoryBasis, compoundFactor);
+
+			return resultGeneralValue;
+		}
+			
+		public decimal EmployerGeneralContribution(MonthPeriod period, bool negSuppress, decimal generalBasis, decimal mandatoryEmpee)
+		{
+			decimal compoundFactor = PeriodCompoundFactor (period);
+
+			decimal mandatoryNones = 0m;
+
+			Int32 resultGeneralValue = EmployerContributionWithFactor(generalBasis, mandatoryEmpee, mandatoryNones, compoundFactor);
+
+			return (resultGeneralValue);
+		}
+
+		public decimal EmployerMandatoryContribution(MonthPeriod period, bool negSuppress, decimal generalBasis, decimal mandatoryEmpee, decimal mandatoryEmper)
+		{
+			decimal compoundFactor = PeriodCompoundFactor (period);
+
+			decimal mandatoryNones = 0m;
+
+			Int32 resultCompletValue = EmployerContributionWithFactor(generalBasis, mandatoryEmpee, mandatoryEmper, compoundFactor);
+
+			Int32 resultGeneralValue = EmployerContributionWithFactor(generalBasis, mandatoryEmpee, mandatoryNones, compoundFactor);
+
+			return (resultCompletValue - resultGeneralValue);
+		}
 
 		// EmployerContribution
-		public Int32 EmployerContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis)
+		public decimal EmployerContribution(MonthPeriod period, bool negSuppress, decimal generalBasis, decimal mandatoryEmpee, decimal mandatoryEmper)
 		{
 			decimal compoundFactor = PeriodCompoundFactor (period);
 
-			Int32 resultPaymentValue = EmployerContributionWithFactor(generalBasis, employeeBasis, employerBasis, compoundFactor);
+			Int32 resultPaymentValue = EmployerContributionWithFactor(generalBasis, mandatoryEmpee, mandatoryEmper, compoundFactor);
 
 			return resultPaymentValue;
-		}
-
-		// CompoundContribution
-		public Int32 CompoundContribution(MonthPeriod period, decimal generalBasis, decimal employeeBasis, decimal employerBasis)
-		{
-			decimal compoundFactor = PeriodCompoundFactor (period);
-
-			decimal compoundBasis = CompoundBasis(generalBasis, employeeBasis, employerBasis);
-
-			Int32 resultPaymentValue = CompoundContributionWithFactor(compoundBasis, compoundFactor);
-
-			return resultPaymentValue;
-		}
-
-		// CalculatedBasis
-		public decimal CalculatedBasis(MonthPeriod period, bool isNegativeIncluded, bool isMinBaseRequired, decimal employeeIncome, decimal accumulatedBase)
-		{
-			decimal minHealthLimit = PeriodMandatoryBasis (period, isMinBaseRequired);
-
-			decimal maxHealthLimit = PeriodMaximumAnnualBasis (period);
-
-			decimal calculatedBase = Math.Max (0m, employeeIncome);
-
-			if (isNegativeIncluded && employeeIncome < 0m) 
-			{
-				calculatedBase = employeeIncome;
-			}
-
-			decimal roundedBase = HealthOperations.DecRoundUp(calculatedBase);
-
-			decimal assesmentBase = HealthOperations.MinMaxValue(roundedBase, accumulatedBase, minHealthLimit, maxHealthLimit);
-
-			return assesmentBase;
-		}
-
-		// EmployeeMandatoryBasis
-		public decimal EmployeeMandatoryBasis(MonthPeriod period, bool isNegativeIncluded, bool isMinBaseRequired, decimal employeeIncome, decimal accumulatedBase)
-		{
-			decimal minSocialLimit = PeriodMandatoryBasis (period, isMinBaseRequired);
-
-			decimal maxSocialLimit = PeriodMaximumAnnualBasis (period);
-
-			decimal calculatedBase = Math.Max (0m, employeeIncome);
-
-			if (isNegativeIncluded && employeeIncome < 0m) 
-			{
-				calculatedBase = employeeIncome;
-			}
-
-			decimal roundedBase = HealthOperations.DecRoundUp(calculatedBase);
-
-			decimal resultsBase = HealthOperations.MinMaxValue(roundedBase, accumulatedBase, minSocialLimit, maxSocialLimit);
-
-			return Math.Max(0, decimal.Subtract(resultsBase, roundedBase));
 		}
 
 		public IHealthGuides Guides ()
@@ -197,9 +177,9 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 		#endregion
 
-		private Int32 EmployeeContributionWithFactor (decimal generalBasis, decimal oneselfBasis, decimal compoundFactor)
+		private Int32 EmployeeContributionWithFactor (decimal generalBasis, decimal mandatoryEmpee, decimal compoundFactor)
 		{
-			decimal decimalResult1 = HealthOperations.DecFactorResult (oneselfBasis, compoundFactor);
+			decimal decimalResult1 = HealthOperations.DecFactorResult (mandatoryEmpee, compoundFactor);
 
 			decimal decimalResult2 = HealthOperations.DecFactorResult (generalBasis, compoundFactor);
 
@@ -210,13 +190,13 @@ namespace PayrolleeMate.EngineService.Engines.Health
 			return resultPaymentValue;
 		}
 
-		private Int32 EmployerContributionWithFactor (decimal generalBasis, decimal oneselfEmpee, decimal oneselfEmper, decimal compoundFactor)
+		private Int32 EmployerContributionWithFactor (decimal generalBasis, decimal mandatoryEmpee, decimal mandatoryEmper, decimal compoundFactor)
 		{
-			decimal compoundBasis = CompoundBasis(generalBasis, oneselfEmpee, oneselfEmper);
+			decimal compoundBasis = CompoundBasis(generalBasis, mandatoryEmpee, mandatoryEmper);
 
 			Int32 compoundPaymentValue = CompoundContributionWithFactor(compoundBasis, compoundFactor);
 
-			Int32 employeePaymentValue = EmployeeContributionWithFactor(generalBasis, oneselfEmpee, compoundFactor);
+			Int32 employeePaymentValue = EmployeeContributionWithFactor(generalBasis, mandatoryEmpee, compoundFactor);
 
 			Int32 resultPaymentValue = (compoundPaymentValue - employeePaymentValue);
 
@@ -232,11 +212,11 @@ namespace PayrolleeMate.EngineService.Engines.Health
 			return resultPaymentValue;
 		}
 
-		public decimal CompoundBasis(decimal generalBasis, decimal employeeBasis, decimal employerBasis)
+		public decimal CompoundBasis(decimal generalBasis, decimal mandatoryEmpee, decimal mandatoryEmper)
 		{
-			decimal separateBasis = decimal.Add (employeeBasis, employerBasis);
+			decimal mandatoryBasis = decimal.Add (mandatoryEmpee, mandatoryEmper);
 
-			decimal compoundBasis = decimal.Add (generalBasis, separateBasis);
+			decimal compoundBasis = decimal.Add (generalBasis, mandatoryBasis);
 
 			return compoundBasis;
 		}

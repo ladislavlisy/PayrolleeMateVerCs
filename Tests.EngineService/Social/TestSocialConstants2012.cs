@@ -26,7 +26,7 @@ namespace Tests.EngineService
 
 			Assert.AreEqual(  6.5m, engine.PeriodEmployeeFactor(testPeriod, PENSION_SCHEME_NON));
 			Assert.AreEqual(  6.5m, engine.PeriodEmployeeFactor(testPeriod, PENSION_SCHEME_YES));
-			Assert.AreEqual(  0.0m, engine.PeriodEmployeePensionsFactor(testPeriod));
+			Assert.AreEqual(  0.0m, engine.PeriodEmployeeGarantFactor(testPeriod));
 			Assert.AreEqual(  0.0m, engine.PeriodPensionsReduceFactor(testPeriod));
 			Assert.AreEqual( 25.0m, engine.PeriodEmployerFactor(testPeriod));
 			Assert.AreEqual( 26.0m, engine.PeriodEmployerElevatedFactor(testPeriod));

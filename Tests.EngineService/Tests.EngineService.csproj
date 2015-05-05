@@ -56,9 +56,13 @@
     <Compile Include="Health\TestHealthBasisLegalCap2012.cs" />
     <Compile Include="Health\TestHealthBasisLegalCap2015.cs" />
     <Compile Include="Social\TestSocialBasisLegalCap2015.cs" />
-    <Compile Include="Health\TestHealthPayEmployeeGeneral2015.cs" />
     <Compile Include="Health\TestHealthBasisParticip2015.cs" />
     <Compile Include="Social\TestSocialBasisParticip2015.cs" />
+    <Compile Include="Health\TestHealthPayEmployee2015.cs" />
+    <Compile Include="Health\TestHealthPayEmployer2015.cs" />
+    <Compile Include="Social\TestSocialPayEmployee2015.cs" />
+    <Compile Include="Social\TestSocialPayEmployer2015.cs" />
+    <Compile Include="Social\TestGarantPayEmployee2015.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

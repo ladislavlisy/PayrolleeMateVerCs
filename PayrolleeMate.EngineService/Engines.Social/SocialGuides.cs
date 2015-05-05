@@ -10,8 +10,8 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		private readonly decimal __factorEmployer;
 		private readonly decimal __factorEmployerElevated;
 		private readonly decimal __factorEmployee;
-		private readonly decimal __factorEmployeePension;
-		private readonly decimal __factorPensionReduce;
+		private readonly decimal __factorEmployeeGarant;
+		private readonly decimal __factorGarantReduce;
 
 		public static SocialGuides Guides2015()
 		{
@@ -21,8 +21,8 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2015.FACTOR_EMPLOYER,
 				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2015.FACTOR_EMPLOYEE,
-				SocialProperties2015.FACTOR_EMPLOYEE_PENSION,
-				SocialProperties2015.FACTOR_REDUCE_PENSION);
+				SocialProperties2015.FACTOR_EMPLOYEE_GARANT,
+				SocialProperties2015.FACTOR_REDUCE_GARANT);
 		}
 
 		public static SocialGuides Guides2014()
@@ -33,8 +33,8 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2014.FACTOR_EMPLOYER,
 				SocialProperties2014.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2014.FACTOR_EMPLOYEE,
-				SocialProperties2014.FACTOR_EMPLOYEE_PENSION,
-				SocialProperties2014.FACTOR_REDUCE_PENSION);
+				SocialProperties2014.FACTOR_EMPLOYEE_GARANT,
+				SocialProperties2014.FACTOR_REDUCE_GARANT);
 		}
 
 		public static SocialGuides Guides2013()
@@ -45,8 +45,8 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2013.FACTOR_EMPLOYER,
 				SocialProperties2013.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2013.FACTOR_EMPLOYEE,
-				SocialProperties2013.FACTOR_EMPLOYEE_PENSION,
-				SocialProperties2013.FACTOR_REDUCE_PENSION);
+				SocialProperties2013.FACTOR_EMPLOYEE_GARANT,
+				SocialProperties2013.FACTOR_REDUCE_GARANT);
 		}
 
 		public static SocialGuides Guides2012()
@@ -57,8 +57,8 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2012.FACTOR_EMPLOYER,
 				SocialProperties2012.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2012.FACTOR_EMPLOYEE,
-				SocialProperties2012.FACTOR_EMPLOYEE_PENSION,
-				SocialProperties2012.FACTOR_REDUCE_PENSION);
+				SocialProperties2012.FACTOR_EMPLOYEE_GARANT,
+				SocialProperties2012.FACTOR_REDUCE_GARANT);
 		}
 
 		public static SocialGuides Guides2011()
@@ -69,8 +69,8 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2011.FACTOR_EMPLOYER,
 				SocialProperties2011.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2011.FACTOR_EMPLOYEE,
-				SocialProperties2011.FACTOR_EMPLOYEE_PENSION,
-				SocialProperties2011.FACTOR_REDUCE_PENSION);
+				SocialProperties2011.FACTOR_EMPLOYEE_GARANT,
+				SocialProperties2011.FACTOR_REDUCE_GARANT);
 		}
 
 		private SocialGuides(
@@ -80,7 +80,7 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			decimal factorEmployer,
 			decimal factorElevated,
 			decimal factorEmployee,
-			decimal factorPension,
+			decimal factorGarant,
 			decimal factorReduce) : base(validYear)
 		{
 			__basicAnnualMaximum = basicAnnual;
@@ -88,8 +88,8 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			__factorEmployer = factorEmployer;
 			__factorEmployerElevated = factorElevated;
 			__factorEmployee = factorEmployee;
-			__factorEmployeePension = factorPension;
-			__factorPensionReduce = factorReduce;
+			__factorEmployeeGarant = factorGarant;
+			__factorGarantReduce = factorReduce;
 		}
 
 		public Int32 MandatoryBasis () 
@@ -107,14 +107,14 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			return __factorEmployee;
 		}
 
-		public decimal EmployeePensionsFactor () 
+		public decimal EmployeeGarantFactor () 
 		{
-			return __factorEmployeePension;
+			return __factorEmployeeGarant;
 		}
 
-		public decimal PensionsReduceFactor () 
+		public decimal GarantReduceFactor () 
 		{
-			return __factorPensionReduce;
+			return __factorGarantReduce;
 		}
 
 		public decimal EmployerFactor () 
