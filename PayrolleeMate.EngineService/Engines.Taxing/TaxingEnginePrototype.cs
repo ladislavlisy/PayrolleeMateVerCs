@@ -55,6 +55,15 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			return 0m;
 		}
 
+		public decimal AdvancesTaxSelector (MonthPeriod period, bool advancesSubject, decimal valResult)
+		{
+			if (advancesSubject) 
+			{
+				return valResult;
+			}
+			return 0m;
+		}
+
 		// AdvancesTax
 		public Int32 AdvancesResult(MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis)
 		{
@@ -114,24 +123,15 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		public decimal AdvancesRoundedBasis(MonthPeriod period, decimal taxableIncome)
 		{
-			decimal amountForCalc = taxableIncome;
+			bool negativeSuppress = true;
 
-			if (BasisOfIncomeShouldBeEqualToZero(taxableIncome))
-			{
-				amountForCalc = 0;
-			}
+			decimal amountForCalc = TaxingOperations.DecSuppressNegative (negativeSuppress, taxableIncome);
 
-			decimal advanceBase = 0m;
+			bool roundUptoHundreds = BasisShouldbeRoundedUpToHundreds (period, amountForCalc);
 
-			if (BasisShouldbeRoundedUpToHundreds(period, amountForCalc))
-			{
-				advanceBase = TaxingOperations.DecRoundUpHundreds(amountForCalc);
-			}
-			else
-			{
-				advanceBase = TaxingOperations.DecRoundUp(amountForCalc);
-			}
-			return advanceBase;
+			decimal advancesBasis = RoundTaxingBasis (period, amountForCalc, roundUptoHundreds);
+
+			return advancesBasis;
 		}
 
 		// AdvancesTaxableHealth
@@ -223,6 +223,15 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		}
 
 		// WithholdTax
+		public decimal WithholdTaxSelector (MonthPeriod period, bool withholdSubject, decimal valResult)
+		{
+			if (withholdSubject) 
+			{
+				return valResult;
+			}
+			return 0m;
+		}
+
 		// WithholdRoundedBasis
 		// WithholdTaxableHealth
 		// WithholdTaxableSocial
@@ -341,6 +350,18 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		#endregion
 
+		private decimal RoundTaxingBasis (MonthPeriod period, decimal income, bool roundUptoHundreds)
+		{
+			if (roundUptoHundreds) 
+			{
+				return TaxingOperations.DecRoundUpHundreds (income);
+			}
+			else 
+			{
+				return TaxingOperations.DecRoundUp (income);
+			}
+		}
+
 		/// <summary>
 		/// basis should be rounded up to hundreds
 		/// </summary>
@@ -352,23 +373,8 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		/// </returns>
 		private bool BasisShouldbeRoundedUpToHundreds(MonthPeriod period, decimal income)
 		{
-			return (income <= PeriodMaximumIncomeToApplyRoundingToSingles(period));
+			return (income > PeriodMaximumIncomeToApplyRoundingToSingles(period));
 		}
-
-		/// <summary>
-		/// basis of income should be equal to zero
-		/// </summary>
-		/// <param name="income">
-		/// taxable income
-		/// </param>
-		/// <returns>
-		/// +bool+ tax basis is zero == true
-		/// </returns>
-		private bool BasisOfIncomeShouldBeEqualToZero(decimal income)
-		{
-			return (income <= 0);
-		}
-
 	}
 }
 

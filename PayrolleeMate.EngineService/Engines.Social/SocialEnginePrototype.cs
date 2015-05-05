@@ -50,9 +50,11 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		public decimal BasisLegalCapBalance (MonthPeriod period, decimal accumulBasis, decimal actualBasis)
 		{
-			decimal maxHealthLimit = PeriodMaximumAnnualBasis (period);
+			bool negativeSuppress = true;
 
-			decimal calculatedBase = Math.Max (0m, actualBasis);
+			decimal calculatedBase = SocialOperations.DecSuppressNegative (negativeSuppress, actualBasis);
+
+			decimal maxHealthLimit = PeriodMaximumAnnualBasis (period);
 
 			decimal balancedResult = HealthOperations.MaxValueAlign(calculatedBase, accumulBasis, maxHealthLimit);
 

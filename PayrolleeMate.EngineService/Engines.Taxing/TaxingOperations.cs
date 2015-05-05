@@ -57,6 +57,16 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			}
 			return DecOperations.MaxDecValue (valueToMinMax, maxLimitTo);
 		}
+
+		public static decimal DecSuppressNegative (bool suppress, decimal valueDec)
+		{
+			if (suppress && valueDec < decimal.Zero) 
+			{
+				return decimal.Zero;
+			}
+			return valueDec;
+		}
+
 	}
 }
 

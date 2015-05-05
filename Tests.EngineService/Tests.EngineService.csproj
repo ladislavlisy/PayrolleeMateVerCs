@@ -63,6 +63,7 @@
     <Compile Include="Social\TestSocialPayEmployee2015.cs" />
     <Compile Include="Social\TestSocialPayEmployer2015.cs" />
     <Compile Include="Social\TestGarantPayEmployee2015.cs" />
+    <Compile Include="Taxing\TestTaxAdvancesSelectors2015.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
