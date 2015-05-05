@@ -27,6 +27,8 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		private readonly Int32 __ChildrenRank1stAllowance;
 		private readonly Int32 __ChildrenRank2ndAllowance;
 		private readonly Int32 __ChildrenRank3rdAllowance;
+		private readonly decimal __HealthIncreaseFactor;
+		private readonly decimal __SocialIncreaseFactor;
 		private readonly decimal __AdvancesFactor;
 		private readonly decimal __WithholdFactor;
 		private readonly decimal __SolidaryFactor;
@@ -48,6 +50,8 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 				TaxingProperties2015.ALLOWANCE_CHILD_RANK_1ST,
 				TaxingProperties2015.ALLOWANCE_CHILD_RANK_2ND,
 				TaxingProperties2015.ALLOWANCE_CHILD_RANK_3RD,
+				HealthProperties2015.FACTOR_COMPOUND,
+				SocialProperties2015.FACTOR_EMPLOYER,
 				TaxingProperties2015.FACTOR_ADVANCES,
 				TaxingProperties2015.FACTOR_WITHHOLD,
 				TaxingProperties2015.FACTOR_SOLIDARY,
@@ -70,6 +74,8 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 				TaxingProperties2014.ALLOWANCE_CHILD_RANK_1ST,
 				TaxingProperties2014.ALLOWANCE_CHILD_RANK_2ND,
 				TaxingProperties2014.ALLOWANCE_CHILD_RANK_3RD,
+				HealthProperties2014.FACTOR_COMPOUND,
+				SocialProperties2014.FACTOR_EMPLOYER,
 				TaxingProperties2014.FACTOR_ADVANCES,
 				TaxingProperties2014.FACTOR_WITHHOLD,
 				TaxingProperties2014.FACTOR_SOLIDARY,
@@ -92,6 +98,8 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 				TaxingProperties2013.ALLOWANCE_CHILD_RANK_1ST,
 				TaxingProperties2013.ALLOWANCE_CHILD_RANK_2ND,
 				TaxingProperties2013.ALLOWANCE_CHILD_RANK_3RD,
+				HealthProperties2013.FACTOR_COMPOUND,
+				SocialProperties2013.FACTOR_EMPLOYER,
 				TaxingProperties2013.FACTOR_ADVANCES,
 				TaxingProperties2013.FACTOR_WITHHOLD,
 				TaxingProperties2013.FACTOR_SOLIDARY,
@@ -114,6 +122,8 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 				TaxingProperties2012.ALLOWANCE_CHILD_RANK_1ST,
 				TaxingProperties2012.ALLOWANCE_CHILD_RANK_2ND,
 				TaxingProperties2012.ALLOWANCE_CHILD_RANK_3RD,
+				HealthProperties2012.FACTOR_COMPOUND,
+				SocialProperties2012.FACTOR_EMPLOYER,
 				TaxingProperties2012.FACTOR_ADVANCES,
 				TaxingProperties2012.FACTOR_WITHHOLD,
 				TaxingProperties2012.FACTOR_SOLIDARY,
@@ -136,6 +146,8 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 				TaxingProperties2011.ALLOWANCE_CHILD_RANK_1ST,
 				TaxingProperties2011.ALLOWANCE_CHILD_RANK_2ND,
 				TaxingProperties2011.ALLOWANCE_CHILD_RANK_3RD,
+				HealthProperties2011.FACTOR_COMPOUND,
+				SocialProperties2011.FACTOR_EMPLOYER,
 				TaxingProperties2011.FACTOR_ADVANCES,
 				TaxingProperties2011.FACTOR_WITHHOLD,
 				TaxingProperties2011.FACTOR_SOLIDARY,
@@ -157,6 +169,8 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			Int32 childRank1,
 			Int32 childRank2,
 			Int32 childRank3,
+			decimal factorHealth,
+			decimal factorSocial,
 			decimal factorAdvances,
 			decimal factorWithhold,
 			decimal factorSolidary, 
@@ -175,6 +189,8 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			__ChildrenRank1stAllowance = childRank1;
 			__ChildrenRank2ndAllowance = childRank2;
 			__ChildrenRank3rdAllowance = childRank3;
+			__HealthIncreaseFactor = factorHealth;
+			__SocialIncreaseFactor = factorSocial;
 			__AdvancesFactor = factorAdvances;
 			__WithholdFactor = factorWithhold;
 			__SolidaryFactor = factorSolidary;
@@ -251,6 +267,14 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		public Int32 ChildrenRank3rdAllowance() 
 		{ 
 			return __ChildrenRank3rdAllowance; 
+		}
+		public decimal HealthIncreaseFactor() 
+		{ 
+			return __HealthIncreaseFactor; 
+		}
+		public decimal SocialIncreaseFactor() 
+		{ 
+			return __SocialIncreaseFactor; 
 		}
 		public decimal AdvancesFactor() 
 		{ 

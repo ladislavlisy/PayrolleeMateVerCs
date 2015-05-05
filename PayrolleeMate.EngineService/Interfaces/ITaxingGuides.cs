@@ -27,6 +27,10 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 		Int32 ChildrenRank3rdAllowance ();
 
+		decimal HealthIncreaseFactor ();
+
+		decimal SocialIncreaseFactor ();
+
 		decimal AdvancesFactor ();
 
 		decimal WithholdFactor ();

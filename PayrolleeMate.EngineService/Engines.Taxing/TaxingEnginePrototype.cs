@@ -64,55 +64,6 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			return 0m;
 		}
 
-		// AdvancesTax
-		public Int32 AdvancesResult(MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis)
-		{
-			Int32 taxStandard = AdvancesRegularyTax(period, generalBasis);
-
-			if (PeriodSolidaryIncreaseEnabled (period))
-			{
-				Int32 taxSolidary = AdvancesSolidaryTax(period, solidaryBasis);
-
-				return (taxStandard + taxSolidary);
-			}
-
-			return taxStandard;
-		}
-
-		// AdvancesRegularyTax
-		public Int32 AdvancesRegularyTax(MonthPeriod period, decimal generallBasis)
-		{
-			decimal advancesFactor = PeriodAdvancesFactor (period);
-
-			decimal advancesResult = TaxingOperations.DecFactorResult(generallBasis, advancesFactor);
-
-			Int32 taxRegulary = TaxingOperations.IntRoundUp(advancesResult);
-
-			return taxRegulary;
-		}
-
-		// AdvancesSolidaryTax
-		public Int32 AdvancesSolidaryTax(MonthPeriod period, decimal solidaryBasis)
-		{
-			decimal solidaryFactor = PeriodSolidaryFactor (period);
-
-			decimal solidaryResult = TaxingOperations.DecFactorResult(solidaryBasis, solidaryFactor);
-
-			Int32 taxSolidary = TaxingOperations.IntRoundUp(solidaryResult);
-
-			return taxSolidary;
-		}
-
-		// AdvancesSolidaryBasis
-		public decimal AdvancesSolidaryBasis(MonthPeriod period, decimal taxableIncome)
-		{
-			decimal solidaryLimit = PeriodMinimumIncomeToApplySolidaryIncrease (period);
-
-			decimal solidaryBasis = Math.Max(0, taxableIncome - solidaryLimit);
-
-			return solidaryBasis;
-		}
-
 		// AdvancesRoundedBasis
 		public decimal AdvancesRoundedBasisWithPartial(MonthPeriod period, decimal taxableHealth, decimal taxableSocial, decimal taxableIncome)
 		{
@@ -134,22 +85,126 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			return advancesBasis;
 		}
 
-		// AdvancesTaxableHealth
-		public decimal AdvancesTaxableHealth(MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentHealth)
+		// AdvancesSolidaryBasis
+		public decimal AdvancesSolidaryBasis(MonthPeriod period, decimal taxableIncome)
 		{
+			decimal solidaryLimit = PeriodMinimumIncomeToApplySolidaryIncrease (period);
+
+			decimal solidaryBasis = Math.Max(0, taxableIncome - solidaryLimit);
+
+			return solidaryBasis;
+		}
+
+		// AdvancesRegularyTax
+		public Int32 AdvancesRegularyTax(MonthPeriod period, decimal generalBasis)
+		{
+			decimal advancesFactor = PeriodAdvancesFactor (period);
+
+			decimal advancesResult = TaxingOperations.DecFactorResult(generalBasis, advancesFactor);
+
+			Int32 taxRegulary = TaxingOperations.IntRoundUp(advancesResult);
+
+			return taxRegulary;
+		}
+
+		// AdvancesSolidaryTax
+		public Int32 AdvancesSolidaryTax(MonthPeriod period, decimal solidaryBasis)
+		{
+			decimal solidaryFactor = PeriodSolidaryFactor (period);
+
+			decimal solidaryResult = TaxingOperations.DecFactorResult(solidaryBasis, solidaryFactor);
+
+			Int32 taxSolidary = TaxingOperations.IntRoundUp(solidaryResult);
+
+			return taxSolidary;
+		}
+
+		// AdvancesTax
+		public Int32 AdvancesResultTax(MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis)
+		{
+			Int32 taxStandard = AdvancesRegularyTax(period, generalBasis);
+
+			if (PeriodSolidaryIncreaseEnabled (period))
+			{
+				Int32 taxSolidary = AdvancesSolidaryTax(period, solidaryBasis);
+
+				return (taxStandard + taxSolidary);
+			}
+
+			return taxStandard;
+		}
+			
+		// AdvancesTaxableHealth
+		public decimal AdvancesTaxableHealth (MonthPeriod period, bool advancesSubject, decimal taxableHealthIncome)
+		{
+			if (advancesSubject) 
+			{
+				decimal compoundFactor = PeriodHealthIncreaseFactor (period);
+
+				Int32 resultGeneralValue = HealthIncreaseWithFactor (taxableHealthIncome, compoundFactor);
+
+				return resultGeneralValue;
+			}
 			return 0m;
 		}
 
 		// AdvancesTaxableSocial
-		public decimal AdvancesTaxableSocial(MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentSocial)
+		public decimal AdvancesTaxableSocial (MonthPeriod period, bool advancesSubject, decimal taxableSocialIncome)
 		{
+			if (advancesSubject) 
+			{
+				decimal employerFactor = PeriodSocialIncreaseFactor (period);
+
+				Int32 resultGeneralValue = SocialIncreaseWithFactor(taxableSocialIncome, employerFactor);
+
+				return resultGeneralValue;
+			}
 			return 0m;
 		}
 
-		// AdvancesTaxableIncome
-		public decimal AdvancesTaxableIncome(MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentIncome)
+		// WithholdTaxableHealth
+		public decimal WithholdTaxableHealth (MonthPeriod period, bool withholdSubject, decimal taxableHealthIncome)
 		{
+			if (withholdSubject) 
+			{
+				decimal compoundFactor = PeriodHealthIncreaseFactor (period);
+
+				Int32 resultGeneralValue = HealthIncreaseWithFactor (taxableHealthIncome, compoundFactor);
+
+				return resultGeneralValue;
+			}
 			return 0m;
+		}
+
+		// WithholdTaxableSocial
+		public decimal WithholdTaxableSocial (MonthPeriod period, bool withholdSubject, decimal taxableSocialIncome)
+		{
+			if (withholdSubject) 
+			{
+				decimal employerFactor = PeriodSocialIncreaseFactor (period);
+
+				Int32 resultGeneralValue = SocialIncreaseWithFactor(taxableSocialIncome, employerFactor);
+
+				return resultGeneralValue;
+			}
+			return 0m;
+		}
+
+		// WithholdTax
+		public Int32 WithholdResultTax(MonthPeriod period, decimal generalBasis)
+		{
+			decimal withholdFactor = PeriodWithholdFactor (period);
+
+			decimal withholdResult = TaxingOperations.DecFactorResult(generalBasis, withholdFactor);
+
+			Int32 taxRegulary = TaxingOperations.IntRoundUp(withholdResult);
+
+			return taxRegulary;
+		}
+
+		public bool AdvancesTaxableIncome (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal employmentIncome)
+		{
+			return false;
 		}
 
 		// PayerBasicAllowance
@@ -232,6 +287,19 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			return 0m;
 		}
 
+		public decimal WithholdRoundedBasis (MonthPeriod period, decimal taxableIncome)
+		{
+			bool negativeSuppress = true;
+
+			decimal amountForCalc = TaxingOperations.DecSuppressNegative (negativeSuppress, taxableIncome);
+
+			bool roundUptoHundreds = false;
+
+			decimal withholdBasis = RoundTaxingBasis (period, amountForCalc, roundUptoHundreds);
+
+			return withholdBasis;
+		}
+
 		// WithholdRoundedBasis
 		// WithholdTaxableHealth
 		// WithholdTaxableSocial
@@ -298,6 +366,16 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			return __guides.ChildrenRank3rdAllowance(); 
 		}
 
+		public virtual decimal PeriodHealthIncreaseFactor (MonthPeriod period)
+		{
+			return __guides.HealthIncreaseFactor(); 
+		}
+
+		public virtual decimal PeriodSocialIncreaseFactor (MonthPeriod period)
+		{
+			return __guides.SocialIncreaseFactor(); 
+		}
+
 		public virtual decimal PeriodAdvancesFactor(MonthPeriod period) 
 		{ 
 			return __guides.AdvancesFactor(); 
@@ -349,6 +427,39 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 		}
 
 		#endregion
+
+		private Int32 HealthIncreaseWithFactor (decimal taxableIncome, decimal compoundFactor)
+		{
+			decimal compoundPaymentValue = HealthCompoundIncreaseWithFactor(taxableIncome, compoundFactor);
+
+			decimal employeePaymentValue = DecOperations.Divide(compoundPaymentValue, 3);
+
+			Int32 resultCompoundValue = TaxingOperations.IntRoundUp (compoundPaymentValue);
+
+			Int32 resultEmployeeValue = TaxingOperations.IntRoundUp (employeePaymentValue);
+
+			Int32 resultPaymentValue = (resultCompoundValue - resultEmployeeValue);
+
+			return resultPaymentValue;
+		}
+
+		private Int32 HealthCompoundIncreaseWithFactor (decimal taxableBasis, decimal compoundFactor)
+		{
+			decimal taxableResult = TaxingOperations.DecFactorResult (taxableBasis, compoundFactor);
+
+			Int32 resultPaymentValue = TaxingOperations.IntRoundUp (taxableResult);
+
+			return resultPaymentValue;
+		}
+
+		private Int32 SocialIncreaseWithFactor (decimal taxableBasis, decimal increaseFactor)
+		{
+			decimal taxableResult = TaxingOperations.DecFactorResult (taxableBasis, increaseFactor);
+
+			Int32 resultPaymentValue = TaxingOperations.IntRoundUp (taxableResult);
+
+			return resultPaymentValue;
+		}
 
 		private decimal RoundTaxingBasis (MonthPeriod period, decimal income, bool roundUptoHundreds)
 		{

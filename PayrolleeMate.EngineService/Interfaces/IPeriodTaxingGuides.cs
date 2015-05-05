@@ -27,6 +27,10 @@ namespace PayrolleeMate.EngineService
 
 		decimal PeriodAdvancesFactor (MonthPeriod period); 
 	
+		decimal PeriodHealthIncreaseFactor (MonthPeriod period);
+
+		decimal PeriodSocialIncreaseFactor (MonthPeriod period);
+
 		decimal PeriodWithholdFactor (MonthPeriod period); 
 
 		decimal PeriodSolidaryFactor (MonthPeriod period); 

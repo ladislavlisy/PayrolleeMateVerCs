@@ -49,7 +49,7 @@ namespace Tests.EngineService
 		}
 
 		[Test ()]
-		public void Should_return_391_for_Payment_when_Basis_is_6_003_CZK()
+		public void Should_return_1501_for_Payment_when_Basis_is_6_003_CZK()
 		{ 
 			IEnginesHistory<ISocialEngine> engines = SocialEnginesHistory.CreateEngines ();
 

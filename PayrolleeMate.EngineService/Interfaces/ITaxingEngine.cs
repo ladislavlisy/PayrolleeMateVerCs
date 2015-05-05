@@ -19,23 +19,31 @@ namespace PayrolleeMate.EngineService.Interfaces
 
 		decimal WithholdTaxSelector (MonthPeriod period, bool withholdSubject, decimal valResult);
 
-		Int32 AdvancesResult (MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis);
-
-		Int32 AdvancesRegularyTax (MonthPeriod period, decimal generallBasis);
-
-		Int32 AdvancesSolidaryTax (MonthPeriod period, decimal solidaryBasis);
-
-		decimal AdvancesSolidaryBasis (MonthPeriod period, decimal taxableIncome);
-
 		decimal AdvancesRoundedBasisWithPartial (MonthPeriod period, decimal taxableHealth, decimal taxableSocial, decimal taxableIncome);
 
 		decimal AdvancesRoundedBasis (MonthPeriod period, decimal taxableIncome);
 
-		decimal AdvancesTaxableHealth (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentHealth);
+		decimal AdvancesSolidaryBasis (MonthPeriod period, decimal taxableIncome);
 
-		decimal AdvancesTaxableSocial (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentSocial);
+		Int32 AdvancesResultTax (MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis);
 
-		decimal AdvancesTaxableIncome (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal taxableIncome, decimal employmentIncome);
+		Int32 AdvancesRegularyTax (MonthPeriod period, decimal generalBasis);
+
+		Int32 AdvancesSolidaryTax (MonthPeriod period, decimal solidaryBasis);
+
+		decimal AdvancesTaxableHealth (MonthPeriod period, bool advancesSubject, decimal taxableHealthIncome);
+
+		decimal AdvancesTaxableSocial (MonthPeriod period, bool advancesSubject, decimal taxableSocialIncome);
+
+		bool AdvancesTaxableIncome (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal employmentIncome);
+
+		decimal WithholdRoundedBasis (MonthPeriod period, decimal taxableIncome);
+
+		decimal WithholdTaxableHealth (MonthPeriod period, bool withholdSubject, decimal taxableHealthIncome);
+
+		decimal WithholdTaxableSocial (MonthPeriod period, bool withholdSubject, decimal taxableSocialIncome);
+
+		Int32 WithholdResultTax (MonthPeriod period, decimal generalBasis);
 
 		Int32 StatementPayerBasicAllowance (MonthPeriod period, bool isStatementSign, bool isResidentCzech);
 
