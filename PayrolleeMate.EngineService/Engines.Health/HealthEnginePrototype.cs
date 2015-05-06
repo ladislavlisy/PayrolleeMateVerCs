@@ -175,6 +175,16 @@ namespace PayrolleeMate.EngineService.Engines.Health
 			return __guides.CompoundFactor();
 		}
 
+		public virtual decimal PeriodMarginalIncomeEmployment (MonthPeriod period)
+		{
+			return __guides.MarginalIncomeEmployment();
+		}
+
+		public virtual decimal PeriodMarginalIncomeAgreeTasks (MonthPeriod period)
+		{
+			return __guides.MarginalIncomeAgreeTasks();
+		}
+
 		#endregion
 
 		private Int32 EmployeeContributionWithFactor (decimal generalBasis, decimal mandatoryEmpee, decimal compoundFactor)

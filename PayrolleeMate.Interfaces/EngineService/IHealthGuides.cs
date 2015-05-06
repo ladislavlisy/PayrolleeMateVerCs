@@ -12,6 +12,10 @@ namespace PayrolleeMate.EngineService.Engines.Health
 		decimal MaximumAnnualBasis ();
 
 		decimal CompoundFactor ();
+
+		decimal MarginalIncomeEmployment ();
+
+		decimal MarginalIncomeAgreeTasks ();
 	}
 }
 

@@ -22,6 +22,10 @@ namespace PayrolleeMate.EngineService
 		decimal PeriodEmployerFactor (MonthPeriod period);
 
 		decimal PeriodEmployerElevatedFactor (MonthPeriod period);
+
+		decimal PeriodMarginalIncomeEmployment (MonthPeriod period);
+
+		decimal PeriodMarginalIncomeAgreeTasks (MonthPeriod period);
 	}
 }
 

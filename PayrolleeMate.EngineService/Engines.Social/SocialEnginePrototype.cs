@@ -3,10 +3,11 @@ using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Rounding;
 using PayrolleeMate.Common.Operations;
 using PayrolleeMate.Common.Periods;
+using PayrolleeMate.Constants;
 
 namespace PayrolleeMate.EngineService.Engines.Social
 {
-	public class SocialEnginePrototype : ISocialEngine
+	public abstract class SocialEnginePrototype : ISocialEngine
 	{
 		public const bool PENSION_SCHEME_YES = true;
 
@@ -140,6 +141,9 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			return assesmentBase;
 		}
 
+		public abstract bool ParticipateSocialIncome (MonthPeriod period, WorkRelationTerms workTerm, WorkSocialTerms socialTerm, 
+			decimal contractIncome, decimal workTermIncome, decimal totalInsIncome);
+
 		public ISocialGuides Guides ()
 		{
 			return __guides;
@@ -204,6 +208,16 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		public virtual decimal PeriodEmployerElevatedFactor (MonthPeriod period)
 		{
 			return __guides.EmployerElevatedFactor();
+		}
+
+		public virtual decimal PeriodMarginalIncomeEmployment (MonthPeriod period)
+		{
+			return __guides.MarginalIncomeEmployment();
+		}
+
+		public virtual decimal PeriodMarginalIncomeAgreeTasks (MonthPeriod period)
+		{
+			return __guides.MarginalIncomeAgreeTasks();
 		}
 
 		#endregion

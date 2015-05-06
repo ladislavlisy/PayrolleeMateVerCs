@@ -44,6 +44,8 @@
     <Compile Include="EngineService\ITaxingEngine.cs" />
     <Compile Include="EngineService\ITaxingGuides.cs" />
     <Compile Include="Constants\WorkRelationTerms.cs" />
+    <Compile Include="Constants\WorkSocialTerms.cs" />
+    <Compile Include="Constants\WorkHealthTerms.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -12,6 +12,8 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		private readonly decimal __factorEmployee;
 		private readonly decimal __factorEmployeeGarant;
 		private readonly decimal __factorGarantReduce;
+		private readonly decimal __marginalEmploymentIncome;
+		private readonly decimal __marginalAgreeTasksIncome;
 
 		public static SocialGuides Guides2015()
 		{
@@ -22,7 +24,9 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2015.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2015.FACTOR_EMPLOYEE,
 				SocialProperties2015.FACTOR_EMPLOYEE_GARANT,
-				SocialProperties2015.FACTOR_REDUCE_GARANT);
+				SocialProperties2015.FACTOR_REDUCE_GARANT,
+				SocialProperties2015.INCOME_EMPLOY_MARGINAL,
+				SocialProperties2015.INCOME_AGREEM_MARGINAL);
 		}
 
 		public static SocialGuides Guides2014()
@@ -34,7 +38,9 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2014.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2014.FACTOR_EMPLOYEE,
 				SocialProperties2014.FACTOR_EMPLOYEE_GARANT,
-				SocialProperties2014.FACTOR_REDUCE_GARANT);
+				SocialProperties2014.FACTOR_REDUCE_GARANT,
+				SocialProperties2014.INCOME_EMPLOY_MARGINAL,
+				SocialProperties2014.INCOME_AGREEM_MARGINAL);
 		}
 
 		public static SocialGuides Guides2013()
@@ -46,7 +52,9 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2013.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2013.FACTOR_EMPLOYEE,
 				SocialProperties2013.FACTOR_EMPLOYEE_GARANT,
-				SocialProperties2013.FACTOR_REDUCE_GARANT);
+				SocialProperties2013.FACTOR_REDUCE_GARANT,
+				SocialProperties2013.INCOME_EMPLOY_MARGINAL,
+				SocialProperties2013.INCOME_AGREEM_MARGINAL);
 		}
 
 		public static SocialGuides Guides2012()
@@ -58,7 +66,9 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2012.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2012.FACTOR_EMPLOYEE,
 				SocialProperties2012.FACTOR_EMPLOYEE_GARANT,
-				SocialProperties2012.FACTOR_REDUCE_GARANT);
+				SocialProperties2012.FACTOR_REDUCE_GARANT,
+				SocialProperties2012.INCOME_EMPLOY_MARGINAL,
+				SocialProperties2012.INCOME_AGREEM_MARGINAL);
 		}
 
 		public static SocialGuides Guides2011()
@@ -70,7 +80,9 @@ namespace PayrolleeMate.EngineService.Engines.Social
 				SocialProperties2011.FACTOR_EMPLOYER_ELEVATED,
 				SocialProperties2011.FACTOR_EMPLOYEE,
 				SocialProperties2011.FACTOR_EMPLOYEE_GARANT,
-				SocialProperties2011.FACTOR_REDUCE_GARANT);
+				SocialProperties2011.FACTOR_REDUCE_GARANT,
+				SocialProperties2011.INCOME_EMPLOY_MARGINAL,
+				SocialProperties2011.INCOME_AGREEM_MARGINAL);
 		}
 
 		private SocialGuides(
@@ -81,7 +93,9 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			decimal factorElevated,
 			decimal factorEmployee,
 			decimal factorGarant,
-			decimal factorReduce) : base(validYear)
+			decimal factorReduce,
+			decimal margEmploymentIncome,
+			decimal margAgreeTasksIncome) : base(validYear)
 		{
 			__basicAnnualMaximum = basicAnnual;
 			__basisMandatory = basisMandatory;
@@ -90,6 +104,8 @@ namespace PayrolleeMate.EngineService.Engines.Social
 			__factorEmployee = factorEmployee;
 			__factorEmployeeGarant = factorGarant;
 			__factorGarantReduce = factorReduce;
+			__marginalEmploymentIncome = margEmploymentIncome;
+			__marginalAgreeTasksIncome = margAgreeTasksIncome;
 		}
 
 		public Int32 MandatoryBasis () 
@@ -125,6 +141,16 @@ namespace PayrolleeMate.EngineService.Engines.Social
 		public decimal EmployerElevatedFactor () 
 		{
 			return __factorEmployerElevated;
+		}
+
+		public decimal MarginalIncomeEmployment () 
+		{
+			return __marginalEmploymentIncome;
+		}
+
+		public decimal MarginalIncomeAgreeTasks () 
+		{
+			return __marginalAgreeTasksIncome;
 		}
 
 		public virtual object Clone()

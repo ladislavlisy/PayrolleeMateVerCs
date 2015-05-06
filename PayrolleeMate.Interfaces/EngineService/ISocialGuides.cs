@@ -21,6 +21,9 @@ namespace PayrolleeMate.EngineService.Engines.Social
 
 		decimal EmployerElevatedFactor ();
 
+		decimal MarginalIncomeEmployment ();
+
+		decimal MarginalIncomeAgreeTasks ();
 	}
 
 }

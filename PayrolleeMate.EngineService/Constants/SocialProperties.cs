@@ -19,6 +19,10 @@ namespace PayrolleeMate.EngineService.Constants
 		public const decimal FACTOR_EMPLOYEE_GARANT = 0.0m;
 
 		public const decimal FACTOR_REDUCE_GARANT = 0.0m;
+
+		public const decimal INCOME_EMPLOY_MARGINAL = 2000m;
+
+		public const decimal INCOME_AGREEM_MARGINAL = 0m;
 	}
 
 	class SocialProperties2012
@@ -38,6 +42,10 @@ namespace PayrolleeMate.EngineService.Constants
 		public const decimal FACTOR_EMPLOYEE_GARANT = SocialProperties2011.FACTOR_EMPLOYEE_GARANT;
 
 		public const decimal FACTOR_REDUCE_GARANT = SocialProperties2011.FACTOR_REDUCE_GARANT;
+
+		public const decimal INCOME_EMPLOY_MARGINAL = 2500m;
+
+		public const decimal INCOME_AGREEM_MARGINAL = 10000m;
 	}
 
 	class SocialProperties2013
@@ -57,6 +65,10 @@ namespace PayrolleeMate.EngineService.Constants
 		public const decimal FACTOR_EMPLOYEE_GARANT = 5.0m;
 
 		public const decimal FACTOR_REDUCE_GARANT = 3.0m;
+
+		public const decimal INCOME_EMPLOY_MARGINAL = HealthProperties2012.INCOME_EMPLOY_MARGINAL;
+
+		public const decimal INCOME_AGREEM_MARGINAL = HealthProperties2012.INCOME_AGREEM_MARGINAL;
 	}
 
 	class SocialProperties2014
@@ -76,6 +88,10 @@ namespace PayrolleeMate.EngineService.Constants
 		public const decimal FACTOR_EMPLOYEE_GARANT = SocialProperties2013.FACTOR_EMPLOYEE_GARANT;
 
 		public const decimal FACTOR_REDUCE_GARANT = SocialProperties2013.FACTOR_REDUCE_GARANT;
+
+		public const decimal INCOME_EMPLOY_MARGINAL = HealthProperties2013.INCOME_EMPLOY_MARGINAL;
+
+		public const decimal INCOME_AGREEM_MARGINAL = HealthProperties2013.INCOME_AGREEM_MARGINAL;
 	}
 
 	class SocialProperties2015
@@ -95,6 +111,10 @@ namespace PayrolleeMate.EngineService.Constants
 		public const decimal FACTOR_EMPLOYEE_GARANT = SocialProperties2014.FACTOR_EMPLOYEE_GARANT;
 
 		public const decimal FACTOR_REDUCE_GARANT = SocialProperties2014.FACTOR_REDUCE_GARANT;
+
+		public const decimal INCOME_EMPLOY_MARGINAL = HealthProperties2014.INCOME_EMPLOY_MARGINAL;
+
+		public const decimal INCOME_AGREEM_MARGINAL = HealthProperties2014.INCOME_AGREEM_MARGINAL;
 	}
 
 }

@@ -12,6 +12,10 @@ namespace PayrolleeMate.EngineService
 		decimal PeriodMaximumAnnualBasis (MonthPeriod period);
 
 		decimal PeriodCompoundFactor (MonthPeriod period);
+
+		decimal PeriodMarginalIncomeEmployment (MonthPeriod period);
+
+		decimal PeriodMarginalIncomeAgreeTasks (MonthPeriod period);
 	}
 }
 
