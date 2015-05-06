@@ -2,6 +2,7 @@
 using PayrolleeMate.EngineService.Engines.Social;
 using PayrolleeMate.Common.Periods;
 using PayrolleeMate.Constants;
+using PayrolleeMate.EngineService.Engine.Exceptions;
 
 namespace PayrolleeMate.EngineService.History.SocialEngines
 {
@@ -73,12 +74,12 @@ namespace PayrolleeMate.EngineService.History.SocialEngines
 
 		private bool ParticipateShortWorkMeet (MonthPeriod period, decimal contractIncome, decimal workTermIncome, decimal totalInsIncome)
 		{
-			return true;
+			throw new EngineServicePeriodException ("short-term work is not applicable after january 2015", period);
 		}
 
 		private bool ParticipateShortWorkDeny (MonthPeriod period, decimal contractIncome, decimal workTermIncome, decimal totalInsIncome)
 		{
-			return false;
+			throw new EngineServicePeriodException ("short-term work is not applicable after january 2015", period);
 		}
 		#endregion
 	}

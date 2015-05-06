@@ -1,6 +1,7 @@
 using System;
 using PayrolleeMate.Common.Periods;
 using PayrolleeMate.EngineService.Engines.Health;
+using PayrolleeMate.Constants;
 
 namespace PayrolleeMate.EngineService.Interfaces
 {
@@ -29,6 +30,9 @@ namespace PayrolleeMate.EngineService.Interfaces
 		decimal EmployerMandatoryContribution(MonthPeriod period, bool negSuppress, decimal generalBasis, decimal mandatoryEmpee, decimal mandatoryEmper);
 
 		decimal EmployerContribution(MonthPeriod period, bool negSuppress, decimal generalBasis, decimal mandatoryEmpee, decimal mandatoryEmper);
+
+		bool ParticipateHealthIncome (MonthPeriod period, WorkRelationTerms workTerm, WorkHealthTerms healthTerm, 
+			decimal contractIncome, decimal workTermIncome, decimal totalInsIncome);
 
 	}
 }

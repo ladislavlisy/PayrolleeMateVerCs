@@ -3,10 +3,11 @@ using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Rounding;
 using PayrolleeMate.Common.Operations;
 using PayrolleeMate.Common.Periods;
+using PayrolleeMate.Constants;
 
 namespace PayrolleeMate.EngineService.Engines.Health
 {
-	public class HealthEnginePrototype : IHealthEngine
+	public abstract class HealthEnginePrototype : IHealthEngine
 	{
 		public HealthEnginePrototype  (HealthGuides currentGuides)
 		{
@@ -142,6 +143,9 @@ namespace PayrolleeMate.EngineService.Engines.Health
 			return resultPaymentValue;
 		}
 
+		public abstract bool ParticipateHealthIncome (MonthPeriod period, WorkRelationTerms workTerm, WorkHealthTerms healthTerm, 
+		                                              decimal contractIncome, decimal workTermIncome, decimal totalInsIncome);
+		
 		public IHealthGuides Guides ()
 		{
 			return __guides;

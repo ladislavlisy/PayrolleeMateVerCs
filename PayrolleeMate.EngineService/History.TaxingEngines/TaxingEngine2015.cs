@@ -19,20 +19,21 @@ namespace PayrolleeMate.EngineService.History.TaxingEngines
 		{
 			bool notSignedStatement = (!isStatementSign);
 
-			bool foreignTaxResident = (!isResidentCzech);
-
-			bool agreementTasksTerm = (workTerm == WorkRelationTerms.WORKTERM_CONTRACTER_T);
-
-			bool statutoryTasksTerm = (workTerm == WorkRelationTerms.WORKTERM_STATUTORY__Q);
-
-			bool agreementIncomeMax = (workTermIncome < PeriodMaximumIncomeToApplyWithholdTax (period));
-
 			if (notSignedStatement) 
 			{
+				bool agreementTasksTerm = (workTerm == WorkRelationTerms.WORKTERM_CONTRACTER_T);
+
+				bool agreementIncomeMax = (workTermIncome < PeriodMaximumIncomeToApplyWithholdTax (period));
+
 				if (agreementTasksTerm && agreementIncomeMax) 
 				{
 					return true;
 				}
+
+				bool statutoryTasksTerm = (workTerm == WorkRelationTerms.WORKTERM_STATUTORY__Q);
+
+				bool foreignTaxResident = (!isResidentCzech);
+
 				if (statutoryTasksTerm && foreignTaxResident) 
 				{
 					return true;

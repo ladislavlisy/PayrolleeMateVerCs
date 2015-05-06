@@ -68,6 +68,7 @@
     <Compile Include="Engines.Social\SocialOperations.cs" />
     <Compile Include="Engines.Health\HealthOperations.cs" />
     <Compile Include="Core\EngineGeneralGuides.cs" />
+    <Compile Include="Engine.Exceptions\EngineServicePeriodException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -79,6 +80,7 @@
     <Folder Include="Engines.Social\" />
     <Folder Include="History.HealthEngines\" />
     <Folder Include="History.SocialEngines\" />
+    <Folder Include="Engine.Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">

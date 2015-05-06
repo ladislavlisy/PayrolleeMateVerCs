@@ -2,6 +2,7 @@
 using PayrolleeMate.EngineService.Engines.Health;
 using PayrolleeMate.Common.Periods;
 using PayrolleeMate.EngineService.Constants;
+using PayrolleeMate.Constants;
 
 namespace PayrolleeMate.EngineService.History.HealthEngines
 {
@@ -12,6 +13,8 @@ namespace PayrolleeMate.EngineService.History.HealthEngines
 		{
 		}
 
+		#region implemented abstract members of HealthEnginePrototype
+
 		public override Int32 PeriodMandatoryBasis (MonthPeriod period)
 		{
 			if (period.Year () == 2013 && period.Month () < 8)
@@ -20,6 +23,14 @@ namespace PayrolleeMate.EngineService.History.HealthEngines
 			}
 			return Guides().MandatoryBasis ();
 		}
+
+		public override bool ParticipateHealthIncome (MonthPeriod period, WorkRelationTerms workTerm, WorkHealthTerms healthTerm, 
+			decimal contractIncome, decimal workTermIncome, decimal totalInsIncome)
+		{
+			return true;
+		}
+
+		#endregion
 
 	}
 }
