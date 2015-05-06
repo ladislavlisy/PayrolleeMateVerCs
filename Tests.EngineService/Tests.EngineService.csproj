@@ -68,6 +68,8 @@
     <Compile Include="Taxing\TestTaxWithholdPayments2015.cs" />
     <Compile Include="Taxing\TestTaxIncreaseSelectors2015.cs" />
     <Compile Include="Taxing\TestTaxAllowances2015.cs" />
+    <Compile Include="Taxing\TestTaxGuidelinesAdvances2015.cs" />
+    <Compile Include="Taxing\TestTaxGuidelinesWithhold2015.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

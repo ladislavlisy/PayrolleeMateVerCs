@@ -35,7 +35,8 @@ namespace PayrolleeMate.EngineService.Interfaces
 
 		decimal AdvancesTaxableSocial (MonthPeriod period, bool advancesSubject, decimal taxableSocialIncome);
 
-		bool AdvancesTaxableIncome (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal employmentIncome);
+		bool AdvancesTaxableIncome (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, 
+			decimal contractIncome, decimal workTermIncome, decimal totalTaxIncome);
 
 		decimal WithholdRoundedBasis (MonthPeriod period, decimal taxableIncome);
 
@@ -44,6 +45,9 @@ namespace PayrolleeMate.EngineService.Interfaces
 		decimal WithholdTaxableSocial (MonthPeriod period, bool withholdSubject, decimal taxableSocialIncome);
 
 		Int32 WithholdResultTax (MonthPeriod period, decimal generalBasis);
+
+		bool WithholdTaxableIncome (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, 
+			decimal contractIncome, decimal workTermIncome, decimal totalTaxIncome);
 
 		Int32 StatementPayerBasicAllowance (MonthPeriod period, bool isStatementSign, bool isResidentCzech);
 

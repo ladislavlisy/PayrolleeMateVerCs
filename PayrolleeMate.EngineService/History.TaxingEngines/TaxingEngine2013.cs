@@ -1,5 +1,7 @@
 ﻿using System;
 using PayrolleeMate.EngineService.Engines.Taxing;
+using PayrolleeMate.Common.Periods;
+using PayrolleeMate.Constants;
 
 namespace PayrolleeMate.EngineService.History.TaxingEngines
 {
@@ -9,6 +11,16 @@ namespace PayrolleeMate.EngineService.History.TaxingEngines
 			: base(TaxingGuides.Guides2013())
 		{
 		}
+
+		#region implemented abstract members of TaxingEnginePrototype
+
+		public override bool WithholdTaxableIncome (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, 
+			decimal contractIncome, decimal workTermIncome, decimal totalTaxIncome)
+		{
+			return false;
+		}
+
+		#endregion
 	}
 }
 

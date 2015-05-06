@@ -7,7 +7,7 @@ using PayrolleeMate.Constants;
 
 namespace PayrolleeMate.EngineService.Engines.Taxing
 {
-	public class TaxingEnginePrototype : ITaxingEngine
+	public abstract class TaxingEnginePrototype : ITaxingEngine
 	{
 		public TaxingEnginePrototype (TaxingGuides currentGuides)
 		{
@@ -119,7 +119,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			return taxSolidary;
 		}
 
-		// AdvancesTax
+		// AdvancesResultTax
 		public Int32 AdvancesResultTax(MonthPeriod period, decimal taxableIncome, decimal generalBasis, decimal solidaryBasis)
 		{
 			Int32 taxStandard = AdvancesRegularyTax(period, generalBasis);
@@ -162,6 +162,42 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			return 0m;
 		}
 
+		// WithholdTax
+		public decimal WithholdTaxSelector (MonthPeriod period, bool withholdSubject, decimal valResult)
+		{
+			if (withholdSubject) 
+			{
+				return valResult;
+			}
+			return 0m;
+		}
+
+		// WithholdRoundedBasis
+		public decimal WithholdRoundedBasis (MonthPeriod period, decimal taxableIncome)
+		{
+			bool negativeSuppress = true;
+
+			decimal amountForCalc = TaxingOperations.DecSuppressNegative (negativeSuppress, taxableIncome);
+
+			bool roundUptoHundreds = false;
+
+			decimal withholdBasis = RoundTaxingBasis (period, amountForCalc, roundUptoHundreds);
+
+			return withholdBasis;
+		}
+
+		// WithholdTax
+		public Int32 WithholdResultTax(MonthPeriod period, decimal generalBasis)
+		{
+			decimal withholdFactor = PeriodWithholdFactor (period);
+
+			decimal withholdResult = TaxingOperations.DecFactorResult(generalBasis, withholdFactor);
+
+			Int32 taxRegulary = TaxingOperations.IntRoundUp(withholdResult);
+
+			return taxRegulary;
+		}
+
 		// WithholdTaxableHealth
 		public decimal WithholdTaxableHealth (MonthPeriod period, bool withholdSubject, decimal taxableHealthIncome)
 		{
@@ -190,21 +226,13 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 			return 0m;
 		}
 
-		// WithholdTax
-		public Int32 WithholdResultTax(MonthPeriod period, decimal generalBasis)
+		public abstract bool WithholdTaxableIncome (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, 
+			decimal contractIncome, decimal workTermIncome, decimal totalTaxIncome);
+
+		public bool AdvancesTaxableIncome (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, 
+			decimal contractIncome, decimal workTermIncome, decimal totalTaxIncome)
 		{
-			decimal withholdFactor = PeriodWithholdFactor (period);
-
-			decimal withholdResult = TaxingOperations.DecFactorResult(generalBasis, withholdFactor);
-
-			Int32 taxRegulary = TaxingOperations.IntRoundUp(withholdResult);
-
-			return taxRegulary;
-		}
-
-		public bool AdvancesTaxableIncome (MonthPeriod period, bool isStatementSign, bool isResidentCzech, WorkRelationTerms workTerm, decimal employmentIncome)
-		{
-			return false;
+			return !WithholdTaxableIncome(period, isStatementSign, isResidentCzech, workTerm, contractIncome, workTermIncome, totalTaxIncome);
 		}
 
 		// PayerBasicAllowance
@@ -276,35 +304,7 @@ namespace PayrolleeMate.EngineService.Engines.Taxing
 
 			return IntRounding.RoundToInt( bonusResult );
 		}
-
-		// WithholdTax
-		public decimal WithholdTaxSelector (MonthPeriod period, bool withholdSubject, decimal valResult)
-		{
-			if (withholdSubject) 
-			{
-				return valResult;
-			}
-			return 0m;
-		}
-
-		public decimal WithholdRoundedBasis (MonthPeriod period, decimal taxableIncome)
-		{
-			bool negativeSuppress = true;
-
-			decimal amountForCalc = TaxingOperations.DecSuppressNegative (negativeSuppress, taxableIncome);
-
-			bool roundUptoHundreds = false;
-
-			decimal withholdBasis = RoundTaxingBasis (period, amountForCalc, roundUptoHundreds);
-
-			return withholdBasis;
-		}
-
-		// WithholdRoundedBasis
-		// WithholdTaxableHealth
-		// WithholdTaxableSocial
-		// WithholdTaxableIncome
-
+			
 		public ITaxingGuides Guides ()
 		{
 			return __guides;
