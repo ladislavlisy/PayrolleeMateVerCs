@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.EngineService
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.EngineService", "Tests.EngineService\Tests.EngineService.csproj", "{0D1DAC7B-2DEF-439B-9FF0-2E6011F66193}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.Interfaces", "PayrolleeMate.Interfaces\PayrolleeMate.Interfaces.csproj", "{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{39AD919F-8AC7-4FE3-8B15-534D42018C7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39AD919F-8AC7-4FE3-8B15-534D42018C7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39AD919F-8AC7-4FE3-8B15-534D42018C7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DF4033F9-6BC0-49FE-B6B3-EAE498F4624F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF4033F9-6BC0-49FE-B6B3-EAE498F4624F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF4033F9-6BC0-49FE-B6B3-EAE498F4624F}.Release|Any CPU.ActiveCfg = Release|Any CPU

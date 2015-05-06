@@ -1,5 +1,4 @@
 using System;
-using PayrolleeMate.EngineService.Constants;
 using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService.Engines.Social

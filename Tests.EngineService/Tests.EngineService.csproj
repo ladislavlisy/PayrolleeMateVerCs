@@ -87,5 +87,9 @@
       <Project>{075817F0-6776-46E6-BF92-C5D0D5E16756}</Project>
       <Name>PayrolleeMate.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PayrolleeMate.Interfaces\PayrolleeMate.Interfaces.csproj">
+      <Project>{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}</Project>
+      <Name>PayrolleeMate.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
