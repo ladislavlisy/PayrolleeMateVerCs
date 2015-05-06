@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayrolleeMate.EngineService.Constants
+namespace PayrolleeMate.Constants
 {
 	public enum WorkRelationTerms : uint
 	{
