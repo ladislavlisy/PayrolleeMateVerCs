@@ -37,9 +37,9 @@ namespace PayrolleeMate.ProcessService
 				return targets.Where(x => (x.isEqualToParty(party) && x.Code() == code)).ToArray();
 			}
 
-			static private IEnumerable<uint> ExtractCodeOrders(IEnumerable<IBookIndex> termCollection)
+			static private IEnumerable<uint> ExtractCodeOrders(IEnumerable<IBookIndex> targets)
 			{
-				return termCollection.Select(x => x.CodeOrder()).ToArray();
+				return targets.Select(x => x.CodeOrder()).ToArray();
 			}
 
 			static private uint GetFirstIndexFrom(ICollection<uint> sortedOrders)
