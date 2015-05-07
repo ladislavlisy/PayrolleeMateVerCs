@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.ProcessServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.ProcessConfig", "PayrolleeMate.ProcessConfig\PayrolleeMate.ProcessConfig.csproj", "{F91E4B02-352C-41F2-AAFF-E3B956EB8805}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.ProcessConfig", "Tests.ProcessConfig\Tests.ProcessConfig.csproj", "{DBED91CD-3F55-4EA2-8B16-CEE30D85D260}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.ProcessService", "Tests.ProcessService\Tests.ProcessService.csproj", "{CDC75069-5EB1-4B99-9147-4541A8066131}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDC75069-5EB1-4B99-9147-4541A8066131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDC75069-5EB1-4B99-9147-4541A8066131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDC75069-5EB1-4B99-9147-4541A8066131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDC75069-5EB1-4B99-9147-4541A8066131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBED91CD-3F55-4EA2-8B16-CEE30D85D260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBED91CD-3F55-4EA2-8B16-CEE30D85D260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBED91CD-3F55-4EA2-8B16-CEE30D85D260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBED91CD-3F55-4EA2-8B16-CEE30D85D260}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DF4033F9-6BC0-49FE-B6B3-EAE498F4624F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF4033F9-6BC0-49FE-B6B3-EAE498F4624F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF4033F9-6BC0-49FE-B6B3-EAE498F4624F}.Release|Any CPU.ActiveCfg = Release|Any CPU
