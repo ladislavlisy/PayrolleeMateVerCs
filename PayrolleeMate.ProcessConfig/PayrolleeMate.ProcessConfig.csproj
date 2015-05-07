@@ -32,9 +32,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Factories\PayrollArticleFactory.cs" />
+    <Compile Include="Factories\PayrollConceptFactory.cs" />
+    <Compile Include="Collections\PayrollArticleCollection.cs" />
+    <Compile Include="Payroll.Articles\UnknownArticle.cs" />
+    <Compile Include="Payroll.Concepts\UnknownConcept.cs" />
+    <Compile Include="ProcessConfig.cs" />
+    <Compile Include="General\GeneralPayrollArticle.cs" />
+    <Compile Include="General\GeneralPayrollConcept.cs" />
+    <Compile Include="Collections\PayrollConceptCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Constants\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Collections\" />
+    <Folder Include="Payroll.Articles\" />
+    <Folder Include="Payroll.Concepts\" />
+    <Folder Include="General\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PayrolleeMate.Interfaces\PayrolleeMate.Interfaces.csproj">
+      <Project>{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}</Project>
+      <Name>PayrolleeMate.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">
+      <Project>{075817F0-6776-46E6-BF92-C5D0D5E16756}</Project>
+      <Name>PayrolleeMate.Common</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

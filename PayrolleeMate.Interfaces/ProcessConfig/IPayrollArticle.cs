@@ -9,7 +9,7 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 
 		string ArticleName();
 
-		SymbolName ConceptSpec();
+		SymbolName ConceptSymbol();
 
 		uint ConceptCode();
 

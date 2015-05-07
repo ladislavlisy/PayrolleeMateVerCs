@@ -41,6 +41,7 @@
     <Compile Include="Factories\GeneralFactory.cs" />
     <Compile Include="Operations\DecOperations.cs" />
     <Compile Include="Core\SymbolName.cs" />
+    <Compile Include="Libs\StringRubyExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -49,5 +50,6 @@
     <Folder Include="Factories\" />
     <Folder Include="Operations\" />
     <Folder Include="Core\" />
+    <Folder Include="Libs\" />
   </ItemGroup>
 </Project>
