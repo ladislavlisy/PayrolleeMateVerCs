@@ -1,8 +1,8 @@
 ﻿using System;
 using PayrolleeMate.EngineService.Engines.Social;
 using PayrolleeMate.Common.Periods;
-using PayrolleeMate.Constants;
-using PayrolleeMate.EngineService.Engine.Exceptions;
+using PayrolleeMate.EngineService.Constants;
+using PayrolleeMate.EngineService.Exceptions;
 
 namespace PayrolleeMate.EngineService.History.SocialEngines
 {

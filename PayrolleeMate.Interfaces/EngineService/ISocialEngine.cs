@@ -1,7 +1,7 @@
 using System;
 using PayrolleeMate.Common.Periods;
 using PayrolleeMate.EngineService.Engines.Social;
-using PayrolleeMate.Constants;
+using PayrolleeMate.EngineService.Constants;
 
 namespace PayrolleeMate.EngineService.Interfaces
 {

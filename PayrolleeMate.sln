@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.EngineService", "Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.Interfaces", "PayrolleeMate.Interfaces\PayrolleeMate.Interfaces.csproj", "{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.ProcessService", "PayrolleeMate.ProcessService\PayrolleeMate.ProcessService.csproj", "{59EF58E7-7624-4E21-AAF6-C6FE10C6BA2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.ProcessConfig", "PayrolleeMate.ProcessConfig\PayrolleeMate.ProcessConfig.csproj", "{F91E4B02-352C-41F2-AAFF-E3B956EB8805}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,10 @@ Global
 		{39AD919F-8AC7-4FE3-8B15-534D42018C7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39AD919F-8AC7-4FE3-8B15-534D42018C7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39AD919F-8AC7-4FE3-8B15-534D42018C7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59EF58E7-7624-4E21-AAF6-C6FE10C6BA2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59EF58E7-7624-4E21-AAF6-C6FE10C6BA2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59EF58E7-7624-4E21-AAF6-C6FE10C6BA2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59EF58E7-7624-4E21-AAF6-C6FE10C6BA2D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -43,5 +51,9 @@ Global
 		{DF4033F9-6BC0-49FE-B6B3-EAE498F4624F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF4033F9-6BC0-49FE-B6B3-EAE498F4624F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF4033F9-6BC0-49FE-B6B3-EAE498F4624F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F91E4B02-352C-41F2-AAFF-E3B956EB8805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F91E4B02-352C-41F2-AAFF-E3B956EB8805}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F91E4B02-352C-41F2-AAFF-E3B956EB8805}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F91E4B02-352C-41F2-AAFF-E3B956EB8805}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

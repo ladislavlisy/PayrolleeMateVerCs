@@ -40,6 +40,7 @@
     <Compile Include="Periods\SeqOfYears.cs" />
     <Compile Include="Factories\GeneralFactory.cs" />
     <Compile Include="Operations\DecOperations.cs" />
+    <Compile Include="Core\SymbolName.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -47,5 +48,6 @@
     <Folder Include="Periods\" />
     <Folder Include="Factories\" />
     <Folder Include="Operations\" />
+    <Folder Include="Core\" />
   </ItemGroup>
 </Project>

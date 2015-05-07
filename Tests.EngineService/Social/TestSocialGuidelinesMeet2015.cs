@@ -6,7 +6,6 @@ using PayrolleeMate.EngineService.Engines.Social;
 using PayrolleeMate.Common.Periods;
 using PayrolleeMate.EngineService;
 using PayrolleeMate.EngineService.Constants;
-using PayrolleeMate.Constants;
 
 namespace Tests.EngineService
 {

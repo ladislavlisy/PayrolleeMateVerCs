@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{59EF58E7-7624-4E21-AAF6-C6FE10C6BA2D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PayrolleeMate.ProcessService</RootNamespace>
+    <AssemblyName>PayrolleeMate.ProcessService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Collections\TargetStream.cs" />
+    <Compile Include="Collections.Items\BookParty.cs" />
+    <Compile Include="Collections.Items\BookIndex.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">
+      <Project>{075817F0-6776-46E6-BF92-C5D0D5E16756}</Project>
+      <Name>PayrolleeMate.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PayrolleeMate.Interfaces\PayrolleeMate.Interfaces.csproj">
+      <Project>{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}</Project>
+      <Name>PayrolleeMate.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Constants\" />
+    <Folder Include="Collections\" />
+    <Folder Include="Collections.Items\" />
+  </ItemGroup>
+</Project>

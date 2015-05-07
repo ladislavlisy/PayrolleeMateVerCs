@@ -43,14 +43,34 @@
     <Compile Include="EngineService\ISocialGuides.cs" />
     <Compile Include="EngineService\ITaxingEngine.cs" />
     <Compile Include="EngineService\ITaxingGuides.cs" />
-    <Compile Include="Constants\WorkRelationTerms.cs" />
-    <Compile Include="Constants\WorkSocialTerms.cs" />
-    <Compile Include="Constants\WorkHealthTerms.cs" />
+    <Compile Include="ProcessConfig\IPayrollArticle.cs" />
+    <Compile Include="ProcessConfig\IPayrollConcept.cs" />
+    <Compile Include="ProcessConfig.Constants\ProcessCategory.cs" />
+    <Compile Include="ProcessService\IBookIndex.cs" />
+    <Compile Include="ProcessService\IBookParty.cs" />
+    <Compile Include="ProcessConfig\IProcessConfig.cs" />
+    <Compile Include="ProcessService\IBookTarget.cs" />
+    <Compile Include="ProcessService\IBookResult.cs" />
+    <Compile Include="ProcessService\ITargetValues.cs" />
+    <Compile Include="ProcessService\IResultValues.cs" />
+    <Compile Include="ProcessService\ITargetStream.cs" />
+    <Compile Include="ProcessService\IResultStream.cs" />
+    <Compile Include="EngineService.Constants\WorkRelationTerms.cs" />
+    <Compile Include="EngineService.Constants\WorkSocialTerms.cs" />
+    <Compile Include="EngineService.Constants\WorkHealthTerms.cs" />
+    <Compile Include="ProcessConfig.Constants\ArticleCode.cs" />
+    <Compile Include="ProcessConfig.Constants\ConceptCode.cs" />
+    <Compile Include="ProcessConfig.Constants\ArticleSymbolName.cs" />
+    <Compile Include="ProcessConfig.Constants\ConceptSymbolName.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="EngineService\" />
-    <Folder Include="Constants\" />
+    <Folder Include="ProcessService\" />
+    <Folder Include="ProcessConfig\" />
+    <Folder Include="ProcessConfig.Constants\" />
+    <Folder Include="ProcessService.Constants\" />
+    <Folder Include="EngineService.Constants\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">

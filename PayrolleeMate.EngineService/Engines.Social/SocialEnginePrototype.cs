@@ -3,7 +3,7 @@ using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Rounding;
 using PayrolleeMate.Common.Operations;
 using PayrolleeMate.Common.Periods;
-using PayrolleeMate.Constants;
+using PayrolleeMate.EngineService.Constants;
 
 namespace PayrolleeMate.EngineService.Engines.Social
 {
