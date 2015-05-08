@@ -7,7 +7,7 @@ using Payrollee.Common.Libs;
 
 namespace PayrolleeMate.ProcessConfig.Factories
 {
-	static class PayrollArticleFactory
+	public static class PayrollArticleFactory
 	{
 		private const string NAME_SPACE_PREFIX = "PayrolleeMate.ProcessConfig.Payroll.Articles";
 
@@ -17,7 +17,7 @@ namespace PayrolleeMate.ProcessConfig.Factories
 		{
 			string articleClass = ClassNameFor(articleName);
 
-			Assembly assembly = typeof(ProcessConfig).Assembly;
+			Assembly assembly = typeof(ProcessConfigModule).Assembly;
 
 			return GeneralFactory<IPayrollArticle>.InstanceFor (assembly, NAME_SPACE_PREFIX, articleClass);
 		}

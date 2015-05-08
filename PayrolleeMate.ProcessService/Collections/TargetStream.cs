@@ -6,51 +6,65 @@ using PayrolleeMate.ProcessService.Collection.Items;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using Payrollee.Common;
 
-namespace PayrolleeMate.ProcessService
+namespace PayrolleeMate.ProcessService.Collections
 {
 	public class TargetStream : ITargetStream
 	{
-		private static class BookIndexConparator
+		public static class BookIndexBuilder
 		{
-			static public uint GetFirstIndex(IEnumerable<IBookIndex> targets, IBookParty party, uint code)
+			static public IBookIndex BuildIndexWithFirst(IEnumerable<IBookIndex> unitCollection, IBookParty party, uint code)
 			{
-				IEnumerable<IBookIndex> selectedBooks = SelectEquals(targets, party, code);
+				uint codeOrder = SelectFirst (unitCollection, party, code);
 
-				IEnumerable<uint> selectedOrders = ExtractCodeOrders(selectedBooks);
-
-				return GetFirstIndexFrom(selectedOrders.OrderBy(x => x).ToArray());
+				return new BookIndex(party, code, codeOrder);
 			}
 
-			static public uint GetNewOrder(IEnumerable<IBookIndex> targets, IBookParty party, uint code)
+			static public IBookIndex BuildIndexWithDefault(IEnumerable<IBookIndex> unitCollection, IBookParty party, uint code)
 			{
-				IEnumerable<IBookIndex> selectedBooks = SelectEquals(targets, party, code);
+				uint codeOrder = SelectDefault (unitCollection, party, code);
 
-				IEnumerable<uint> selectedOrders = ExtractCodeOrders(selectedBooks);
-
-				return GetNewIndexFrom(selectedOrders.OrderBy(x => x).ToArray());
+				return new BookIndex(party, code, codeOrder);
 			}
 
 			#region Support Members
 
-			static private IEnumerable<IBookIndex> SelectEquals(IEnumerable<IBookIndex> targets, IBookParty party, uint code)
+			static private uint SelectFirst(IEnumerable<IBookIndex> unitCollection, IBookParty party, uint code)
 			{
-				return targets.Where(x => (x.isEqualToParty(party) && x.Code() == code)).ToArray();
+				IEnumerable<IBookIndex> selectedUnits = SelectEquals(unitCollection, party, code);
+
+				IEnumerable<uint> oneCodeOrders = ExtractCodeOrders(selectedUnits);
+
+				return FirstOrderFrom(oneCodeOrders.OrderBy(x => x).ToArray());
 			}
 
-			static private IEnumerable<uint> ExtractCodeOrders(IEnumerable<IBookIndex> targets)
+			static private uint SelectDefault(IEnumerable<IBookIndex> unitCollection, IBookParty party, uint code)
 			{
-				return targets.Select(x => x.CodeOrder()).ToArray();
+				IEnumerable<IBookIndex> selectedUnits = SelectEquals(unitCollection, party, code);
+
+				IEnumerable<uint> oneCodeOrders = ExtractCodeOrders(selectedUnits);
+
+				return DefaultOrderFrom(oneCodeOrders.OrderBy(x => x).ToArray());
 			}
 
-			static private uint GetFirstIndexFrom(ICollection<uint> sortedOrders)
+			static private IEnumerable<IBookIndex> SelectEquals(IEnumerable<IBookIndex> unitCollection, IBookParty party, uint code)
 			{
-				uint firstCodeOrder = sortedOrders.DefaultIfEmpty((uint)1).First();
+				return unitCollection.Where(x => (x.isEqualToParty(party) && x.Code() == code)).ToArray();
+			}
+
+			static private IEnumerable<uint> ExtractCodeOrders(IEnumerable<IBookIndex> unitCollection)
+			{
+				return unitCollection.Select(x => x.CodeOrder()).ToArray();
+			}
+
+			static private uint FirstOrderFrom(ICollection<uint> sortedCodeOrders)
+			{
+				uint firstCodeOrder = sortedCodeOrders.DefaultIfEmpty((uint)1).First();
 				return firstCodeOrder;
 			}
 
-			static private uint GetNewIndexFrom(ICollection<uint> sortedOrders)
+			static private uint DefaultOrderFrom(ICollection<uint> sortedCodeOrders)
 			{
-				uint lastCodeOrder = sortedOrders.Aggregate((uint)0, (agr, x) => (((x > agr) && (x - agr) > 1) ? agr : x));
+				uint lastCodeOrder = sortedCodeOrders.Aggregate((uint)0, (agr, x) => (((x > agr) && (x - agr) > 1) ? agr : x));
 				return (lastCodeOrder + 1);
 			}
 
@@ -63,10 +77,10 @@ namespace PayrolleeMate.ProcessService
 				IDictionary<IBookIndex, IBookTarget> targets, 
 				IBookParty party, SymbolName articleName, ITargetValues values, IProcessConfig config)
 			{
-				uint newCodeOrder = BookIndexConparator.GetNewOrder(targets.Keys, party, articleName.Code);
+				IBookIndex newIndex = BookIndexBuilder.BuildIndexWithDefault(targets.Keys, party, articleName.Code);
 
 				KeyValuePair<IBookIndex, IBookTarget> pairToMerge = BookKeyValuePairComposer
-					.ComposeTargetWithArticleAndOrder(party, articleName, newCodeOrder, values, config);
+					.ComposeTargetWithArticleAndIndex(party, articleName, newIndex, values, config);
 
 				var targetIndex = pairToMerge.Key;
 
@@ -80,12 +94,10 @@ namespace PayrolleeMate.ProcessService
 
 		static class BookKeyValuePairComposer
 		{
-			static public KeyValuePair<IBookIndex, IBookTarget> ComposeTargetWithArticleAndOrder(IBookParty party, 
-				SymbolName articleName, uint codeOrder, ITargetValues values, IProcessConfig config)
+			static public KeyValuePair<IBookIndex, IBookTarget> ComposeTargetWithArticleAndIndex(IBookParty party, 
+				SymbolName articleName, IBookIndex index, ITargetValues values, IProcessConfig config)
 			{
 				IBookTarget target = BuildTargetFromArticleCode(articleName.Code, values, config);
-
-				IBookIndex index = BuildIndexFromTargetAndOrder(party, target.ArticleCode(), codeOrder);
 
 				return new KeyValuePair<IBookIndex, IBookTarget>(index, target);
 			}
@@ -101,13 +113,6 @@ namespace PayrolleeMate.ProcessService
 				IBookTarget bookTarget = TargetFactory.BuildTargetWithValues(targetConcept, targetArticle, values);
 
 				return bookTarget;
-			}
-
-			static private IBookIndex BuildIndexFromTargetAndOrder(IBookParty party, uint articleCode, uint codeOrder)
-			{
-				IBookIndex targetIndex = new BookIndex(party, articleCode, codeOrder);
-
-				return targetIndex;
 			}
 
 			#endregion

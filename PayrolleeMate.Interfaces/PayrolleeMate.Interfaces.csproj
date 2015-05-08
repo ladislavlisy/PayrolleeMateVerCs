@@ -62,6 +62,7 @@
     <Compile Include="ProcessConfig.Constants\ConceptCode.cs" />
     <Compile Include="ProcessConfig.Constants\ArticleSymbolName.cs" />
     <Compile Include="ProcessConfig.Constants\ConceptSymbolName.cs" />
+    <Compile Include="ProcessService\IProcessService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

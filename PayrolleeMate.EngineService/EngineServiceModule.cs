@@ -8,14 +8,14 @@ using PayrolleeMate.EngineService.Engines.Social;
 
 namespace PayrolleeMate.EngineService
 {
-	public class EngineService : IEngineService
+	public class EngineServiceModule : IEngineService
 	{
 		public static IEngineService CreateEngine()
 		{
-			return new EngineService ();
+			return new EngineServiceModule ();
 		}
 
-		private EngineService ()
+		private EngineServiceModule ()
 		{
 			HistoryOfTaxing = TaxingEnginesHistory.CreateEngines ();
 

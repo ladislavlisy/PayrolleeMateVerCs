@@ -37,10 +37,10 @@
     <Compile Include="Collections\PayrollArticleCollection.cs" />
     <Compile Include="Payroll.Articles\UnknownArticle.cs" />
     <Compile Include="Payroll.Concepts\UnknownConcept.cs" />
-    <Compile Include="ProcessConfig.cs" />
     <Compile Include="General\GeneralPayrollArticle.cs" />
     <Compile Include="General\GeneralPayrollConcept.cs" />
     <Compile Include="Collections\PayrollConceptCollection.cs" />
+    <Compile Include="ProcessConfigModule.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

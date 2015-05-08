@@ -11,7 +11,7 @@ namespace PayrolleeMate.EngineService.Core
 	{
 		public static T InstanceFor (string namespacePrefix, string classnamePrefix, SpanOfYears span)
 		{
-			Assembly assembly = typeof(EngineService).Assembly;
+			Assembly assembly = typeof(EngineServiceModule).Assembly;
 
 			return GeneralFactory<T>.InstanceFor(assembly, namespacePrefix, ClassNameFor(classnamePrefix, span));
 		}

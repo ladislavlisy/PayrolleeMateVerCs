@@ -18,7 +18,7 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 
 		void InitConcepts();
 
-		void InitArticlesAndConcepts();
+		void InitModule();
 	}
 }
 

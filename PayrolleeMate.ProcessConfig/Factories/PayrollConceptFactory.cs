@@ -7,7 +7,7 @@ using Payrollee.Common.Libs;
 
 namespace PayrolleeMate.ProcessConfig.Factories
 {
-	static class PayrollConceptFactory
+	public static class PayrollConceptFactory
 	{
 		private const string NAME_SPACE_PREFIX = "PayrolleeMate.ProcessConfig.Payroll.Concepts";
 
@@ -17,7 +17,7 @@ namespace PayrolleeMate.ProcessConfig.Factories
 		{
 			string conceptClass = ClassNameFor(conceptName);
 
-			Assembly assembly = typeof(ProcessConfig).Assembly;
+			Assembly assembly = typeof(ProcessConfigModule).Assembly;
 
 			return GeneralFactory<IPayrollConcept>.InstanceFor (assembly, NAME_SPACE_PREFIX, conceptClass);
 		}

@@ -4,9 +4,16 @@ using PayrolleeMate.ProcessConfig.Collections;
 
 namespace PayrolleeMate.ProcessConfig
 {
-	public class ProcessConfig : IProcessConfig
+	public class ProcessConfigModule : IProcessConfig
 	{
-		public ProcessConfig ()
+		public static IProcessConfig CreateModule()
+		{
+			IProcessConfig config = new ProcessConfigModule ();
+
+			return config;
+		}
+
+		private ProcessConfigModule ()
 		{
 			ArticlesCollection = new PayrollArticleCollection();
 
@@ -50,7 +57,7 @@ namespace PayrolleeMate.ProcessConfig
 		{
 		}
 
-		public void InitArticlesAndConcepts()
+		public void InitModule()
 		{
 			InitArticles();
 			InitConcepts();
