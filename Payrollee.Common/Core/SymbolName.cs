@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Payrollee.Common
+namespace PayrolleeMate.Common
 {
 	public class SymbolName
 	{

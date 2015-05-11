@@ -1,6 +1,6 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.Interfaces;
-using Payrollee.Common;
+using PayrolleeMate.Common;
 
 namespace PayrolleeMate.ProcessConfig.General
 {

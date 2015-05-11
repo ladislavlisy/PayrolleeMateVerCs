@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Payrollee.Common.Libs
+namespace PayrolleeMate.Common.Libs
 {
 	public static class StringRubyExtension
 	{

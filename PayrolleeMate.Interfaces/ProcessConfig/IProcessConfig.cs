@@ -1,5 +1,5 @@
 ﻿using System;
-using Payrollee.Common;
+using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig.Constants;
 
 namespace PayrolleeMate.ProcessConfig.Interfaces

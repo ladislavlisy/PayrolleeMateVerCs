@@ -39,6 +39,7 @@
   <ItemGroup>
     <Folder Include="BookIndex\" />
     <Folder Include="BookParty\" />
+    <Folder Include="TargetStream\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookIndex\TestBookIndexEquality.cs" />
@@ -51,6 +52,8 @@
     <Compile Include="BookParty\TestBookPartyCompareVersion2.cs" />
     <Compile Include="BookParty\TestBookPartyCompareVersion3.cs" />
     <Compile Include="BookParty\TestBookPartyCompareVersion4.cs" />
+    <Compile Include="TargetStream\TestBookIndexBuilderDefault.cs" />
+    <Compile Include="TargetStream\TestBookIndexBuilderFirst.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PayrolleeMate.ProcessService\PayrolleeMate.ProcessService.csproj">

@@ -3,7 +3,7 @@ using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.Common;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Payrollee.Common.Libs;
+using PayrolleeMate.Common.Libs;
 
 namespace PayrolleeMate.ProcessConfig.Factories
 {
