@@ -6,6 +6,7 @@ using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Payroll.Concepts;
 using PayrolleeMate.ProcessConfig;
 using PayrolleeMate.ProcessConfigSetCz;
+using PayrolleeMate.ProcessConfig.Payroll.Articles;
 
 namespace Tests.ProcessConfig.Collections
 {
@@ -31,7 +32,7 @@ namespace Tests.ProcessConfig.Collections
 
 			Type testTypeOfArticle = testArticle.GetType();
 
-			Assert.AreSame (typeof(UnknownConcept), testTypeOfArticle);
+			Assert.AreSame (typeof(UnknownArticle), testTypeOfArticle);
 
 			Assert.AreEqual (testArticle.ArticleCode(), testSpecName.Code);
 		}

@@ -3,7 +3,7 @@ using PayrolleeMate.Common;
 
 namespace PayrolleeMate.ProcessConfig.Constants
 {
-	public enum ConceptCode : uint
+	public enum ConceptSymbolCode : uint
 	{
 		CONCEPT_UNKNOWN = 10000,
 
@@ -17,7 +17,7 @@ namespace PayrolleeMate.ProcessConfig.Constants
 			
 	public static class ConceptCodeExtensions
 	{
-		public static SymbolName GetSymbol(this ConceptCode concept)
+		public static SymbolName GetSymbol(this ConceptSymbolCode concept)
 		{
 			return new SymbolName((uint)concept, concept.ToString());
 		}

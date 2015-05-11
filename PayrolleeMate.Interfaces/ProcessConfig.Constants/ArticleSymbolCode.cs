@@ -3,7 +3,7 @@ using PayrolleeMate.Common;
 
 namespace PayrolleeMate.ProcessConfig.Constants
 {
-	public enum ArticleCode : uint
+	public enum ArticleSymbolCode : uint
 	{
 		ARTICLE_UNKNOWN = 0,
 
@@ -18,7 +18,7 @@ namespace PayrolleeMate.ProcessConfig.Constants
 
 	public static class ArticleCodeExtensions
 	{
-		public static SymbolName GetSymbol(this ArticleCode article)
+		public static SymbolName GetSymbol(this ArticleSymbolCode article)
 		{
 			return new SymbolName((uint)article, article.ToString());
 		}

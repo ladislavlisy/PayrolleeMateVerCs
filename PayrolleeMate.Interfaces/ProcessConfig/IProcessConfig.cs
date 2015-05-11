@@ -10,10 +10,6 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 
 		IPayrollConcept FindConcept(uint conceptCode);
 
-		void InitArticles();
-
-		void InitConcepts();
-
 		void InitModule();
 	}
 }

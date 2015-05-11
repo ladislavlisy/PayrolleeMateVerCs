@@ -58,11 +58,11 @@
     <Compile Include="EngineService.Constants\WorkRelationTerms.cs" />
     <Compile Include="EngineService.Constants\WorkSocialTerms.cs" />
     <Compile Include="EngineService.Constants\WorkHealthTerms.cs" />
-    <Compile Include="ProcessConfig.Constants\ArticleCode.cs" />
-    <Compile Include="ProcessConfig.Constants\ConceptCode.cs" />
     <Compile Include="ProcessConfig.Constants\ArticleSymbolName.cs" />
     <Compile Include="ProcessConfig.Constants\ConceptSymbolName.cs" />
     <Compile Include="ProcessService\IProcessService.cs" />
+    <Compile Include="ProcessConfig.Constants\ArticleSymbolCode.cs" />
+    <Compile Include="ProcessConfig.Constants\ConceptSymbolCode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

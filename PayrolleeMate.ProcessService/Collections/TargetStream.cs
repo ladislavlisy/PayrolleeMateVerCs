@@ -97,20 +97,22 @@ namespace PayrolleeMate.ProcessService.Collections
 			static public KeyValuePair<IBookIndex, IBookTarget> ComposeTargetWithArticleAndIndex(IBookParty party, 
 				SymbolName articleName, IBookIndex index, ITargetValues values, IProcessConfig config)
 			{
-				IBookTarget target = BuildTargetFromArticleCode(articleName.Code, values, config);
+				IBookTarget target = BuildTargetFromBookIndex(index, values, config);
 
 				return new KeyValuePair<IBookIndex, IBookTarget>(index, target);
 			}
 
 			#region Support Members
 
-			static public IBookTarget BuildTargetFromArticleCode(uint articleCode, ITargetValues values, IProcessConfig config)
+			static public IBookTarget BuildTargetFromBookIndex(IBookIndex index, ITargetValues values, IProcessConfig config)
 			{
+				uint articleCode = index.Code ();
+
 				IPayrollArticle targetArticle = config.FindArticle(articleCode);
 
 				IPayrollConcept targetConcept = config.FindConcept(targetArticle.ConceptCode());
 
-				IBookTarget bookTarget = TargetFactory.BuildTargetWithValues(targetConcept, targetArticle, values);
+				IBookTarget bookTarget = TargetFactory.BuildTargetWithValues(index, targetArticle, targetConcept, values);
 
 				return bookTarget;
 			}
@@ -135,9 +137,9 @@ namespace PayrolleeMate.ProcessService.Collections
 
 		static class TargetFactory
 		{
-			public static IBookTarget BuildTargetWithValues(IPayrollConcept concept, IPayrollArticle article, ITargetValues values)
+			public static IBookTarget BuildTargetWithValues(IBookIndex index, IPayrollArticle article, IPayrollConcept concept, ITargetValues values)
 			{
-				return null;
+				return new BookTarget(index, article, concept, values);
 			}
 		}
 

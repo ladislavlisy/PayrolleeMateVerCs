@@ -12,9 +12,11 @@ namespace PayrolleeMate.ProcessConfig.General
 		public static readonly char[] VALUES_SEPARATOR = { ',' };
 
 		public GeneralPayrollConcept (SymbolName concept, IPayrollArticle[] pendingArticles, IPayrollArticle[] summaryArticles, 
-			ProcessCategory category, string targetValues) : base(concept.Code, concept.Name)
+			ProcessCategory category, string targetValues, string resultValues) : base(concept.Code, concept.Name)
 		{
 			__targetValues = targetValues.Split(VALUES_SEPARATOR);
+
+			__resultValues = resultValues.Split(VALUES_SEPARATOR);
 
 			__relatedArticles = EMPTY_ARTICLES;
 
@@ -27,6 +29,8 @@ namespace PayrolleeMate.ProcessConfig.General
 		}
 
 		private string[] __targetValues;
+
+		private string[] __resultValues;
 
 		private IPayrollArticle[] __relatedArticles = EMPTY_ARTICLES;
 
@@ -51,6 +55,11 @@ namespace PayrolleeMate.ProcessConfig.General
 		public string[] TargetValues ()
 		{
 			return __targetValues;
+		}
+
+		public string[] ResultValues ()
+		{
+			return __resultValues;
 		}
 
 		public IPayrollArticle[] RelatedArticles ()

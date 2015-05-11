@@ -15,10 +15,10 @@ namespace PayrolleeMate.ProcessConfig.Collections
 	{
 		static class ArticleCollectionAggregator
 		{
-			public static IDictionary<ConceptCode, IPayrollArticle[]> CollectArticles(
-				IDictionary<ConceptCode, IPayrollArticle[]> pendingDict)
+			public static IDictionary<ConceptSymbolCode, IPayrollArticle[]> CollectArticles(
+				IDictionary<ConceptSymbolCode, IPayrollArticle[]> pendingDict)
 			{
-				var initialDict = new Dictionary<ConceptCode, IPayrollArticle[]>();
+				var initialDict = new Dictionary<ConceptSymbolCode, IPayrollArticle[]>();
 
 				var relatedDict = pendingDict.Aggregate(initialDict,
 					(agr, pair) => CollectArticlesForConcept(agr, 
@@ -31,10 +31,10 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				return relatedDict;
 			}
 
-			private static IDictionary<ConceptCode, IPayrollArticle[]> CollectArticlesForConcept(
-				IDictionary<ConceptCode, IPayrollArticle[]> initialDict, 
-				ConceptCode conceptCode, IPayrollArticle[] pendingArticles, 
-				IDictionary<ConceptCode, IPayrollArticle[]> pendingDict)
+			private static IDictionary<ConceptSymbolCode, IPayrollArticle[]> CollectArticlesForConcept(
+				IDictionary<ConceptSymbolCode, IPayrollArticle[]> initialDict, 
+				ConceptSymbolCode conceptCode, IPayrollArticle[] pendingArticles, 
+				IDictionary<ConceptSymbolCode, IPayrollArticle[]> pendingDict)
 			{
 				var resultDict = CollectRelatedArticlesFromList(initialDict, conceptCode, pendingArticles, pendingDict);
 
@@ -47,11 +47,11 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				return relatedDict;
 			}
 
-			private static IDictionary<ConceptCode, IPayrollArticle[]> MergeIntoDictionary(
-				IDictionary<ConceptCode, IPayrollArticle[]> initialDict, 
-				ConceptCode conceptCode, IPayrollArticle[] relatedArticles)
+			private static IDictionary<ConceptSymbolCode, IPayrollArticle[]> MergeIntoDictionary(
+				IDictionary<ConceptSymbolCode, IPayrollArticle[]> initialDict, 
+				ConceptSymbolCode conceptCode, IPayrollArticle[] relatedArticles)
 			{
-				var mergeArticles = new Dictionary<ConceptCode, IPayrollArticle[]> () {
+				var mergeArticles = new Dictionary<ConceptSymbolCode, IPayrollArticle[]> () {
 					{ conceptCode, relatedArticles.Distinct ().OrderBy (x => x).ToArray () }
 				};
 
@@ -60,8 +60,8 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				return relatedDict;
 			}
 
-			private static IPayrollArticle[] CollectRelatedArticlesFromList(IDictionary<ConceptCode, IPayrollArticle[]> initialDict,
-				ConceptCode conceptCode, IPayrollArticle[] pendingArticles, IDictionary<ConceptCode, IPayrollArticle[]> pendingDict)
+			private static IPayrollArticle[] CollectRelatedArticlesFromList(IDictionary<ConceptSymbolCode, IPayrollArticle[]> initialDict,
+				ConceptSymbolCode conceptCode, IPayrollArticle[] pendingArticles, IDictionary<ConceptSymbolCode, IPayrollArticle[]> pendingDict)
 			{
 				var relatedDict = pendingArticles.Aggregate(new IPayrollArticle[0],
 					(agr, article) => agr.Concat(CollectRelatedArticlesFromDict(initialDict, article, pendingDict)).ToArray());
@@ -69,8 +69,8 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				return relatedDict;
 			}
 
-			private static IPayrollArticle[] CollectRelatedArticlesFromDict(IDictionary<ConceptCode, IPayrollArticle[]> initialDict, 
-				IPayrollArticle article, IDictionary<ConceptCode, IPayrollArticle[]> pendingDict)
+			private static IPayrollArticle[] CollectRelatedArticlesFromDict(IDictionary<ConceptSymbolCode, IPayrollArticle[]> initialDict, 
+				IPayrollArticle article, IDictionary<ConceptSymbolCode, IPayrollArticle[]> pendingDict)
 			{
 				var relatedArticles = CollectFromRelated (initialDict, article, pendingDict);
 
@@ -93,10 +93,10 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				}
 			}
 
-			private static IPayrollArticle[] CollectFromRelated(IDictionary<ConceptCode, IPayrollArticle[]> relatedDict, 
-				IPayrollArticle article, IDictionary<ConceptCode, IPayrollArticle[]> pendingDict)
+			private static IPayrollArticle[] CollectFromRelated(IDictionary<ConceptSymbolCode, IPayrollArticle[]> relatedDict, 
+				IPayrollArticle article, IDictionary<ConceptSymbolCode, IPayrollArticle[]> pendingDict)
 			{
-				ConceptCode conceptCode = (ConceptCode)Enum.ToObject (typeof(ConceptCode), article.ConceptCode());
+				ConceptSymbolCode conceptCode = (ConceptSymbolCode)Enum.ToObject (typeof(ConceptSymbolCode), article.ConceptCode());
 
 				bool skipExecToPending = !relatedDict.ContainsKey(conceptCode);
 
@@ -112,10 +112,10 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				return initialArticles.Concat(relatedArticles).ToArray();
 			}
 
-			private static IPayrollArticle[] CollectFromPending(IDictionary<ConceptCode, IPayrollArticle[]> relatedDict, 
-				IPayrollArticle article, IDictionary<ConceptCode, IPayrollArticle[]> pendingDict)
+			private static IPayrollArticle[] CollectFromPending(IDictionary<ConceptSymbolCode, IPayrollArticle[]> relatedDict, 
+				IPayrollArticle article, IDictionary<ConceptSymbolCode, IPayrollArticle[]> pendingDict)
 			{
-				ConceptCode conceptCode = (ConceptCode)Enum.ToObject (typeof(ConceptCode), article.ConceptCode());
+				ConceptSymbolCode conceptCode = (ConceptSymbolCode)Enum.ToObject (typeof(ConceptSymbolCode), article.ConceptCode());
 
 				bool skipExecToRelated = relatedDict.ContainsKey(conceptCode);
 
@@ -134,11 +134,11 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				return relatedArticles;
 			}
 
-			private static IPayrollArticle[] FindArticlesInDictionary (IDictionary<ConceptCode, IPayrollArticle[]> articlesDict, IPayrollArticle article)
+			private static IPayrollArticle[] FindArticlesInDictionary (IDictionary<ConceptSymbolCode, IPayrollArticle[]> articlesDict, IPayrollArticle article)
 			{
 				IPayrollArticle[] articlePending = null;
 
-				ConceptCode conceptCode = (ConceptCode)Enum.ToObject (typeof(ConceptCode), article.ConceptCode());
+				ConceptSymbolCode conceptCode = (ConceptSymbolCode)Enum.ToObject (typeof(ConceptSymbolCode), article.ConceptCode());
 
 				bool existsInDictionary = articlesDict.TryGetValue(conceptCode, out articlePending);
 
@@ -152,12 +152,12 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 		public PayrollConceptCollection()
 		{
-			this.Models = new Dictionary<ConceptCode, IPayrollConcept>();
+			this.Models = new Dictionary<ConceptSymbolCode, IPayrollConcept>();
 
-			this.Models[ConceptCode.CONCEPT_UNKNOWN] = new UnknownConcept();
+			this.Models[ConceptSymbolCode.CONCEPT_UNKNOWN] = new UnknownConcept();
 		}
 
-		public IDictionary<ConceptCode, IPayrollConcept> Models { get; private set; }
+		public IDictionary<ConceptSymbolCode, IPayrollConcept> Models { get; private set; }
 
 		#region Concept Dictionary
 
@@ -170,7 +170,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 		public IPayrollConcept ConceptFromModels(Assembly assemblyConfigSet, uint conceptCode)
 		{
-			ConceptCode conceptIndex = (ConceptCode)conceptCode;
+			ConceptSymbolCode conceptIndex = (ConceptSymbolCode)conceptCode;
 
 			IPayrollConcept baseConcept = null;
 
@@ -189,7 +189,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 		public IPayrollConcept FindConcept(uint conceptCode)
 		{
-			ConceptCode conceptIndex = (ConceptCode)conceptCode;
+			ConceptSymbolCode conceptIndex = (ConceptSymbolCode)conceptCode;
 
 			IPayrollConcept baseConcept = null;
 
@@ -199,14 +199,14 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			}
 			else
 			{
-				baseConcept = Models[ConceptCode.CONCEPT_UNKNOWN];
+				baseConcept = Models[ConceptSymbolCode.CONCEPT_UNKNOWN];
 			}
 			return baseConcept;
 		}
 
 		public IPayrollConcept EmptyConceptFor(Assembly assemblyConfigSet, uint conceptCode)
 		{
-			ConceptCode conceptIndex = (ConceptCode)conceptCode;
+			ConceptSymbolCode conceptIndex = (ConceptSymbolCode)conceptCode;
 
 			SymbolName conceptSymbol = conceptIndex.GetSymbol ();
 
@@ -230,7 +230,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			#endif
 		}
 
-		public IDictionary<ConceptCode, IPayrollArticle[]> ModelsToPendings()
+		public IDictionary<ConceptSymbolCode, IPayrollArticle[]> ModelsToPendings()
 		{
 			var pendingArticles = Models.ToDictionary(key => key.Key, val => val.Value.PendingArticles());
 
@@ -246,7 +246,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 		}
 		#endif
 
-		private void UpdateRelatedArticles(IDictionary<ConceptCode, IPayrollArticle[]> relatedDict)
+		private void UpdateRelatedArticles(IDictionary<ConceptSymbolCode, IPayrollArticle[]> relatedDict)
 		{
 			foreach (var concept in Models)
 			{

@@ -21,12 +21,10 @@ namespace PayrolleeMate.ProcessConfigSetCz
 
 		public override void InitArticles ()
 		{
-			throw new NotImplementedException ();
 		}
 
 		public override void InitConcepts ()
 		{
-			throw new NotImplementedException ();
 		}
 
 		#endregion

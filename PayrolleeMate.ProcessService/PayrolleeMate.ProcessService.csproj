@@ -36,6 +36,7 @@
     <Compile Include="Collections.Items\BookParty.cs" />
     <Compile Include="Collections.Items\BookIndex.cs" />
     <Compile Include="ProcessServiceModule.cs" />
+    <Compile Include="Collections.Items\BookTarget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

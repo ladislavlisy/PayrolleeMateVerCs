@@ -13,18 +13,18 @@ namespace PayrolleeMate.ProcessConfig.Collections
 	{
 		public PayrollArticleCollection()
 		{
-			this.Models = new Dictionary<ArticleCode, IPayrollArticle>();
+			this.Models = new Dictionary<ArticleSymbolCode, IPayrollArticle>();
 
-			this.Models[ArticleCode.ARTICLE_UNKNOWN] = new UnknownArticle();
+			this.Models[ArticleSymbolCode.ARTICLE_UNKNOWN] = new UnknownArticle();
 		}
 
-		public IDictionary<ArticleCode, IPayrollArticle> Models { get; private set; }
+		public IDictionary<ArticleSymbolCode, IPayrollArticle> Models { get; private set; }
 
 		#region Article Dictionary
 
 		public IPayrollArticle ArticleFromModels(Assembly assemblyConfigSet, uint articleCode)
 		{
-			ArticleCode articleIndex = (ArticleCode)articleCode;
+			ArticleSymbolCode articleIndex = (ArticleSymbolCode)articleCode;
 
 			IPayrollArticle baseArticle = null;
 
@@ -43,7 +43,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 		public IPayrollArticle FindArticle(uint articleCode)
 		{
-			ArticleCode articleIndex = (ArticleCode)articleCode;
+			ArticleSymbolCode articleIndex = (ArticleSymbolCode)articleCode;
 
 			IPayrollArticle baseArticle = null;
 
@@ -53,14 +53,14 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			}
 			else
 			{
-				baseArticle = Models[ArticleCode.ARTICLE_UNKNOWN];
+				baseArticle = Models[ArticleSymbolCode.ARTICLE_UNKNOWN];
 			}
 			return baseArticle;
 		}
 
 		public IPayrollArticle EmptyArticleFor(Assembly assemblyConfigSet, uint articleCode)
 		{
-			ArticleCode articleIndex = (ArticleCode)articleCode;
+			ArticleSymbolCode articleIndex = (ArticleSymbolCode)articleCode;
 
 			SymbolName articleSymbol = articleIndex.GetSymbol ();
 
