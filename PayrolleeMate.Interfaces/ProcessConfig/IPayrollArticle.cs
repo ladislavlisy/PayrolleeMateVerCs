@@ -22,7 +22,7 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 		bool IncomeGross();
 		bool IncomeNetto();
 
-		bool DeductionNetto();
+		bool DeductNetto();
 	}
 }
 

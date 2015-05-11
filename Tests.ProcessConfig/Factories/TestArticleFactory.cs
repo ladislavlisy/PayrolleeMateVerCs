@@ -14,11 +14,11 @@ namespace Tests.ProcessConfig.Factories
 		[Test ()]
 		public void Should_Return_ContractTaskTermArticle_As_ClassName ()
 		{
-			SymbolName testSpecName = ArticleSymbolName.REF_CONTRACT_TASK_TERM;
+			SymbolName testSpecName = ArticleSymbolName.REF_INCOME_GROSS;
 
 			string testClassName = PayrollArticleFactory.ClassNameFor (testSpecName.Name);
 
-			Assert.AreEqual (testClassName, "ContractTaskTermArticle");
+			Assert.AreEqual (testClassName, "IncomeGrossArticle");
 		}
 
 		[Test ()]

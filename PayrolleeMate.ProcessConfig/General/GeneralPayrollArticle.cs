@@ -4,67 +4,100 @@ using PayrolleeMate.Common;
 
 namespace PayrolleeMate.ProcessConfig.General
 {
-	public class GeneralPayrollArticle : IPayrollArticle
+	public class GeneralPayrollArticle : SymbolName, IPayrollArticle
 	{
-		public GeneralPayrollArticle ()
+		public GeneralPayrollArticle (SymbolName article, SymbolName concept, 
+			bool taxingIncome, 
+			bool healthIncome, 
+			bool socialIncome, 
+			bool grossIncome, 
+			bool nettoIncome, 
+			bool nettoDeduct) : base(article.Code, article.Name)
 		{
+			__conceptSymbol = concept;
+
+			__healthIncome = healthIncome;
+
+			__socialIncome = socialIncome;
+
+			__taxingIncome = taxingIncome;
+
+			__incomeGross = grossIncome;
+
+			__incomeNetto = nettoIncome;
+
+			__deductNetto = nettoDeduct;
 		}
+
+		private SymbolName __conceptSymbol;
+
+		private bool __healthIncome = false;
+
+		private bool __socialIncome = false;
+
+		private bool __taxingIncome = false;
+
+		private bool __incomeGross = false;
+
+		private bool __incomeNetto = false;
+
+		private bool __deductNetto = false;
 
 		#region IPayrollArticle implementation
 
 		public uint ArticleCode ()
 		{
-			throw new NotImplementedException ();
+			return this.Code;
 		}
 
 		public string ArticleName ()
 		{
-			throw new NotImplementedException ();
+			return this.Name;
 		}
 
 		public SymbolName ConceptSymbol ()
 		{
-			throw new NotImplementedException ();
+			return __conceptSymbol;
 		}
 
 		public uint ConceptCode ()
 		{
-			throw new NotImplementedException ();
+			return __conceptSymbol.Code;
 		}
 
 		public string ConceptName ()
 		{
-			throw new NotImplementedException ();
+			return __conceptSymbol.Name;
 		}
 
 		public bool HealthIncome ()
 		{
-			throw new NotImplementedException ();
+			return __healthIncome;
 		}
 
 		public bool SocialIncome ()
 		{
-			throw new NotImplementedException ();
+			return __socialIncome;
 		}
 
 		public bool TaxingIncome ()
 		{
-			throw new NotImplementedException ();
+			return __taxingIncome;
 		}
 
 		public bool IncomeGross ()
 		{
-			throw new NotImplementedException ();
+			return __incomeGross;
 		}
 
 		public bool IncomeNetto ()
 		{
-			throw new NotImplementedException ();
+			return __incomeNetto;
 		}
 
-		public bool DeductionNetto ()
+		public bool DeductNetto ()
 		{
-			throw new NotImplementedException ();
+			return __deductNetto;
 		}
 
 		#endregion

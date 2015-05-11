@@ -1,11 +1,14 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.General;
+using PayrolleeMate.ProcessConfig.Constants;
 
 namespace PayrolleeMate.ProcessConfig.Payroll.Articles
 {
 	public class UnknownArticle : GeneralPayrollArticle
 	{
-		public UnknownArticle ()
+		public UnknownArticle () : 
+			base(ArticleSymbolName.REF_UNKNOWN, ConceptSymbolName.REF_UNKNOWN,
+			false, false, false, false, false, false)
 		{
 		}
 	}

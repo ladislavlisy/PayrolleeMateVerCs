@@ -33,6 +33,10 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProcessConfigSetCzModule.cs" />
+    <Compile Include="Payroll.Constants\ConfigSetCzArticleCode.cs" />
+    <Compile Include="Payroll.Constants\ConfigSetCzConceptCode.cs" />
+    <Compile Include="Payroll.Constants\ConfigSetCzArticleName.cs" />
+    <Compile Include="Payroll.Constants\ConfigSetCzConceptName.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -44,9 +48,14 @@
       <Project>{F91E4B02-352C-41F2-AAFF-E3B956EB8805}</Project>
       <Name>PayrolleeMate.ProcessConfig</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">
+      <Project>{075817F0-6776-46E6-BF92-C5D0D5E16756}</Project>
+      <Name>PayrolleeMate.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Payroll.Articles\" />
     <Folder Include="Payroll.Concepts\" />
+    <Folder Include="Payroll.Constants\" />
   </ItemGroup>
 </Project>
