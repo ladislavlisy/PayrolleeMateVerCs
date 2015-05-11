@@ -1,55 +1,85 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Constants;
+using PayrolleeMate.Common;
 
 namespace PayrolleeMate.ProcessConfig.General
 {
-	public class GeneralPayrollConcept : IPayrollConcept
+	public class GeneralPayrollConcept : SymbolName, IPayrollConcept
 	{
-		public GeneralPayrollConcept ()
+		public static readonly IPayrollArticle[] EMPTY_ARTICLES = {};
+
+		public static readonly char[] VALUES_SEPARATOR = { ',' };
+
+		public GeneralPayrollConcept (SymbolName concept, IPayrollArticle[] pendingArticles, IPayrollArticle[] summaryArticles, 
+			ProcessCategory category, string targetValues) : base(concept.Code, concept.Name)
 		{
+			__targetValues = targetValues.Split(VALUES_SEPARATOR);
+
+			__relatedArticles = EMPTY_ARTICLES;
+
+			__pendingArticles = (IPayrollArticle[])pendingArticles.Clone();
+
+			__summaryArticles = (IPayrollArticle[])summaryArticles.Clone();
+
+			__category = category;
+
 		}
+
+		private string[] __targetValues;
+
+		private IPayrollArticle[] __relatedArticles = EMPTY_ARTICLES;
+
+		private IPayrollArticle[] __pendingArticles = EMPTY_ARTICLES;
+
+		private IPayrollArticle[] __summaryArticles = EMPTY_ARTICLES;
+
+		private ProcessCategory __category = ProcessCategory.CATEGORY_START;
 
 		#region IPayrollConcept implementation
 
 		public uint ConceptCode ()
 		{
-			throw new NotImplementedException ();
+			return this.Code;
 		}
 
 		public string ConceptName ()
 		{
-			throw new NotImplementedException ();
+			return this.Name;
 		}
 
 		public string[] TargetValues ()
 		{
-			throw new NotImplementedException ();
+			return __targetValues;
 		}
 
 		public IPayrollArticle[] RelatedArticles ()
 		{
-			throw new NotImplementedException ();
+			return __relatedArticles;
 		}
 
 		public IPayrollArticle[] PendingArticles ()
 		{
-			throw new NotImplementedException ();
+			return __pendingArticles;
 		}
 
 		public IPayrollArticle[] SummaryArticles ()
 		{
-			throw new NotImplementedException ();
+			return __summaryArticles;
 		}
 
 		public ProcessCategory Category ()
 		{
-			throw new NotImplementedException ();
+			return __category;
 		}
 
 		public void UpdateRelatedArticles (IPayrollArticle[] articles)
 		{
-			throw new NotImplementedException ();
+			this.__relatedArticles = null;
+			if (articles != null)
+			{
+				this.__relatedArticles = (IPayrollArticle[])articles.Clone();
+			}
 		}
 
 		#endregion

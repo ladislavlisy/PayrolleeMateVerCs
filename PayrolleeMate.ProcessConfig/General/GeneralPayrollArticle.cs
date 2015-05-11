@@ -29,6 +29,29 @@ namespace PayrolleeMate.ProcessConfig.General
 			__deductNetto = nettoDeduct;
 		}
 
+		public GeneralPayrollArticle (uint articleCode, string articleName, uint conceptCode, string conceptName, 
+			bool taxingIncome, 
+			bool healthIncome, 
+			bool socialIncome, 
+			bool grossIncome, 
+			bool nettoIncome, 
+			bool nettoDeduct) : base(articleCode, articleName)
+		{
+			__conceptSymbol = new SymbolName(conceptCode, conceptName);
+
+			__healthIncome = healthIncome;
+
+			__socialIncome = socialIncome;
+
+			__taxingIncome = taxingIncome;
+
+			__incomeGross = grossIncome;
+
+			__incomeNetto = nettoIncome;
+
+			__deductNetto = nettoDeduct;
+		}
+
 		private SymbolName __conceptSymbol;
 
 		private bool __healthIncome = false;
