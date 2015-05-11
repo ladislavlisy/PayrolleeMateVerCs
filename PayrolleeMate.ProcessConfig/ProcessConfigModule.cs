@@ -1,19 +1,13 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Collections;
+using System.Reflection;
 
 namespace PayrolleeMate.ProcessConfig
 {
-	public class ProcessConfigModule : IProcessConfig
+	public abstract class ProcessConfigModule : IProcessConfig
 	{
-		public static IProcessConfig CreateModule()
-		{
-			IProcessConfig config = new ProcessConfigModule ();
-
-			return config;
-		}
-
-		private ProcessConfigModule ()
+		protected ProcessConfigModule ()
 		{
 			ArticlesCollection = new PayrollArticleCollection();
 
@@ -24,9 +18,9 @@ namespace PayrolleeMate.ProcessConfig
 
 		public PayrollConceptCollection ConceptsCollection { get; private set; }
 
-		public IPayrollArticle ArticleFromModels(uint articleCode)
+		public IPayrollArticle ArticleFromModels(Assembly assemblyConfigSet, uint articleCode)
 		{
-			return ArticlesCollection.ArticleFromModels(articleCode);
+			return ArticlesCollection.ArticleFromModels(assemblyConfigSet, articleCode);
 		}
 
 		public IPayrollArticle FindArticle(uint articleCode)
@@ -34,14 +28,14 @@ namespace PayrolleeMate.ProcessConfig
 			return ArticlesCollection.FindArticle(articleCode);
 		}
 
-		public IPayrollConcept ArticleConceptFromModels(IPayrollArticle article)
+		public IPayrollConcept ArticleConceptFromModels(Assembly assemblyConfigSet, IPayrollArticle article)
 		{
-			return ConceptsCollection.ArticleConceptFromModels(article);
+			return ConceptsCollection.ArticleConceptFromModels(assemblyConfigSet, article);
 		}
 
-		public IPayrollConcept ConceptFromModels(uint conceptCode)
+		public IPayrollConcept ConceptFromModels(Assembly assemblyConfigSet, uint conceptCode)
 		{
-			return ConceptsCollection.ConceptFromModels(conceptCode);
+			return ConceptsCollection.ConceptFromModels(assemblyConfigSet, conceptCode);
 		}
 
 		public IPayrollConcept FindConcept(uint conceptCode)
@@ -49,13 +43,9 @@ namespace PayrolleeMate.ProcessConfig
 			return ConceptsCollection.FindConcept(conceptCode);
 		}
 
-		public void InitArticles()
-		{
-		}
+		public abstract void InitArticles ();
 
-		public void InitConcepts()
-		{
-		}
+		public abstract void InitConcepts ();
 
 		public void InitModule()
 		{

@@ -15,11 +15,18 @@ namespace PayrolleeMate.ProcessConfig.Factories
 
 		public static IPayrollConcept ConceptFor(string conceptName)
 		{
+			Assembly assembly = typeof(ProcessConfigModule).Assembly;
+
+			return ConceptFor (assembly, conceptName);
+		}
+
+		public static IPayrollConcept ConceptFor(Assembly assemblyConfigSet, string conceptName)
+		{
 			string conceptClass = ClassNameFor(conceptName);
 
 			Assembly assembly = typeof(ProcessConfigModule).Assembly;
 
-			return GeneralFactory<IPayrollConcept>.InstanceFor (assembly, NAME_SPACE_PREFIX, conceptClass);
+			return GeneralFactory<IPayrollConcept>.InstanceFor (assemblyConfigSet, NAME_SPACE_PREFIX, conceptClass);
 		}
 
 		public static string ClassNameFor(string conceptName)

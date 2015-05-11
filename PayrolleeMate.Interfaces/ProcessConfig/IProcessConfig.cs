@@ -8,10 +8,6 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 	{
 		IPayrollArticle FindArticle(uint articleCode);
 
-		IPayrollConcept ArticleConceptFromModels(IPayrollArticle article);
-
-		IPayrollConcept ConceptFromModels(uint conceptCode);
-
 		IPayrollConcept FindConcept(uint conceptCode);
 
 		void InitArticles();

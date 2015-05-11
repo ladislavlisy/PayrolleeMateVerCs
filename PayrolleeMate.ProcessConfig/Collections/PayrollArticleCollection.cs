@@ -5,6 +5,7 @@ using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig.Factories;
 using PayrolleeMate.ProcessConfig.Payroll.Articles;
+using System.Reflection;
 
 namespace PayrolleeMate.ProcessConfig.Collections
 {
@@ -21,7 +22,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 		#region Article Dictionary
 
-		public IPayrollArticle ArticleFromModels(uint articleCode)
+		public IPayrollArticle ArticleFromModels(Assembly assemblyConfigSet, uint articleCode)
 		{
 			ArticleCode articleIndex = (ArticleCode)articleCode;
 
@@ -29,7 +30,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 			if (!Models.ContainsKey(articleIndex))
 			{
-				baseArticle = EmptyArticleFor(articleCode);
+				baseArticle = EmptyArticleFor(assemblyConfigSet, articleCode);
 
 				Models[articleIndex] = baseArticle;
 			}
@@ -57,13 +58,13 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			return baseArticle;
 		}
 
-		public IPayrollArticle EmptyArticleFor(uint articleCode)
+		public IPayrollArticle EmptyArticleFor(Assembly assemblyConfigSet, uint articleCode)
 		{
 			ArticleCode articleIndex = (ArticleCode)articleCode;
 
 			SymbolName articleSymbol = articleIndex.GetSymbol ();
 
-			IPayrollArticle emptyArticle = PayrollArticleFactory.ArticleFor(articleSymbol.Name);
+			IPayrollArticle emptyArticle = PayrollArticleFactory.ArticleFor(assemblyConfigSet, articleSymbol.Name);
 
 			return emptyArticle;
 		}

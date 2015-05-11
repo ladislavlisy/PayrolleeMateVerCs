@@ -30,11 +30,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Factories\" />
@@ -44,6 +41,7 @@
     <Compile Include="Factories\TestArticleFactory.cs" />
     <Compile Include="Collections\TestArticleCollection.cs" />
     <Compile Include="Collections\TestConceptCollection.cs" />
+    <Compile Include="Factories\TestConceptFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -59,5 +57,12 @@
       <Project>{075817F0-6776-46E6-BF92-C5D0D5E16756}</Project>
       <Name>PayrolleeMate.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PayrolleeMate.ConfigSetCz\PayrolleeMate.ProcessConfigSetCz.csproj">
+      <Project>{8F4198AC-173B-4371-B547-EF1E0B6C9C79}</Project>
+      <Name>PayrolleeMate.ProcessConfigSetCz</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

@@ -15,11 +15,18 @@ namespace PayrolleeMate.ProcessConfig.Factories
 
 		public static IPayrollArticle ArticleFor(string articleName)
 		{
+			Assembly assembly = typeof(ProcessConfigModule).Assembly;
+
+			return ArticleFor (assembly, articleName);
+		}
+
+		public static IPayrollArticle ArticleFor(Assembly assemblyConfigSet, string articleName)
+		{
 			string articleClass = ClassNameFor(articleName);
 
 			Assembly assembly = typeof(ProcessConfigModule).Assembly;
 
-			return GeneralFactory<IPayrollArticle>.InstanceFor (assembly, NAME_SPACE_PREFIX, articleClass);
+			return GeneralFactory<IPayrollArticle>.InstanceFor (assemblyConfigSet, NAME_SPACE_PREFIX, articleClass);
 		}
 
 		public static string ClassNameFor(string articleName)

@@ -5,6 +5,7 @@ using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Payroll.Concepts;
 using PayrolleeMate.ProcessConfig;
+using PayrolleeMate.ProcessConfigSetCz;
 
 namespace Tests.ProcessConfig.Collections
 {
@@ -16,7 +17,7 @@ namespace Tests.ProcessConfig.Collections
 		[TestFixtureSetUp]
 		public void TestSetup()
 		{
-			testConfig = ProcessConfigModule.CreateModule();
+			testConfig = ProcessConfigSetCzModule.CreateModule();
 
 			testConfig.InitModule ();
 		}

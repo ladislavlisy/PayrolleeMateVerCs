@@ -7,6 +7,7 @@ using PayrolleeMate.ProcessConfig.Factories;
 using PayrolleeMate.ProcessConfig.Payroll.Concepts;
 using System.Linq;
 using PayrolleeMate.ProcessService.Interfaces;
+using System.Reflection;
 
 namespace PayrolleeMate.ProcessConfig.Collections
 {
@@ -160,14 +161,14 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 		#region Concept Dictionary
 
-		public IPayrollConcept ArticleConceptFromModels(IPayrollArticle article)
+		public IPayrollConcept ArticleConceptFromModels(Assembly assemblyConfigSet, IPayrollArticle article)
 		{
-			IPayrollConcept baseConcept = ConceptFromModels(article.ConceptCode());
+			IPayrollConcept baseConcept = ConceptFromModels(assemblyConfigSet, article.ConceptCode());
 
 			return baseConcept;
 		}
 
-		public IPayrollConcept ConceptFromModels(uint conceptCode)
+		public IPayrollConcept ConceptFromModels(Assembly assemblyConfigSet, uint conceptCode)
 		{
 			ConceptCode conceptIndex = (ConceptCode)conceptCode;
 
@@ -175,7 +176,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 			if (!Models.ContainsKey(conceptIndex))
 			{
-				baseConcept = EmptyConceptFor(conceptCode);
+				baseConcept = EmptyConceptFor(assemblyConfigSet, conceptCode);
 
 				Models[conceptIndex] = baseConcept;
 			}
@@ -203,13 +204,13 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			return baseConcept;
 		}
 
-		public IPayrollConcept EmptyConceptFor(uint conceptCode)
+		public IPayrollConcept EmptyConceptFor(Assembly assemblyConfigSet, uint conceptCode)
 		{
 			ConceptCode conceptIndex = (ConceptCode)conceptCode;
 
 			SymbolName conceptSymbol = conceptIndex.GetSymbol ();
 
-			IPayrollConcept emptyConcept = PayrollConceptFactory.ConceptFor(conceptSymbol.Name);
+			IPayrollConcept emptyConcept = PayrollConceptFactory.ConceptFor(assemblyConfigSet, conceptSymbol.Name);
 
 			return emptyConcept;
 		}
