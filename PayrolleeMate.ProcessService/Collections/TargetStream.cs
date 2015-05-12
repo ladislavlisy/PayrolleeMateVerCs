@@ -10,61 +10,63 @@ namespace PayrolleeMate.ProcessService.Collections
 {
 	public class TargetStream : ITargetStream
 	{
-		public static class BookIndexBuilder
+		public static class TargetElementBuilder
 		{
-			static public IBookIndex BuildIndexWithFirst(IEnumerable<IBookIndex> unitCollection, IBookParty party, uint code)
+			static public IBookIndex BuildIndexWithFirst(IEnumerable<IBookIndex> elements, IBookParty party, uint code)
 			{
-				uint codeOrder = SelectFirst (unitCollection, party, code);
+				uint codeOrder = SelectFirst (elements, party, code);
 
 				return new BookIndex(party, code, codeOrder);
 			}
 
-			static public IBookIndex BuildIndexWithDefault(IEnumerable<IBookIndex> unitCollection, IBookParty party, uint code)
+			static public IBookIndex BuildIndexWithDefault(IEnumerable<IBookIndex> elements, IBookParty party, uint code)
 			{
-				uint codeOrder = SelectDefault (unitCollection, party, code);
+				uint codeOrder = SelectDefault (elements, party, code);
 
 				return new BookIndex(party, code, codeOrder);
 			}
 
 			#region Support Members
 
-			static private uint SelectFirst(IEnumerable<IBookIndex> unitCollection, IBookParty party, uint code)
+			static private uint SelectFirst(IEnumerable<IBookIndex> elements, IBookParty party, uint code)
 			{
-				IEnumerable<IBookIndex> selectedUnits = SelectEquals(unitCollection, party, code);
+				IEnumerable<IBookIndex> selectedUnits = SelectEquals(elements, party, code);
 
 				IEnumerable<uint> oneCodeOrders = ExtractCodeOrders(selectedUnits);
 
 				return FirstOrderFrom(oneCodeOrders.OrderBy(x => x).ToArray());
 			}
 
-			static private uint SelectDefault(IEnumerable<IBookIndex> unitCollection, IBookParty party, uint code)
+			static private uint SelectDefault(IEnumerable<IBookIndex> elements, IBookParty party, uint code)
 			{
-				IEnumerable<IBookIndex> selectedUnits = SelectEquals(unitCollection, party, code);
+				IEnumerable<IBookIndex> selectedUnits = SelectEquals(elements, party, code);
 
 				IEnumerable<uint> oneCodeOrders = ExtractCodeOrders(selectedUnits);
 
 				return DefaultOrderFrom(oneCodeOrders.OrderBy(x => x).ToArray());
 			}
 
-			static private IEnumerable<IBookIndex> SelectEquals(IEnumerable<IBookIndex> unitCollection, IBookParty party, uint code)
+			static private IEnumerable<IBookIndex> SelectEquals(IEnumerable<IBookIndex> elements, IBookParty party, uint code)
 			{
-				return unitCollection.Where(x => (x.isEqualToParty(party) && x.Code() == code)).ToArray();
+				return elements.Where(x => (x.isEqualToParty(party) && x.Code() == code)).ToArray();
 			}
 
-			static private IEnumerable<uint> ExtractCodeOrders(IEnumerable<IBookIndex> unitCollection)
+			static private IEnumerable<uint> ExtractCodeOrders(IEnumerable<IBookIndex> elements)
 			{
-				return unitCollection.Select(x => x.CodeOrder()).ToArray();
+				return elements.Select(x => x.CodeOrder()).ToArray();
 			}
 
 			static private uint FirstOrderFrom(ICollection<uint> sortedCodeOrders)
 			{
 				uint firstCodeOrder = sortedCodeOrders.DefaultIfEmpty((uint)1).First();
+
 				return firstCodeOrder;
 			}
 
 			static private uint DefaultOrderFrom(ICollection<uint> sortedCodeOrders)
 			{
 				uint lastCodeOrder = sortedCodeOrders.Aggregate((uint)0, (agr, x) => (((x > agr) && (x - agr) > 1) ? agr : x));
+
 				return (lastCodeOrder + 1);
 			}
 
@@ -77,44 +79,44 @@ namespace PayrolleeMate.ProcessService.Collections
 				IDictionary<IBookIndex, IBookTarget> targets, 
 				IBookParty party, SymbolName articleName, ITargetValues values, IProcessConfig config)
 			{
-				IBookIndex newIndex = BookIndexBuilder.BuildIndexWithDefault(targets.Keys, party, articleName.Code);
+				IBookIndex newIndex = TargetElementBuilder.BuildIndexWithDefault(targets.Keys, party, articleName.Code);
 
-				KeyValuePair<IBookIndex, IBookTarget> pairToMerge = BookKeyValuePairComposer
-					.ComposeTargetWithArticleAndIndex(party, articleName, newIndex, values, config);
+				KeyValuePair<IBookIndex, IBookTarget> pairToMerge = TargetPairComposer
+					.ComposeTarget(party, articleName, newIndex, values, config);
 
 				var targetIndex = pairToMerge.Key;
 
 				var targetValue = pairToMerge.Value;
 
-				var bookTargets = TargetsDictComposer.MergeDictWithTokenAndValue(targets, targetIndex, targetValue);
+				var bookTargets = TargetsDictComposer.MergeDictWithTargetPair(targets, targetIndex, targetValue);
 
 				return Tuple.Create<IBookIndex, IDictionary<IBookIndex, IBookTarget>>(targetIndex, bookTargets);
 			}
 		}
 
-		static class BookKeyValuePairComposer
+		static class TargetPairComposer
 		{
-			static public KeyValuePair<IBookIndex, IBookTarget> ComposeTargetWithArticleAndIndex(IBookParty party, 
-				SymbolName articleName, IBookIndex index, ITargetValues values, IProcessConfig config)
+			static public KeyValuePair<IBookIndex, IBookTarget> ComposeTarget(IBookParty party, 
+				SymbolName articleName, IBookIndex element, ITargetValues values, IProcessConfig config)
 			{
-				IBookTarget target = BuildTargetFromBookIndex(index, values, config);
+				IBookTarget target = BuildTargetFromElement(element, values, config);
 
-				return new KeyValuePair<IBookIndex, IBookTarget>(index, target);
+				return new KeyValuePair<IBookIndex, IBookTarget>(element, target);
 			}
 
 			#region Support Members
 
-			static public IBookTarget BuildTargetFromBookIndex(IBookIndex index, ITargetValues values, IProcessConfig config)
+			static public IBookTarget BuildTargetFromElement(IBookIndex element, ITargetValues values, IProcessConfig config)
 			{
-				uint articleCode = index.Code ();
+				uint articleCode = element.Code ();
 
 				IPayrollArticle targetArticle = config.FindArticle(articleCode);
 
 				IPayrollConcept targetConcept = config.FindConcept(targetArticle.ConceptCode());
 
-				IBookTarget bookTarget = TargetFactory.BuildTargetWithValues(index, targetArticle, targetConcept, values);
+				IBookTarget target = TargetFactory.BuildTargetWithValues(element, targetArticle, targetConcept, values);
 
-				return bookTarget;
+				return target;
 			}
 
 			#endregion
@@ -122,45 +124,45 @@ namespace PayrolleeMate.ProcessService.Collections
 
 		static class TargetsDictComposer
 		{
-			public static IDictionary<IBookIndex, IBookTarget> MergeDictWithTokenAndValue(IDictionary<IBookIndex, IBookTarget> targets,
+			public static IDictionary<IBookIndex, IBookTarget> MergeDictWithTargetPair(IDictionary<IBookIndex, IBookTarget> targets,
 				IBookIndex targetIndex, IBookTarget targetValue)
 			{
-				var evalFacts = new Dictionary<IBookIndex, IBookTarget>(targets);
+				var mergedTargets = new Dictionary<IBookIndex, IBookTarget>(targets);
 
-				if (!evalFacts.ContainsKey(targetIndex))
+				if (!mergedTargets.ContainsKey(targetIndex))
 				{
-					evalFacts.Add(targetIndex, targetValue);
+					mergedTargets.Add(targetIndex, targetValue);
 				}
-				return evalFacts;
+				return mergedTargets;
 			}
 		}
 
 		static class TargetFactory
 		{
-			public static IBookTarget BuildTargetWithValues(IBookIndex index, IPayrollArticle article, IPayrollConcept concept, ITargetValues values)
+			public static IBookTarget BuildTargetWithValues(IBookIndex element, IPayrollArticle article, IPayrollConcept concept, ITargetValues values)
 			{
-				return new BookTarget(index, article, concept, values);
+				return new BookTarget(element, article, concept, values);
 			}
 		}
 
-		public static ITargetStream CreateFacts()
+		public static ITargetStream CreateStream()
 		{
 			var targets = new Dictionary<IBookIndex, IBookTarget>();
 
 			var lastParty = BookParty.GetEmpty();
 
-			var lastToken = BookIndex.GetEmpty();
+			var lastIndex = BookIndex.GetEmpty();
 
-			return new TargetStream(targets, lastParty, lastToken);
+			return new TargetStream(targets, lastParty, lastIndex);
 		}
 
-		public TargetStream(IDictionary<IBookIndex, IBookTarget> targets, IBookParty lastParty, IBookIndex lastToken)
+		public TargetStream(IDictionary<IBookIndex, IBookTarget> targets, IBookParty lastParty, IBookIndex lastIndex)
 		{
 			this.__targets = targets;
 
 			this.__lastParty = lastParty;
 
-			this.__lastToken = lastToken;
+			this.__lastIndex = lastIndex;
 		}
 
 		public ITargetStream AddNewContractTarget(SymbolName article, ITargetValues values, IProcessConfig config)
@@ -172,11 +174,11 @@ namespace PayrolleeMate.ProcessService.Collections
 
 			var nextFacts = retTuple.Item2;
 
-			var nextToken = retTuple.Item1;
+			var nextIndex = retTuple.Item1;
 
-			var nextParty = nextToken.GetNewContractParty(nextToken.CodeOrder());
+			var nextParty = nextIndex.GetNewContractParty(nextIndex.CodeOrder());
 
-			return new TargetStream(nextFacts, nextParty, nextToken);
+			return new TargetStream(nextFacts, nextParty, nextIndex);
 		}
 
 		public ITargetStream AddNewPositionTarget(SymbolName article, ITargetValues values, IProcessConfig config)
@@ -188,11 +190,11 @@ namespace PayrolleeMate.ProcessService.Collections
 
 			var nextFacts = retTuple.Item2;
 
-			var nextToken = retTuple.Item1;
+			var nextIndex = retTuple.Item1;
 
-			var nextParty = nextToken.GetNewPositionParty(nextToken.CodeOrder());
+			var nextParty = nextIndex.GetNewPositionParty(nextIndex.CodeOrder());
 
-			return new TargetStream(nextFacts, nextParty, nextToken);
+			return new TargetStream(nextFacts, nextParty, nextIndex);
 		}
 
 		public ITargetStream AddTargetIntoContract(SymbolName article, ITargetValues values, IProcessConfig config)
@@ -204,11 +206,11 @@ namespace PayrolleeMate.ProcessService.Collections
 
 			var nextFacts = retTuple.Item2;
 
-			var nextToken = retTuple.Item1;
+			var nextIndex = retTuple.Item1;
 
-			var nextParty = nextToken.GetParty();
+			var nextParty = nextIndex.GetParty();
 
-			return new TargetStream(nextFacts, nextParty, nextToken);
+			return new TargetStream(nextFacts, nextParty, nextIndex);
 		}
 
 		public ITargetStream AddTargetIntoPosition(SymbolName article, ITargetValues values, IProcessConfig config)
@@ -220,11 +222,11 @@ namespace PayrolleeMate.ProcessService.Collections
 
 			var nextFacts = retTuple.Item2;
 
-			var nextToken = retTuple.Item1;
+			var nextIndex = retTuple.Item1;
 
-			var nextParty = nextToken.GetParty();
+			var nextParty = nextIndex.GetParty();
 
-			return new TargetStream(nextFacts, nextParty, nextToken);
+			return new TargetStream(nextFacts, nextParty, nextIndex);
 		}
 
 		public ITargetStream AddTargetIntoGeneral(SymbolName article, ITargetValues values, IProcessConfig config)
@@ -236,18 +238,18 @@ namespace PayrolleeMate.ProcessService.Collections
 
 			var nextFacts = retTuple.Item2;
 
-			var nextToken = retTuple.Item1;
+			var nextIndex = retTuple.Item1;
 
-			var nextParty = nextToken.GetParty();
+			var nextParty = nextIndex.GetParty();
 
-			return new TargetStream(nextFacts, nextParty, nextToken);
+			return new TargetStream(nextFacts, nextParty, nextIndex);
 		}
 
 		private IDictionary<IBookIndex, IBookTarget> __targets = null;
 
 		private IBookParty __lastParty = null;
 
-		private IBookIndex __lastToken = null;
+		private IBookIndex __lastIndex = null;
 
 		#region ITargetStream implementation
 
@@ -261,9 +263,9 @@ namespace PayrolleeMate.ProcessService.Collections
 			return __lastParty; 
 		}
 
-		public IBookIndex LastToken () 
+		public IBookIndex LastIndex () 
 		{
-			return __lastToken; 
+			return __lastIndex; 
 		}
 
 		#endregion

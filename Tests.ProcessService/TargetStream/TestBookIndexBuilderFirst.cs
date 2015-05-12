@@ -87,7 +87,7 @@ namespace Tests.ProcessService
 				index21, index22, index23, index24, index26, index27, index28, index29
 			};
 
-			IBookIndex testIndex = TargetStream.BookIndexBuilder.BuildIndexWithFirst (testArray, partyOne, articleCode1);
+			IBookIndex testIndex = TargetStream.TargetElementBuilder.BuildIndexWithFirst (testArray, partyOne, articleCode1);
 
 			Assert.AreEqual(codeOrder02, testIndex.CodeOrder());
 		}
@@ -100,7 +100,7 @@ namespace Tests.ProcessService
 				index21, index22, index23, index24, index26, index27, index28, index29
 			};
 
-			IBookIndex testIndex = TargetStream.BookIndexBuilder.BuildIndexWithFirst (testArray, partyOne, articleCode1);
+			IBookIndex testIndex = TargetStream.TargetElementBuilder.BuildIndexWithFirst (testArray, partyOne, articleCode1);
 
 			Assert.AreEqual(codeOrder01, testIndex.CodeOrder());
 		}
@@ -113,7 +113,7 @@ namespace Tests.ProcessService
 				index21, index22, index23, index24, index26, index27, index28, index29
 			};
 
-			IBookIndex testIndex = TargetStream.BookIndexBuilder.BuildIndexWithFirst (testArray, partyOne, articleCode1);
+			IBookIndex testIndex = TargetStream.TargetElementBuilder.BuildIndexWithFirst (testArray, partyOne, articleCode1);
 
 			Assert.AreEqual(codeOrder01, testIndex.CodeOrder());
 		}
@@ -125,7 +125,7 @@ namespace Tests.ProcessService
 				index21, index22, index23, index24, index26, index27, index28, index29
 			};
 
-			IBookIndex testIndex = TargetStream.BookIndexBuilder.BuildIndexWithFirst (testArray, partyOne, articleCode1);
+			IBookIndex testIndex = TargetStream.TargetElementBuilder.BuildIndexWithFirst (testArray, partyOne, articleCode1);
 
 			Assert.AreEqual(codeOrder01, testIndex.CodeOrder());
 		}
@@ -134,7 +134,7 @@ namespace Tests.ProcessService
 		{
 			IBookIndex[] testArray = new IBookIndex[0];
 
-			IBookIndex testIndex = TargetStream.BookIndexBuilder.BuildIndexWithFirst (testArray, partyOne, articleCode1);
+			IBookIndex testIndex = TargetStream.TargetElementBuilder.BuildIndexWithFirst (testArray, partyOne, articleCode1);
 
 			Assert.AreEqual(codeOrder01, testIndex.CodeOrder());
 		}

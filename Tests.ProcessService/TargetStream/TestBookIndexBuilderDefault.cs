@@ -87,7 +87,7 @@ namespace Tests.ProcessService
 				index21, index22, index23, index24, index26, index27, index28, index29
 			};
 
-			IBookIndex testIndex = TargetStream.BookIndexBuilder.BuildIndexWithDefault (testArray, partyOne, articleCode1);
+			IBookIndex testIndex = TargetStream.TargetElementBuilder.BuildIndexWithDefault (testArray, partyOne, articleCode1);
 
 			Assert.AreEqual(codeOrder01, testIndex.CodeOrder());
 		}
@@ -101,7 +101,7 @@ namespace Tests.ProcessService
 				index21, index22, index23, index24, index26, index27, index28, index29
 			};
 
-			IBookIndex testIndex = TargetStream.BookIndexBuilder.BuildIndexWithDefault (testArray, partyOne, articleCode1);
+			IBookIndex testIndex = TargetStream.TargetElementBuilder.BuildIndexWithDefault (testArray, partyOne, articleCode1);
 
 			Assert.AreEqual(codeOrder04, testIndex.CodeOrder());
 		}
@@ -115,7 +115,7 @@ namespace Tests.ProcessService
 				index21, index22, index23, index24, index26, index27, index28, index29
 			};
 
-			IBookIndex testIndex = TargetStream.BookIndexBuilder.BuildIndexWithDefault (testArray, partyOne, articleCode1);
+			IBookIndex testIndex = TargetStream.TargetElementBuilder.BuildIndexWithDefault (testArray, partyOne, articleCode1);
 
 			Assert.AreEqual(codeOrder08, testIndex.CodeOrder());
 		}
@@ -128,7 +128,7 @@ namespace Tests.ProcessService
 				index21, index22, index23, index24, index25, index26, index27, index28, index29
 			};
 
-			IBookIndex testIndex = TargetStream.BookIndexBuilder.BuildIndexWithDefault (testArray, partyOne, articleCode1);
+			IBookIndex testIndex = TargetStream.TargetElementBuilder.BuildIndexWithDefault (testArray, partyOne, articleCode1);
 
 			Assert.AreEqual(codeOrder01, testIndex.CodeOrder());
 		}
@@ -138,7 +138,7 @@ namespace Tests.ProcessService
 		{
 			IBookIndex[] testArray = new IBookIndex[0];
 
-			IBookIndex testIndex = TargetStream.BookIndexBuilder.BuildIndexWithDefault (testArray, partyOne, articleCode1);
+			IBookIndex testIndex = TargetStream.TargetElementBuilder.BuildIndexWithDefault (testArray, partyOne, articleCode1);
 
 			Assert.AreEqual(codeOrder01, testIndex.CodeOrder());
 		}

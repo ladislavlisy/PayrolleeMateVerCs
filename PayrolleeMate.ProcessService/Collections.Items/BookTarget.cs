@@ -6,21 +6,22 @@ using PayrolleeMate.Common;
 using PayrolleeMate.ProcessService.Collection.Items;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Constants;
+using PayrolleeMate.EngineService.Interfaces;
 
 namespace PayrolleeMate.ProcessService.Collection.Items
 {
 	public class BookTarget : IBookTarget
 	{
-		public BookTarget(IBookIndex bookIndex, IPayrollArticle bookArticle, IPayrollConcept bookConcept, ITargetValues values)
+		public BookTarget(IBookIndex bookElement, IPayrollArticle bookArticle, IPayrollConcept bookConcept, ITargetValues values)
 		{
-			targetKey = bookIndex;
+			__element = bookElement;
 
 			__article = bookArticle;
 
 			__concept = bookConcept;
 		}
 
-		private IBookIndex targetKey = null;
+		private IBookIndex __element = null;
 
 		private IPayrollConcept __concept = null;
 
@@ -28,6 +29,11 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 
 
 		#region IBookTarget implementation
+
+		public IBookIndex Element()
+		{
+			return __element;
+		}
 
 		public IPayrollConcept Concept ()
 		{
@@ -49,15 +55,15 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 		{
 			throw new NotImplementedException ();
 		}
-		public IResultStream Evaluate (IProcessConfig config, PayrolleeMate.EngineService.Interfaces.IEngineProfile engine, IBookIndex token, IResultStream results)
+		public IResultStream Evaluate (IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results)
 		{
 			throw new NotImplementedException ();
 		}
-		public IBookParty GetContractParty (IBookIndex bookToken)
+		public IBookParty GetContractParty (IBookIndex element)
 		{
 			throw new NotImplementedException ();
 		}
-		public IBookParty GetPositionParty (IBookIndex bookToken)
+		public IBookParty GetPositionParty (IBookIndex element)
 		{
 			throw new NotImplementedException ();
 		}
