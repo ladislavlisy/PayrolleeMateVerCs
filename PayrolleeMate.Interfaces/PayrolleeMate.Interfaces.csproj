@@ -63,6 +63,7 @@
     <Compile Include="ProcessService\IProcessService.cs" />
     <Compile Include="ProcessConfig.Constants\ArticleSymbolCode.cs" />
     <Compile Include="ProcessConfig.Constants\ConceptSymbolCode.cs" />
+    <Compile Include="ProcessConfig.Loggers\IProcessConfigLogger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -72,6 +73,7 @@
     <Folder Include="ProcessConfig.Constants\" />
     <Folder Include="ProcessService.Constants\" />
     <Folder Include="EngineService.Constants\" />
+    <Folder Include="ProcessConfig.Loggers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">

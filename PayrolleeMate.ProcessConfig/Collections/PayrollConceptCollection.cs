@@ -8,6 +8,8 @@ using System.Linq;
 using PayrolleeMate.ProcessService.Interfaces;
 using System.Reflection;
 using Payrollee.Common.Collection;
+using PayrolleeMate.ProcessConfig.General;
+using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 
 namespace PayrolleeMate.ProcessConfig.Collections
 {
@@ -16,17 +18,20 @@ namespace PayrolleeMate.ProcessConfig.Collections
 		static class ArticleCollectionAggregator
 		{
 			public static IDictionary<uint, IPayrollArticle[]> CollectArticles(
-				IDictionary<uint, IPayrollArticle[]> pendingDict)
+				IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
 			{
 				var initialDict = new Dictionary<uint, IPayrollArticle[]>();
 
 				var relatedDict = pendingDict.Aggregate(initialDict,
-					(agr, pair) => CollectArticlesForConcept(agr, 
-						pair.Key, pair.Value, pendingDict).ToDictionary(key => key.Key, val => val.Value));
+					(agr, pair) => CollectArticlesForConcept(agr, pair.Key, pair.Value, pendingDict, logger).
+						ToDictionary(key => key.Key, val => val.Value));
 
-				#if (LOG_ENABLED)
-				ArticlesLogger.LogConceptArticlesCollection(relatedDict, "CollectRelatedCollection");
-				#endif
+				if (logger != null) 
+				{
+					#if (LOG_ENABLED)
+					ArticlesLogger.LogConceptArticlesCollection(relatedDict, "CollectRelatedCollection");
+					#endif
+				}
 
 				return relatedDict;
 			}
@@ -34,13 +39,16 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			private static IDictionary<uint, IPayrollArticle[]> CollectArticlesForConcept(
 				IDictionary<uint, IPayrollArticle[]> initialDict, 
 				uint conceptCode, IPayrollArticle[] pendingArticles, 
-				IDictionary<uint, IPayrollArticle[]> pendingDict)
+				IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
 			{
-				var resultDict = CollectRelatedArticlesFromList(initialDict, conceptCode, pendingArticles, pendingDict);
+				var resultDict = CollectRelatedArticlesFromList(initialDict, conceptCode, pendingArticles, pendingDict, logger);
 
-				#if (LOG_ENABLED)
-				ArticlesLogger.LogConceptCodeArticles(code, resultDict, "ConceptArticles");
-				#endif
+				if (logger != null) 
+				{
+					#if (LOG_ENABLED)
+					ArticlesLogger.LogConceptCodeArticles(code, resultDict, "ConceptArticles");
+					#endif
+				}
 
 				var relatedDict = MergeIntoDictionary(initialDict, conceptCode, resultDict);
 
@@ -61,16 +69,17 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			}
 
 			private static IPayrollArticle[] CollectRelatedArticlesFromList(IDictionary<uint, IPayrollArticle[]> initialDict,
-				uint conceptCode, IPayrollArticle[] pendingArticles, IDictionary<uint, IPayrollArticle[]> pendingDict)
+				uint conceptCode, IPayrollArticle[] pendingArticles, IDictionary<uint, IPayrollArticle[]> pendingDict, 
+				IProcessConfigLogger logger)
 			{
 				var relatedDict = pendingArticles.Aggregate(new IPayrollArticle[0],
-					(agr, article) => agr.Concat(CollectRelatedArticlesFromDict(initialDict, article, pendingDict)).ToArray());
+					(agr, article) => agr.Concat(CollectRelatedArticlesFromDict(initialDict, article, pendingDict, logger)).ToArray());
 				
 				return relatedDict;
 			}
 
 			private static IPayrollArticle[] CollectRelatedArticlesFromDict(IDictionary<uint, IPayrollArticle[]> initialDict, 
-				IPayrollArticle article, IDictionary<uint, IPayrollArticle[]> pendingDict)
+				IPayrollArticle article, IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
 			{
 				var relatedArticles = CollectFromRelated (initialDict, article, pendingDict);
 
@@ -78,17 +87,24 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 				if (existsRelated) 
 				{
-					#if (LOG_ENABLED)
-					ArticlesLogger.LogRelatedArticles(article, articleRelated, "CollectFromRelated");
-					#endif
+					if (logger != null) 
+					{
+						#if (LOG_ENABLED)
+						ArticlesLogger.LogRelatedArticles(article, articleRelated, "CollectFromRelated");
+						#endif
+					}
 					return relatedArticles;
 				}
 				else 
 				{
-					relatedArticles = CollectFromPending (initialDict, article, pendingDict);
-					#if (LOG_ENABLED)
-					ArticlesLogger.LogPendingArticles(article, articleRelated, "CollectFromPending");
-					#endif
+					relatedArticles = CollectFromPending (initialDict, article, pendingDict, logger);
+
+					if (logger != null) 
+					{
+						#if (LOG_ENABLED)
+						ArticlesLogger.LogPendingArticles(article, articleRelated, "CollectFromPending");
+						#endif
+					}
 					return relatedArticles;
 				}
 			}
@@ -113,7 +129,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			}
 
 			private static IPayrollArticle[] CollectFromPending(IDictionary<uint, IPayrollArticle[]> relatedDict, 
-				IPayrollArticle article, IDictionary<uint, IPayrollArticle[]> pendingDict)
+				IPayrollArticle article, IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
 			{
 				uint conceptCode = article.ConceptCode();
 
@@ -129,7 +145,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				var pendingArticles = FindArticlesInDictionary(pendingDict, article);
 
 				var relatedArticles = pendingArticles.Aggregate(initialArticles,
-					(agr, articleSource) => agr.Concat(CollectRelatedArticlesFromDict(relatedDict, articleSource, pendingDict)).ToArray());
+					(agr, articleSource) => agr.Concat(CollectRelatedArticlesFromDict(relatedDict, articleSource, pendingDict, logger)).ToArray());
 
 				return relatedArticles;
 			}
@@ -177,19 +193,34 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			return baseConcept;
 		}
 
+		public IPayrollConcept ConfigureConcept (SymbolName concept, ProcessCategory category, 
+			IPayrollArticle[] pendingArticles, IPayrollArticle[] summaryArticles, string targetValues, string resultValues, 
+			GeneralPayrollConcept.EvaluateDelegate evaluate)
+		{
+			IPayrollConcept conceptInstance = GeneralPayrollConcept.CreateConcept (
+				concept, category, pendingArticles, summaryArticles, targetValues, resultValues, evaluate);
+
+			return ConfigureModel (conceptInstance, concept.Code);
+		}
+
 		#endregion
 
-		public void InitRelatedArticles()
+		public void InitRelatedArticles(IProcessConfigLogger logger)
 		{
 			var pendingArticles = ModelsToPendings();
 
-			var relatedArticles = ArticleCollectionAggregator.CollectArticles(pendingArticles);
+			var relatedArticles = ArticleCollectionAggregator.CollectArticles(pendingArticles, logger);
 
-			UpdateRelatedArticles(relatedArticles);
+			UpdateRelatedArticles(relatedArticles, logger);
 
-			#if (LOG_ENABLED)
-			LogConceptModels();
-			#endif
+			if (logger != null) 
+			{
+				logger.LogConceptsInModels (Models, "InitRelatedArticles.Models");
+			}
+			if (logger != null) 
+			{
+				logger.LogRelatedArticlesInModels (Models, "InitRelatedArticles.Related");
+			}
 		}
 
 		public IDictionary<uint, IPayrollArticle[]> ModelsToPendings()
@@ -199,16 +230,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			return pendingArticles.Where(kvp => kvp.Value.Length != 0).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 		}
 
-		#if (LOG_ENABLED)
-		private void LogConceptModels()
-		{
-			ConceptsLogger.LogModels(Models, "ConceptsDefinitions");
-
-			RelatedLogger.LogModels(Models, "RelatedDefinitions");
-		}
-		#endif
-
-		private void UpdateRelatedArticles(IDictionary<uint, IPayrollArticle[]> relatedDict)
+		private void UpdateRelatedArticles(IDictionary<uint, IPayrollArticle[]> relatedDict, IProcessConfigLogger logger)
 		{
 			foreach (var concept in Models)
 			{
@@ -228,9 +250,11 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				{
 					conceptItem.UpdateRelatedArticles(new IPayrollArticle[0]);
 				}
-				#if (LOG_ENABLED)
-				ArticlesLogger.LogConceptArticles(conceptVal, relatedArray, "UpdateRelatedArticles");
-				#endif
+
+				if (logger != null) 
+				{
+					logger.LogArticlesInConcept (conceptItem, relatedArticles, "UpdateRelatedArticles");
+				}
 			}
 		}
 

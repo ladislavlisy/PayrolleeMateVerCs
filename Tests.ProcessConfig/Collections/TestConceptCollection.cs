@@ -6,6 +6,8 @@ using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Payroll.Concepts;
 using PayrolleeMate.ProcessConfig;
 using PayrolleeMate.ProcessConfigSetCz;
+using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
+using Tests.ProcessConfig.Logers;
 
 namespace Tests.ProcessConfig.Collections
 {
@@ -17,7 +19,9 @@ namespace Tests.ProcessConfig.Collections
 		[TestFixtureSetUp]
 		public void TestSetup()
 		{
-			testConfig = ProcessConfigSetCzModule.CreateModule();
+			IProcessConfigLogger logger = new TestConfigLogger ("TestConceptCollection");
+
+			testConfig = ProcessConfigSetCzModule.CreateModule(logger);
 
 			testConfig.InitModule ();
 		}

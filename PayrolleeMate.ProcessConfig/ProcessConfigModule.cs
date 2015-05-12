@@ -2,14 +2,21 @@
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Collections;
 using System.Reflection;
+using PayrolleeMate.Common;
+using PayrolleeMate.ProcessConfig.General;
+using PayrolleeMate.ProcessConfig.Constants;
+using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 
 namespace PayrolleeMate.ProcessConfig
 {
 	public abstract class ProcessConfigModule<AIDX, CIDX> : IProcessConfig
 	{
-		protected ProcessConfigModule ()
+		protected ProcessConfigModule (IProcessConfigLogger logger)
 		{
+			Logger = logger;
 		}
+
+		protected IProcessConfigLogger Logger { get; private set; }
 
 		public PayrollArticleCollection<AIDX> ArticlesCollection { get; protected set; }
 
@@ -40,6 +47,22 @@ namespace PayrolleeMate.ProcessConfig
 			return ConceptsCollection.FindConcept(conceptCode);
 		}
 
+		public IPayrollArticle ConfigureArticle (SymbolName article, SymbolName concept, 
+			bool taxingIncome, bool healthIncome, bool socialIncome, 
+			bool grossSummary, bool nettoSummary, bool nettoDeducts)
+		{
+			return ArticlesCollection.ConfigureArticle (
+				article, concept, taxingIncome, healthIncome, socialIncome, grossSummary, nettoSummary, nettoDeducts);
+		}
+
+		public IPayrollConcept ConfigureConcept (SymbolName concept, ProcessCategory category, 
+			IPayrollArticle[] pendingArticles, IPayrollArticle[] summaryArticles, 
+			string targetValues, string resultValues, GeneralPayrollConcept.EvaluateDelegate evaluate)
+		{
+			return ConceptsCollection.ConfigureConcept (
+				concept, category, pendingArticles, summaryArticles, targetValues, resultValues, evaluate);
+		}
+
 		public abstract void InitArticles ();
 
 		public abstract void InitConcepts ();
@@ -49,7 +72,7 @@ namespace PayrolleeMate.ProcessConfig
 			InitArticles();
 			InitConcepts();
 
-			ConceptsCollection.InitRelatedArticles();
+			ConceptsCollection.InitRelatedArticles(Logger);
 		}
 	}
 }

@@ -6,6 +6,7 @@ using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig.Factories;
 using System.Reflection;
 using Payrollee.Common.Collection;
+using PayrolleeMate.ProcessConfig.General;
 
 namespace PayrolleeMate.ProcessConfig.Collections
 {
@@ -27,6 +28,15 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			IPayrollArticle baseArticle = FindInstanceForCode(articleCode);
 
 			return baseArticle;
+		}
+
+		public IPayrollArticle ConfigureArticle (SymbolName article, SymbolName concept, 
+			bool taxingIncome, bool healthIncome, bool socialIncome, bool grossSummary, bool nettoSummary, bool nettoDeducts)
+		{
+			IPayrollArticle articleInstance = GeneralPayrollArticle.CreateArticle (
+				article, concept, taxingIncome, healthIncome, socialIncome, grossSummary, nettoSummary, nettoDeducts);
+
+			return ConfigureModel (articleInstance, article.Code);
 		}
 
 		#region implemented abstract members of GeneralCollection

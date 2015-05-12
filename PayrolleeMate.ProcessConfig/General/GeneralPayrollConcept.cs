@@ -2,17 +2,32 @@
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.Common;
+using PayrolleeMate.ProcessService.Interfaces;
+using PayrolleeMate.EngineService.Interfaces;
 
 namespace PayrolleeMate.ProcessConfig.General
 {
 	public class GeneralPayrollConcept : SymbolName, IPayrollConcept
 	{
+		public delegate IResultStream EvaluateDelegate (IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results);
+
 		public static readonly IPayrollArticle[] EMPTY_ARTICLES = {};
 
 		public static readonly char[] VALUES_SEPARATOR = { ',' };
 
-		public GeneralPayrollConcept (SymbolName concept, IPayrollArticle[] pendingArticles, IPayrollArticle[] summaryArticles, 
-			ProcessCategory category, string targetValues, string resultValues) : base(concept.Code, concept.Name)
+		public static IPayrollConcept CreateConcept (SymbolName concept, ProcessCategory category, 
+			IPayrollArticle[] pendingArticles, IPayrollArticle[] summaryArticles, 
+			string targetValues, string resultValues, EvaluateDelegate evaluate)
+		{
+			IPayrollConcept conceptInstance = new GeneralPayrollConcept (concept, category, 
+				pendingArticles, summaryArticles, targetValues, resultValues, evaluate);
+
+			return conceptInstance;
+		}
+
+		public GeneralPayrollConcept (SymbolName concept, ProcessCategory category, 
+			IPayrollArticle[] pendingArticles, IPayrollArticle[] summaryArticles, 
+			string targetValues, string resultValues, EvaluateDelegate evaluate) : base(concept.Code, concept.Name)
 		{
 			__targetValues = targetValues.Split(VALUES_SEPARATOR);
 
@@ -25,6 +40,8 @@ namespace PayrolleeMate.ProcessConfig.General
 			__summaryArticles = (IPayrollArticle[])summaryArticles.Clone();
 
 			__category = category;
+
+			__evaluate = evaluate;
 
 		}
 
@@ -39,6 +56,8 @@ namespace PayrolleeMate.ProcessConfig.General
 		private IPayrollArticle[] __summaryArticles = EMPTY_ARTICLES;
 
 		private ProcessCategory __category = ProcessCategory.CATEGORY_START;
+
+		private EvaluateDelegate __evaluate = null;
 
 		#region IPayrollConcept implementation
 
@@ -80,6 +99,15 @@ namespace PayrolleeMate.ProcessConfig.General
 		public ProcessCategory Category ()
 		{
 			return __category;
+		}
+
+		public virtual IResultStream CallEvaluate(IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results)
+		{
+			if (__evaluate != null)
+			{
+				return __evaluate (config, engine, element, results);
+			}
+			return results;
 		}
 
 		public void UpdateRelatedArticles (IPayrollArticle[] articles)

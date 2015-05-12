@@ -6,13 +6,17 @@ namespace PayrolleeMate.ProcessConfig.General
 {
 	public class GeneralPayrollArticle : SymbolName, IPayrollArticle
 	{
-		public GeneralPayrollArticle (SymbolName article, SymbolName concept, 
-			bool taxingIncome, 
-			bool healthIncome, 
-			bool socialIncome, 
-			bool grossIncome, 
-			bool nettoIncome, 
-			bool nettoDeduct) : base(article.Code, article.Name)
+		public static IPayrollArticle CreateArticle(SymbolName article, SymbolName concept, 
+			bool taxingIncome, bool healthIncome, bool socialIncome, 
+			bool grossSummary, bool nettoSummary, bool nettoDeducts)
+		{
+			return new GeneralPayrollArticle (article, concept, 
+				taxingIncome, healthIncome, socialIncome, grossSummary, nettoSummary, nettoDeducts);
+		}
+		
+		protected GeneralPayrollArticle (SymbolName article, SymbolName concept, 
+			bool taxingIncome, bool healthIncome, bool socialIncome, 
+			bool grossSummary, bool nettoSummary, bool nettoDeducts) : base(article.Code, article.Name)
 		{
 			__conceptSymbol = concept;
 
@@ -22,20 +26,16 @@ namespace PayrolleeMate.ProcessConfig.General
 
 			__taxingIncome = taxingIncome;
 
-			__incomeGross = grossIncome;
+			__summaryGross = grossSummary;
 
-			__incomeNetto = nettoIncome;
+			__summaryNetto = nettoSummary;
 
-			__deductNetto = nettoDeduct;
+			__deductsNetto = nettoDeducts;
 		}
 
-		public GeneralPayrollArticle (uint articleCode, string articleName, uint conceptCode, string conceptName, 
-			bool taxingIncome, 
-			bool healthIncome, 
-			bool socialIncome, 
-			bool grossIncome, 
-			bool nettoIncome, 
-			bool nettoDeduct) : base(articleCode, articleName)
+		protected GeneralPayrollArticle (uint articleCode, string articleName, uint conceptCode, string conceptName, 
+			bool taxingIncome, bool healthIncome, bool socialIncome, 
+			bool grossSummary, bool nettoSummary, bool nettoDeducts) : base(articleCode, articleName)
 		{
 			__conceptSymbol = new SymbolName(conceptCode, conceptName);
 
@@ -45,11 +45,11 @@ namespace PayrolleeMate.ProcessConfig.General
 
 			__taxingIncome = taxingIncome;
 
-			__incomeGross = grossIncome;
+			__summaryGross = grossSummary;
 
-			__incomeNetto = nettoIncome;
+			__summaryNetto = nettoSummary;
 
-			__deductNetto = nettoDeduct;
+			__deductsNetto = nettoDeducts;
 		}
 
 		private SymbolName __conceptSymbol;
@@ -60,11 +60,11 @@ namespace PayrolleeMate.ProcessConfig.General
 
 		private bool __taxingIncome = false;
 
-		private bool __incomeGross = false;
+		private bool __summaryGross = false;
 
-		private bool __incomeNetto = false;
+		private bool __summaryNetto = false;
 
-		private bool __deductNetto = false;
+		private bool __deductsNetto = false;
 
 		#region IPayrollArticle implementation
 
@@ -110,17 +110,17 @@ namespace PayrolleeMate.ProcessConfig.General
 
 		public bool IncomeGross ()
 		{
-			return __incomeGross;
+			return __summaryGross;
 		}
 
 		public bool IncomeNetto ()
 		{
-			return __incomeNetto;
+			return __summaryNetto;
 		}
 
 		public bool DeductNetto ()
 		{
-			return __deductNetto;
+			return __deductsNetto;
 		}
 
 		#endregion

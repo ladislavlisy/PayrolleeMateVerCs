@@ -18,19 +18,34 @@ namespace Payrollee.Common.Collection
 
 		public T InstanceFromModels(Assembly configAssembly, uint configCode)
 		{
-			T baseInstance = default(T);
+			T modelInstance = default(T);
 
 			if (!Models.ContainsKey(configCode))
 			{
-				baseInstance = EmptyInstanceForCode(configAssembly, configCode);
+				T baseInstance = EmptyInstanceForCode(configAssembly, configCode);
 
-				Models[configCode] = baseInstance;
+				modelInstance = ConfigureModel(baseInstance, configCode);
 			}
 			else
 			{
-				baseInstance = Models[configCode];
+				modelInstance = FindInstanceForCode(configCode);
 			}
-			return baseInstance;
+			return modelInstance;
+		}
+
+		public T ConfigureModel(T baseInstance, uint configCode)
+		{
+			T modelInstance = baseInstance;
+
+			if (modelInstance != null)
+			{
+				Models [configCode] = modelInstance;
+			}
+			else if (Models.ContainsKey (configCode)) 
+			{
+				modelInstance = Models [configCode];
+			}
+			return modelInstance;
 		}
 
 		public T FindInstanceForEnum(IDX configIndex)

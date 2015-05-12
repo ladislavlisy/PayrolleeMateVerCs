@@ -1,5 +1,7 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.Constants;
+using PayrolleeMate.ProcessService.Interfaces;
+using PayrolleeMate.EngineService.Interfaces;
 
 namespace PayrolleeMate.ProcessConfig.Interfaces
 {
@@ -21,6 +23,7 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 
 		void UpdateRelatedArticles(IPayrollArticle[] articles);
 
+		IResultStream CallEvaluate (IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results);
 	}
 }
 

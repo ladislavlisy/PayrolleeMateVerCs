@@ -36,12 +36,14 @@
   <ItemGroup>
     <Folder Include="Factories\" />
     <Folder Include="Collections\" />
+    <Folder Include="Loggers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\TestArticleFactory.cs" />
     <Compile Include="Collections\TestArticleCollection.cs" />
     <Compile Include="Collections\TestConceptCollection.cs" />
     <Compile Include="Factories\TestConceptFactory.cs" />
+    <Compile Include="Loggers\TestConfigLogger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
