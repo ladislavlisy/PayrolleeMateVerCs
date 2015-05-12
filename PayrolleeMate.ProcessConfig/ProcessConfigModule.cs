@@ -5,18 +5,15 @@ using System.Reflection;
 
 namespace PayrolleeMate.ProcessConfig
 {
-	public abstract class ProcessConfigModule : IProcessConfig
+	public abstract class ProcessConfigModule<AIDX, CIDX> : IProcessConfig
 	{
 		protected ProcessConfigModule ()
 		{
-			ArticlesCollection = new PayrollArticleCollection();
-
-			ConceptsCollection = new PayrollConceptCollection();
 		}
 
-		public PayrollArticleCollection ArticlesCollection { get; private set; }
+		public PayrollArticleCollection<AIDX> ArticlesCollection { get; protected set; }
 
-		public PayrollConceptCollection ConceptsCollection { get; private set; }
+		public PayrollConceptCollection<CIDX> ConceptsCollection { get; protected set; }
 
 		public IPayrollArticle ArticleFromModels(Assembly assemblyConfigSet, uint articleCode)
 		{

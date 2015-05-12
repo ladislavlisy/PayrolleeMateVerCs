@@ -37,6 +37,10 @@
     <Compile Include="Payroll.Constants\ConfigSetCzConceptCode.cs" />
     <Compile Include="Payroll.Constants\ConfigSetCzArticleName.cs" />
     <Compile Include="Payroll.Constants\ConfigSetCzConceptName.cs" />
+    <Compile Include="Payroll.Collections\ConfigSetCzArticleCollection.cs" />
+    <Compile Include="Payroll.Collections\ConfigSetCzConceptCollection.cs" />
+    <Compile Include="Payroll.Articles\UnknownArticle.cs" />
+    <Compile Include="Payroll.Concepts\UnknownConcept.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -57,5 +61,6 @@
     <Folder Include="Payroll.Articles\" />
     <Folder Include="Payroll.Concepts\" />
     <Folder Include="Payroll.Constants\" />
+    <Folder Include="Payroll.Collections\" />
   </ItemGroup>
 </Project>

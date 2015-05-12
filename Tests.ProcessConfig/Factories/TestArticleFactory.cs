@@ -5,6 +5,9 @@ using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Factories;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Payroll.Articles;
+using System.Reflection;
+using PayrolleeMate.ConfigSetCz.Constants;
+using PayrolleeMate.ProcessConfigSetCz;
 
 namespace Tests.ProcessConfig.Factories
 {
@@ -24,9 +27,11 @@ namespace Tests.ProcessConfig.Factories
 		[Test ()]
 		public void Should_Return_UnknownArticle_As_TypeOf ()
 		{
-			SymbolName testSpecName = ArticleSymbolName.REF_UNKNOWN;
+			SymbolName testSpecName = ConfigSetCzArticleName.REF_UNKNOWN;
 
-			IPayrollArticle testArticle = PayrollArticleFactory.ArticleFor(testSpecName.Name);
+			Assembly configAssembly = typeof(ProcessConfigSetCzModule).Assembly;
+				
+			IPayrollArticle testArticle = PayrollArticleFactory.ArticleFor(configAssembly, testSpecName.Name);
 
 			Type testTypeOfArticle = testArticle.GetType();
 

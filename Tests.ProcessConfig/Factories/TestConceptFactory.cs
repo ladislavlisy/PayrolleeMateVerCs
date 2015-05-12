@@ -5,6 +5,8 @@ using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Factories;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Payroll.Concepts;
+using System.Reflection;
+using PayrolleeMate.ProcessConfigSetCz;
 
 namespace Tests.ProcessConfig.Factories
 {
@@ -26,7 +28,9 @@ namespace Tests.ProcessConfig.Factories
 		{
 			SymbolName testSpecName = ConceptSymbolName.REF_UNKNOWN;
 
-			IPayrollConcept testConcept = PayrollConceptFactory.ConceptFor(testSpecName.Name);
+			Assembly configAssembly = typeof(ProcessConfigSetCzModule).Assembly;
+
+			IPayrollConcept testConcept = PayrollConceptFactory.ConceptFor(configAssembly, testSpecName.Name);
 
 			Type testTypeOfConcept = testConcept.GetType();
 
