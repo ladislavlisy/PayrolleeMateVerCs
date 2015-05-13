@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using PayrolleeMate.Common;
 
-namespace Payrollee.Common.Collection
+namespace PayrolleeMate.Common.Collection
 {
 	public abstract class GeneralCollection<T, IDX>
 	{
