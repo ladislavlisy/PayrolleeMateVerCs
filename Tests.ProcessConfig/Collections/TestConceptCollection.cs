@@ -19,11 +19,15 @@ namespace Tests.ProcessConfig.Collections
 		[TestFixtureSetUp]
 		public void TestSetup()
 		{
-			IProcessConfigLogger logger = new TestConfigLogger ("TestConceptCollection");
+			IProcessConfigLogger logger = new TestConfigLogger ("ProcessConfigSetCzModule");
+
+			logger.OpenLogStream ("TestConceptCollection");
 
 			testConfig = ProcessConfigSetCzModule.CreateModule(logger);
 
 			testConfig.InitModule ();
+
+			logger.CloseLogStream ();
 		}
 
 		[Test ()]

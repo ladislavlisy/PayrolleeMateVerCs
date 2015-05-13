@@ -9,6 +9,8 @@ using PayrolleeMate.ProcessConfigSetCz;
 using PayrolleeMate.ProcessConfig.Payroll.Articles;
 using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 using System.Collections.Generic;
+using System.IO;
+using PayrolleeMate.ConfigSetCz.Constants;
 
 namespace Tests.ProcessConfig.Logers
 {
@@ -16,69 +18,265 @@ namespace Tests.ProcessConfig.Logers
 	{
 		public TestConfigLogger(string testNamespace)
 		{
-			TestNamespaceDir = "LoggFiles/" + testNamespace + "/";
+			TestNamespaceDir = "../../../LoggFiles/" + testNamespace + "/";
 		}
 
 		private string TestNamespaceDir { get; set; }
 
-		#region IProcessConfigLogger implementation
+		private Stream LogFileStream { get; set; }
 
-		public void LogArticlesInConcept (IPayrollConcept concept, IPayrollArticle[] articles, string testName)
+		public Stream OpenCustomStream (string testName)
 		{
 			string TestNamespaceFile = TestNamespaceDir + testName + ".log";
 
-			Console.WriteLine(TestNamespaceFile);
+			try 
+			{
+				Stream logStream = new FileStream (TestNamespaceFile, FileMode.Create);
 
-			Console.WriteLine("--- begin ---");
+				return logStream;
+			}
+			catch (Exception ex) 
+			{
+				throw ex;
+			}
+		}
 
-			string lineDefinition = ConceptRelatedArticlesLogger.LogConceptArticlesInfo(concept, articles);
+		public void CloseCustomStream (Stream logStream)
+		{
+			logStream.Flush ();
 
-			Console.WriteLine(lineDefinition);
+			logStream.Close ();
+		}
 
-			Console.WriteLine("--- end ---");
+		#region IProcessConfigLogger implementation
+
+		public void OpenLogStream (string testName)
+		{
+			string TestNamespaceFile = TestNamespaceDir + testName + ".log";
+
+			LogFileStream = new FileStream (TestNamespaceFile, FileMode.Append);
+		}
+
+		public void CloseLogStream ()
+		{
+			LogFileStream = null;
+		}
+
+		public void LogArticlesInConcept (IPayrollConcept concept, IPayrollArticle[] articles, string testName)
+		{
+			Stream logStream = OpenCustomStream(testName);
+
+			using (StreamWriter logWriter = new StreamWriter (logStream) ) 
+			{
+				logWriter.WriteLine ("--- begin ---");
+
+				logWriter.WriteLine (testName);
+
+				logWriter.WriteLine ("--- begin ---");
+
+				string lineDefinition = ConceptRelatedArticlesLogger.LogConceptArticlesInfo (concept, articles);
+
+				logWriter.WriteLine (lineDefinition);
+
+				logWriter.WriteLine ("--- end ---");
+			}
 		}
 
 
 		public void LogConceptsInModels (IDictionary<uint, IPayrollConcept> models, string testName)
 		{
-			string TestNamespaceFile = TestNamespaceDir + testName + ".log";
+			Stream logStream = OpenCustomStream(testName);
 
-			Console.WriteLine(TestNamespaceFile);
-
-			Console.WriteLine("--- begin ---");
-
-			foreach (var conceptPair in models)
+			using (StreamWriter logWriter = new StreamWriter (logStream) ) 
 			{
-				IPayrollConcept concept = conceptPair.Value;
+				logWriter.WriteLine ("--- begin ---");
 
-				string lineDefinition = ModelConceptsLogger.LogConceptInfo(concept);
+				logWriter.WriteLine (testName);
 
-				Console.WriteLine(lineDefinition);
+				logWriter.WriteLine ("--- begin ---");
+
+				foreach (var conceptPair in models)
+				{
+					IPayrollConcept concept = conceptPair.Value;
+
+					string lineDefinition = ModelConceptsLogger.LogConceptInfo(concept);
+
+					logWriter.WriteLine(lineDefinition);
+				}
+
+				logWriter.WriteLine ("--- end ---");
 			}
-
-			Console.WriteLine("--- end ---");
 		}
 
 		public void LogRelatedArticlesInModels (IDictionary<uint, IPayrollConcept> models, string testName)
 		{
-			string TestNamespaceFile = TestNamespaceDir + testName + ".log";
+			Stream logStream = OpenCustomStream(testName);
 
-			Console.WriteLine(TestNamespaceFile);
-
-			Console.WriteLine("--- begin ---");
-
-			foreach (var conceptPair in models)
+			using (StreamWriter logWriter = new StreamWriter (logStream) ) 
 			{
-				IPayrollConcept concept = conceptPair.Value;
-				string lineDefinition = ModelConceptsRelatedArticlesLogger.LogConceptInfo(concept);
+				logWriter.WriteLine ("--- begin ---");
 
-				Console.WriteLine(lineDefinition);
+				logWriter.WriteLine (testName);
+
+				logWriter.WriteLine ("--- begin ---");
+
+				foreach (var conceptPair in models)
+				{
+					IPayrollConcept concept = conceptPair.Value;
+					string lineDefinition = ModelConceptsRelatedArticlesLogger.LogConceptInfo(concept);
+
+					logWriter.WriteLine(lineDefinition);
+				}
+
+				logWriter.WriteLine ("--- end ---");
 			}
+		}
 
-			Console.WriteLine("--- end ---");
+		public void LogConceptArticlesCollection(IDictionary<uint, IPayrollArticle[]> collection, string testName)
+		{
+			OpenLogStream (testName);
+
+			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
+			{
+				logWriter.WriteLine ("--- begin ---");
+
+				logWriter.WriteLine (testName);
+
+				logWriter.WriteLine ("--- begin ---");
+
+				string lineDefinition = "";
+
+				foreach (var conceptPair in collection) 
+				{
+					lineDefinition += ConceptCodeArticlesLogger.LogConceptCodeArticlesInfo (conceptPair.Key, conceptPair.Value);
+				}
+
+				logWriter.WriteLine (lineDefinition);
+
+				logWriter.WriteLine ("--- end ---");
+			}
+		}
+
+		public void LogConceptCodeArticles(uint concept, IPayrollArticle[] articles, string testName)
+		{
+			OpenLogStream (testName);
+
+			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
+			{
+				logWriter.WriteLine ("--- begin ---");
+
+				logWriter.WriteLine (testName);
+
+				logWriter.WriteLine ("--- begin ---");
+
+				string lineDefinition = ConceptCodeArticlesLogger.LogConceptCodeArticlesInfo(concept, articles);
+
+				logWriter.WriteLine (lineDefinition);
+
+				logWriter.WriteLine ("--- end ---");
+			}
+		}
+
+		public void LogPendingArticles(IPayrollArticle article, IPayrollArticle[] articles, string testName)
+		{
+			OpenLogStream (testName);
+
+			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
+			{
+				logWriter.WriteLine ("--- begin ---");
+
+				logWriter.WriteLine (testName);
+
+				logWriter.WriteLine ("--- begin ---");
+
+				string lineDefinition = ConceptCodeArticlesLogger.LogArticleInfo(article);
+
+				lineDefinition += "--- PENDING ---\n";
+
+				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(articles);
+
+				logWriter.WriteLine (lineDefinition);
+
+				logWriter.WriteLine ("--- end ---");
+			}
+		}
+
+		public void LogRelatedArticles(IPayrollArticle article, IPayrollArticle[] articles, string testName)
+		{
+			OpenLogStream (testName);
+
+			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
+			{
+				logWriter.WriteLine ("--- begin ---");
+
+				logWriter.WriteLine (testName);
+
+				logWriter.WriteLine ("--- begin ---");
+
+				string lineDefinition = ConceptCodeArticlesLogger.LogArticleInfo(article);
+
+				lineDefinition += "--- RELATED ---\n";
+
+				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(articles);
+
+				logWriter.WriteLine (lineDefinition);
+
+				logWriter.WriteLine ("--- end ---");
+			}
 		}
 
 		#endregion
+
+		private static class ConceptCodeArticlesLogger
+		{
+			public static string LogConceptCodeArticlesInfo(uint conceptCode, IPayrollArticle[] articles)
+			{
+				string lineDefinition = LogConceptCodeInfo(conceptCode);
+
+				lineDefinition += "--- ARTICLES ---\n";
+
+				lineDefinition += LogArrayOfArticles(articles);
+
+				lineDefinition += "--- ARTICLES ---\n\n";
+
+				return lineDefinition;
+			}
+
+			private static string LogConceptCodeInfo(uint conceptCode)
+			{
+				string conceptDescrip = Enum.ToObject (typeof(ConfigSetCzConceptCode), conceptCode).ToString ();
+
+				string lineDefinition = string.Format("{0} - {1}\n", "CONCEPT", conceptDescrip);
+
+				return lineDefinition;
+			}
+
+			public static string LogArticleInfo(IPayrollArticle article)
+			{
+				string lineDefinition = string.Format("{0} - {1} - {2}\n", article.ArticleName(), article.ConceptName(), article.ArticleCode());
+
+				return lineDefinition;
+			}
+
+			public static string LogArrayOfArticles(IPayrollArticle[] articles)
+			{
+				string lineDefinition = "";
+				if (articles == null)
+				{
+					lineDefinition = "empty\n";
+					return lineDefinition;
+				}
+				else
+				{
+					lineDefinition = string.Format("count - {0}\n", articles.Length);
+				}
+				foreach (var article in articles)
+				{
+					lineDefinition += LogArticleInfo(article);
+				}
+				return lineDefinition;
+			}
+		}
 
 		private static class ConceptRelatedArticlesLogger
 		{

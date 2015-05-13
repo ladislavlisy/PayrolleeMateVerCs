@@ -11,6 +11,10 @@ namespace PayrolleeMate.ProcessConfig
 {
 	public abstract class ProcessConfigModule<AIDX, CIDX> : IProcessConfig
 	{
+		protected static readonly IPayrollArticle[] EMPTY_PENDING = GeneralPayrollConcept.EMPTY_ARTICLES;
+
+		protected static readonly IPayrollArticle[] EMPTY_SUMMARY = GeneralPayrollConcept.EMPTY_ARTICLES;
+
 		protected ProcessConfigModule (IProcessConfigLogger logger)
 		{
 			Logger = logger;

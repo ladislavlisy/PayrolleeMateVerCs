@@ -26,12 +26,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 					(agr, pair) => CollectArticlesForConcept(agr, pair.Key, pair.Value, pendingDict, logger).
 						ToDictionary(key => key.Key, val => val.Value));
 
-				if (logger != null) 
-				{
-					#if (LOG_ENABLED)
-					ArticlesLogger.LogConceptArticlesCollection(relatedDict, "CollectRelatedCollection");
-					#endif
-				}
+				LoggerWrapper.LogConceptArticlesCollection(logger, relatedDict, "CollectRelatedCollection");
 
 				return relatedDict;
 			}
@@ -41,16 +36,11 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				uint conceptCode, IPayrollArticle[] pendingArticles, 
 				IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
 			{
-				var resultDict = CollectRelatedArticlesFromList(initialDict, conceptCode, pendingArticles, pendingDict, logger);
+				var resultList = CollectRelatedArticlesFromList(initialDict, conceptCode, pendingArticles, pendingDict, logger);
 
-				if (logger != null) 
-				{
-					#if (LOG_ENABLED)
-					ArticlesLogger.LogConceptCodeArticles(code, resultDict, "ConceptArticles");
-					#endif
-				}
+				LoggerWrapper.LogConceptCodeArticles(logger, conceptCode, resultList, "ConceptArticles");					
 
-				var relatedDict = MergeIntoDictionary(initialDict, conceptCode, resultDict);
+				var relatedDict = MergeIntoDictionary(initialDict, conceptCode, resultList);
 
 				return relatedDict;
 			}
@@ -87,24 +77,16 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 				if (existsRelated) 
 				{
-					if (logger != null) 
-					{
-						#if (LOG_ENABLED)
-						ArticlesLogger.LogRelatedArticles(article, articleRelated, "CollectFromRelated");
-						#endif
-					}
+					LoggerWrapper.LogRelatedArticles(logger, article, relatedArticles, "CollectFromRelated");
+
 					return relatedArticles;
 				}
 				else 
 				{
 					relatedArticles = CollectFromPending (initialDict, article, pendingDict, logger);
 
-					if (logger != null) 
-					{
-						#if (LOG_ENABLED)
-						ArticlesLogger.LogPendingArticles(article, articleRelated, "CollectFromPending");
-						#endif
-					}
+					LoggerWrapper.LogPendingArticles(logger, article, relatedArticles, "CollectFromPending");
+
 					return relatedArticles;
 				}
 			}
@@ -213,14 +195,9 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 			UpdateRelatedArticles(relatedArticles, logger);
 
-			if (logger != null) 
-			{
-				logger.LogConceptsInModels (Models, "InitRelatedArticles.Models");
-			}
-			if (logger != null) 
-			{
-				logger.LogRelatedArticlesInModels (Models, "InitRelatedArticles.Related");
-			}
+			LoggerWrapper.LogConceptsInModels (logger, Models, "InitRelatedArticles.Models");
+
+			LoggerWrapper.LogRelatedArticlesInModels (logger, Models, "InitRelatedArticles.Related");
 		}
 
 		public IDictionary<uint, IPayrollArticle[]> ModelsToPendings()
@@ -251,10 +228,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 					conceptItem.UpdateRelatedArticles(new IPayrollArticle[0]);
 				}
 
-				if (logger != null) 
-				{
-					logger.LogArticlesInConcept (conceptItem, relatedArticles, "UpdateRelatedArticles");
-				}
+				LoggerWrapper.LogArticlesInConcept (logger, conceptItem, relatedArticles, "UpdateRelatedArticles");
 			}
 		}
 
@@ -268,6 +242,81 @@ namespace PayrolleeMate.ProcessConfig.Collections
 		}
 
 		#endregion
+
+		static class LoggerWrapper
+		{
+			public static void OpenLogStream (IProcessConfigLogger logger, string testName)
+			{
+				if (logger != null) 
+				{
+					logger.OpenLogStream (testName);
+				}
+			}
+
+			public static void CloseLogStream (IProcessConfigLogger logger)
+			{
+				if (logger != null) 
+				{
+					logger.CloseLogStream ();
+				}
+			}
+
+			public static void LogArticlesInConcept(IProcessConfigLogger logger, IPayrollConcept concept, IPayrollArticle[] articles, string testName)
+			{
+				if (logger != null) 
+				{
+					logger.LogArticlesInConcept (concept, articles, testName);
+				}
+			}
+
+			public static void LogConceptsInModels (IProcessConfigLogger logger, IDictionary<uint, IPayrollConcept> models, string testName)
+			{
+				if (logger != null) 
+				{
+					logger.LogConceptsInModels (models, testName);
+				}
+			}
+
+			public static void LogRelatedArticlesInModels (IProcessConfigLogger logger, IDictionary<uint, IPayrollConcept> models, string testName)
+			{
+				if (logger != null) 
+				{
+					logger.LogRelatedArticlesInModels (models, testName);
+				}
+			}
+
+			public static void LogConceptArticlesCollection (IProcessConfigLogger logger, IDictionary<uint, IPayrollArticle[]> collection, string testName)
+			{
+				if (logger != null) 
+				{
+					logger.LogConceptArticlesCollection (collection, testName);
+				}
+			}
+
+			public static void LogConceptCodeArticles (IProcessConfigLogger logger, uint concept, IPayrollArticle[] articles, string testName)
+			{
+				if (logger != null) 
+				{
+					logger.LogConceptCodeArticles (concept, articles, testName);
+				}
+			}
+
+			public static void LogPendingArticles (IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] articles, string testName)
+			{
+				if (logger != null) 
+				{
+					logger.LogPendingArticles (article, articles, testName);
+				}
+			}
+
+			public static void LogRelatedArticles (IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] articles, string testName)
+			{
+				if (logger != null) 
+				{
+					logger.LogRelatedArticles (article, articles, testName);
+				}
+			}
+		}
 	}
 }
 
