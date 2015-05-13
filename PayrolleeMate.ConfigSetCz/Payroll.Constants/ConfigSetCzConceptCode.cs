@@ -8,7 +8,7 @@ namespace PayrolleeMate.ConfigSetCz.Constants
 	{
 		CONCEPT_UNKNOWN = ConceptSymbolCode.CONCEPT_UNKNOWN,
 		CONCEPT_CONTRACT_EMPL_TERM = ConceptSymbolCode.CONCEPT_CONTRACT_EMPL_TERM,
-		CONCEPT_POSITION_TERM = ConceptSymbolCode.CONCEPT_POSITION_TERM,
+		CONCEPT_POSITION_EMPL_TERM = ConceptSymbolCode.CONCEPT_POSITION_EMPL_TERM,
 		CONCEPT_INCOME_GROSS = ConceptSymbolCode.CONCEPT_INCOME_GROSS,
 		CONCEPT_INCOME_NETTO = ConceptSymbolCode.CONCEPT_INCOME_NETTO,
 
@@ -85,6 +85,11 @@ namespace PayrolleeMate.ConfigSetCz.Constants
 		public static SymbolName GetSymbol(this ConfigSetCzConceptCode concept)
 		{
 			return new SymbolName((uint)concept, concept.ToString());
+		}
+
+		public static uint Code(this ConfigSetCzConceptCode concept)
+		{
+			return (uint)concept;
 		}
 	}
 }

@@ -14,6 +14,8 @@ namespace PayrolleeMate.ProcessConfigSetCz.Collections
 		public ConfigSetCzArticleCollection()
 		{
 			this.Models[(uint)ConfigSetCzArticleCode.ARTICLE_UNKNOWN] = new UnknownArticle();
+
+			this.DefaultCode = (uint)ConfigSetCzArticleCode.ARTICLE_UNKNOWN;
 		}
 
 		#region implemented abstract members of GeneralCollection

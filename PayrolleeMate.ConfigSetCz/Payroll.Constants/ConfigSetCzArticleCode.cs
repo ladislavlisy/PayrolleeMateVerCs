@@ -8,7 +8,7 @@ namespace PayrolleeMate.ConfigSetCz.Constants
 	{
 		ARTICLE_UNKNOWN = ArticleSymbolCode.ARTICLE_UNKNOWN,
 		ARTICLE_CONTRACT_EMPL_TERM = ArticleSymbolCode.ARTICLE_CONTRACT_EMPL_TERM,
-		ARTICLE_POSITION_TERM = ArticleSymbolCode.ARTICLE_POSITION_TERM,
+		ARTICLE_POSITION_EMPL_TERM = ArticleSymbolCode.ARTICLE_POSITION_EMPL_TERM,
 		ARTICLE_INCOME_GROSS = ArticleSymbolCode.ARTICLE_INCOME_GROSS,
 		ARTICLE_INCOME_NETTO = ArticleSymbolCode.ARTICLE_INCOME_NETTO,
 
@@ -82,9 +82,14 @@ namespace PayrolleeMate.ConfigSetCz.Constants
 
 	public static class ConfigSetCzArticleCodeExtensions
 	{
-		public static SymbolName GetSymbol(this ConfigSetCzArticleCode concept)
+		public static SymbolName GetSymbol(this ConfigSetCzArticleCode article)
 		{
-			return new SymbolName((uint)concept, concept.ToString());
+			return new SymbolName((uint)article, article.ToString());
+		}
+
+		public static uint Code(this ConfigSetCzArticleCode article)
+		{
+			return (uint)article;
 		}
 	}
 }

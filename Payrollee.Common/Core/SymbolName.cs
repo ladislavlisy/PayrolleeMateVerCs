@@ -2,7 +2,7 @@
 
 namespace PayrolleeMate.Common
 {
-	public class SymbolName
+	public class SymbolName : IComparable
 	{
 		public SymbolName (uint code, string name)
 		{

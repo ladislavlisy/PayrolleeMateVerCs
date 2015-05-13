@@ -15,6 +15,8 @@ namespace PayrolleeMate.ProcessConfigSetCz
 		public ConfigSetCzConceptCollection()
 		{
 			this.Models[(uint)ConfigSetCzConceptCode.CONCEPT_UNKNOWN] = new UnknownConcept();
+
+			this.DefaultCode = (uint)ConfigSetCzConceptCode.CONCEPT_UNKNOWN;
 		}
 
 		#region implemented abstract members of GeneralCollection

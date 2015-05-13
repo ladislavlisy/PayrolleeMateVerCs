@@ -10,12 +10,13 @@ using System.Reflection;
 using Payrollee.Common.Collection;
 using PayrolleeMate.ProcessConfig.General;
 using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
+using PayrolleeMate.ProcessConfig.Logers;
 
 namespace PayrolleeMate.ProcessConfig.Collections
 {
 	public abstract class PayrollConceptCollection<CIDX> : GeneralCollection<IPayrollConcept, CIDX>
 	{
-		static class ArticleCollectionAggregator
+		static class ArticleDependencyBuilder
 		{
 			public static IDictionary<uint, IPayrollArticle[]> CollectArticles(
 				IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
@@ -50,7 +51,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				uint conceptCode, IPayrollArticle[] relatedArticles)
 			{
 				var mergeArticles = new Dictionary<uint, IPayrollArticle[]> () {
-					{ conceptCode, relatedArticles.Distinct ().OrderBy (x => x).ToArray () }
+					{ conceptCode, relatedArticles.Distinct ().OrderBy (x => x.ArticleSymbol()).ToArray () }
 				};
 
 				var relatedDict = initialDict.Union(mergeArticles).ToDictionary(key => key.Key, val => val.Value);
@@ -77,7 +78,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 				if (existsRelated) 
 				{
-					LoggerWrapper.LogRelatedArticles(logger, article, relatedArticles, "CollectFromRelated");
+					LoggerWrapper.LogRelatedArticles(logger, article, relatedArticles, "CollectRelated");
 
 					return relatedArticles;
 				}
@@ -85,7 +86,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				{
 					relatedArticles = CollectFromPending (initialDict, article, pendingDict, logger);
 
-					LoggerWrapper.LogPendingArticles(logger, article, relatedArticles, "CollectFromPending");
+					LoggerWrapper.LogPendingArticles(logger, article, relatedArticles, "CollectRelated");
 
 					return relatedArticles;
 				}
@@ -191,7 +192,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 		{
 			var pendingArticles = ModelsToPendings();
 
-			var relatedArticles = ArticleCollectionAggregator.CollectArticles(pendingArticles, logger);
+			var relatedArticles = ArticleDependencyBuilder.CollectArticles(pendingArticles, logger);
 
 			UpdateRelatedArticles(relatedArticles, logger);
 
@@ -243,80 +244,6 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 		#endregion
 
-		static class LoggerWrapper
-		{
-			public static void OpenLogStream (IProcessConfigLogger logger, string testName)
-			{
-				if (logger != null) 
-				{
-					logger.OpenLogStream (testName);
-				}
-			}
-
-			public static void CloseLogStream (IProcessConfigLogger logger)
-			{
-				if (logger != null) 
-				{
-					logger.CloseLogStream ();
-				}
-			}
-
-			public static void LogArticlesInConcept(IProcessConfigLogger logger, IPayrollConcept concept, IPayrollArticle[] articles, string testName)
-			{
-				if (logger != null) 
-				{
-					logger.LogArticlesInConcept (concept, articles, testName);
-				}
-			}
-
-			public static void LogConceptsInModels (IProcessConfigLogger logger, IDictionary<uint, IPayrollConcept> models, string testName)
-			{
-				if (logger != null) 
-				{
-					logger.LogConceptsInModels (models, testName);
-				}
-			}
-
-			public static void LogRelatedArticlesInModels (IProcessConfigLogger logger, IDictionary<uint, IPayrollConcept> models, string testName)
-			{
-				if (logger != null) 
-				{
-					logger.LogRelatedArticlesInModels (models, testName);
-				}
-			}
-
-			public static void LogConceptArticlesCollection (IProcessConfigLogger logger, IDictionary<uint, IPayrollArticle[]> collection, string testName)
-			{
-				if (logger != null) 
-				{
-					logger.LogConceptArticlesCollection (collection, testName);
-				}
-			}
-
-			public static void LogConceptCodeArticles (IProcessConfigLogger logger, uint concept, IPayrollArticle[] articles, string testName)
-			{
-				if (logger != null) 
-				{
-					logger.LogConceptCodeArticles (concept, articles, testName);
-				}
-			}
-
-			public static void LogPendingArticles (IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] articles, string testName)
-			{
-				if (logger != null) 
-				{
-					logger.LogPendingArticles (article, articles, testName);
-				}
-			}
-
-			public static void LogRelatedArticles (IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] articles, string testName)
-			{
-				if (logger != null) 
-				{
-					logger.LogRelatedArticles (article, articles, testName);
-				}
-			}
-		}
 	}
 }
 

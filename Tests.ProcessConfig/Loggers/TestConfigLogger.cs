@@ -19,15 +19,27 @@ namespace Tests.ProcessConfig.Logers
 		public TestConfigLogger(string testNamespace)
 		{
 			TestNamespaceDir = "../../../LoggFiles/" + testNamespace + "/";
+
+			LogSequenceId = 0;
+
+			SequenceNames = new Dictionary<string, string> ();
 		}
 
 		private string TestNamespaceDir { get; set; }
 
 		private Stream LogFileStream { get; set; }
 
+		private UInt16 LogSequenceId { get; set; }
+
+		private IDictionary<string, string> SequenceNames { get; set; }
+
 		public Stream OpenCustomStream (string testName)
 		{
-			string TestNamespaceFile = TestNamespaceDir + testName + ".log";
+			LogSequenceId ++; 
+
+			string TestFilenameExist = LogSequenceId.ToString () + "-" + testName;
+					
+			string TestNamespaceFile = TestNamespaceDir + TestFilenameExist + ".log";
 
 			try 
 			{
@@ -52,9 +64,28 @@ namespace Tests.ProcessConfig.Logers
 
 		public void OpenLogStream (string testName)
 		{
-			string TestNamespaceFile = TestNamespaceDir + testName + ".log";
+			string TestFilenameExist = LogSequenceId.ToString () + "-" + testName;
 
-			LogFileStream = new FileStream (TestNamespaceFile, FileMode.Append);
+			FileMode fileOpenMode = FileMode.Append;
+
+			if (SequenceNames.ContainsKey (testName))
+			{
+				TestFilenameExist = SequenceNames[testName];
+			}
+			else
+			{
+				LogSequenceId ++; 
+
+				TestFilenameExist = LogSequenceId.ToString () + "-" + testName;
+
+				SequenceNames[testName] = TestFilenameExist;
+
+				fileOpenMode = FileMode.Create;
+			}
+
+			string TestNamespaceFile = TestNamespaceDir + TestFilenameExist + ".log";
+
+			LogFileStream = new FileStream (TestNamespaceFile, fileOpenMode);
 		}
 
 		public void CloseLogStream ()
@@ -64,14 +95,10 @@ namespace Tests.ProcessConfig.Logers
 
 		public void LogArticlesInConcept (IPayrollConcept concept, IPayrollArticle[] articles, string testName)
 		{
-			Stream logStream = OpenCustomStream(testName);
+			OpenLogStream(testName);
 
-			using (StreamWriter logWriter = new StreamWriter (logStream) ) 
+			using (StreamWriter logWriter = new StreamWriter (LogFileStream) ) 
 			{
-				logWriter.WriteLine ("--- begin ---");
-
-				logWriter.WriteLine (testName);
-
 				logWriter.WriteLine ("--- begin ---");
 
 				string lineDefinition = ConceptRelatedArticlesLogger.LogConceptArticlesInfo (concept, articles);
@@ -89,10 +116,6 @@ namespace Tests.ProcessConfig.Logers
 
 			using (StreamWriter logWriter = new StreamWriter (logStream) ) 
 			{
-				logWriter.WriteLine ("--- begin ---");
-
-				logWriter.WriteLine (testName);
-
 				logWriter.WriteLine ("--- begin ---");
 
 				foreach (var conceptPair in models)
@@ -116,10 +139,6 @@ namespace Tests.ProcessConfig.Logers
 			{
 				logWriter.WriteLine ("--- begin ---");
 
-				logWriter.WriteLine (testName);
-
-				logWriter.WriteLine ("--- begin ---");
-
 				foreach (var conceptPair in models)
 				{
 					IPayrollConcept concept = conceptPair.Value;
@@ -140,10 +159,6 @@ namespace Tests.ProcessConfig.Logers
 			{
 				logWriter.WriteLine ("--- begin ---");
 
-				logWriter.WriteLine (testName);
-
-				logWriter.WriteLine ("--- begin ---");
-
 				string lineDefinition = "";
 
 				foreach (var conceptPair in collection) 
@@ -151,8 +166,10 @@ namespace Tests.ProcessConfig.Logers
 					lineDefinition += ConceptCodeArticlesLogger.LogConceptCodeArticlesInfo (conceptPair.Key, conceptPair.Value);
 				}
 
-				logWriter.WriteLine (lineDefinition);
-
+				if (lineDefinition.Length > 0) 
+				{
+					logWriter.WriteLine (lineDefinition);
+				}
 				logWriter.WriteLine ("--- end ---");
 			}
 		}
@@ -165,13 +182,12 @@ namespace Tests.ProcessConfig.Logers
 			{
 				logWriter.WriteLine ("--- begin ---");
 
-				logWriter.WriteLine (testName);
-
-				logWriter.WriteLine ("--- begin ---");
-
 				string lineDefinition = ConceptCodeArticlesLogger.LogConceptCodeArticlesInfo(concept, articles);
 
-				logWriter.WriteLine (lineDefinition);
+				if (lineDefinition.Length > 0) 
+				{
+					logWriter.WriteLine (lineDefinition);
+				}
 
 				logWriter.WriteLine ("--- end ---");
 			}
@@ -185,17 +201,16 @@ namespace Tests.ProcessConfig.Logers
 			{
 				logWriter.WriteLine ("--- begin ---");
 
-				logWriter.WriteLine (testName);
-
-				logWriter.WriteLine ("--- begin ---");
-
 				string lineDefinition = ConceptCodeArticlesLogger.LogArticleInfo(article);
 
 				lineDefinition += "--- PENDING ---\n";
 
 				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(articles);
 
-				logWriter.WriteLine (lineDefinition);
+				if (lineDefinition.Length > 0) 
+				{
+					logWriter.WriteLine (lineDefinition);
+				}
 
 				logWriter.WriteLine ("--- end ---");
 			}
@@ -209,17 +224,16 @@ namespace Tests.ProcessConfig.Logers
 			{
 				logWriter.WriteLine ("--- begin ---");
 
-				logWriter.WriteLine (testName);
-
-				logWriter.WriteLine ("--- begin ---");
-
 				string lineDefinition = ConceptCodeArticlesLogger.LogArticleInfo(article);
 
 				lineDefinition += "--- RELATED ---\n";
 
 				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(articles);
 
-				logWriter.WriteLine (lineDefinition);
+				if (lineDefinition.Length > 0) 
+				{
+					logWriter.WriteLine (lineDefinition);
+				}
 
 				logWriter.WriteLine ("--- end ---");
 			}
@@ -237,7 +251,7 @@ namespace Tests.ProcessConfig.Logers
 
 				lineDefinition += LogArrayOfArticles(articles);
 
-				lineDefinition += "--- ARTICLES ---\n\n";
+				lineDefinition += "--- ARTICLES ---";
 
 				return lineDefinition;
 			}
@@ -288,7 +302,7 @@ namespace Tests.ProcessConfig.Logers
 
 				lineDefinition += LogArrayOfArticles(articles);
 
-				lineDefinition += "--- ARTICLES ---\n\n";
+				lineDefinition += "--- ARTICLES ---";
 
 				return lineDefinition;
 			}

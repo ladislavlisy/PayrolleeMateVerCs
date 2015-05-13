@@ -5,6 +5,8 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 {
 	public interface IPayrollArticle
 	{
+		SymbolName ArticleSymbol();
+
 		uint ArticleCode();
 
 		string ArticleName();
@@ -19,10 +21,10 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 		bool SocialIncome();
 		bool TaxingIncome();
 
-		bool IncomeGross();
-		bool IncomeNetto();
+		bool SummaryGross();
+		bool SummaryNetto();
 
-		bool DeductNetto();
+		bool DeductsNetto();
 	}
 }
 

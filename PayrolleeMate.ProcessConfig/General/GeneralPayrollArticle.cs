@@ -68,6 +68,11 @@ namespace PayrolleeMate.ProcessConfig.General
 
 		#region IPayrollArticle implementation
 
+		public SymbolName ArticleSymbol ()
+		{
+			return (SymbolName)this;
+		}
+
 		public uint ArticleCode ()
 		{
 			return this.Code;
@@ -108,17 +113,17 @@ namespace PayrolleeMate.ProcessConfig.General
 			return __taxingIncome;
 		}
 
-		public bool IncomeGross ()
+		public bool SummaryGross ()
 		{
 			return __summaryGross;
 		}
 
-		public bool IncomeNetto ()
+		public bool SummaryNetto ()
 		{
 			return __summaryNetto;
 		}
 
-		public bool DeductNetto ()
+		public bool DeductsNetto ()
 		{
 			return __deductsNetto;
 		}

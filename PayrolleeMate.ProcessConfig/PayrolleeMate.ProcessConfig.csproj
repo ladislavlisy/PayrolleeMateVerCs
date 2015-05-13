@@ -39,6 +39,7 @@
     <Compile Include="General\GeneralPayrollConcept.cs" />
     <Compile Include="Collections\PayrollConceptCollection.cs" />
     <Compile Include="ProcessConfigModule.cs" />
+    <Compile Include="Loggers\LoggerWrapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -46,6 +47,7 @@
     <Folder Include="Factories\" />
     <Folder Include="Collections\" />
     <Folder Include="General\" />
+    <Folder Include="Loggers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PayrolleeMate.Interfaces\PayrolleeMate.Interfaces.csproj">

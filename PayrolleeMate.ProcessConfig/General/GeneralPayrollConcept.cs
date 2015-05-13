@@ -61,6 +61,11 @@ namespace PayrolleeMate.ProcessConfig.General
 
 		#region IPayrollConcept implementation
 
+		public SymbolName ConceptSymbol()
+		{
+			return (SymbolName) this;
+		}
+
 		public uint ConceptCode ()
 		{
 			return this.Code;

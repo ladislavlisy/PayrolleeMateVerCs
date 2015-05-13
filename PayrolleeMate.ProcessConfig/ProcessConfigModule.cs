@@ -11,9 +11,13 @@ namespace PayrolleeMate.ProcessConfig
 {
 	public abstract class ProcessConfigModule<AIDX, CIDX> : IProcessConfig
 	{
-		protected static readonly IPayrollArticle[] EMPTY_PENDING = GeneralPayrollConcept.EMPTY_ARTICLES;
+		protected static readonly IPayrollArticle[] EMPTY_PENDING_ARTICLES = GeneralPayrollConcept.EMPTY_ARTICLES;
 
-		protected static readonly IPayrollArticle[] EMPTY_SUMMARY = GeneralPayrollConcept.EMPTY_ARTICLES;
+		protected static readonly IPayrollArticle[] EMPTY_SUMMARY_ARTICLES = GeneralPayrollConcept.EMPTY_ARTICLES;
+
+		protected static readonly uint[] EMPTY_PENDING_CODES = { };
+
+		protected static readonly uint[] EMPTY_SUMMARY_CODES = { };
 
 		protected ProcessConfigModule (IProcessConfigLogger logger)
 		{
@@ -60,9 +64,13 @@ namespace PayrolleeMate.ProcessConfig
 		}
 
 		public IPayrollConcept ConfigureConcept (SymbolName concept, ProcessCategory category, 
-			IPayrollArticle[] pendingArticles, IPayrollArticle[] summaryArticles, 
+			uint[] pendingArticleCodes, uint[] summaryArticleCodes, 
 			string targetValues, string resultValues, GeneralPayrollConcept.EvaluateDelegate evaluate)
 		{
+			IPayrollArticle[] pendingArticles = ArticlesCollection.BildArticlesList(pendingArticleCodes);
+
+			IPayrollArticle[] summaryArticles = ArticlesCollection.BildArticlesList(summaryArticleCodes);
+
 			return ConceptsCollection.ConfigureConcept (
 				concept, category, pendingArticles, summaryArticles, targetValues, resultValues, evaluate);
 		}

@@ -38,26 +38,8 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				false, 
 				false);
 			ConfigureArticle (
-				ConfigSetCzArticleName.REF_CONTRACT_WORK_TERM, 
-				ConfigSetCzConceptName.REF_CONTRACT_WORK_TERM,
-				false, 
-				false, 
-				false, 
-				false, 
-				false, 
-				false);
-			ConfigureArticle (
-				ConfigSetCzArticleName.REF_CONTRACT_TASK_TERM, 
-				ConfigSetCzConceptName.REF_CONTRACT_TASK_TERM,
-				false, 
-				false, 
-				false, 
-				false, 
-				false, 
-				false);
-			ConfigureArticle (
-				ConfigSetCzArticleName.REF_POSITION_TERM, 
-				ConfigSetCzConceptName.REF_POSITION_TERM,
+				ConfigSetCzArticleName.REF_POSITION_EMPL_TERM, 
+				ConfigSetCzConceptName.REF_POSITION_EMPL_TERM,
 				false, 
 				false, 
 				false, 
@@ -67,15 +49,6 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ConfigureArticle (
 				ConfigSetCzArticleName.REF_SCHEDULE_WORK, 
 				ConfigSetCzConceptName.REF_SCHEDULE_WORK,
-				false, 
-				false, 
-				false, 
-				false, 
-				false, 
-				false);
-			ConfigureArticle (
-				ConfigSetCzArticleName.REF_SALARY_BASE, 
-				ConfigSetCzConceptName.REF_SALARY_BASE,
 				false, 
 				false, 
 				false, 
@@ -101,6 +74,15 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				false, 
 				false);
 			ConfigureArticle (
+				ConfigSetCzArticleName.REF_TIMESHEET_ABSENCE, 
+				ConfigSetCzConceptName.REF_TIMESHEET_ABSENCE,
+				false, 
+				false, 
+				false, 
+				false, 
+				false, 
+				false);
+			ConfigureArticle (
 				ConfigSetCzArticleName.REF_TIMEHOURS_WORKING, 
 				ConfigSetCzConceptName.REF_TIMEHOURS_WORKING,
 				false, 
@@ -112,6 +94,15 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ConfigureArticle (
 				ConfigSetCzArticleName.REF_TIMEHOURS_ABSENCE, 
 				ConfigSetCzConceptName.REF_TIMEHOURS_ABSENCE,
+				false, 
+				false, 
+				false, 
+				false, 
+				false, 
+				false);
+			ConfigureArticle (
+				ConfigSetCzArticleName.REF_SALARY_BASE, 
+				ConfigSetCzConceptName.REF_SALARY_BASE,
 				false, 
 				false, 
 				false, 
@@ -142,105 +133,111 @@ namespace PayrolleeMate.ProcessConfigSetCz
 		{
 			ConfigureConcept(
 				ConfigSetCzConceptName.REF_CONTRACT_EMPL_TERM, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
+				ProcessCategory.CATEGORY_TERMS, 
+				EMPTY_PENDING_CODES, 
+				EMPTY_SUMMARY_CODES, 
 				"", 
 				"", 
 				null); 
 			ConfigureConcept(
-				ConfigSetCzConceptName.REF_CONTRACT_WORK_TERM, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
-				"", 
-				"", 
-				null); 
-			ConfigureConcept(
-				ConfigSetCzConceptName.REF_CONTRACT_TASK_TERM, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
-				"", 
-				"", 
-				null); 
-			ConfigureConcept(
-				ConfigSetCzConceptName.REF_POSITION_TERM, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
+				ConfigSetCzConceptName.REF_POSITION_EMPL_TERM, 
+				ProcessCategory.CATEGORY_TERMS, 
+				new uint[] { 
+					ConfigSetCzArticleCode.ARTICLE_CONTRACT_EMPL_TERM.Code()
+				}, 
+				EMPTY_SUMMARY_CODES, 
 				"", 
 				"", 
 				null); 
 			ConfigureConcept(
 				ConfigSetCzConceptName.REF_SCHEDULE_WORK, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
-				"", 
-				"", 
-				null); 
-			ConfigureConcept(
-				ConfigSetCzConceptName.REF_SALARY_BASE, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
+				ProcessCategory.CATEGORY_TIMES, 
+				new uint[] { 
+					ConfigSetCzArticleCode.ARTICLE_POSITION_EMPL_TERM.Code()
+				}, 
+				EMPTY_SUMMARY_CODES, 
 				"", 
 				"", 
 				null); 
 			ConfigureConcept(
 				ConfigSetCzConceptName.REF_TIMESHEET_SCHEDULE, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
+				ProcessCategory.CATEGORY_TIMES, 
+				new uint[] { 
+					ConfigSetCzArticleCode.ARTICLE_SCHEDULE_WORK.Code()
+				}, 
+				EMPTY_SUMMARY_CODES, 
 				"", 
 				"", 
 				null); 
 			ConfigureConcept(
 				ConfigSetCzConceptName.REF_TIMESHEET_WORKING, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
+				ProcessCategory.CATEGORY_TIMES, 
+				new uint[] { 
+					ConfigSetCzArticleCode.ARTICLE_TIMESHEET_SCHEDULE.Code(),
+					ConfigSetCzArticleCode.ARTICLE_POSITION_EMPL_TERM.Code()
+				}, 
+				EMPTY_SUMMARY_CODES, 
 				"", 
 				"", 
 				null); 
 			ConfigureConcept(
 				ConfigSetCzConceptName.REF_TIMESHEET_ABSENCE, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
+				ProcessCategory.CATEGORY_TIMES, 
+				new uint[] { 
+					ConfigSetCzArticleCode.ARTICLE_TIMESHEET_WORKING.Code()
+				}, 
+				EMPTY_SUMMARY_CODES, 
 				"", 
 				"", 
 				null); 
 			ConfigureConcept(
 				ConfigSetCzConceptName.REF_TIMEHOURS_WORKING, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
+				ProcessCategory.CATEGORY_TIMES, 
+				new uint[] { 
+					ConfigSetCzArticleCode.ARTICLE_TIMESHEET_WORKING.Code()
+				}, 
+				EMPTY_SUMMARY_CODES, 
 				"", 
 				"", 
 				null); 
 			ConfigureConcept(
 				ConfigSetCzConceptName.REF_TIMEHOURS_ABSENCE, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
+				ProcessCategory.CATEGORY_TIMES, 
+				new uint[] { 
+					ConfigSetCzArticleCode.ARTICLE_TIMESHEET_ABSENCE.Code()
+				}, 
+				EMPTY_SUMMARY_CODES, 
+				"", 
+				"", 
+				null); 
+			ConfigureConcept(
+				ConfigSetCzConceptName.REF_SALARY_BASE, 
+				ProcessCategory.CATEGORY_AMOUNT, 
+				new uint[] { 
+					ConfigSetCzArticleCode.ARTICLE_TIMEHOURS_WORKING.Code(),
+					ConfigSetCzArticleCode.ARTICLE_TIMEHOURS_ABSENCE.Code()
+				}, 
+				new uint[] { 
+					ConfigSetCzArticleCode.ARTICLE_INCOME_GROSS.Code()
+				}, 
 				"", 
 				"", 
 				null); 
 			ConfigureConcept(
 				ConfigSetCzConceptName.REF_INCOME_GROSS, 
-				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
+				ProcessCategory.CATEGORY_FINAL, 
+				EMPTY_PENDING_CODES, 
+				EMPTY_SUMMARY_CODES, 
 				"", 
 				"", 
 				null); 
 			ConfigureConcept(
 				ConfigSetCzConceptName.REF_INCOME_NETTO, 
 				ProcessCategory.CATEGORY_START, 
-				EMPTY_PENDING, 
-				EMPTY_SUMMARY, 
+				new uint[] { 
+					ConfigSetCzArticleCode.ARTICLE_INCOME_GROSS.Code()
+				}, 
+				EMPTY_SUMMARY_CODES, 
 				"", 
 				"", 
 				null); 
@@ -275,7 +272,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ArticleFromModels(configAssembly, (uint)ConfigSetCzArticleCode.ARTICLE_CONTRACT_EMPL_TERM);
 			ArticleFromModels(configAssembly, (uint)ConfigSetCzArticleCode.ARTICLE_CONTRACT_WORK_TERM);
 			ArticleFromModels(configAssembly, (uint)ConfigSetCzArticleCode.ARTICLE_CONTRACT_TASK_TERM);
-			ArticleFromModels(configAssembly, (uint)ConfigSetCzArticleCode.ARTICLE_POSITION_TERM);
+			ArticleFromModels(configAssembly, (uint)ConfigSetCzArticleCode.ARTICLE_POSITION_EMPL_TERM);
 			ArticleFromModels(configAssembly, (uint)ConfigSetCzArticleCode.ARTICLE_SCHEDULE_WORK);
 			ArticleFromModels(configAssembly, (uint)ConfigSetCzArticleCode.ARTICLE_SALARY_BASE);
 			ArticleFromModels(configAssembly, (uint)ConfigSetCzArticleCode.ARTICLE_TIMESHEET_SCHEDULE);
@@ -295,7 +292,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ConceptFromModels(configAssembly, (uint)ConfigSetCzConceptCode.CONCEPT_CONTRACT_EMPL_TERM);
 			ConceptFromModels(configAssembly, (uint)ConfigSetCzConceptCode.CONCEPT_CONTRACT_WORK_TERM);
 			ConceptFromModels(configAssembly, (uint)ConfigSetCzConceptCode.CONCEPT_CONTRACT_TASK_TERM);
-			ConceptFromModels(configAssembly, (uint)ConfigSetCzConceptCode.CONCEPT_POSITION_TERM);
+			ConceptFromModels(configAssembly, (uint)ConfigSetCzConceptCode.CONCEPT_POSITION_EMPL_TERM);
 			ConceptFromModels(configAssembly, (uint)ConfigSetCzConceptCode.CONCEPT_SCHEDULE_WORK);
 			ConceptFromModels(configAssembly, (uint)ConfigSetCzConceptCode.CONCEPT_SALARY_BASE);
 			ConceptFromModels(configAssembly, (uint)ConfigSetCzConceptCode.CONCEPT_TIMESHEET_SCHEDULE);
