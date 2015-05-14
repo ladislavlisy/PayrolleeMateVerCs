@@ -40,6 +40,8 @@
     <Compile Include="Collections\PayrollConceptCollection.cs" />
     <Compile Include="ProcessConfigModule.cs" />
     <Compile Include="Loggers\LoggerWrapper.cs" />
+    <Compile Include="Comparers\ConceptDependencyComparer.cs" />
+    <Compile Include="Builders\ArticleDependencyBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -48,6 +50,8 @@
     <Folder Include="Collections\" />
     <Folder Include="General\" />
     <Folder Include="Loggers\" />
+    <Folder Include="Comparers\" />
+    <Folder Include="Builders\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PayrolleeMate.Interfaces\PayrolleeMate.Interfaces.csproj">
