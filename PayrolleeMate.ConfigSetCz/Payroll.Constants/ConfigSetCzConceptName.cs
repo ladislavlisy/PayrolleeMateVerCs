@@ -52,7 +52,7 @@ namespace PayrolleeMate.ConfigSetCz.Constants
 		public static readonly SymbolName REF_TAXING_ALLOWANCE_PAYER = ConfigSetCzConceptCode.CONCEPT_TAXING_ALLOWANCE_PAYER.GetSymbol();
 		public static readonly SymbolName REF_TAXING_ALLOWANCE_CHILD = ConfigSetCzConceptCode.CONCEPT_TAXING_ALLOWANCE_CHILD.GetSymbol();
 		public static readonly SymbolName REF_TAXING_ALLOWANCE_DISABILITY = ConfigSetCzConceptCode.CONCEPT_TAXING_ALLOWANCE_DISABILITY.GetSymbol();
-		public static readonly SymbolName REF_TAXING_ALLOWNACE_STUDYING = ConfigSetCzConceptCode.CONCEPT_TAXING_ALLOWNACE_STUDYING.GetSymbol();
+		public static readonly SymbolName REF_TAXING_ALLOWANCE_STUDYING = ConfigSetCzConceptCode.CONCEPT_TAXING_ALLOWANCE_STUDYING.GetSymbol();
 		public static readonly SymbolName REF_TAXING_REBATE_PAYER = ConfigSetCzConceptCode.CONCEPT_TAXING_REBATE_PAYER.GetSymbol();
 		public static readonly SymbolName REF_TAXING_REBATE_CHILD = ConfigSetCzConceptCode.CONCEPT_TAXING_REBATE_CHILD.GetSymbol();
 		public static readonly SymbolName REF_TAXING_BONUS_CHILD = ConfigSetCzConceptCode.CONCEPT_TAXING_BONUS_CHILD.GetSymbol();

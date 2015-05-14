@@ -71,7 +71,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			LoggerWrapper.LogRelatedArticlesInModels (logger, Models, "InitRelatedArticles.Related");
 		}
 
-		public IDictionary<uint, IPayrollArticle[]> ModelsToPendings()
+		private IDictionary<uint, IPayrollArticle[]> ModelsToPendings()
 		{
 			var pendingArticles = Models.ToDictionary(key => key.Key, val => val.Value.PendingArticles());
 
