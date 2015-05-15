@@ -1,16 +1,16 @@
 using System;
+using System.Reflection;
+using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig;
 using PayrolleeMate.ProcessConfig.Interfaces;
-using PayrolleeMate.ConfigSetCz.Constants;
-using System.Reflection;
-using PayrolleeMate.ProcessConfigSetCz.Collections;
 using PayrolleeMate.ProcessConfig.Collections;
-using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig.Payroll.Concepts;
+using PayrolleeMate.ProcessConfigSetCz.Collections;
+using PayrolleeMate.ProcessConfigSetCz.Constants;
 
 namespace PayrolleeMate.ProcessConfigSetCz
 {
-	class ConfigSetCzConceptCollection : PayrollConceptCollection<ConfigSetCzConceptCode>
+	public class ConfigSetCzConceptCollection : PayrollConceptCollection<ConfigSetCzConceptCode>
 	{
 		public ConfigSetCzConceptCollection()
 		{

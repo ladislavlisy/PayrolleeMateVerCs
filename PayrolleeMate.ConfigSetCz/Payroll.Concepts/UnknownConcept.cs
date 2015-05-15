@@ -9,8 +9,7 @@ namespace PayrolleeMate.ProcessConfig.Payroll.Concepts
 {
 	public class UnknownConcept : GeneralPayrollConcept
 	{
-		public UnknownConcept () : base(ConceptSymbolName.REF_UNKNOWN, ProcessCategory.CATEGORY_START, 
-			EMPTY_ARTICLES, EMPTY_ARTICLES, "", "", null)
+		public UnknownConcept () : base(ConceptSymbolName.REF_UNKNOWN, "", "", null)
 		{
 		}
 

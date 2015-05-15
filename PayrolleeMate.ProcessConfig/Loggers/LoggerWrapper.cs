@@ -23,23 +23,23 @@ namespace PayrolleeMate.ProcessConfig.Logers
 			}
 		}
 
-		public static void LogArticlesInConcept(IProcessConfigLogger logger, IPayrollConcept concept, IPayrollArticle[] articles, string testName)
+		public static void LogArticlesInConcept(IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] articles, string testName)
 		{
 			if (logger != null) 
 			{
-				logger.LogArticlesInConcept (concept, articles, testName);
+				logger.LogArticlesInConcept (article, articles, testName);
 			}
 		}
 
-		public static void LogConceptsInModels (IProcessConfigLogger logger, IDictionary<uint, IPayrollConcept> models, string testName)
+		public static void LogConceptsInModels (IProcessConfigLogger logger, IDictionary<uint, IPayrollArticle> articles, IDictionary<uint, IPayrollConcept> concepts, string testName)
 		{
 			if (logger != null) 
 			{
-				logger.LogConceptsInModels (models, testName);
+				logger.LogConceptsInModels (articles, concepts, testName);
 			}
 		}
 
-		public static void LogRelatedArticlesInModels (IProcessConfigLogger logger, IDictionary<uint, IPayrollConcept> models, string testName)
+		public static void LogRelatedArticlesInModels (IProcessConfigLogger logger, IDictionary<uint, IPayrollArticle> models, string testName)
 		{
 			if (logger != null) 
 			{

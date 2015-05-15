@@ -1,7 +1,7 @@
 using System;
 using PayrolleeMate.ProcessConfig;
 using PayrolleeMate.ProcessConfig.Interfaces;
-using PayrolleeMate.ConfigSetCz.Constants;
+using PayrolleeMate.ProcessConfigSetCz.Constants;
 using System.Reflection;
 using PayrolleeMate.ProcessConfig.Collections;
 using PayrolleeMate.Common;
@@ -9,7 +9,7 @@ using PayrolleeMate.ProcessConfig.Payroll.Articles;
 
 namespace PayrolleeMate.ProcessConfigSetCz.Collections
 {
-	class ConfigSetCzArticleCollection : PayrollArticleCollection<ConfigSetCzArticleCode>
+	public class ConfigSetCzArticleCollection : PayrollArticleCollection<ConfigSetCzArticleCode>
 	{
 		public ConfigSetCzArticleCollection()
 		{

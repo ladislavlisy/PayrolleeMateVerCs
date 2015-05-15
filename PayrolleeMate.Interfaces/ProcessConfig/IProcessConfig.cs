@@ -10,7 +10,9 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 
 		IPayrollConcept FindConcept(uint conceptCode);
 
-		IPayrollArticle ConfigureArticle (SymbolName article, SymbolName concept, 
+		IPayrollArticle ConfigureArticle (SymbolName article, 
+			SymbolName concept, ProcessCategory category, 
+			SymbolName[] pendingNames, SymbolName[] summaryNames,
 			bool taxingIncome, bool healthIncome, bool socialIncome, 
 			bool grossSummary, bool nettoSummary, bool nettoDeducts);
 

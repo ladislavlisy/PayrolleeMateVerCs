@@ -6,14 +6,15 @@ using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig.General;
 using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
+using PayrolleeMate.ProcessConfig.Logers;
 
 namespace PayrolleeMate.ProcessConfig
 {
 	public abstract class ProcessConfigModule<AIDX, CIDX> : IProcessConfig
 	{
-		protected static readonly IPayrollArticle[] EMPTY_PENDING_ARTICLES = GeneralPayrollConcept.EMPTY_ARTICLES;
+		protected static readonly SymbolName[] EMPTY_PENDING_NAMES = GeneralPayrollArticle.EMPTY_ARTICLE_NAMES;
 
-		protected static readonly IPayrollArticle[] EMPTY_SUMMARY_ARTICLES = GeneralPayrollConcept.EMPTY_ARTICLES;
+		protected static readonly SymbolName[] EMPTY_SUMMARY_NAMES = GeneralPayrollArticle.EMPTY_ARTICLE_NAMES;
 
 		protected static readonly uint[] EMPTY_PENDING_CODES = { };
 
@@ -55,24 +56,22 @@ namespace PayrolleeMate.ProcessConfig
 			return ConceptsCollection.FindConcept(conceptCode);
 		}
 
-		public IPayrollArticle ConfigureArticle (SymbolName article, SymbolName concept, 
+		public IPayrollArticle ConfigureArticle (SymbolName article, 
+			SymbolName concept, ProcessCategory category, 
+			SymbolName[] pendingNames, SymbolName[] summaryNames,
 			bool taxingIncome, bool healthIncome, bool socialIncome, 
 			bool grossSummary, bool nettoSummary, bool nettoDeducts)
 		{
 			return ArticlesCollection.ConfigureArticle (
-				article, concept, taxingIncome, healthIncome, socialIncome, grossSummary, nettoSummary, nettoDeducts);
+				article, concept, category, pendingNames, summaryNames,
+				taxingIncome, healthIncome, socialIncome, grossSummary, nettoSummary, nettoDeducts);
 		}
 
-		public IPayrollConcept ConfigureConcept (SymbolName concept, ProcessCategory category, 
-			uint[] pendingArticleCodes, uint[] summaryArticleCodes, 
+		public IPayrollConcept ConfigureConcept (SymbolName concept, 
 			string targetValues, string resultValues, GeneralPayrollConcept.EvaluateDelegate evaluate)
 		{
-			IPayrollArticle[] pendingArticles = ArticlesCollection.BildArticlesList(pendingArticleCodes);
-
-			IPayrollArticle[] summaryArticles = ArticlesCollection.BildArticlesList(summaryArticleCodes);
-
 			return ConceptsCollection.ConfigureConcept (
-				concept, category, pendingArticles, summaryArticles, targetValues, resultValues, evaluate);
+				concept, targetValues, resultValues, evaluate);
 		}
 
 		public abstract void InitArticles ();
@@ -84,7 +83,11 @@ namespace PayrolleeMate.ProcessConfig
 			InitArticles();
 			InitConcepts();
 
-			ConceptsCollection.InitRelatedArticles(Logger);
+			ArticlesCollection.InitRelatedArticles(Logger);
+
+			LoggerWrapper.LogConceptsInModels (Logger, ArticlesCollection.Models, ConceptsCollection.Models, "InitRelatedArticles.Models");
+		
+			LoggerWrapper.LogRelatedArticlesInModels (Logger, ArticlesCollection.Models, "InitRelatedArticles.Related");
 		}
 	}
 }

@@ -1,13 +1,13 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Reflection;
 using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Factories;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Payroll.Articles;
-using System.Reflection;
-using PayrolleeMate.ConfigSetCz.Constants;
 using PayrolleeMate.ProcessConfigSetCz;
+using PayrolleeMate.ProcessConfigSetCz.Constants;
 
 namespace Tests.ProcessConfig.Factories
 {

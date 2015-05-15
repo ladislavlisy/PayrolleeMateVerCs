@@ -2,7 +2,7 @@
 using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.Common;
 
-namespace PayrolleeMate.ConfigSetCz.Constants
+namespace PayrolleeMate.ProcessConfigSetCz.Constants
 {
 	public class ConfigSetCzConceptName : ConceptSymbolName
 	{

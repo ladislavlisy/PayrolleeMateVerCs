@@ -41,6 +41,8 @@
     <Compile Include="Payroll.Collections\ConfigSetCzConceptCollection.cs" />
     <Compile Include="Payroll.Articles\UnknownArticle.cs" />
     <Compile Include="Payroll.Concepts\UnknownConcept.cs" />
+    <Compile Include="ProcessConfigSetCzArticles.cs" />
+    <Compile Include="ProcessConfigSetCzConcepts.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

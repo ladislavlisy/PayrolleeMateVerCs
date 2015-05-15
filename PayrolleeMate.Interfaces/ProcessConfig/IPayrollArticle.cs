@@ -1,5 +1,6 @@
 ﻿using System;
 using PayrolleeMate.Common;
+using PayrolleeMate.ProcessConfig.Constants;
 
 namespace PayrolleeMate.ProcessConfig.Interfaces
 {
@@ -25,6 +26,16 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 		bool SummaryNetto();
 
 		bool DeductsNetto();
+
+		ProcessCategory Category();
+
+		SymbolName[] PendingArticleNames();
+
+		SymbolName[] SummaryArticleNames();
+
+		IPayrollArticle[] RelatedArticles();
+
+		void UpdateRelatedArticles(IPayrollArticle[] articles);
 	}
 }
 

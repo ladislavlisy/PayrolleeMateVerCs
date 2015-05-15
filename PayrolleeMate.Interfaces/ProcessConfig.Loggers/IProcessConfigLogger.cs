@@ -11,11 +11,11 @@ namespace PayrolleeMate.ProcessConfig.Interfaces.Loggers
 
 		void CloseLogStream ();
 
-		void LogArticlesInConcept(IPayrollConcept concept, IPayrollArticle[] articles, string testName);
+		void LogConceptsInModels (IDictionary<uint, IPayrollArticle> articles, IDictionary<uint, IPayrollConcept> concepts, string testName);
 
-		void LogConceptsInModels (IDictionary<uint, IPayrollConcept> models, string testName);
+		void LogArticlesInConcept(IPayrollArticle article, IPayrollArticle[] articles, string testName);
 
-		void LogRelatedArticlesInModels (IDictionary<uint, IPayrollConcept> models, string testName);
+		void LogRelatedArticlesInModels (IDictionary<uint, IPayrollArticle> models, string testName);
 
 		void LogConceptArticlesCollection (IDictionary<uint, IPayrollArticle[]> collection, string testName);
 

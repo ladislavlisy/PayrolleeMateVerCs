@@ -139,16 +139,15 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			return new IPayrollArticle[0];
 		}
 
-		public static IPayrollArticle[] SortDependecyArticles (IDictionary<uint, IPayrollArticle[]> relatedDict, 
-			Tuple<IPayrollConcept, IPayrollArticle>[] conceptArticleList)
+		public static IPayrollArticle[] SortDependecyArticles (
+			IDictionary<uint, IPayrollArticle[]> relatedDict, IPayrollArticle[] articleList)
 		{
-			Tuple<IPayrollConcept, IPayrollArticle, IPayrollArticle[]>[] sortConceptArticleList = 
-				conceptArticleList.Select (x => (Tuple.Create (x.Item1, x.Item2, 
-					FindArticlesInDictionary (relatedDict, x.Item2)))).ToArray();
+			Tuple<IPayrollArticle, IPayrollArticle[]>[] articleDependencyList = 
+				articleList.Select (x => (Tuple.Create (x, FindArticlesInDictionary (relatedDict, x)))).ToArray();
 
-			Array.Sort (sortConceptArticleList, ConceptDependencyComparer.CompareDependency);
+			Array.Sort (articleDependencyList, ConceptDependencyComparer.CompareDependency);
 
-			IPayrollArticle[] sortedArticleList = sortConceptArticleList.Select (x => (x.Item2)).ToArray();
+			IPayrollArticle[] sortedArticleList = articleDependencyList.Select (x => (x.Item1)).ToArray();
 
 			return sortedArticleList;
 		}
