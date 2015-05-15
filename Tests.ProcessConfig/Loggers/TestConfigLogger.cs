@@ -94,13 +94,23 @@ namespace Tests.ProcessConfig.Logers
 			LogFileStream = null;
 		}
 
+		public void LogAppendMessageInfo (string message, string testName)
+		{
+			OpenLogStream(testName);
+
+			using (StreamWriter logWriter = new StreamWriter (LogFileStream) ) 
+			{
+				logWriter.WriteLine (message);
+			}
+		}
+
 		public void LogConceptsInModels (IDictionary<uint, IPayrollArticle> articles, IDictionary<uint, IPayrollConcept> concepts, string testName)
 		{
 			Stream logStream = OpenCustomStream(testName);
 
 			using (StreamWriter logWriter = new StreamWriter (logStream) ) 
 			{
-				logWriter.WriteLine ("--- begin ---");
+				logWriter.WriteLine ("\n--- begin ---");
 
 				foreach (var articlePair in articles)
 				{
@@ -123,7 +133,7 @@ namespace Tests.ProcessConfig.Logers
 
 			using (StreamWriter logWriter = new StreamWriter (LogFileStream) ) 
 			{
-				logWriter.WriteLine ("--- begin ---");
+				logWriter.WriteLine ("\n--- begin ---");
 
 				string lineDefinition = ConceptRelatedArticlesLogger.LogConceptArticlesInfo (article, articles);
 
@@ -140,7 +150,7 @@ namespace Tests.ProcessConfig.Logers
 
 			using (StreamWriter logWriter = new StreamWriter (logStream) ) 
 			{
-				logWriter.WriteLine ("--- begin ---");
+				logWriter.WriteLine ("\n--- begin ---");
 
 				foreach (var articlePair in models)
 				{
@@ -155,19 +165,17 @@ namespace Tests.ProcessConfig.Logers
 			}
 		}
 
-		public void LogConceptArticlesCollection(IDictionary<uint, IPayrollArticle[]> collection, string testName)
+		public void LogDependentArticlesCollection(IDictionary<uint, IPayrollArticle[]> collection, string testName)
 		{
 			OpenLogStream (testName);
 
 			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
 			{
-				logWriter.WriteLine ("--- begin ---");
+				string lineDefinition = "\n--- begin ---";
 
-				string lineDefinition = "";
-
-				foreach (var conceptPair in collection) 
+				foreach (var articlePair in collection) 
 				{
-					lineDefinition += ConceptCodeArticlesLogger.LogConceptCodeArticlesInfo (conceptPair.Key, conceptPair.Value);
+					lineDefinition += ConceptCodeArticlesLogger.LogDependentCodeArticlesInfo (articlePair.Key, articlePair.Value);
 				}
 
 				if (lineDefinition.Length > 0) 
@@ -178,15 +186,15 @@ namespace Tests.ProcessConfig.Logers
 			}
 		}
 
-		public void LogConceptCodeArticles(uint concept, IPayrollArticle[] articles, string testName)
+		public void LogDependentCodeArticlesInfo(uint article, IPayrollArticle[] articles, string testName)
 		{
 			OpenLogStream (testName);
 
 			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
 			{
-				logWriter.WriteLine ("--- begin ---");
+				string lineDefinition = "\n--- begin ---";
 
-				string lineDefinition = ConceptCodeArticlesLogger.LogConceptCodeArticlesInfo(concept, articles);
+				lineDefinition += ConceptCodeArticlesLogger.LogDependentCodeArticlesInfo(article, articles);
 
 				if (lineDefinition.Length > 0) 
 				{
@@ -197,19 +205,23 @@ namespace Tests.ProcessConfig.Logers
 			}
 		}
 
-		public void LogPendingArticles(IPayrollArticle article, IPayrollArticle[] articles, string testName)
+		public void LogPendingArticles(IPayrollArticle article, IPayrollArticle[] pendings, IPayrollArticle[] articles, string testName)
 		{
 			OpenLogStream (testName);
 
 			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
 			{
-				logWriter.WriteLine ("--- begin ---");
+				string lineDefinition = "\n--- begin ---";
 
-				string lineDefinition = ConceptCodeArticlesLogger.LogArticleInfo(article);
+				lineDefinition += ConceptCodeArticlesLogger.LogArticleInfo(article);
 
-				lineDefinition += "--- PENDING ---\n";
+				lineDefinition += "\n--- PENDINGS ---";
 
-				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(articles);
+				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(article.ArticleCode(), pendings);
+
+				lineDefinition += "\n--- CALCULATED ---";
+
+				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(article.ArticleCode(), articles);
 
 				if (lineDefinition.Length > 0) 
 				{
@@ -226,13 +238,13 @@ namespace Tests.ProcessConfig.Logers
 
 			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
 			{
-				logWriter.WriteLine ("--- begin ---");
+				string lineDefinition = "\n--- begin ---";
 
-				string lineDefinition = ConceptCodeArticlesLogger.LogArticleInfo(article);
+				lineDefinition += ConceptCodeArticlesLogger.LogArticleInfo(article);
 
-				lineDefinition += "--- RELATED ---\n";
+				lineDefinition += "\n--- EXISTS IN RELATED ---";
 
-				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(articles);
+				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(article.ArticleCode(), articles);
 
 				if (lineDefinition.Length > 0) 
 				{
@@ -247,51 +259,51 @@ namespace Tests.ProcessConfig.Logers
 
 		private static class ConceptCodeArticlesLogger
 		{
-			public static string LogConceptCodeArticlesInfo(uint conceptCode, IPayrollArticle[] articles)
+			public static string LogDependentCodeArticlesInfo(uint articleCode, IPayrollArticle[] articles)
 			{
-				string lineDefinition = LogConceptCodeInfo(conceptCode);
+				string lineDefinition = LogArticleCodeInfo(articleCode);
 
-				lineDefinition += "--- ARTICLES ---\n";
+				lineDefinition += "----------------------------";
 
-				lineDefinition += LogArrayOfArticles(articles);
+				lineDefinition += LogArrayOfArticles(articleCode, articles);
 
-				lineDefinition += "--- ARTICLES ---";
+				lineDefinition += "----------------------------";
 
 				return lineDefinition;
 			}
 
-			private static string LogConceptCodeInfo(uint conceptCode)
+			private static string LogArticleCodeInfo(uint articleCode)
 			{
-				string conceptDescrip = Enum.ToObject (typeof(ConfigSetCzConceptCode), conceptCode).ToString ();
+				string articleDescrip = Enum.ToObject (typeof(ConfigSetCzArticleCode), articleCode).ToString ();
 
-				string lineDefinition = string.Format("{0} - {1}\n", "CONCEPT", conceptDescrip);
+				string lineDefinition = string.Format("{0} - {1}\n", "ARTICLE", articleDescrip);
 
 				return lineDefinition;
 			}
 
 			public static string LogArticleInfo(IPayrollArticle article)
 			{
-				string lineDefinition = string.Format("{0} - {1} - {2}\n", article.ArticleName(), article.ConceptName(), article.ArticleCode());
+				string lineDefinition = string.Format("\n--- {0} - {1} - {2}", article.ArticleName(), article.ConceptName(), article.ArticleCode());
 
 				return lineDefinition;
 			}
 
-			public static string LogArrayOfArticles(IPayrollArticle[] articles)
+			public static string LogArrayOfArticles(uint articleCode, IPayrollArticle[] articles)
 			{
 				string lineDefinition = "";
 				if (articles == null)
 				{
-					lineDefinition = "empty\n";
+					lineDefinition = "\nempty";
 					return lineDefinition;
-				}
-				else
-				{
-					lineDefinition = string.Format("count - {0}\n", articles.Length);
 				}
 				foreach (var article in articles)
 				{
-					lineDefinition += LogArticleInfo(article);
+					if (articleCode != article.ArticleCode ()) 
+					{
+						lineDefinition += LogArticleInfo (article);
+					}
 				}
+				lineDefinition += "\n";
 				return lineDefinition;
 			}
 		}
@@ -302,11 +314,11 @@ namespace Tests.ProcessConfig.Logers
 			{
 				string lineDefinition = LogConceptInfo(article);
 
-				lineDefinition += "--- ARTICLES ---\n";
+				lineDefinition += "----------------------------";
 
 				lineDefinition += LogArrayOfArticles(articles);
 
-				lineDefinition += "--- ARTICLES ---";
+				lineDefinition += "----------------------------";
 
 				return lineDefinition;
 			}
@@ -320,7 +332,7 @@ namespace Tests.ProcessConfig.Logers
 
 			public static string LogArticleInfo(IPayrollArticle article)
 			{
-				string lineDefinition = string.Format("{0} - {1} - {2}\n", article.ArticleName(), article.ConceptName(), article.ArticleCode());
+				string lineDefinition = string.Format("\n--- {0} - {1} - {2}", article.ArticleName(), article.ConceptName(), article.ArticleCode());
 
 				return lineDefinition;
 			}
@@ -330,17 +342,18 @@ namespace Tests.ProcessConfig.Logers
 				string lineDefinition = "";
 				if (articles == null)
 				{
-					lineDefinition = "empty\n";
+					lineDefinition = "\nempty";
 					return lineDefinition;
 				}
 				else
 				{
-					lineDefinition = string.Format("count - {0}\n", articles.Length);
+					lineDefinition = string.Format("\ncount - {0}", articles.Length);
 				}
 				foreach (var article in articles)
 				{
 					lineDefinition += LogArticleInfo(article);
 				}
+				lineDefinition += "\n";
 				return lineDefinition;
 			}
 		}
@@ -385,7 +398,7 @@ namespace Tests.ProcessConfig.Logers
 				{
 					lineDefinition += string.Format("{0}\t", article.Name);
 				}
-				for (int emptyColumn = articlesCount; emptyColumn < 5; emptyColumn++)
+				for (int emptyColumn = articlesCount; emptyColumn < 10; emptyColumn++)
 				{
 					lineDefinition = string.Format("\t");
 				}

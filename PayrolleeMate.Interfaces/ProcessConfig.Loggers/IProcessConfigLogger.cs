@@ -17,13 +17,15 @@ namespace PayrolleeMate.ProcessConfig.Interfaces.Loggers
 
 		void LogRelatedArticlesInModels (IDictionary<uint, IPayrollArticle> models, string testName);
 
-		void LogConceptArticlesCollection (IDictionary<uint, IPayrollArticle[]> collection, string testName);
+		void LogDependentArticlesCollection (IDictionary<uint, IPayrollArticle[]> collection, string testName);
 
-		void LogConceptCodeArticles (uint concept, IPayrollArticle[] articles, string testName);
+		void LogDependentCodeArticlesInfo (uint articleCode, IPayrollArticle[] articles, string testName);
 
-		void LogPendingArticles (IPayrollArticle article, IPayrollArticle[] articles, string testName);
+		void LogPendingArticles (IPayrollArticle article, IPayrollArticle[] pendings, IPayrollArticle[] articles, string testName);
 
 		void LogRelatedArticles (IPayrollArticle article, IPayrollArticle[] articles, string testName);
+
+		void LogAppendMessageInfo (string message, string testName);
 	}
 }
 

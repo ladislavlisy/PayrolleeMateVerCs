@@ -47,27 +47,27 @@ namespace PayrolleeMate.ProcessConfig.Logers
 			}
 		}
 
-		public static void LogConceptArticlesCollection (IProcessConfigLogger logger, IDictionary<uint, IPayrollArticle[]> collection, string testName)
+		public static void LogDependentArticlesCollection (IProcessConfigLogger logger, IDictionary<uint, IPayrollArticle[]> collection, string testName)
 		{
 			if (logger != null) 
 			{
-				logger.LogConceptArticlesCollection (collection, testName);
+				logger.LogDependentArticlesCollection (collection, testName);
 			}
 		}
 
-		public static void LogConceptCodeArticles (IProcessConfigLogger logger, uint concept, IPayrollArticle[] articles, string testName)
+		public static void LogDependentCodeArticlesInfo (IProcessConfigLogger logger, uint articleCode, IPayrollArticle[] articles, string testName)
 		{
 			if (logger != null) 
 			{
-				logger.LogConceptCodeArticles (concept, articles, testName);
+				logger.LogDependentCodeArticlesInfo (articleCode, articles, testName);
 			}
 		}
 
-		public static void LogPendingArticles (IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] articles, string testName)
+		public static void LogPendingArticles (IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] pendings, IPayrollArticle[] articles, string testName)
 		{
 			if (logger != null) 
 			{
-				logger.LogPendingArticles (article, articles, testName);
+				logger.LogPendingArticles (article, pendings, articles, testName);
 			}
 		}
 
@@ -78,6 +78,15 @@ namespace PayrolleeMate.ProcessConfig.Logers
 				logger.LogRelatedArticles (article, articles, testName);
 			}
 		}
+
+		public static void LogAppendMessageInfo (IProcessConfigLogger logger, string message, string testName)
+		{
+			if (logger != null) 
+			{
+				logger.LogAppendMessageInfo (message, testName);
+			}
+		}
+
 	}
 }
 

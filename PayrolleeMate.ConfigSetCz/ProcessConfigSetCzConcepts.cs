@@ -23,6 +23,8 @@ namespace PayrolleeMate.ProcessConfigSetCz
 
 			ConfigureBasisGarantConcepts (module);
 
+			ConfigureBasisTaxingConcepts (module);
+
 			ConfigureBasisAdvancesConcepts (module);
 
 			ConfigureBasisWithholdConcepts (module);
@@ -155,6 +157,11 @@ namespace PayrolleeMate.ProcessConfigSetCz
 		private static void ConfigureBasisHealthConcepts (ProcessConfigSetCzModule module)
 		{
 			module.ConfigureConcept(
+				ConfigSetCzConceptName.REF_HEALTH_INCOME_SUBJECT, 
+				"", 
+				"", 
+				null); 
+			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_HEALTH_INCOME_PARTICIP, 
 				"", 
 				"", 
@@ -178,6 +185,11 @@ namespace PayrolleeMate.ProcessConfigSetCz
 
 		private static void ConfigureBasisSocialConcepts (ProcessConfigSetCzModule module)
 		{
+			module.ConfigureConcept(
+				ConfigSetCzConceptName.REF_SOCIAL_INCOME_SUBJECT, 
+				"", 
+				"", 
+				null); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_SOCIAL_INCOME_PARTICIP, 
 				"", 
@@ -203,6 +215,11 @@ namespace PayrolleeMate.ProcessConfigSetCz
 		private static void ConfigureBasisGarantConcepts (ProcessConfigSetCzModule module)
 		{
 			module.ConfigureConcept(
+				ConfigSetCzConceptName.REF_GARANT_INCOME_SUBJECT, 
+				"", 
+				"", 
+				null); 
+			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_GARANT_INCOME_PARTICIP, 
 				"", 
 				"", 
@@ -214,6 +231,25 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				null); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_GARANT_BASIS_LEGALCAP, 
+				"", 
+				"", 
+				null); 
+		}
+
+		private static void ConfigureBasisTaxingConcepts (ProcessConfigSetCzModule module)
+		{
+			module.ConfigureConcept (
+				ConfigSetCzConceptName.REF_TAXING_INCOME_SUBJECT, 
+				"", 
+				"", 
+				null); 
+			module.ConfigureConcept (
+				ConfigSetCzConceptName.REF_TAXING_INCOME_HEALTH, 
+				"", 
+				"", 
+				null); 
+			module.ConfigureConcept (
+				ConfigSetCzConceptName.REF_TAXING_INCOME_SOCIAL, 
 				"", 
 				"", 
 				null); 

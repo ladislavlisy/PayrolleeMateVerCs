@@ -16,37 +16,28 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			var initialDict = new Dictionary<uint, IPayrollArticle[]>();
 
 			var relatedDict = pendingDict.Aggregate(initialDict,
-				(agr, pair) => CollectArticlesForConcept(agr, pair.Key, pair.Value, pendingDict, logger).
+				(agr, pair) => CollectDependentArticles(agr, pair.Key, pair.Value, pendingDict, logger).
 				ToDictionary(key => key.Key, val => val.Value));
 
-			LoggerWrapper.LogConceptArticlesCollection(logger, relatedDict, "CollectRelatedCollection");
+			LoggerWrapper.LogDependentArticlesCollection(logger, relatedDict, "CollectRelatedCollection");
 
 			return relatedDict;
 		}
 
-		private static IDictionary<uint, IPayrollArticle[]> CollectArticlesForConcept(
+		private static IDictionary<uint, IPayrollArticle[]> CollectDependentArticles(
 			IDictionary<uint, IPayrollArticle[]> initialDict, 
-			uint conceptCode, IPayrollArticle[] pendingArticles, 
+			uint articleCode, IPayrollArticle[] pendingArticles, 
 			IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
 		{
-			var resultList = CollectRelatedArticlesFromList(initialDict, conceptCode, pendingArticles, pendingDict, logger);
+			LoggerWrapper.LogAppendMessageInfo(logger, ">>>>>", "CollectRelated");
 
-			LoggerWrapper.LogConceptCodeArticles(logger, conceptCode, resultList, "ConceptArticles");					
+			var resultList = CollectRelatedArticlesFromList(initialDict, articleCode, pendingArticles, pendingDict, logger);
 
-			var relatedDict = MergeIntoDictionary(initialDict, conceptCode, resultList);
+			LoggerWrapper.LogAppendMessageInfo(logger, "<<<<<", "CollectRelated");
 
-			return relatedDict;
-		}
+			LoggerWrapper.LogDependentCodeArticlesInfo(logger, articleCode, resultList, "ConceptArticles");					
 
-		private static IDictionary<uint, IPayrollArticle[]> MergeIntoDictionary(
-			IDictionary<uint, IPayrollArticle[]> initialDict, 
-			uint conceptCode, IPayrollArticle[] relatedArticles)
-		{
-			var mergeArticles = new Dictionary<uint, IPayrollArticle[]> () {
-				{ conceptCode, relatedArticles.Distinct ().OrderBy (x => x.ArticleSymbol()).ToArray () }
-			};
-
-			var relatedDict = initialDict.Union(mergeArticles).ToDictionary(key => key.Key, val => val.Value);
+			var relatedDict = MergeIntoDictionary(initialDict, articleCode, resultList);
 
 			return relatedDict;
 		}
@@ -55,8 +46,23 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			uint conceptCode, IPayrollArticle[] pendingArticles, IDictionary<uint, IPayrollArticle[]> pendingDict, 
 			IProcessConfigLogger logger)
 		{
-			var relatedDict = pendingArticles.Aggregate(new IPayrollArticle[0],
+			var relatedList = pendingArticles.Aggregate(new IPayrollArticle[0],
 				(agr, article) => agr.Concat(CollectRelatedArticlesFromDict(initialDict, article, pendingDict, logger)).ToArray());
+
+			var articleList = relatedList.Distinct ().OrderBy (x => x.ArticleSymbol ()).ToArray ();
+
+			return articleList;
+		}
+
+		private static IDictionary<uint, IPayrollArticle[]> MergeIntoDictionary(
+			IDictionary<uint, IPayrollArticle[]> initialDict, 
+			uint articleode, IPayrollArticle[] relatedArticles)
+		{
+			var articleList = relatedArticles.Distinct ().OrderBy (x => x.ArticleSymbol ()).ToArray ();
+
+			var relatedPair = new Dictionary<uint, IPayrollArticle[]> () { { articleode,  articleList} };
+
+			var relatedDict = initialDict.Union(relatedPair).ToDictionary(key => key.Key, val => val.Value);
 
 			return relatedDict;
 		}
@@ -78,7 +84,9 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			{
 				relatedArticles = CollectFromPending (initialDict, article, pendingDict, logger);
 
-				LoggerWrapper.LogPendingArticles(logger, article, relatedArticles, "CollectRelated");
+				var pendingArticles = FindArticlesInDictionary(pendingDict, article);
+
+				LoggerWrapper.LogPendingArticles(logger, article, pendingArticles, relatedArticles, "CollectRelated");
 
 				return relatedArticles;
 			}
@@ -87,9 +95,9 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		private static IPayrollArticle[] CollectFromRelated(IDictionary<uint, IPayrollArticle[]> relatedDict, 
 			IPayrollArticle article, IDictionary<uint, IPayrollArticle[]> pendingDict)
 		{
-			uint conceptCode = article.ConceptCode();
+			uint articleCode = article.ArticleCode();
 
-			bool skipExecToPending = !relatedDict.ContainsKey(conceptCode);
+			bool skipExecToPending = !relatedDict.ContainsKey(articleCode);
 
 			if (skipExecToPending)
 			{
@@ -106,9 +114,9 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		private static IPayrollArticle[] CollectFromPending(IDictionary<uint, IPayrollArticle[]> relatedDict, 
 			IPayrollArticle article, IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
 		{
-			uint conceptCode = article.ConceptCode();
+			uint articleCode = article.ArticleCode();
 
-			bool skipExecToRelated = relatedDict.ContainsKey(conceptCode);
+			bool skipExecToRelated = relatedDict.ContainsKey(articleCode);
 
 			if (skipExecToRelated)
 			{
@@ -119,18 +127,21 @@ namespace PayrolleeMate.ProcessConfig.Builders
 
 			var pendingArticles = FindArticlesInDictionary(pendingDict, article);
 
-			var relatedArticles = pendingArticles.Aggregate(initialArticles,
+			var collectArticles = pendingArticles.Aggregate(initialArticles,
 				(agr, articleSource) => agr.Concat(CollectRelatedArticlesFromDict(relatedDict, articleSource, pendingDict, logger)).ToArray());
+
+			var relatedArticles = collectArticles.Distinct ().OrderBy (x => x.ArticleSymbol ()).ToArray ();
 
 			return relatedArticles;
 		}
+
 		public static IPayrollArticle[] FindArticlesInDictionary (IDictionary<uint, IPayrollArticle[]> articlesDict, IPayrollArticle article)
 		{
 			IPayrollArticle[] articleList = null;
 
-			uint conceptCode = article.ConceptCode();
+			uint articleCode = article.ArticleCode();
 
-			bool existsInDictionary = articlesDict.TryGetValue(conceptCode, out articleList);
+			bool existsInDictionary = articlesDict.TryGetValue(articleCode, out articleList);
 
 			if (existsInDictionary)
 			{

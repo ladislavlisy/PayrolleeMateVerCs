@@ -54,6 +54,8 @@ namespace PayrolleeMate.ProcessConfigSetCz
 
 			ConfigureBasisGarantArticles (module);
 
+			ConfigureBasisTaxingArticles (module);
+
 			ConfigureBasisAdvancesArticles (module);
 
 			ConfigureBasisWithholdArticles (module);
@@ -80,7 +82,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_POSITION_EMPL_TERM, 
 				ConfigSetCzConceptName.REF_POSITION_EMPL_TERM, 
 				configCategory,
 				PendingArticleNames1(
@@ -100,7 +102,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_TIMES; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_SCHEDULE_WORK, 
 				ConfigSetCzConceptName.REF_SCHEDULE_WORK, 
 				configCategory,
 				PendingArticleNames1(
@@ -114,7 +116,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TIMESHEET_SCHEDULE, 
 				ConfigSetCzConceptName.REF_TIMESHEET_SCHEDULE, 
 				configCategory,
 				PendingArticleNames1(
@@ -128,7 +130,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TIMESHEET_WORKING, 
 				ConfigSetCzConceptName.REF_TIMESHEET_WORKING, 
 				configCategory,
 				PendingArticleNames2(
@@ -143,7 +145,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TIMESHEET_ABSENCE, 
 				ConfigSetCzConceptName.REF_TIMESHEET_ABSENCE, 
 				configCategory,
 				PendingArticleNames1(
@@ -157,7 +159,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TIMEHOURS_WORKING, 
 				ConfigSetCzConceptName.REF_TIMEHOURS_WORKING, 
 				configCategory,
 				PendingArticleNames1(
@@ -171,7 +173,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TIMEHOURS_ABSENCE, 
 				ConfigSetCzConceptName.REF_TIMEHOURS_ABSENCE, 
 				configCategory,
 				PendingArticleNames1(
@@ -191,7 +193,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_AMOUNT; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_SALARY_BASE, 
 				ConfigSetCzConceptName.REF_SALARY_BASE, 
 				configCategory,
 				PendingArticleNames2(
@@ -214,7 +216,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_FINAL; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_INCOME_GROSS, 
 				ConfigSetCzConceptName.REF_INCOME_GROSS, 
 				configCategory,
 				EMPTY_PENDING_NAMES, 
@@ -226,7 +228,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_INCOME_NETTO, 
 				ConfigSetCzConceptName.REF_INCOME_NETTO, 
 				configCategory,
 				PendingArticleNames9(
@@ -254,7 +256,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_NETTO; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ADVANCES_TOTAL, 
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_TOTAL, 
 				configCategory,
 				PendingArticleNames2(
@@ -271,7 +273,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ADVANCES_GENERAL, 
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_GENERAL, 
 				configCategory,
 				PendingArticleNames1(
@@ -287,7 +289,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ADVANCES_SOLIDARY, 
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_SOLIDARY, 
 				configCategory,
 				PendingArticleNames1(
@@ -303,7 +305,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_WITHHOLD_GENERAL, 
 				ConfigSetCzConceptName.REF_TAXING_WITHHOLD_GENERAL, 
 				configCategory,
 				PendingArticleNames1(
@@ -319,7 +321,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_HEALTH_EMPLOYEE_GENERAL, 
 				ConfigSetCzConceptName.REF_HEALTH_EMPLOYEE_GENERAL, 
 				configCategory,
 				PendingArticleNames1(
@@ -335,7 +337,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_HEALTH_EMPLOYEE_MANDATORY, 
 				ConfigSetCzConceptName.REF_HEALTH_EMPLOYEE_MANDATORY, 
 				configCategory,
 				PendingArticleNames1(
@@ -351,7 +353,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_SOCIAL_EMPLOYEE_GENERAL, 
 				ConfigSetCzConceptName.REF_SOCIAL_EMPLOYEE_GENERAL, 
 				configCategory,
 				PendingArticleNames1(
@@ -367,7 +369,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_SOCIAL_EMPLOYEE_PENSION, 
 				ConfigSetCzConceptName.REF_SOCIAL_EMPLOYEE_PENSION, 
 				configCategory,
 				PendingArticleNames1(
@@ -383,7 +385,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_GARANT_EMPLOYEE_PENSION, 
 				ConfigSetCzConceptName.REF_GARANT_EMPLOYEE_PENSION, 
 				configCategory,
 				PendingArticleNames1(
@@ -405,7 +407,19 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_NETTO; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_HEALTH_INCOME_SUBJECT, 
+				ConfigSetCzConceptName.REF_HEALTH_INCOME_SUBJECT, 
+				configCategory,
+				EMPTY_PENDING_NAMES, 
+				EMPTY_SUMMARY_NAMES, 
+				IGNORE_TAXING_INCOME,
+				IGNORE_HEALTH_INCOME,
+				IGNORE_SOCIAL_INCOME,
+				IGNORE_GROSS_SUMMARY,
+				IGNORE_NETTO_SUMMARY,
+				IGNORE_NETTO_DEDUCTS);
+			module.ConfigureArticle(
+				ConfigSetCzArticleName.REF_HEALTH_INCOME_PARTICIP, 
 				ConfigSetCzConceptName.REF_HEALTH_INCOME_PARTICIP, 
 				configCategory,
 				PendingArticleNames1(
@@ -419,7 +433,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_HEALTH_BASIS_GENERAL, 
 				ConfigSetCzConceptName.REF_HEALTH_BASIS_GENERAL, 
 				configCategory,
 				PendingArticleNames1(
@@ -433,7 +447,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_HEALTH_BASIS_MANDATORY, 
 				ConfigSetCzConceptName.REF_HEALTH_BASIS_MANDATORY, 
 				configCategory,
 				PendingArticleNames2(
@@ -448,7 +462,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_HEALTH_BASIS_LEGALCAP, 
 				ConfigSetCzConceptName.REF_HEALTH_BASIS_LEGALCAP, 
 				configCategory,
 				PendingArticleNames2(
@@ -469,7 +483,19 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_NETTO; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_SOCIAL_INCOME_SUBJECT, 
+				ConfigSetCzConceptName.REF_SOCIAL_INCOME_SUBJECT, 
+				configCategory,
+				EMPTY_PENDING_NAMES, 
+				EMPTY_SUMMARY_NAMES, 
+				IGNORE_TAXING_INCOME,
+				IGNORE_HEALTH_INCOME,
+				IGNORE_SOCIAL_INCOME,
+				IGNORE_GROSS_SUMMARY,
+				IGNORE_NETTO_SUMMARY,
+				IGNORE_NETTO_DEDUCTS);
+			module.ConfigureArticle(
+				ConfigSetCzArticleName.REF_SOCIAL_INCOME_PARTICIP, 
 				ConfigSetCzConceptName.REF_SOCIAL_INCOME_PARTICIP, 
 				configCategory,
 				PendingArticleNames1(
@@ -483,7 +509,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_SOCIAL_BASIS_GENERAL, 
 				ConfigSetCzConceptName.REF_SOCIAL_BASIS_GENERAL, 
 				configCategory,
 				PendingArticleNames1(
@@ -497,7 +523,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_SOCIAL_BASIS_PENSION, 
 				ConfigSetCzConceptName.REF_SOCIAL_BASIS_PENSION, 
 				configCategory,
 				PendingArticleNames1(
@@ -511,7 +537,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_SOCIAL_BASIS_LEGALCAP, 
 				ConfigSetCzConceptName.REF_SOCIAL_BASIS_LEGALCAP, 
 				configCategory,
 				PendingArticleNames1(
@@ -531,7 +557,19 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_NETTO; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_GARANT_INCOME_SUBJECT, 
+				ConfigSetCzConceptName.REF_GARANT_INCOME_SUBJECT, 
+				configCategory,
+				EMPTY_PENDING_NAMES, 
+				EMPTY_SUMMARY_NAMES, 
+				IGNORE_TAXING_INCOME,
+				IGNORE_HEALTH_INCOME,
+				IGNORE_SOCIAL_INCOME,
+				IGNORE_GROSS_SUMMARY,
+				IGNORE_NETTO_SUMMARY,
+				IGNORE_NETTO_DEDUCTS);
+			module.ConfigureArticle(
+				ConfigSetCzArticleName.REF_GARANT_INCOME_PARTICIP, 
 				ConfigSetCzConceptName.REF_GARANT_INCOME_PARTICIP, 
 				configCategory,
 				PendingArticleNames1(
@@ -545,7 +583,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_GARANT_BASIS_PENSION, 
 				ConfigSetCzConceptName.REF_GARANT_BASIS_PENSION, 
 				configCategory,
 				PendingArticleNames1(
@@ -559,7 +597,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_GARANT_BASIS_LEGALCAP, 
 				ConfigSetCzConceptName.REF_GARANT_BASIS_LEGALCAP, 
 				configCategory,
 				PendingArticleNames1(
@@ -574,12 +612,54 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_DEDUCTS);
 		}
 
+		private static void ConfigureBasisTaxingArticles (ProcessConfigSetCzModule module)
+		{
+			ProcessCategory configCategory = ProcessCategory.CATEGORY_NETTO; 
+
+			module.ConfigureArticle(
+				ConfigSetCzArticleName.REF_TAXING_INCOME_SUBJECT, 
+				ConfigSetCzConceptName.REF_TAXING_INCOME_SUBJECT, 
+				configCategory,
+				EMPTY_PENDING_NAMES, 
+				EMPTY_SUMMARY_NAMES, 
+				IGNORE_TAXING_INCOME,
+				IGNORE_HEALTH_INCOME,
+				IGNORE_SOCIAL_INCOME,
+				IGNORE_GROSS_SUMMARY,
+				IGNORE_NETTO_SUMMARY,
+				IGNORE_NETTO_DEDUCTS);
+			module.ConfigureArticle(
+				ConfigSetCzArticleName.REF_TAXING_INCOME_HEALTH, 
+				ConfigSetCzConceptName.REF_TAXING_INCOME_HEALTH, 
+				configCategory,
+				EMPTY_PENDING_NAMES, 
+				EMPTY_SUMMARY_NAMES, 
+				IGNORE_TAXING_INCOME,
+				IGNORE_HEALTH_INCOME,
+				IGNORE_SOCIAL_INCOME,
+				IGNORE_GROSS_SUMMARY,
+				IGNORE_NETTO_SUMMARY,
+				IGNORE_NETTO_DEDUCTS);
+			module.ConfigureArticle(
+				ConfigSetCzArticleName.REF_TAXING_INCOME_SOCIAL, 
+				ConfigSetCzConceptName.REF_TAXING_INCOME_SOCIAL, 
+				configCategory,
+				EMPTY_PENDING_NAMES, 
+				EMPTY_SUMMARY_NAMES, 
+				IGNORE_TAXING_INCOME,
+				IGNORE_HEALTH_INCOME,
+				IGNORE_SOCIAL_INCOME,
+				IGNORE_GROSS_SUMMARY,
+				IGNORE_NETTO_SUMMARY,
+				IGNORE_NETTO_DEDUCTS);
+		}
+
 		private static void ConfigureBasisAdvancesArticles (ProcessConfigSetCzModule module)
 		{
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_NETTO; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ADVANCES_INCOME, 
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_INCOME, 
 				configCategory,
 				PendingArticleNames1 (
@@ -593,7 +673,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ADVANCES_HEALTH, 
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_HEALTH, 
 				configCategory,
 				PendingArticleNames1 (
@@ -607,7 +687,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ADVANCES_SOCIAL, 
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_SOCIAL, 
 				configCategory,
 				PendingArticleNames1 (
@@ -621,7 +701,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ADVANCES_BASIS_GENERAL, 
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_BASIS_GENERAL, 
 				configCategory,
 				PendingArticleNames3 (
@@ -637,7 +717,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ADVANCES_BASIS_SOLIDARY, 
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_BASIS_SOLIDARY, 
 				configCategory,
 				PendingArticleNames1 (
@@ -657,7 +737,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_NETTO; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_WITHHOLD_INCOME, 
 				ConfigSetCzConceptName.REF_TAXING_WITHHOLD_INCOME, 
 				configCategory,
 				PendingArticleNames1(
@@ -671,7 +751,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_WITHHOLD_HEALTH, 
 				ConfigSetCzConceptName.REF_TAXING_WITHHOLD_HEALTH, 
 				configCategory,
 				PendingArticleNames1(
@@ -685,7 +765,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_WITHHOLD_SOCIAL, 
 				ConfigSetCzConceptName.REF_TAXING_WITHHOLD_SOCIAL, 
 				configCategory,
 				PendingArticleNames1(
@@ -699,7 +779,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_WITHHOLD_BASIS_GENERAL, 
 				ConfigSetCzConceptName.REF_TAXING_WITHHOLD_BASIS_GENERAL, 
 				configCategory,
 				PendingArticleNames3(
@@ -721,7 +801,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_NETTO; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ALLOWANCE_PAYER, 
 				ConfigSetCzConceptName.REF_TAXING_ALLOWANCE_PAYER, 
 				configCategory,
 				PendingArticleNames1(
@@ -735,7 +815,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ALLOWANCE_DISABILITY, 
 				ConfigSetCzConceptName.REF_TAXING_ALLOWANCE_DISABILITY, 
 				configCategory,
 				PendingArticleNames1(
@@ -749,7 +829,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ALLOWANCE_STUDYING, 
 				ConfigSetCzConceptName.REF_TAXING_ALLOWANCE_STUDYING, 
 				configCategory,
 				PendingArticleNames1(
@@ -763,7 +843,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_ALLOWANCE_CHILD, 
 				ConfigSetCzConceptName.REF_TAXING_ALLOWANCE_CHILD, 
 				configCategory,
 				PendingArticleNames1(
@@ -783,7 +863,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ProcessCategory configCategory = ProcessCategory.CATEGORY_NETTO; 
 
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_REBATE_PAYER, 
 				ConfigSetCzConceptName.REF_TAXING_REBATE_PAYER, 
 				configCategory,
 				PendingArticleNames4(
@@ -800,7 +880,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_REBATE_CHILD, 
 				ConfigSetCzConceptName.REF_TAXING_REBATE_CHILD, 
 				configCategory,
 				PendingArticleNames3(
@@ -816,7 +896,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				IGNORE_NETTO_SUMMARY,
 				IGNORE_NETTO_DEDUCTS);
 			module.ConfigureArticle(
-				ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, 
+				ConfigSetCzArticleName.REF_TAXING_BONUS_CHILD, 
 				ConfigSetCzConceptName.REF_TAXING_BONUS_CHILD, 
 				configCategory,
 				PendingArticleNames3(
