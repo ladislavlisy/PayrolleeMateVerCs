@@ -64,11 +64,11 @@ namespace PayrolleeMate.ProcessConfig.Logers
 			}
 		}
 
-		public static void LogPendingArticles (IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] pendings, SymbolName[] callings, IPayrollArticle[] articles, string testName)
+		public static void LogPendingArticles (IProcessConfigLogger logger, IPayrollArticle article, SymbolName[] callings, IPayrollArticle[] articles, string testName)
 		{
 			if (logger != null) 
 			{
-				logger.LogPendingArticles (article, pendings, callings, articles, testName);
+				logger.LogPendingArticles (article, callings, articles, testName);
 			}
 		}
 

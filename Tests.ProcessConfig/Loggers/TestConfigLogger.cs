@@ -205,7 +205,7 @@ namespace Tests.ProcessConfig.Logers
 			}
 		}
 
-		public void LogPendingArticles(IPayrollArticle article, IPayrollArticle[] pendings, SymbolName[] callings, IPayrollArticle[] articles, string testName)
+		public void LogPendingArticles(IPayrollArticle article, SymbolName[] callings, IPayrollArticle[] articles, string testName)
 		{
 			OpenLogStream (testName);
 
@@ -214,10 +214,6 @@ namespace Tests.ProcessConfig.Logers
 				string lineDefinition = "\n--- begin ---";
 
 				lineDefinition += ConceptCodeArticlesLogger.LogArticleInfo(article);
-
-				lineDefinition += "\n--- PENDINGS ---";
-
-				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(article.ArticleCode(), pendings);
 
 				lineDefinition += "\n--- CALLING PATH ---";
 

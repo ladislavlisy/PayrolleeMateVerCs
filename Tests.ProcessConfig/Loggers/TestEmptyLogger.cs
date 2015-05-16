@@ -1,4 +1,7 @@
 ﻿using System;
+using PayrolleeMate.ProcessConfig.Interfaces;
+using System.Collections.Generic;
+using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 
 namespace Tests.ProcessConfig.Logers
@@ -19,31 +22,31 @@ namespace Tests.ProcessConfig.Logers
 		{
 		}
 
-		public void LogConceptsInModels (System.Collections.Generic.IDictionary<uint, PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle> articles, System.Collections.Generic.IDictionary<uint, PayrolleeMate.ProcessConfig.Interfaces.IPayrollConcept> concepts, string testName)
+		public void LogConceptsInModels (IDictionary<uint, IPayrollArticle> articles, IDictionary<uint, IPayrollConcept> concepts, string testName)
 		{
 		}
 
-		public void LogArticlesInConcept (PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle article, PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle[] articles, string testName)
+		public void LogArticlesInConcept (IPayrollArticle article, IPayrollArticle[] articles, string testName)
 		{
 		}
 
-		public void LogRelatedArticlesInModels (System.Collections.Generic.IDictionary<uint, PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle> models, string testName)
+		public void LogRelatedArticlesInModels (IDictionary<uint, IPayrollArticle> models, string testName)
 		{
 		}
 
-		public void LogDependentArticlesCollection (System.Collections.Generic.IDictionary<uint, PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle[]> collection, string testName)
+		public void LogDependentArticlesCollection (IDictionary<uint, IPayrollArticle[]> collection, string testName)
 		{
 		}
 
-		public void LogDependentCodeArticlesInfo (uint articleCode, PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle[] articles, string testName)
+		public void LogDependentCodeArticlesInfo (uint articleCode, IPayrollArticle[] articles, string testName)
 		{
 		}
 
-		public void LogPendingArticles (PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle article, PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle[] pendings, PayrolleeMate.Common.SymbolName[] callings, PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle[] articles, string testName)
+		public void LogPendingArticles (IPayrollArticle article, SymbolName[] callings, IPayrollArticle[] articles, string testName)
 		{
 		}
 
-		public void LogRelatedArticles (PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle article, PayrolleeMate.ProcessConfig.Interfaces.IPayrollArticle[] articles, string testName)
+		public void LogRelatedArticles (IPayrollArticle article, IPayrollArticle[] articles, string testName)
 		{
 		}
 

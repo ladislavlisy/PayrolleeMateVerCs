@@ -22,7 +22,7 @@ namespace PayrolleeMate.ProcessConfig.Interfaces.Loggers
 
 		void LogDependentCodeArticlesInfo (uint articleCode, IPayrollArticle[] articles, string testName);
 
-		void LogPendingArticles (IPayrollArticle article, IPayrollArticle[] pendings, SymbolName[] callings, IPayrollArticle[] articles, string testName);
+		void LogPendingArticles (IPayrollArticle article, SymbolName[] callings, IPayrollArticle[] articles, string testName);
 
 		void LogRelatedArticles (IPayrollArticle article, IPayrollArticle[] articles, string testName);
 
