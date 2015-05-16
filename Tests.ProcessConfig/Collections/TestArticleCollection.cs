@@ -20,7 +20,7 @@ namespace Tests.ProcessConfig.Collections
 		[TestFixtureSetUp]
 		public void TestSetup()
 		{
-			IProcessConfigLogger logger = new TestConfigLogger ("TestArticleCollection");
+			IProcessConfigLogger logger = new TestEmptyLogger ("TestArticleCollection");
 
 			testConfig = ProcessConfigSetCzModule.CreateModule(logger);
 
