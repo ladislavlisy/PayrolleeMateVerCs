@@ -24,6 +24,19 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			return relatedDict;
 		}
 
+		public static IPayrollArticle[] SortDependecyArticles (
+			IDictionary<uint, IPayrollArticle[]> relatedDict, IPayrollArticle[] articleList)
+		{
+			Tuple<IPayrollArticle, IPayrollArticle[]>[] articleDependencyList = 
+				articleList.Select (x => (Tuple.Create (x, FindArticlesInDictionary (relatedDict, x)))).ToArray();
+
+			Array.Sort (articleDependencyList, ConceptDependencyComparer.CompareDependency);
+
+			IPayrollArticle[] sortedArticleList = articleDependencyList.Select (x => (x.Item1)).ToArray();
+
+			return sortedArticleList;
+		}
+
 		private static IDictionary<uint, IPayrollArticle[]> CollectDependentArticles(
 			IDictionary<uint, IPayrollArticle[]> initialDict, 
 			uint articleCode, IPayrollArticle[] pendingArticles, 
@@ -31,18 +44,18 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		{
 			LoggerWrapper.LogAppendMessageInfo(logger, ">>>>>", "CollectRelated");
 
-			var resultList = CollectRelatedArticlesFromList(initialDict, articleCode, pendingArticles, pendingDict, logger);
+			var resultList = CollectRelatedArticles(initialDict, articleCode, pendingArticles, pendingDict, logger);
 
 			LoggerWrapper.LogAppendMessageInfo(logger, "<<<<<", "CollectRelated");
 
 			LoggerWrapper.LogDependentCodeArticlesInfo(logger, articleCode, resultList, "ConceptArticles");					
 
-			var relatedDict = MergeIntoDictionary(initialDict, articleCode, resultList);
+			var relatedDict = SortAndMergeIntoDictionary(initialDict, articleCode, resultList);
 
 			return relatedDict;
 		}
 
-		private static IPayrollArticle[] CollectRelatedArticlesFromList(IDictionary<uint, IPayrollArticle[]> initialDict,
+		private static IPayrollArticle[] CollectRelatedArticles(IDictionary<uint, IPayrollArticle[]> initialDict,
 			uint articleCode, IPayrollArticle[] pendingArticles, IDictionary<uint, IPayrollArticle[]> pendingDict, 
 			IProcessConfigLogger logger)
 		{
@@ -57,7 +70,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			return articleList;
 		}
 
-		private static IDictionary<uint, IPayrollArticle[]> MergeIntoDictionary(
+		private static IDictionary<uint, IPayrollArticle[]> SortAndMergeIntoDictionary(
 			IDictionary<uint, IPayrollArticle[]> initialDict, 
 			uint articleode, IPayrollArticle[] relatedArticles)
 		{
@@ -124,12 +137,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 				return null;
 			}
 
-			bool articlesCircle = (articlePath.Count (x => x.Code == articleCode) > 0);
-
-			if (articlesCircle) 
-			{
-				throw new EngineProcessCircleException ("Circular article reference", articlePath, article.ArticleSymbol());
-			}
+			VerifyCircularDependency (article, articlePath, articleCode);
 
 			var initialArticles = new IPayrollArticle[] { article };
 
@@ -145,7 +153,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			return relatedArticles;
 		}
 
-		public static IPayrollArticle[] FindArticlesInDictionary (IDictionary<uint, IPayrollArticle[]> articlesDict, IPayrollArticle article)
+		private static IPayrollArticle[] FindArticlesInDictionary (IDictionary<uint, IPayrollArticle[]> articlesDict, IPayrollArticle article)
 		{
 			IPayrollArticle[] articleList = null;
 
@@ -160,21 +168,16 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			return new IPayrollArticle[0];
 		}
 
-		public static IPayrollArticle[] SortDependecyArticles (
-			IDictionary<uint, IPayrollArticle[]> relatedDict, IPayrollArticle[] articleList)
+		private static void VerifyCircularDependency (IPayrollArticle article, SymbolName[] articlePath, uint articleCode)
 		{
-			Tuple<IPayrollArticle, IPayrollArticle[]>[] articleDependencyList = 
-				articleList.Select (x => (Tuple.Create (x, FindArticlesInDictionary (relatedDict, x)))).ToArray();
+			bool articlesCircle = (articlePath.Count (x => x.Code == articleCode) > 0);
 
-			Array.Sort (articleDependencyList, ConceptDependencyComparer.CompareDependency);
-
-			IPayrollArticle[] sortedArticleList = articleDependencyList.Select (x => (x.Item1)).ToArray();
-
-			return sortedArticleList;
+			if (articlesCircle) {
+				throw new EngineProcessCircleException ("Circular article reference", articlePath, article.ArticleSymbol ());
+			}
 		}
 
 	}
-
 
 }
 
