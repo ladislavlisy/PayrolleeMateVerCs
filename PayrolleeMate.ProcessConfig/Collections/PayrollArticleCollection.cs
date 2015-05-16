@@ -58,9 +58,11 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 		public void InitRelatedArticles(IProcessConfigLogger logger)
 		{
-			var pendingArticles = ModelsToPendings();
+			var pendingArticles = ModelsToPendingDict();
 
-			var relatedArticles = ArticleDependencyBuilder.CollectArticles(pendingArticles, logger);
+			var initialArticles = ModelsToRelatedDict();
+
+			var relatedArticles = ArticleDependencyBuilder.CollectArticles(pendingArticles, initialArticles, logger);
 
 			var relatedSortList = BuildSortedRelatedArticleDict (relatedArticles);
 
@@ -74,13 +76,22 @@ namespace PayrolleeMate.ProcessConfig.Collections
 			return articleList;
 		}
 
-		private IDictionary<uint, IPayrollArticle[]> ModelsToPendings()
+		private IDictionary<uint, IPayrollArticle[]> ModelsToPendingDict()
 		{
 			var pendingArticles = Models.ToDictionary(key => key.Key, val => BuildArticlesList(val.Value.PendingArticleNames()));
 
 			var noemptyArticles = pendingArticles.Where (kvp => kvp.Value.Length != 0).ToDictionary (kvp => kvp.Key, kvp => kvp.Value);
 
 			return noemptyArticles;
+		}
+
+		private IDictionary<uint, IPayrollArticle[]> ModelsToRelatedDict()
+		{
+			var pendingArticles = Models.ToDictionary(key => key.Key, val => BuildArticlesList(val.Value.PendingArticleNames()));
+
+			var initialArticles = pendingArticles.Where (kvp => kvp.Value.Length == 0).ToDictionary (kvp => kvp.Key, kvp => kvp.Value);
+
+			return initialArticles;
 		}
 
 		private IDictionary<uint, IPayrollArticle[]> BuildSortedRelatedArticleDict(IDictionary<uint, IPayrollArticle[]> relatedDict)

@@ -2,6 +2,7 @@
 using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using System.Collections.Generic;
+using PayrolleeMate.Common;
 
 namespace PayrolleeMate.ProcessConfig.Logers
 {
@@ -63,11 +64,11 @@ namespace PayrolleeMate.ProcessConfig.Logers
 			}
 		}
 
-		public static void LogPendingArticles (IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] pendings, IPayrollArticle[] articles, string testName)
+		public static void LogPendingArticles (IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] pendings, SymbolName[] callings, IPayrollArticle[] articles, string testName)
 		{
 			if (logger != null) 
 			{
-				logger.LogPendingArticles (article, pendings, articles, testName);
+				logger.LogPendingArticles (article, pendings, callings, articles, testName);
 			}
 		}
 

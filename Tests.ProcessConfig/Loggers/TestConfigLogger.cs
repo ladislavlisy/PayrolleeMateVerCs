@@ -205,7 +205,7 @@ namespace Tests.ProcessConfig.Logers
 			}
 		}
 
-		public void LogPendingArticles(IPayrollArticle article, IPayrollArticle[] pendings, IPayrollArticle[] articles, string testName)
+		public void LogPendingArticles(IPayrollArticle article, IPayrollArticle[] pendings, SymbolName[] callings, IPayrollArticle[] articles, string testName)
 		{
 			OpenLogStream (testName);
 
@@ -218,6 +218,10 @@ namespace Tests.ProcessConfig.Logers
 				lineDefinition += "\n--- PENDINGS ---";
 
 				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(article.ArticleCode(), pendings);
+
+				lineDefinition += "\n--- CALLING PATH ---";
+
+				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfSymbols(callings);
 
 				lineDefinition += "\n--- CALCULATED ---";
 
@@ -288,6 +292,13 @@ namespace Tests.ProcessConfig.Logers
 				return lineDefinition;
 			}
 
+			public static string LogArticleName(SymbolName article)
+			{
+				string lineDefinition = string.Format("\n--- {0} - {1}", article.Name, article.Code);
+
+				return lineDefinition;
+			}
+
 			public static string LogArrayOfArticles(uint articleCode, IPayrollArticle[] articles)
 			{
 				string lineDefinition = "";
@@ -302,6 +313,22 @@ namespace Tests.ProcessConfig.Logers
 					{
 						lineDefinition += LogArticleInfo (article);
 					}
+				}
+				lineDefinition += "\n";
+				return lineDefinition;
+			}
+
+			public static string LogArrayOfSymbols(SymbolName[] articles)
+			{
+				string lineDefinition = "";
+				if (articles == null)
+				{
+					lineDefinition = "\nempty";
+					return lineDefinition;
+				}
+				foreach (var article in articles)
+				{
+					lineDefinition += LogArticleName (article);
 				}
 				lineDefinition += "\n";
 				return lineDefinition;

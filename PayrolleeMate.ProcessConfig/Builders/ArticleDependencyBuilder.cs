@@ -5,16 +5,16 @@ using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 using PayrolleeMate.ProcessConfig.Logers;
 using PayrolleeMate.ProcessConfig.Comparers;
+using PayrolleeMate.Common;
+using PayrolleeMate.ProcessConfig.Exceptions;
 
 namespace PayrolleeMate.ProcessConfig.Builders
 {
 	public static class ArticleDependencyBuilder
 	{
 		public static IDictionary<uint, IPayrollArticle[]> CollectArticles(
-			IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
+			IDictionary<uint, IPayrollArticle[]> pendingDict, IDictionary<uint, IPayrollArticle[]> initialDict, IProcessConfigLogger logger)
 		{
-			var initialDict = new Dictionary<uint, IPayrollArticle[]>();
-
 			var relatedDict = pendingDict.Aggregate(initialDict,
 				(agr, pair) => CollectDependentArticles(agr, pair.Key, pair.Value, pendingDict, logger).
 				ToDictionary(key => key.Key, val => val.Value));
@@ -43,11 +43,14 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		}
 
 		private static IPayrollArticle[] CollectRelatedArticlesFromList(IDictionary<uint, IPayrollArticle[]> initialDict,
-			uint conceptCode, IPayrollArticle[] pendingArticles, IDictionary<uint, IPayrollArticle[]> pendingDict, 
+			uint articleCode, IPayrollArticle[] pendingArticles, IDictionary<uint, IPayrollArticle[]> pendingDict, 
 			IProcessConfigLogger logger)
 		{
+
+			var callingArticles = new SymbolName[0];
+
 			var relatedList = pendingArticles.Aggregate(new IPayrollArticle[0],
-				(agr, article) => agr.Concat(CollectRelatedArticlesFromDict(initialDict, article, pendingDict, logger)).ToArray());
+				(agr, article) => agr.Concat(CollectRelatedArticlesFromDict(initialDict, article, callingArticles, pendingDict, logger)).ToArray());
 
 			var articleList = relatedList.Distinct ().OrderBy (x => x.ArticleSymbol ()).ToArray ();
 
@@ -68,7 +71,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		}
 
 		private static IPayrollArticle[] CollectRelatedArticlesFromDict(IDictionary<uint, IPayrollArticle[]> initialDict, 
-			IPayrollArticle article, IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
+			IPayrollArticle article, SymbolName[] callingArticles, IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
 		{
 			var relatedArticles = CollectFromRelated (initialDict, article, pendingDict);
 
@@ -82,11 +85,11 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			}
 			else 
 			{
-				relatedArticles = CollectFromPending (initialDict, article, pendingDict, logger);
+				relatedArticles = CollectFromPending (initialDict, article, callingArticles, pendingDict, logger);
 
 				var pendingArticles = FindArticlesInDictionary(pendingDict, article);
 
-				LoggerWrapper.LogPendingArticles(logger, article, pendingArticles, relatedArticles, "CollectRelated");
+				LoggerWrapper.LogPendingArticles(logger, article, pendingArticles, callingArticles, relatedArticles, "CollectRelated");
 
 				return relatedArticles;
 			}
@@ -112,7 +115,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		}
 
 		private static IPayrollArticle[] CollectFromPending(IDictionary<uint, IPayrollArticle[]> relatedDict, 
-			IPayrollArticle article, IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
+			IPayrollArticle article, SymbolName[] articlePath, IDictionary<uint, IPayrollArticle[]> pendingDict, IProcessConfigLogger logger)
 		{
 			uint articleCode = article.ArticleCode();
 
@@ -123,12 +126,21 @@ namespace PayrolleeMate.ProcessConfig.Builders
 				return null;
 			}
 
+			bool articlesCircle = (articlePath.Count (x => x.Code == articleCode) > 0);
+
+			if (articlesCircle) 
+			{
+				throw new EngineProcessCircleException ("Circular article reference", articlePath, article.ArticleSymbol());
+			}
+
 			var initialArticles = new IPayrollArticle[] { article };
+
+			var callingArticles = articlePath.Concat (new SymbolName[] { article.ArticleSymbol() }).ToArray();
 
 			var pendingArticles = FindArticlesInDictionary(pendingDict, article);
 
 			var collectArticles = pendingArticles.Aggregate(initialArticles,
-				(agr, articleSource) => agr.Concat(CollectRelatedArticlesFromDict(relatedDict, articleSource, pendingDict, logger)).ToArray());
+				(agr, articleSource) => agr.Concat(CollectRelatedArticlesFromDict(relatedDict, articleSource, callingArticles, pendingDict, logger)).ToArray());
 
 			var relatedArticles = collectArticles.Distinct ().OrderBy (x => x.ArticleSymbol ()).ToArray ();
 

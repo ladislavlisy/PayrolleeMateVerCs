@@ -42,6 +42,7 @@
     <Compile Include="Loggers\LoggerWrapper.cs" />
     <Compile Include="Comparers\ConceptDependencyComparer.cs" />
     <Compile Include="Builders\ArticleDependencyBuilder.cs" />
+    <Compile Include="Exceptions\EngineProcessCircleException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -52,6 +53,7 @@
     <Folder Include="Loggers\" />
     <Folder Include="Comparers\" />
     <Folder Include="Builders\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PayrolleeMate.Interfaces\PayrolleeMate.Interfaces.csproj">
