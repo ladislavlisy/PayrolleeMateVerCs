@@ -72,11 +72,11 @@ namespace PayrolleeMate.ProcessConfig.Builders
 
 		private static IDictionary<uint, IPayrollArticle[]> SortAndMergeIntoDictionary(
 			IDictionary<uint, IPayrollArticle[]> initialDict, 
-			uint articleode, IPayrollArticle[] relatedArticles)
+			uint articleCode, IPayrollArticle[] relatedArticles)
 		{
 			var articleList = relatedArticles.Distinct ().OrderBy (x => x.ArticleSymbol ()).ToArray ();
 
-			var relatedPair = new Dictionary<uint, IPayrollArticle[]> () { { articleode,  articleList} };
+			var relatedPair = new Dictionary<uint, IPayrollArticle[]> () { { articleCode,  articleList} };
 
 			var relatedDict = initialDict.Union(relatedPair).ToDictionary(key => key.Key, val => val.Value);
 

@@ -42,7 +42,11 @@
     <Compile Include="Loggers\LoggerWrapper.cs" />
     <Compile Include="Comparers\ConceptDependencyComparer.cs" />
     <Compile Include="Builders\ArticleDependencyBuilder.cs" />
+<<<<<<< Upstream, based on origin/master
     <Compile Include="Exceptions\EngineProcessCircleException.cs" />
+=======
+    <Compile Include="Builders\ArticleRealtedBuilder.cs" />
+>>>>>>> ca91ec0 refaktoring builder
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

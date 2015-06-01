@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
@@ -60,9 +60,13 @@ namespace PayrolleeMate.ProcessConfig.Collections
 		{
 			var pendingArticles = ModelsToPendingDict();
 
+<<<<<<< Upstream, based on origin/master
 			var initialArticles = ModelsToRelatedDict();
 
 			var relatedArticles = ArticleDependencyBuilder.CollectArticles(pendingArticles, initialArticles, logger);
+=======
+			var relatedArticles = ArticleRelatedBuilder.CollectArticles(pendingArticles, logger);
+>>>>>>> ca91ec0 refaktoring builder
 
 			var relatedSortList = BuildSortedRelatedArticleDict (relatedArticles);
 
