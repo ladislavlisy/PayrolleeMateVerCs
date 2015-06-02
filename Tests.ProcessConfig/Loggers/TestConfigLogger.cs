@@ -40,7 +40,7 @@ namespace Tests.ProcessConfig.Logers
 
 			string TestFilenameExist = LogSequenceId.ToString () + "-" + testName;
 					
-			string TestNamespaceFile = TestNamespaceDir + TestFilenameExist + ".log";
+			string TestNamespaceFile = TestNamespaceDir + TestFilenameExist + ".txt";
 
 			try 
 			{
@@ -84,7 +84,7 @@ namespace Tests.ProcessConfig.Logers
 				fileOpenMode = FileMode.Create;
 			}
 
-			string TestNamespaceFile = TestNamespaceDir + TestFilenameExist + ".log";
+			string TestNamespaceFile = TestNamespaceDir + TestFilenameExist + ".txt";
 
 			LogFileStream = new FileStream (TestNamespaceFile, fileOpenMode);
 		}
@@ -127,19 +127,19 @@ namespace Tests.ProcessConfig.Logers
 			}
 		}
 
-		public void LogArticlesInConcept (IPayrollArticle article, IPayrollArticle[] articles, string testName)
+		public void LogListArticlesUnderArticle (IPayrollArticle article, IPayrollArticle[] articles, string testName)
 		{
 			OpenLogStream(testName);
 
 			using (StreamWriter logWriter = new StreamWriter (LogFileStream) ) 
 			{
-				logWriter.WriteLine ("\n--- begin ---");
+				//logWriter.WriteLine ("\n--- begin ---");
 
-				string lineDefinition = ConceptRelatedArticlesLogger.LogConceptArticlesInfo (article, articles);
+				string lineDefinition = ArticlesRelatedListLogger.LogArticleListInfo (article, articles);
 
 				logWriter.WriteLine (lineDefinition);
 
-				logWriter.WriteLine ("--- end ---");
+				//logWriter.WriteLine ("--- end ---");
 			}
 		}
 
@@ -156,7 +156,7 @@ namespace Tests.ProcessConfig.Logers
 				{
 					IPayrollArticle article = articlePair.Value;
 
-					string lineDefinition = ModelConceptsRelatedArticlesLogger.LogConceptInfo(article);
+					string lineDefinition = ModelArticlesRelatedListLogger.LogArticleInfo(article);
 
 					logWriter.WriteLine(lineDefinition);
 				}
@@ -175,7 +175,7 @@ namespace Tests.ProcessConfig.Logers
 
 				foreach (var articlePair in collection) 
 				{
-					lineDefinition += ConceptCodeArticlesLogger.LogDependentCodeArticlesInfo (articlePair.Key, articlePair.Value);
+					lineDefinition += ArticleListCodesLogger.LogDependentCodeArticlesInfo (articlePair.Key, articlePair.Value);
 				}
 
 				if (lineDefinition.Length > 0) 
@@ -194,7 +194,7 @@ namespace Tests.ProcessConfig.Logers
 			{
 				string lineDefinition = "\n--- begin ---";
 
-				lineDefinition += ConceptCodeArticlesLogger.LogDependentCodeArticlesInfo(article, articles);
+				lineDefinition += ArticleListCodesLogger.LogDependentCodeArticlesInfo(article, articles);
 
 				if (lineDefinition.Length > 0) 
 				{
@@ -213,15 +213,15 @@ namespace Tests.ProcessConfig.Logers
 			{
 				string lineDefinition = "\n--- begin ---";
 
-				lineDefinition += ConceptCodeArticlesLogger.LogArticleInfo(article);
+				lineDefinition += ArticleListCodesLogger.LogArticleInfo(article);
 
 				lineDefinition += "\n--- CALLING PATH ---";
 
-				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfSymbols(callings);
+				lineDefinition += ArticleListCodesLogger.LogArrayOfSymbols(callings);
 
 				lineDefinition += "\n--- CALCULATED ---";
 
-				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(article.ArticleCode(), articles);
+				lineDefinition += ArticleListCodesLogger.LogArrayOfArticles(article.ArticleCode(), articles);
 
 				if (lineDefinition.Length > 0) 
 				{
@@ -240,11 +240,11 @@ namespace Tests.ProcessConfig.Logers
 			{
 				string lineDefinition = "\n--- begin ---";
 
-				lineDefinition += ConceptCodeArticlesLogger.LogArticleInfo(article);
+				lineDefinition += ArticleListCodesLogger.LogArticleInfo(article);
 
 				lineDefinition += "\n--- EXISTS IN RELATED ---";
 
-				lineDefinition += ConceptCodeArticlesLogger.LogArrayOfArticles(article.ArticleCode(), articles);
+				lineDefinition += ArticleListCodesLogger.LogArrayOfArticles(article.ArticleCode(), articles);
 
 				if (lineDefinition.Length > 0) 
 				{
@@ -257,7 +257,7 @@ namespace Tests.ProcessConfig.Logers
 
 		#endregion
 
-		private static class ConceptCodeArticlesLogger
+		private static class ArticleListCodesLogger
 		{
 			public static string LogDependentCodeArticlesInfo(uint articleCode, IPayrollArticle[] articles)
 			{
@@ -331,17 +331,33 @@ namespace Tests.ProcessConfig.Logers
 			}
 		}
 
-		private static class ConceptRelatedArticlesLogger
+		private static class ArticlesRelatedListLogger
 		{
-			public static string LogConceptArticlesInfo(IPayrollArticle article, IPayrollArticle[] articles)
+			public static string LogArticleListInfo(IPayrollArticle article, IPayrollArticle[] articles)
 			{
-				string lineDefinition = LogConceptInfo(article);
+				string lineDefinition = LogHeaderInfo(article, articles);
 
-				lineDefinition += "----------------------------";
+				//lineDefinition += "----------------------------";
 
-				lineDefinition += LogArrayOfArticles(articles);
+				lineDefinition += LogBodyOfArticles(articles);
 
-				lineDefinition += "----------------------------";
+				//lineDefinition += "----------------------------";
+
+				return lineDefinition;
+			}
+
+			public static string LogHeaderInfo(IPayrollArticle article, IPayrollArticle[] articles)
+			{
+				string lineCountInfo = "";
+				if (articles == null)
+				{
+					lineCountInfo = "empty";
+				}
+				else
+				{
+					lineCountInfo = string.Format("{0}", articles.Length);
+				}
+				string lineDefinition = string.Format("count - {0} - {1} - {2} - {3}", lineCountInfo, article.ArticleName(), article.ConceptName(), article.ConceptCode());
 
 				return lineDefinition;
 			}
@@ -355,7 +371,7 @@ namespace Tests.ProcessConfig.Logers
 
 			public static string LogArticleInfo(IPayrollArticle article)
 			{
-				string lineDefinition = string.Format("\n--- {0} - {1} - {2}", article.ArticleName(), article.ConceptName(), article.ArticleCode());
+				string lineDefinition = string.Format("\n\t{0} - {1} - {2}", article.ArticleName(), article.ConceptName(), article.ArticleCode());
 
 				return lineDefinition;
 			}
@@ -372,6 +388,17 @@ namespace Tests.ProcessConfig.Logers
 				{
 					lineDefinition = string.Format("\ncount - {0}", articles.Length);
 				}
+				foreach (var article in articles)
+				{
+					lineDefinition += LogArticleInfo(article);
+				}
+				lineDefinition += "\n";
+				return lineDefinition;
+			}
+
+			public static string LogBodyOfArticles(IPayrollArticle[] articles)
+			{
+				string lineDefinition = "";
 				foreach (var article in articles)
 				{
 					lineDefinition += LogArticleInfo(article);
@@ -455,9 +482,9 @@ namespace Tests.ProcessConfig.Logers
 			}
 		}
 
-		private static class ModelConceptsRelatedArticlesLogger
+		private static class ModelArticlesRelatedListLogger
 		{
-			public static string LogConceptInfo(IPayrollArticle article)
+			public static string LogArticleInfo(IPayrollArticle article)
 			{
 				string relatedDescrip = article.RelatedArticles ().Length.ToString ();
 
@@ -472,7 +499,7 @@ namespace Tests.ProcessConfig.Logers
 			{
 				var articles = article.RelatedArticles();
 
-				string lineDefinition = ConceptRelatedArticlesLogger.LogArrayOfArticles(articles);
+				string lineDefinition = ArticlesRelatedListLogger.LogArrayOfArticles(articles);
 
 				return lineDefinition;
 			}

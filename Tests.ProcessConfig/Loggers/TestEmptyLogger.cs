@@ -26,7 +26,7 @@ namespace Tests.ProcessConfig.Logers
 		{
 		}
 
-		public void LogArticlesInConcept (IPayrollArticle article, IPayrollArticle[] articles, string testName)
+		public void LogListArticlesUnderArticle (IPayrollArticle article, IPayrollArticle[] articles, string testName)
 		{
 		}
 

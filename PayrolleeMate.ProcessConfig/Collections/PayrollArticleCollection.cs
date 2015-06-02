@@ -96,9 +96,9 @@ namespace PayrolleeMate.ProcessConfig.Collections
 					articleItem.UpdateRelatedArticles(EMPTY_ARTICLE_LIST);
 				}
 
-				LoggerWrapper.LogArticlesInConcept (logger, articleItem, relatedArticles, "UpdateRelatedArticles");
+				LoggerWrapper.LogListArticlesUnderArticle (logger, articleItem, relatedArticles, "UpdateRelatedArticles");
 			}
 		}
-		}
+	}
 }
 

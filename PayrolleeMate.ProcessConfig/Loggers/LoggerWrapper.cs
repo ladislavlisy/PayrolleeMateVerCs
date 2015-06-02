@@ -24,11 +24,11 @@ namespace PayrolleeMate.ProcessConfig.Logers
 			}
 		}
 
-		public static void LogArticlesInConcept(IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] articles, string testName)
+		public static void LogListArticlesUnderArticle(IProcessConfigLogger logger, IPayrollArticle article, IPayrollArticle[] articles, string testName)
 		{
 			if (logger != null) 
 			{
-				logger.LogArticlesInConcept (article, articles, testName);
+				logger.LogListArticlesUnderArticle (article, articles, testName);
 			}
 		}
 

@@ -14,7 +14,7 @@ namespace PayrolleeMate.ProcessConfig.Interfaces.Loggers
 
 		void LogConceptsInModels (IDictionary<uint, IPayrollArticle> articles, IDictionary<uint, IPayrollConcept> concepts, string testName);
 
-		void LogArticlesInConcept(IPayrollArticle article, IPayrollArticle[] articles, string testName);
+		void LogListArticlesUnderArticle(IPayrollArticle article, IPayrollArticle[] articles, string testName);
 
 		void LogRelatedArticlesInModels (IDictionary<uint, IPayrollArticle> models, string testName);
 
