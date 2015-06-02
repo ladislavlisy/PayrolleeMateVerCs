@@ -6,11 +6,11 @@ namespace PayrolleeMate.ProcessConfig.Exceptions
 {
 	public class EngineProcessCircleException : Exception
 	{
-		public EngineProcessCircleException(string message, SymbolName[] callingPath, SymbolName article) : base(message)
+		public EngineProcessCircleException(string message, uint[] callingPath, uint articleCode) : base(message)
 		{
-			this.ArticleName = article.Name;
+			this.ArticleName = articleCode.ToString();
 
-			this.ArticlePath = string.Join (",", callingPath.Select (x => x.Name));
+			this.ArticlePath = string.Join (",", callingPath.Select (x => x.ToString()));
 		}
 
 		public string ArticleName { get; private set; }

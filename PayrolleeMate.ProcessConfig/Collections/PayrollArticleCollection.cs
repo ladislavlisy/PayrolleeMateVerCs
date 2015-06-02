@@ -16,6 +16,10 @@ namespace PayrolleeMate.ProcessConfig.Collections
 {
 	public abstract class PayrollArticleCollection<AIDX> : GeneralCollection<IPayrollArticle, AIDX>
 	{
+		public static readonly IPayrollArticle[] EMPTY_ARTICLE_LIST = {};
+
+		public static readonly uint[] EMPTY_ARTICLE_CODE_LIST = {};
+
 		public PayrollArticleCollection() : base()
 		{
 		}
@@ -58,67 +62,17 @@ namespace PayrolleeMate.ProcessConfig.Collections
 
 		public void InitRelatedArticles(IProcessConfigLogger logger)
 		{
-			var pendingArticles = ModelsToPendingDict();
+			var pendingArticles = ArticleCodeListBuilder<AIDX>.BuildPendingCodesDict (this);
 
-<<<<<<< Upstream, based on origin/master
-			var initialArticles = ModelsToRelatedDict();
+			var initialArticles = ArticleCodeListBuilder<AIDX>.BuildRelatedCodesDict (this);
 
-			var relatedArticles = ArticleDependencyBuilder.CollectArticles(pendingArticles, initialArticles, logger);
-=======
-			var relatedArticles = ArticleRelatedBuilder.CollectArticles(pendingArticles, logger);
->>>>>>> ca91ec0 refaktoring builder
+			var relatedArticles = ArticleDependencyBuilder.CollectArticles (pendingArticles, initialArticles, logger);
 
-			var relatedSortList = BuildSortedRelatedArticleDict (relatedArticles);
+			var relatedInitList = ArticleObjectListBuilder<AIDX>.BuildRelatedArticleDict (relatedArticles, this);
+
+			var relatedSortList = ArticleSortoutBuilder.BuildSortedArticleDict (relatedInitList);
 
 			UpdateRelatedArticles (relatedSortList, logger);
-		}
-
-		private IPayrollArticle[] BuildArticlesList(SymbolName[] articleNames)
-		{
-			var articleList = articleNames.Select (x => (FindArticle (x.Code))).ToArray ();
-
-			return articleList;
-		}
-
-		private IDictionary<uint, IPayrollArticle[]> ModelsToPendingDict()
-		{
-			var pendingArticles = Models.ToDictionary(key => key.Key, val => BuildArticlesList(val.Value.PendingArticleNames()));
-
-			var noemptyArticles = pendingArticles.Where (kvp => kvp.Value.Length != 0).ToDictionary (kvp => kvp.Key, kvp => kvp.Value);
-
-			return noemptyArticles;
-		}
-
-		private IDictionary<uint, IPayrollArticle[]> ModelsToRelatedDict()
-		{
-			var pendingArticles = Models.ToDictionary(key => key.Key, val => BuildArticlesList(val.Value.PendingArticleNames()));
-
-			var initialArticles = pendingArticles.Where (kvp => kvp.Value.Length == 0).ToDictionary (kvp => kvp.Key, kvp => kvp.Value);
-
-			return initialArticles;
-		}
-
-		private IDictionary<uint, IPayrollArticle[]> BuildSortedRelatedArticleDict(IDictionary<uint, IPayrollArticle[]> relatedDict)
-		{
-			var sortedRelatedArticles = relatedDict.Select((x) => (BuildSortedRelatedArticleList(x.Key, x.Value, relatedDict))).
-				ToDictionary(key => key.Key, val => val.Value);
-
-			return sortedRelatedArticles;
-		}
-
-		private KeyValuePair<uint, IPayrollArticle[]> BuildSortedRelatedArticleList (uint conceptCode, 
-			IPayrollArticle[] articleList, IDictionary<uint, IPayrollArticle[]> relatedDict)
-		{
-			if (articleList != null) 
-			{
-				var sortedList = ArticleDependencyBuilder.SortDependecyArticles (relatedDict, articleList);
-
-				return new KeyValuePair<uint, IPayrollArticle[]> (conceptCode, sortedList);
-			}
-			else 
-			{
-				return new KeyValuePair<uint, IPayrollArticle[]> (conceptCode, articleList);
-			}
 		}
 
 		private void UpdateRelatedArticles(IDictionary<uint, IPayrollArticle[]> relatedDict, IProcessConfigLogger logger)
@@ -139,7 +93,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 				}
 				else
 				{
-					articleItem.UpdateRelatedArticles(new IPayrollArticle[0]);
+					articleItem.UpdateRelatedArticles(EMPTY_ARTICLE_LIST);
 				}
 
 				LoggerWrapper.LogArticlesInConcept (logger, articleItem, relatedArticles, "UpdateRelatedArticles");

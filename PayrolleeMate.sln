@@ -15,13 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.Interfaces", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.ProcessService", "PayrolleeMate.ProcessService\PayrolleeMate.ProcessService.csproj", "{59EF58E7-7624-4E21-AAF6-C6FE10C6BA2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.ProcessConfig", "PayrolleeMate.ProcessConfig\PayrolleeMate.ProcessConfig.csproj", "{F91E4B02-352C-41F2-AAFF-E3B956EB8805}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.ProcessService", "Tests.ProcessService\Tests.ProcessService.csproj", "{CDC75069-5EB1-4B99-9147-4541A8066131}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.ProcessConfig", "Tests.ProcessConfig\Tests.ProcessConfig.csproj", "{37A024ED-20F4-48B1-8437-7EB7E362333F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.ProcessConfigSetCz", "PayrolleeMate.ConfigSetCz\PayrolleeMate.ProcessConfigSetCz.csproj", "{8F4198AC-173B-4371-B547-EF1E0B6C9C79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrolleeMate.ProcessConfig", "PayrolleeMate.ProcessConfig\PayrolleeMate.ProcessConfig.csproj", "{F91E4B02-352C-41F2-AAFF-E3B956EB8805}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

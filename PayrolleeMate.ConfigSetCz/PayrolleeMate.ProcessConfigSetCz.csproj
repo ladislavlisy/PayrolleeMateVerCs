@@ -50,13 +50,13 @@
       <Project>{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}</Project>
       <Name>PayrolleeMate.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PayrolleeMate.ProcessConfig\PayrolleeMate.ProcessConfig.csproj">
-      <Project>{F91E4B02-352C-41F2-AAFF-E3B956EB8805}</Project>
-      <Name>PayrolleeMate.ProcessConfig</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">
       <Project>{075817F0-6776-46E6-BF92-C5D0D5E16756}</Project>
       <Name>PayrolleeMate.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PayrolleeMate.ProcessConfig\PayrolleeMate.ProcessConfig.csproj">
+      <Project>{F91E4B02-352C-41F2-AAFF-E3B956EB8805}</Project>
+      <Name>PayrolleeMate.ProcessConfig</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
