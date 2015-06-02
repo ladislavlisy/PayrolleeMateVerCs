@@ -10,6 +10,8 @@ namespace PayrolleeMate.ProcessService.Collections
 {
 	public class TargetStream : ITargetStream
 	{
+		public static readonly IBookParty[] EMPTY_PARTY_LIST = {};
+
 		public static class TargetElementBuilder
 		{
 			static public IBookIndex BuildIndexWithFirst(IEnumerable<IBookIndex> elements, IBookParty party, uint code)
@@ -268,7 +270,117 @@ namespace PayrolleeMate.ProcessService.Collections
 			return __lastIndex; 
 		}
 
+		public IBookParty[] CollectPartiesForContracts ()
+		{
+			var initaialParties = EMPTY_PARTY_LIST;
+
+			var contractParties = __targets.Aggregate(initaialParties,
+				(agr, factorPair) => GetContractParties(agr, factorPair.Key, factorPair.Value).ToArray());
+			return contractParties;
+		}
+
+		public IBookParty[] CollectPartiesForPositions ()
+		{
+			var initaialParties = EMPTY_PARTY_LIST;
+
+			var contractParties = __targets.Aggregate(initaialParties,
+				(agr, factorPair) => GetPositionParties(agr, factorPair.Key, factorPair.Value).ToArray());
+			return contractParties;
+		}
+
+		public ITargetStream CreateStreamCopy()
+		{
+			var targets = Targets().ToDictionary(key => key.Key, val => val.Value);
+
+			var lastParty = BookParty.GetEmpty();
+
+			var lastIndex = BookIndex.GetEmpty();
+
+			return new TargetStream(targets, lastParty, lastIndex);
+		}
+
+		public IPayrollArticle[] BookTargetToEvaluate ()
+		{
+			var initaialToEvaluate = new IPayrollArticle[0];
+
+			var articlesToEvaluate = __targets.Aggregate(initaialToEvaluate,
+				(agr, targetPair) => TargetsToEvaluate(agr, targetPair.Value).ToArray());
+
+			var uniquelyToEvaluate = articlesToEvaluate.Distinct().ToArray();
+
+			return uniquelyToEvaluate;
+		}
+
+		public ITargetStream MergeRealtedArticle (IBookParty[] contractParties, IBookParty[] positionParties, IPayrollArticle article, IProcessConfig configModule)
+		{
+			ITargetValues emptyValues = null;
+
+			IPayrollConcept targetConcept = configModule.FindConcept (article.ConceptCode ());
+
+			IBookParty[] targetParties = targetConcept.GetTargetParties(contractParties, positionParties);
+
+			var targets = targetParties.Aggregate(Targets(),
+				(agr, party) => BuildArticleTarget(Targets(), party, article, emptyValues, configModule));
+
+			var lastParty = BookParty.GetEmpty();
+
+			var lastIndex = BookIndex.GetEmpty();
+
+			return new TargetStream(targets, lastParty, lastIndex);
+		}
+
 		#endregion
+
+
+		private static IDictionary<IBookIndex, IBookTarget>  BuildArticleTarget(
+			IDictionary<IBookIndex, IBookTarget> targets, IBookParty addParty, IPayrollArticle article,
+			ITargetValues targetValues, IProcessConfig configModule)
+		{
+			var targetTuple = TargetsTupleComposer.AddTargetBySymbol(targets,
+				addParty, article.ArticleSymbol(), targetValues, configModule);
+
+			var targetToken = targetTuple.Item2;
+
+			return targetToken;
+		}
+
+		private static IPayrollArticle[] TargetsToEvaluate(IPayrollArticle[] targetsEvaluate, IBookTarget target)
+		{
+			var relatedList = target.Article().RelatedArticles();
+
+			if (relatedList == null)
+			{
+				return targetsEvaluate.ToArray();
+			}
+			return targetsEvaluate.Concat(relatedList).ToArray();
+		}
+
+		private static IBookParty[] GetContractParties(IBookParty[] contractParties, IBookIndex targetIndex, IBookTarget targetToken)
+		{
+			IBookParty contractParty = targetToken.GetContractParty(targetIndex);
+
+			if (contractParty == null)
+			{
+				return contractParties.ToArray();
+			}
+			var contractPartyArry = new IBookParty[] { contractParty };
+
+			return contractParties.Concat(contractPartyArry).ToArray();
+		}
+
+
+		private static IBookParty[] GetPositionParties(IBookParty[] positionParties, IBookIndex targetIndex, IBookTarget targetToken)
+		{
+			IBookParty posotionParty = targetToken.GetPositionParty(targetIndex);
+
+			if (posotionParty == null)
+			{
+				return positionParties.ToArray();
+			}
+			var contractPartyArry = new IBookParty[] { posotionParty };
+
+			return positionParties.Concat(contractPartyArry).ToArray();
+		}
 	}
 }
 

@@ -3,15 +3,12 @@ using PayrolleeMate.ProcessConfig.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 using PayrolleeMate.Common;
+using PayrolleeMate.Common.Interfaces;
 
 namespace PayrolleeMate.ProcessConfig.Interfaces.Loggers
 {
-	public interface IProcessConfigLogger
+	public interface IProcessConfigLogger : IGeneralLogger
 	{
-		void OpenLogStream (string testName);
-
-		void CloseLogStream ();
-
 		void LogConceptsInModels (IDictionary<uint, IPayrollArticle> articles, IDictionary<uint, IPayrollConcept> concepts, string testName);
 
 		void LogListArticlesUnderArticle(IPayrollArticle article, IPayrollArticle[] articles, string testName);
@@ -25,8 +22,6 @@ namespace PayrolleeMate.ProcessConfig.Interfaces.Loggers
 		void LogPendingArticles (IPayrollArticle article, SymbolName[] callings, IPayrollArticle[] articles, string testName);
 
 		void LogRelatedArticles (IPayrollArticle article, IPayrollArticle[] articles, string testName);
-
-		void LogAppendMessageInfo (string message, string testName);
 	}
 }
 

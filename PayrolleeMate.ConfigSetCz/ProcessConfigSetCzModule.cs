@@ -14,9 +14,9 @@ namespace PayrolleeMate.ProcessConfigSetCz
 	{
 		public static IProcessConfig CreateModule(IProcessConfigLogger logger)
 		{
-			IProcessConfig config = new ProcessConfigSetCzModule (logger);
+			IProcessConfig module = new ProcessConfigSetCzModule (logger);
 
-			return config;
+			return module;
 		}
 
 		private ProcessConfigSetCzModule (IProcessConfigLogger logger) : base(logger)

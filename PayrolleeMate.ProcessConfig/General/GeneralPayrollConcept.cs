@@ -66,6 +66,11 @@ namespace PayrolleeMate.ProcessConfig.General
 			return __resultValues;
 		}
 
+		public IBookParty[] GetTargetParties (IBookParty[] contracts, IBookParty[] positions)
+		{
+			return new IBookParty[0];
+		}
+
 		public virtual IResultStream CallEvaluate(IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results)
 		{
 			if (__evaluate != null)

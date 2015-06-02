@@ -10,9 +10,11 @@ namespace PayrolleeMate.EngineService
 {
 	public class EngineServiceModule : IEngineService
 	{
-		public static IEngineService CreateEngine()
+		public static IEngineService CreateModule()
 		{
-			return new EngineServiceModule ();
+			IEngineService module = new EngineServiceModule ();
+
+			return module;
 		}
 
 		private EngineServiceModule ()
