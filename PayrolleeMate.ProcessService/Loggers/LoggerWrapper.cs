@@ -1,5 +1,6 @@
 ﻿using System;
 using PayrolleeMate.ProcessService.Interfaces.Loggers;
+using PayrolleeMate.ProcessService.Interfaces;
 
 namespace PayrolleeMate.ProcessService.Logers
 {
@@ -18,6 +19,14 @@ namespace PayrolleeMate.ProcessService.Logers
 			if (logger != null) 
 			{
 				logger.CloseLogStream ();
+			}
+		}
+
+		public static void LogEvaluationStream (IProcessServiceLogger logger, ITargetStream targets, string testName)
+		{
+			if (logger != null) 
+			{
+				logger.LogEvaluationStream (targets, testName);
 			}
 		}
 

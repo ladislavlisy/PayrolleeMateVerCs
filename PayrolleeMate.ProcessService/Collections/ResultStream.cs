@@ -6,7 +6,7 @@ namespace PayrolleeMate.ProcessService
 {
 	public class ResultStream : IResultStream
 	{
-		public static IResultStream CreateStream()
+		public static IResultStream CreateEmptyStream()
 		{
 			var results = new Dictionary<IBookIndex, IBookResult>();
 

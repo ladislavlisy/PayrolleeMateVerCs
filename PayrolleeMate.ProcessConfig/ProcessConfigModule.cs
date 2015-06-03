@@ -68,10 +68,11 @@ namespace PayrolleeMate.ProcessConfig
 		}
 
 		public IPayrollConcept ConfigureConcept (SymbolName concept, 
-			string targetValues, string resultValues, GeneralPayrollConcept.EvaluateDelegate evaluate)
+			bool contractNode, bool positionNode, string targetValues, string resultValues, 
+			GeneralPayrollConcept.EvaluateDelegate evaluate)
 		{
 			return ConceptsCollection.ConfigureConcept (
-				concept, targetValues, resultValues, evaluate);
+				concept, contractNode, positionNode, targetValues, resultValues, evaluate);
 		}
 
 		public abstract void InitArticles ();

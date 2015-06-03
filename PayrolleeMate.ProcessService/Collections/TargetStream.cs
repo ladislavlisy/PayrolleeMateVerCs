@@ -147,7 +147,68 @@ namespace PayrolleeMate.ProcessService.Collections
 			}
 		}
 
-		public static ITargetStream CreateStream()
+		public static class TargetStreamBuilder
+		{
+			public static IDictionary<IBookIndex, IBookTarget> BuildStreamCopy(IDictionary<IBookIndex, IBookTarget> targets)
+			{
+				var targetsCopy = targets.ToDictionary(key => key.Key, val => val.Value);
+
+				return targetsCopy;
+			}
+
+			public static IPayrollArticle[] BuildArticleStream (IDictionary<IBookIndex, IBookTarget> targets)
+			{
+				var initialStream = new IPayrollArticle[0];
+
+				var articleStream = targets.Aggregate(initialStream,
+					(agr, targetPair) => ConcatArticles(agr, targetPair.Value).ToArray());
+
+				var articleUnique = articleStream.Distinct().ToArray();
+
+				return articleUnique;
+			}
+
+			private static IPayrollArticle[] ConcatArticles(IPayrollArticle[] initialStream, IBookTarget target)
+			{
+				var relatedStream = target.Article().RelatedArticles();
+
+				if (relatedStream == null)
+				{
+					return initialStream.ToArray();
+				}
+				return initialStream.Concat(relatedStream).ToArray();
+			}
+
+			public static IDictionary<IBookIndex, IBookTarget> BuildEvaluationStream (IDictionary<IBookIndex, IBookTarget> initialStream, 
+				IBookParty[] contracts, IBookParty[] positions, IPayrollArticle article, IProcessConfig configModule)
+			{
+				ITargetValues emptyValues = null;
+
+				IPayrollConcept concept = configModule.FindConcept (article.ConceptCode ());
+
+				IBookParty[] parties = concept.GetTargetParties(BookIndex.GetEmpty(), contracts, positions);
+
+				var targets = parties.Aggregate(initialStream,
+					(agr, party) => BuildArticleTarget(initialStream, party, article, emptyValues, configModule));
+
+				return targets;
+			}
+
+			private static IDictionary<IBookIndex, IBookTarget>  BuildArticleTarget(
+				IDictionary<IBookIndex, IBookTarget> initialStream, IBookParty addParty, IPayrollArticle article,
+				ITargetValues addValues, IProcessConfig configModule)
+			{
+				var results = TargetsTupleComposer.AddTargetBySymbol(initialStream,
+					addParty, article.ArticleSymbol(), addValues, configModule);
+
+				var targets = results.Item2;
+
+				return targets;
+			}
+
+		}
+
+		public static ITargetStream CreateEmptyStream()
 		{
 			var targets = new Dictionary<IBookIndex, IBookTarget>();
 
@@ -158,7 +219,7 @@ namespace PayrolleeMate.ProcessService.Collections
 			return new TargetStream(targets, lastParty, lastIndex);
 		}
 
-		public TargetStream(IDictionary<IBookIndex, IBookTarget> targets, IBookParty lastParty, IBookIndex lastIndex)
+		private TargetStream(IDictionary<IBookIndex, IBookTarget> targets, IBookParty lastParty, IBookIndex lastIndex)
 		{
 			this.__targets = targets;
 
@@ -167,7 +228,7 @@ namespace PayrolleeMate.ProcessService.Collections
 			this.__lastIndex = lastIndex;
 		}
 
-		public ITargetStream AddNewContractTarget(SymbolName article, ITargetValues values, IProcessConfig config)
+		public ITargetStream AddNewContractsTarget(SymbolName article, ITargetValues values, IProcessConfig config)
 		{
 			var addParty = LastParty().GetNonContractParty();
 
@@ -183,7 +244,7 @@ namespace PayrolleeMate.ProcessService.Collections
 			return new TargetStream(nextFacts, nextParty, nextIndex);
 		}
 
-		public ITargetStream AddNewPositionTarget(SymbolName article, ITargetValues values, IProcessConfig config)
+		public ITargetStream AddNewPositionsTarget(SymbolName article, ITargetValues values, IProcessConfig config)
 		{
 			var addParty = LastParty().GetNonPositionParty();
 
@@ -231,7 +292,7 @@ namespace PayrolleeMate.ProcessService.Collections
 			return new TargetStream(nextFacts, nextParty, nextIndex);
 		}
 
-		public ITargetStream AddTargetIntoGeneral(SymbolName article, ITargetValues values, IProcessConfig config)
+		public ITargetStream AddTargetIntoSumLevel(SymbolName article, ITargetValues values, IProcessConfig config)
 		{
 			var addParty = LastParty().GetNonContractParty();
 
@@ -245,6 +306,26 @@ namespace PayrolleeMate.ProcessService.Collections
 			var nextParty = nextIndex.GetParty();
 
 			return new TargetStream(nextFacts, nextParty, nextIndex);
+		}
+
+		public ITargetStream CreateEvaluationStream (IProcessConfig configModule)
+		{
+			IBookParty[] contracts = CollectPartiesForContracts ();
+
+			IBookParty[] positions = CollectPartiesForPositions ();
+
+			var targetsInit = TargetStreamBuilder.BuildStreamCopy (__targets);
+
+			var articleList = TargetStreamBuilder.BuildArticleStream (__targets);
+
+			var targetsEval = articleList.Aggregate(targetsInit,
+				(agr, article) => TargetStreamBuilder.BuildEvaluationStream(agr, contracts, positions, article, configModule));
+
+			var lastParty = BookParty.GetEmpty();
+
+			var lastIndex = BookIndex.GetEmpty();
+
+			return new TargetStream(targetsEval, lastParty, lastIndex);
 		}
 
 		private IDictionary<IBookIndex, IBookTarget> __targets = null;
@@ -270,94 +351,30 @@ namespace PayrolleeMate.ProcessService.Collections
 			return __lastIndex; 
 		}
 
-		public IBookParty[] CollectPartiesForContracts ()
-		{
-			var initaialParties = EMPTY_PARTY_LIST;
-
-			var contractParties = __targets.Aggregate(initaialParties,
-				(agr, factorPair) => GetContractParties(agr, factorPair.Key, factorPair.Value).ToArray());
-			return contractParties;
-		}
-
-		public IBookParty[] CollectPartiesForPositions ()
-		{
-			var initaialParties = EMPTY_PARTY_LIST;
-
-			var contractParties = __targets.Aggregate(initaialParties,
-				(agr, factorPair) => GetPositionParties(agr, factorPair.Key, factorPair.Value).ToArray());
-			return contractParties;
-		}
-
-		public ITargetStream CreateStreamCopy()
-		{
-			var targets = Targets().ToDictionary(key => key.Key, val => val.Value);
-
-			var lastParty = BookParty.GetEmpty();
-
-			var lastIndex = BookIndex.GetEmpty();
-
-			return new TargetStream(targets, lastParty, lastIndex);
-		}
-
-		public IPayrollArticle[] BookTargetToEvaluate ()
-		{
-			var initaialToEvaluate = new IPayrollArticle[0];
-
-			var articlesToEvaluate = __targets.Aggregate(initaialToEvaluate,
-				(agr, targetPair) => TargetsToEvaluate(agr, targetPair.Value).ToArray());
-
-			var uniquelyToEvaluate = articlesToEvaluate.Distinct().ToArray();
-
-			return uniquelyToEvaluate;
-		}
-
-		public ITargetStream MergeRealtedArticle (IBookParty[] contractParties, IBookParty[] positionParties, IPayrollArticle article, IProcessConfig configModule)
-		{
-			ITargetValues emptyValues = null;
-
-			IPayrollConcept targetConcept = configModule.FindConcept (article.ConceptCode ());
-
-			IBookParty[] targetParties = targetConcept.GetTargetParties(contractParties, positionParties);
-
-			var targets = targetParties.Aggregate(Targets(),
-				(agr, party) => BuildArticleTarget(Targets(), party, article, emptyValues, configModule));
-
-			var lastParty = BookParty.GetEmpty();
-
-			var lastIndex = BookIndex.GetEmpty();
-
-			return new TargetStream(targets, lastParty, lastIndex);
-		}
-
 		#endregion
 
 
-		private static IDictionary<IBookIndex, IBookTarget>  BuildArticleTarget(
-			IDictionary<IBookIndex, IBookTarget> targets, IBookParty addParty, IPayrollArticle article,
-			ITargetValues targetValues, IProcessConfig configModule)
+		private IBookParty[] CollectPartiesForContracts ()
 		{
-			var targetTuple = TargetsTupleComposer.AddTargetBySymbol(targets,
-				addParty, article.ArticleSymbol(), targetValues, configModule);
+			var initaialParties = EMPTY_PARTY_LIST;
 
-			var targetToken = targetTuple.Item2;
-
-			return targetToken;
+			var contractParties = __targets.Aggregate(initaialParties,
+				(agr, factorPair) => GetContractParties(agr, factorPair.Value).ToArray());
+			return contractParties;
 		}
 
-		private static IPayrollArticle[] TargetsToEvaluate(IPayrollArticle[] targetsEvaluate, IBookTarget target)
+		private IBookParty[] CollectPartiesForPositions ()
 		{
-			var relatedList = target.Article().RelatedArticles();
+			var initaialParties = EMPTY_PARTY_LIST;
 
-			if (relatedList == null)
-			{
-				return targetsEvaluate.ToArray();
-			}
-			return targetsEvaluate.Concat(relatedList).ToArray();
+			var contractParties = __targets.Aggregate(initaialParties,
+				(agr, factorPair) => GetPositionParties(agr, factorPair.Value).ToArray());
+			return contractParties;
 		}
 
-		private static IBookParty[] GetContractParties(IBookParty[] contractParties, IBookIndex targetIndex, IBookTarget targetToken)
+		private static IBookParty[] GetContractParties(IBookParty[] contractParties, IBookTarget targetToken)
 		{
-			IBookParty contractParty = targetToken.GetContractParty(targetIndex);
+			IBookParty contractParty = targetToken.GetContractParty();
 
 			if (contractParty == null)
 			{
@@ -369,9 +386,9 @@ namespace PayrolleeMate.ProcessService.Collections
 		}
 
 
-		private static IBookParty[] GetPositionParties(IBookParty[] positionParties, IBookIndex targetIndex, IBookTarget targetToken)
+		private static IBookParty[] GetPositionParties(IBookParty[] positionParties, IBookTarget targetToken)
 		{
-			IBookParty posotionParty = targetToken.GetPositionParty(targetIndex);
+			IBookParty posotionParty = targetToken.GetPositionParty();
 
 			if (posotionParty == null)
 			{

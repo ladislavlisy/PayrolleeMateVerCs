@@ -13,18 +13,22 @@ namespace PayrolleeMate.ProcessConfig.General
 
 		public static readonly char[] VALUES_SEPARATOR = { ',' };
 
-		public static IPayrollConcept CreateConcept (SymbolName concept, 
+		public static IPayrollConcept CreateConcept (SymbolName concept, bool contractNode, bool positionNode,
 			string targetValues, string resultValues, EvaluateDelegate evaluate)
 		{
 			IPayrollConcept conceptInstance = new GeneralPayrollConcept (concept, 
-				targetValues, resultValues, evaluate);
+				contractNode, positionNode,	targetValues, resultValues, evaluate);
 
 			return conceptInstance;
 		}
 
-		public GeneralPayrollConcept (SymbolName concept, 
+		public GeneralPayrollConcept (SymbolName concept, bool contractNode, bool positionNode,
 			string targetValues, string resultValues, EvaluateDelegate evaluate) : base(concept.Code, concept.Name)
 		{
+			__contractNode = contractNode;
+
+			__positionNode = positionNode;
+
 			__targetValues = targetValues.Split(VALUES_SEPARATOR);
 
 			__resultValues = resultValues.Split(VALUES_SEPARATOR);
@@ -38,6 +42,10 @@ namespace PayrolleeMate.ProcessConfig.General
 		private string[] __resultValues;
 
 		private EvaluateDelegate __evaluate = null;
+
+		private bool __contractNode = false;
+
+		private bool __positionNode = false;
 
 		#region IPayrollConcept implementation
 
@@ -66,9 +74,33 @@ namespace PayrolleeMate.ProcessConfig.General
 			return __resultValues;
 		}
 
-		public IBookParty[] GetTargetParties (IBookParty[] contracts, IBookParty[] positions)
+		public IBookParty GetContractParty (IBookIndex element)
 		{
-			return new IBookParty[0];
+			if (__contractNode == true) 
+			{
+				return element.GetNewContractParty (element.CodeOrder ());
+			}
+			else 
+			{
+				return null;
+			}
+		}
+
+		public IBookParty GetPositionParty (IBookIndex element)
+		{
+			if (__positionNode == true) 
+			{
+				return element.GetNewPositionParty (element.CodeOrder ());
+			}
+			else 
+			{
+				return null;
+			}
+		}
+
+		public IBookParty[] GetTargetParties (IBookIndex emptyNode, IBookParty[] contracts, IBookParty[] positions)
+		{
+			return new IBookParty[] { emptyNode.GetNonContractParty() };
 		}
 
 		public virtual IResultStream CallEvaluate(IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results)

@@ -2,6 +2,7 @@
 using PayrolleeMate.ProcessService.Interfaces;
 using PayrolleeMate.ProcessService.Interfaces.Loggers;
 using PayrolleeMate.ProcessConfig.Interfaces;
+using PayrolleeMate.ProcessService.Logers;
 
 namespace PayrolleeMate.ProcessService
 {
@@ -33,26 +34,17 @@ namespace PayrolleeMate.ProcessService
 
 		public IResultStream EvaluateTargetsToResults ()
 		{
-			var results = ResultStream.CreateStream ();
+			var results = ResultStream.CreateEmptyStream ();
 
-			IBookParty[] contractParties = Targets.CollectPartiesForContracts ();
+			var targets = Targets.CreateEvaluationStream (ConfigModule);
 
-			IBookParty[] positionParties = Targets.CollectPartiesForPositions ();
-
-			ITargetStream evalCollection = CreateCalculationStream (Targets, contractParties, positionParties, ConfigModule);
+			LoggerWrapper.LogEvaluationStream (Logger, targets, "EvaluateTargets");
 
 			return results;
 		}
 
 		#endregion
 		
-		private ITargetStream CreateCalculationStream (ITargetStream targets, IBookParty[] contractParties, IBookParty[] positionParties, IProcessConfig configModule)
-		{
-			ITargetStream calculationStream = ProcessStreamBuilder.BuildCalculationStream (targets, contractParties, positionParties, configModule);
-
-			return calculationStream;
-		}
-
 	}
 }
 

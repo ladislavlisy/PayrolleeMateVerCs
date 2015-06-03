@@ -22,6 +22,10 @@ namespace Tests.ProcessConfig.Logers
 		{
 		}
 
+		public void LogAppendMessageInfo (string message, string testName)
+		{
+		}
+
 		public void LogConceptsInModels (IDictionary<uint, IPayrollArticle> articles, IDictionary<uint, IPayrollConcept> concepts, string testName)
 		{
 		}
@@ -47,10 +51,6 @@ namespace Tests.ProcessConfig.Logers
 		}
 
 		public void LogRelatedArticles (IPayrollArticle article, IPayrollArticle[] articles, string testName)
-		{
-		}
-
-		public void LogAppendMessageInfo (string message, string testName)
 		{
 		}
 

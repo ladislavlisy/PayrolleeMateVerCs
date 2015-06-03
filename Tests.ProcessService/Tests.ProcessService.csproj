@@ -40,6 +40,8 @@
     <Folder Include="BookIndex\" />
     <Folder Include="BookParty\" />
     <Folder Include="TargetStream\" />
+    <Folder Include="Module\" />
+    <Folder Include="Loggers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookIndex\TestBookIndexEquality.cs" />
@@ -54,6 +56,9 @@
     <Compile Include="BookParty\TestBookPartyCompareVersion4.cs" />
     <Compile Include="TargetStream\TestBookIndexBuilderDefault.cs" />
     <Compile Include="TargetStream\TestBookIndexBuilderFirst.cs" />
+    <Compile Include="Module\TestEvaluateLogger.cs" />
+    <Compile Include="Loggers\TestTargetsLogger.cs" />
+    <Compile Include="Loggers\TestEmptyLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PayrolleeMate.ProcessService\PayrolleeMate.ProcessService.csproj">
@@ -63,6 +68,22 @@
     <ProjectReference Include="..\PayrolleeMate.Interfaces\PayrolleeMate.Interfaces.csproj">
       <Project>{9CFB5FE8-EE1B-4AD0-88D7-31F012FD78E3}</Project>
       <Name>PayrolleeMate.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PayrolleeMate.ConfigSetCz\PayrolleeMate.ProcessConfigSetCz.csproj">
+      <Project>{8F4198AC-173B-4371-B547-EF1E0B6C9C79}</Project>
+      <Name>PayrolleeMate.ProcessConfigSetCz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">
+      <Project>{075817F0-6776-46E6-BF92-C5D0D5E16756}</Project>
+      <Name>PayrolleeMate.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PayrolleeMate.ProcessConfig\PayrolleeMate.ProcessConfig.csproj">
+      <Project>{F91E4B02-352C-41F2-AAFF-E3B956EB8805}</Project>
+      <Name>PayrolleeMate.ProcessConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PayrolleeMate.EngineService\PayrolleeMate.EngineService.csproj">
+      <Project>{39AD919F-8AC7-4FE3-8B15-534D42018C7B}</Project>
+      <Name>PayrolleeMate.EngineService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

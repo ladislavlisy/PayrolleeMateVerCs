@@ -4,7 +4,7 @@ using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessService.Collections;
 using System.Linq;
 
-namespace PayrolleeMate.ProcessService
+namespace PayrolleeMate.ProcessService.Builders
 {
 	public static class ProcessStreamBuilder
 	{

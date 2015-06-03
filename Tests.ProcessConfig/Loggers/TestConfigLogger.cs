@@ -61,7 +61,7 @@ namespace Tests.ProcessConfig.Logers
 			logStream.Close ();
 		}
 
-		#region IProcessConfigLogger implementation
+		#region IGeneralLogger implementation
 
 		public void OpenLogStream (string testName)
 		{
@@ -103,6 +103,10 @@ namespace Tests.ProcessConfig.Logers
 				logWriter.WriteLine (message);
 			}
 		}
+			
+		#endregion
+
+		#region IProcessConfigLogger implementation
 
 		public void LogConceptsInModels (IDictionary<uint, IPayrollArticle> articles, IDictionary<uint, IPayrollConcept> concepts, string testName)
 		{

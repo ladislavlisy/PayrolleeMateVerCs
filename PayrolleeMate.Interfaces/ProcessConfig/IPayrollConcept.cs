@@ -15,7 +15,11 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 
 		string[] TargetValues();
 
-		IBookParty[] GetTargetParties(IBookParty[] contracts, IBookParty[] positions);
+		IBookParty GetContractParty (IBookIndex element);
+
+		IBookParty GetPositionParty (IBookIndex element);
+
+		IBookParty[] GetTargetParties(IBookIndex emptyNode, IBookParty[] contracts, IBookParty[] positions);
 
 		IResultStream CallEvaluate (IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results);
 	}

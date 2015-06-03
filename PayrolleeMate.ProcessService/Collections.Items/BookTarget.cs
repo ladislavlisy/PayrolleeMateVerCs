@@ -59,13 +59,13 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 		{
 			throw new NotImplementedException ();
 		}
-		public IBookParty GetContractParty (IBookIndex element)
+		public IBookParty GetContractParty ()
 		{
-			throw new NotImplementedException ();
+			return __concept.GetContractParty (__element);
 		}
-		public IBookParty GetPositionParty (IBookIndex element)
+		public IBookParty GetPositionParty ()
 		{
-			throw new NotImplementedException ();
+			return __concept.GetPositionParty (__element);
 		}
 		public IBookParty[] GetTargetParties (IBookParty[] contracts, IBookParty[] positions)
 		{
