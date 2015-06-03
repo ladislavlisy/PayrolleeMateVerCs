@@ -38,7 +38,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			{
 				var articleSortingList = BuildDependencyList (articleList, relatedDict);
 
-				Array.Sort (articleSortingList, ConceptDependencyComparer.CompareDependency);
+				Array.Sort (articleSortingList, ArticleDependencyComparer.CompareDependency);
 
 				IPayrollArticle[] articleSortoutList = articleSortingList.Select (x => (x.Item1)).ToArray ();
 

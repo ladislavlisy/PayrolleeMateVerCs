@@ -10,6 +10,8 @@ namespace PayrolleeMate.ProcessService.Interfaces
 
 		IPayrollArticle Article ();
 
+		IBookIndex Element ();
+
 		uint ArticleCode ();
 
 		void InitValues(ITargetValues values);
@@ -19,8 +21,6 @@ namespace PayrolleeMate.ProcessService.Interfaces
 		IBookParty GetContractParty();
 
 		IBookParty GetPositionParty();
-
-		IBookParty[] GetTargetParties(IBookParty[] contracts, IBookParty[] positions);
 	}
 }
 

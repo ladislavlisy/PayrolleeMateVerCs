@@ -43,11 +43,13 @@ namespace PayrolleeMate.ProcessConfig.Collections
 		}
 
 		public IPayrollConcept ConfigureConcept (SymbolName concept, 
-			bool contractNode, bool positionNode, string targetValues, string resultValues, 
+			bool nodeContract, bool nodePosition, bool qualContract, bool qualPosition,
+			string targetValues, string resultValues, 
 			GeneralPayrollConcept.EvaluateDelegate evaluate)
 		{
 			IPayrollConcept conceptInstance = GeneralPayrollConcept.CreateConcept (
-				concept, contractNode, positionNode, targetValues, resultValues, evaluate);
+				concept, nodeContract, nodePosition, qualContract, qualPosition,
+				targetValues, resultValues, evaluate);
 
 			return ConfigureModel (conceptInstance, concept.Code);
 		}

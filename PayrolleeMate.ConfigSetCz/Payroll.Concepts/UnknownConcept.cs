@@ -9,7 +9,7 @@ namespace PayrolleeMate.ProcessConfig.Payroll.Concepts
 {
 	public class UnknownConcept : GeneralPayrollConcept
 	{
-		public UnknownConcept () : base(ConceptSymbolName.REF_UNKNOWN, false, false, "", "", null)
+		public UnknownConcept () : base(ConceptSymbolName.REF_UNKNOWN, false, false, false, false, "", "", null)
 		{
 		}
 

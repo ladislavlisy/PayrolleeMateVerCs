@@ -9,6 +9,8 @@ using PayrolleeMate.ProcessConfigSetCz;
 using PayrolleeMate.ProcessConfig.Payroll.Articles;
 using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 using Tests.ProcessConfig.Logers;
+using PayrolleeMate.ProcessConfigSetCz.Constants;
+using PayrolleeMate.ProcessConfig.Comparers;
 
 namespace Tests.ProcessConfig.Collections
 {
@@ -41,6 +43,22 @@ namespace Tests.ProcessConfig.Collections
 			Assert.AreSame (typeof(UnknownArticle), testTypeOfArticle);
 
 			Assert.AreEqual (testArticle.ArticleCode(), testSpecName.Code);
+		}
+
+		[Test ()]
+		public void Should_Compare_AmountConcept_After_TSheetConcept ()
+		{
+			SymbolName testAmountName = ConfigSetCzArticleName.REF_SALARY_BASE;
+
+			SymbolName testTSheetName = ConfigSetCzArticleName.REF_TIMEHOURS_ABSENCE;
+
+			IPayrollArticle testAmountArticle = testConfig.FindArticle (testAmountName.Code);
+
+			IPayrollArticle testTSheetArticle = testConfig.FindArticle (testTSheetName.Code);
+
+			int compareResult = ArticleDependencyComparer.CompareArticles (testAmountArticle, testTSheetArticle);
+
+			Assert.IsTrue (compareResult > 0);
 		}
 	}
 }

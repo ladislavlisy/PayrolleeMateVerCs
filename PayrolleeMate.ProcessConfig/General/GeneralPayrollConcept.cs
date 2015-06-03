@@ -13,21 +13,27 @@ namespace PayrolleeMate.ProcessConfig.General
 
 		public static readonly char[] VALUES_SEPARATOR = { ',' };
 
-		public static IPayrollConcept CreateConcept (SymbolName concept, bool contractNode, bool positionNode,
+		public static IPayrollConcept CreateConcept (SymbolName concept, 
+			bool nodeContract, bool nodePosition, bool qualContract, bool qualPosition,
 			string targetValues, string resultValues, EvaluateDelegate evaluate)
 		{
 			IPayrollConcept conceptInstance = new GeneralPayrollConcept (concept, 
-				contractNode, positionNode,	targetValues, resultValues, evaluate);
+				nodeContract, nodePosition,	qualContract, qualPosition, targetValues, resultValues, evaluate);
 
 			return conceptInstance;
 		}
 
-		public GeneralPayrollConcept (SymbolName concept, bool contractNode, bool positionNode,
+		public GeneralPayrollConcept (SymbolName concept, 
+			bool nodeContract, bool nodePosition, bool qualContract, bool qualPosition,
 			string targetValues, string resultValues, EvaluateDelegate evaluate) : base(concept.Code, concept.Name)
 		{
-			__contractNode = contractNode;
+			__contractNode = nodeContract;
 
-			__positionNode = positionNode;
+			__positionNode = nodePosition;
+
+			__contractQual = qualContract;
+
+			__positionQual = qualPosition;
 
 			__targetValues = targetValues.Split(VALUES_SEPARATOR);
 
@@ -46,6 +52,10 @@ namespace PayrolleeMate.ProcessConfig.General
 		private bool __contractNode = false;
 
 		private bool __positionNode = false;
+
+		private bool __contractQual = false;
+
+		private bool __positionQual = false;
 
 		#region IPayrollConcept implementation
 
@@ -76,14 +86,11 @@ namespace PayrolleeMate.ProcessConfig.General
 
 		public IBookParty GetContractParty (IBookIndex element)
 		{
-			if (__contractNode == true) 
+			if (__positionNode == false && __contractNode == true) 
 			{
 				return element.GetNewContractParty (element.CodeOrder ());
 			}
-			else 
-			{
-				return null;
-			}
+			return null;
 		}
 
 		public IBookParty GetPositionParty (IBookIndex element)
@@ -92,15 +99,20 @@ namespace PayrolleeMate.ProcessConfig.General
 			{
 				return element.GetNewPositionParty (element.CodeOrder ());
 			}
-			else 
-			{
-				return null;
-			}
+			return null;
 		}
 
-		public IBookParty[] GetTargetParties (IBookIndex emptyNode, IBookParty[] contracts, IBookParty[] positions)
+		public IBookParty[] GetTargetParties (IBookParty emptyNode, IBookParty[] contracts, IBookParty[] positions)
 		{
-			return new IBookParty[] { emptyNode.GetNonContractParty() };
+			if (__positionQual == true) 
+			{
+				return positions;
+			}
+			if (__contractQual == true) 
+			{
+				return contracts;
+			}
+			return new IBookParty[] { emptyNode };
 		}
 
 		public virtual IResultStream CallEvaluate(IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results)

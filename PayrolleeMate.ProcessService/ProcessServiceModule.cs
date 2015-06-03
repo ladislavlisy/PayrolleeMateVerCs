@@ -3,6 +3,7 @@ using PayrolleeMate.ProcessService.Interfaces;
 using PayrolleeMate.ProcessService.Interfaces.Loggers;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessService.Logers;
+using System.Linq;
 
 namespace PayrolleeMate.ProcessService
 {
@@ -38,7 +39,13 @@ namespace PayrolleeMate.ProcessService
 
 			var targets = Targets.CreateEvaluationStream (ConfigModule);
 
+			var sortout = targets.Targets ().Select(x => x.Value).ToArray();
+
+			var sortval = sortout.OrderBy(x => x.Article()).ToArray();
+
 			LoggerWrapper.LogEvaluationStream (Logger, targets, "EvaluateTargets");
+
+			LoggerWrapper.LogEvaluationList (Logger, sortval, "EvaluateTargets");
 
 			return results;
 		}

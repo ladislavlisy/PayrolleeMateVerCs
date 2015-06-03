@@ -37,7 +37,7 @@ namespace Tests.ProcessService
 				AddNewContractsTarget(ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, emptyValues, testConfig).
 				AddNewPositionsTarget(ConfigSetCzArticleName.REF_POSITION_EMPL_TERM, emptyValues, testConfig).
 				AddTargetIntoPosition(ConfigSetCzArticleName.REF_SALARY_BASE, emptyValues, testConfig).
-				AddTargetIntoSumLevel(ConfigSetCzArticleName.REF_INCOME_GROSS, emptyValues, testConfig);
+				AddTargetIntoPosition(ConfigSetCzArticleName.REF_INCOME_GROSS, emptyValues, testConfig);
 
 			IProcessService testModule = ProcessServiceModule.CreateModule(targets, testConfig, serviceLog);
 

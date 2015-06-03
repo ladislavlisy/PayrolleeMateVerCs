@@ -67,11 +67,6 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 		{
 			return __concept.GetPositionParty (__element);
 		}
-		public IBookParty[] GetTargetParties (IBookParty[] contracts, IBookParty[] positions)
-		{
-			throw new NotImplementedException ();
-		}
-
 		#endregion
 	}
 

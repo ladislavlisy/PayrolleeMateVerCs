@@ -40,13 +40,13 @@
     <Compile Include="Collections\PayrollConceptCollection.cs" />
     <Compile Include="ProcessConfigModule.cs" />
     <Compile Include="Loggers\LoggerWrapper.cs" />
-    <Compile Include="Comparers\ConceptDependencyComparer.cs" />
     <Compile Include="Exceptions\EngineProcessCircleException.cs" />
     <Compile Include="Builders\ArticleSortoutBuilder.cs" />
     <Compile Include="Builders\ArticleCodeListBuilder.cs" />
     <Compile Include="Builders\ArticleObjectListBuilder.cs" />
     <Compile Include="Builders\ArticleListBuilder.cs" />
     <Compile Include="Builders\ArticleDependencyBuilder.cs" />
+    <Compile Include="Comparers\ArticleDependencyComparer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

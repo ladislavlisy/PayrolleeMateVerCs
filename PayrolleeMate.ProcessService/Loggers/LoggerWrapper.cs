@@ -30,6 +30,14 @@ namespace PayrolleeMate.ProcessService.Logers
 			}
 		}
 
+		public static void LogEvaluationList (IProcessServiceLogger logger, IBookTarget[] targets, string testName)
+		{
+			if (logger != null) 
+			{
+				logger.LogEvaluationList (targets, testName);
+			}
+		}
+
 		public static void LogAppendMessageInfo (IProcessServiceLogger logger, string message, string testName)
 		{
 			if (logger != null) 

@@ -81,7 +81,7 @@ namespace PayrolleeMate.ProcessService.Collections
 				IDictionary<IBookIndex, IBookTarget> targets, 
 				IBookParty party, SymbolName articleName, ITargetValues values, IProcessConfig config)
 			{
-				IBookIndex newIndex = TargetElementBuilder.BuildIndexWithDefault(targets.Keys, party, articleName.Code);
+				IBookIndex newIndex = TargetElementBuilder.BuildIndexWithFirst(targets.Keys, party, articleName.Code);
 
 				KeyValuePair<IBookIndex, IBookTarget> pairToMerge = TargetPairComposer
 					.ComposeTarget(party, articleName, newIndex, values, config);
@@ -186,7 +186,7 @@ namespace PayrolleeMate.ProcessService.Collections
 
 				IPayrollConcept concept = configModule.FindConcept (article.ConceptCode ());
 
-				IBookParty[] parties = concept.GetTargetParties(BookIndex.GetEmpty(), contracts, positions);
+				IBookParty[] parties = concept.GetTargetParties(BookParty.GetEmpty(), contracts, positions);
 
 				var targets = parties.Aggregate(initialStream,
 					(agr, party) => BuildArticleTarget(initialStream, party, article, emptyValues, configModule));
@@ -318,8 +318,11 @@ namespace PayrolleeMate.ProcessService.Collections
 
 			var articleList = TargetStreamBuilder.BuildArticleStream (__targets);
 
-			var targetsEval = articleList.Aggregate(targetsInit,
+			var targetsDict = articleList.Aggregate(targetsInit,
 				(agr, article) => TargetStreamBuilder.BuildEvaluationStream(agr, contracts, positions, article, configModule));
+
+			var targetsEval = targetsDict.OrderBy(x => x.Value.Article()).
+				ToDictionary(key => key.Key, val => val.Value);
 
 			var lastParty = BookParty.GetEmpty();
 

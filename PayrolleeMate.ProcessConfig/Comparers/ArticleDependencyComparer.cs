@@ -5,7 +5,7 @@ using PayrolleeMate.Common;
 
 namespace PayrolleeMate.ProcessConfig.Comparers
 {
-	public static class ConceptDependencyComparer
+	public static class ArticleDependencyComparer
 	{
 		public static int CompareDependency(Tuple<IPayrollArticle, IPayrollArticle[]> entryOne, Tuple<IPayrollArticle, IPayrollArticle[]> entryTwo)
 		{
@@ -13,21 +13,38 @@ namespace PayrolleeMate.ProcessConfig.Comparers
 
 			IPayrollArticle[] relatedOne = entryOne.Item2;
 
+			SymbolName[] summaryOne = articleOne.SummaryArticleNames ();
+
 			IPayrollArticle articleTwo = entryTwo.Item1;
 
 			IPayrollArticle[] relatedTwo = entryTwo.Item2;
 
-			return CompareConcepts (articleOne, relatedOne, articleTwo, relatedTwo);
+			SymbolName[] summaryTwo = articleTwo.SummaryArticleNames ();
+
+			return CompareArticlesDependency (articleOne, relatedOne, summaryOne, articleTwo, relatedTwo, summaryTwo);
 		}
 
-		private static int CompareConcepts(
-			IPayrollArticle articleOne, IPayrollArticle[] relatedOne,
-			IPayrollArticle articleTwo, IPayrollArticle[] relatedTwo)
+		public static int CompareArticles(IPayrollArticle entryOne, IPayrollArticle entryTwo)
 		{
+			IPayrollArticle articleOne = entryOne;
+
+			IPayrollArticle[] relatedOne = entryOne.RelatedArticles ();
+
 			SymbolName[] summaryOne = articleOne.SummaryArticleNames ();
+
+			IPayrollArticle articleTwo = entryTwo;
+
+			IPayrollArticle[] relatedTwo = entryTwo.RelatedArticles ();
 
 			SymbolName[] summaryTwo = articleTwo.SummaryArticleNames ();
 
+			return CompareArticlesDependency (articleOne, relatedOne, summaryOne, articleTwo, relatedTwo, summaryTwo);
+		}
+
+		private static int CompareArticlesDependency(
+			IPayrollArticle articleOne, IPayrollArticle[] relatedOne, SymbolName[] summaryOne,
+			IPayrollArticle articleTwo, IPayrollArticle[] relatedTwo, SymbolName[] summaryTwo)
+		{
 			if (articleOne.Category() != articleTwo.Category())
 			{
 				int compareResult = articleOne.Category().CompareTo(articleTwo.Category());

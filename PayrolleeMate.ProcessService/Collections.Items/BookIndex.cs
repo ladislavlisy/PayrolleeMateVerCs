@@ -95,6 +95,15 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 
 			return result;
 		}
+
+		public override string ToString()
+		{
+			return "<<" +
+				":CON:" + this.ContractOrder().ToString() + 
+				":POS:" + this.PositionOrder().ToString() + 
+				":ORD:" + this.CodeOrder().ToString() + 
+				">>";
+		}
 	}
 }
 

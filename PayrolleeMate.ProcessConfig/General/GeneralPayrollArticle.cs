@@ -2,10 +2,11 @@
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig.Constants;
+using PayrolleeMate.ProcessConfig.Comparers;
 
 namespace PayrolleeMate.ProcessConfig.General
 {
-	public class GeneralPayrollArticle : SymbolName, IPayrollArticle
+	public class GeneralPayrollArticle : SymbolName, IPayrollArticle, IComparable<IPayrollArticle>
 	{
 		public static readonly SymbolName[] EMPTY_ARTICLE_NAMES = {};
 
@@ -187,6 +188,11 @@ namespace PayrolleeMate.ProcessConfig.General
 			{
 				this.__relatedArticles = (IPayrollArticle[])articles.Clone();
 			}
+		}
+
+		public int CompareTo(IPayrollArticle articleOther)
+		{
+			return ArticleDependencyComparer.CompareArticles(this, articleOther);
 		}
 
 		#endregion

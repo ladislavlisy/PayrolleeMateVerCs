@@ -81,7 +81,25 @@ namespace Tests.ProcessService.Loggers
 			{
 				string lineDefinition = "\n--- begin ---";
 
-				lineDefinition += TargetStreamLogger.LogTargetListInfo (targets.Targets ());
+				lineDefinition += TargetStreamLogger.LogTargetStreamInfo (targets.Targets ());
+
+				if (lineDefinition.Length > 0) 
+				{
+					logWriter.WriteLine (lineDefinition);
+				}
+				logWriter.WriteLine ("--- end ---");
+			}
+		}
+
+		public void LogEvaluationList (IBookTarget[] targets, string testName)
+		{
+			OpenLogStream (testName);
+
+			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
+			{
+				string lineDefinition = "\n--- begin ---";
+
+				lineDefinition += TargetStreamLogger.LogTargetListInfo (targets);
 
 				if (lineDefinition.Length > 0) 
 				{
@@ -95,7 +113,7 @@ namespace Tests.ProcessService.Loggers
 
 		private static class TargetStreamLogger
 		{
-			public static string LogTargetListInfo(IDictionary<IBookIndex, IBookTarget> targets)
+			public static string LogTargetStreamInfo(IDictionary<IBookIndex, IBookTarget> targets)
 			{
 				string lineDefinition = "";
 
@@ -105,7 +123,7 @@ namespace Tests.ProcessService.Loggers
 
 				foreach (var target in targets)
 				{
-					lineDefinition += LogArticleInfo (target.Value.Article ());
+					lineDefinition += LogArticleInfo (target.Value);
 				}
 				lineDefinition += "\n";
 
@@ -114,9 +132,33 @@ namespace Tests.ProcessService.Loggers
 				return lineDefinition;
 			}
 
-			public static string LogArticleInfo(IPayrollArticle article)
+			public static string LogTargetListInfo(IBookTarget[] targets)
 			{
-				string lineDefinition = string.Format("\n--- {0} - {1} - {2}", article.ArticleName(), article.ConceptName(), article.ArticleCode());
+				string lineDefinition = "";
+
+				lineDefinition += "\n";
+
+				lineDefinition += "----------------------------";
+
+				foreach (var target in targets)
+				{
+					lineDefinition += LogArticleInfo (target);
+				}
+				lineDefinition += "\n";
+
+				lineDefinition += "----------------------------";
+
+				return lineDefinition;
+			}
+
+			public static string LogArticleInfo(IBookTarget target)
+			{
+				IPayrollArticle article = target.Article ();
+
+				IBookIndex element = target.Element ();
+
+				string lineDefinition = string.Format("\n--- {0} - {1} - {2} - {3}", 
+					article.ArticleName(), article.ConceptName(), article.ArticleCode(), element.ToString());
 
 				return lineDefinition;
 			}
