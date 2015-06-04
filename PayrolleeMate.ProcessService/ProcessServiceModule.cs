@@ -46,6 +46,8 @@ namespace PayrolleeMate.ProcessService
 
 			var results = targets.EvaluateToResultStream (ConfigModule, EngineModule);
 
+			LoggerWrapper.LogResultStream (Logger, results, "EvaluateTargets");
+
 			return results;
 		}
 

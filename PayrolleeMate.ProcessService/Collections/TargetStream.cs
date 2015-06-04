@@ -227,7 +227,7 @@ namespace PayrolleeMate.ProcessService.Collections
 			{
 				var targetResults = target.Evaluate(config, engine, resultStream);
 
-				var results = resultStream.BuildResultStream(targetResults.Results());
+				var results = resultStream.AggregateResultList(targetResults);
 
 				return results;
 			}

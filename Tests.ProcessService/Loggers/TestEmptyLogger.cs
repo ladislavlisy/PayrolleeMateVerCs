@@ -35,6 +35,10 @@ namespace Tests.ProcessService.Loggers
 		public void LogEvaluationList (IBookTarget[] targets, string testName)
 		{
 		}
+			
+		public void LogResultStream (IResultStream results, string testName)
+		{
+		}
 
 		#endregion
 

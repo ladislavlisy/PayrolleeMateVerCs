@@ -109,6 +109,24 @@ namespace Tests.ProcessService.Loggers
 			}
 		}
 
+		public void LogResultStream (IResultStream results, string testName)
+		{
+			OpenLogStream (testName);
+
+			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
+			{
+				string lineDefinition = "\n--- begin ---";
+
+				lineDefinition += ResultStreamLogger.LogResultStreamInfo (results.Results ());
+
+				if (lineDefinition.Length > 0) 
+				{
+					logWriter.WriteLine (lineDefinition);
+				}
+				logWriter.WriteLine ("--- end ---");
+			}
+		}
+
 		#endregion
 
 		private static class TargetStreamLogger
@@ -156,6 +174,41 @@ namespace Tests.ProcessService.Loggers
 				IPayrollArticle article = target.Article ();
 
 				IBookIndex element = target.Element ();
+
+				string lineDefinition = string.Format("\n--- {0} - {1} - {2} - {3}", 
+					article.ArticleName(), article.ConceptName(), article.ArticleCode(), element.ToString());
+
+				return lineDefinition;
+			}
+
+		}
+
+		private static class ResultStreamLogger
+		{
+			public static string LogResultStreamInfo(IDictionary<IBookIndex, IBookResult> results)
+			{
+				string lineDefinition = "";
+
+				lineDefinition += "\n";
+
+				lineDefinition += "----------------------------";
+
+				foreach (var result in results)
+				{
+					lineDefinition += LogArticleInfo (result.Value);
+				}
+				lineDefinition += "\n";
+
+				lineDefinition += "----------------------------";
+
+				return lineDefinition;
+			}
+
+			public static string LogArticleInfo(IBookResult result)
+			{
+				IPayrollArticle article = result.Article ();
+
+				IBookIndex element = result.Element ();
 
 				string lineDefinition = string.Format("\n--- {0} - {1} - {2} - {3}", 
 					article.ArticleName(), article.ConceptName(), article.ArticleCode(), element.ToString());

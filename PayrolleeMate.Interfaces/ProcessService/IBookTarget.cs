@@ -16,7 +16,7 @@ namespace PayrolleeMate.ProcessService.Interfaces
 
 		void InitValues(ITargetValues values);
 
-		IResultStream Evaluate(IProcessConfig config, IEngineProfile engine, IResultStream results);
+		IBookResult[] Evaluate(IProcessConfig config, IEngineProfile engine, IResultStream results);
 
 		IBookParty GetContractParty();
 

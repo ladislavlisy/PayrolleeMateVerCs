@@ -7,7 +7,7 @@ namespace PayrolleeMate.Common.Interfaces
 {
 	public static class GeneralModule
 	{
-		public delegate IResultStream EvaluateDelegate (IProcessConfig config, IEngineProfile engine, 
+		public delegate IBookResult[] EvaluateDelegate (IProcessConfig config, IEngineProfile engine, 
 			IPayrollArticle article, IBookIndex element, ITargetValues values, IResultStream results);
 	}
 }

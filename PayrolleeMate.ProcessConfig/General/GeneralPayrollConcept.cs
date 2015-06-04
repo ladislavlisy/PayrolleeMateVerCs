@@ -5,6 +5,7 @@ using PayrolleeMate.Common;
 using PayrolleeMate.ProcessService.Interfaces;
 using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Interfaces;
+using PayrolleeMate.ProcessService.Patterns;
 
 namespace PayrolleeMate.ProcessConfig.General
 {
@@ -114,14 +115,14 @@ namespace PayrolleeMate.ProcessConfig.General
 			return new IBookParty[] { emptyNode };
 		}
 
-		public virtual IResultStream CallEvaluate(IProcessConfig config, IEngineProfile engine, 
+		public virtual IBookResult[] CallEvaluate(IProcessConfig config, IEngineProfile engine, 
 			IPayrollArticle article, IBookIndex element, ITargetValues values, IResultStream results)
 		{
 			if (__evaluate != null)
 			{
 				return __evaluate (config, engine, article, element, values, results);
 			}
-			return results;
+			return BookResultBase.EMPTY_RESULT_LIST;
 		}
 		#endregion
 	}

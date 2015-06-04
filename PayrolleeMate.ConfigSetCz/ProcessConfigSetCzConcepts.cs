@@ -4,6 +4,7 @@ using PayrolleeMate.Common.Interfaces;
 using System.Collections.Generic;
 using PayrolleeMate.ProcessService.Interfaces;
 using PayrolleeMate.ProcessService.Patterns;
+using PayrolleeMate.ProcessConfigSetCz.Evaluations;
 
 namespace PayrolleeMate.ProcessConfigSetCz
 {
@@ -20,6 +21,8 @@ namespace PayrolleeMate.ProcessConfigSetCz
 		public const bool POSITION_QUALIFIED = true;
 
 		public const bool DEFAULTS_QUALIFIED = false;
+
+		private static GeneralModule.EvaluateDelegate DEFAULT_EVALUATION = ConfigSetCzEvaluations.CloneEvaluation;
 
 		public static void ConfigureConcepts(ProcessConfigSetCzModule module)
 		{
@@ -50,15 +53,6 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ConfigureRebateTaxisConcepts (module);
 		}
 
-		private static GeneralModule.EvaluateDelegate dummyEvaluation = (config, engine, article, element, values, results) => {
-
-			IBookResult result = new EmptyBookResult(article);
-
-			IDictionary<IBookIndex, IBookResult> defaultResults = new Dictionary<IBookIndex, IBookResult>() { {element, result} };
-
-			return results.BuildResultStream(defaultResults);
-		};
-			
 		private static void ConfigureContractTermConcepts (ProcessConfigSetCzModule module)
 		{
 			module.ConfigureConcept(
@@ -67,14 +61,14 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				dummyEvaluation); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_POSITION_EMPL_TERM, 
 				DEFAULTS_CONCEPT, POSITION_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigurePositionTimeConcepts (ProcessConfigSetCzModule module)
@@ -85,42 +79,42 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TIMESHEET_SCHEDULE, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TIMESHEET_WORKING, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TIMESHEET_ABSENCE, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TIMEHOURS_WORKING, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TIMEHOURS_ABSENCE, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureGrossIncomeConcepts (ProcessConfigSetCzModule module)
@@ -131,7 +125,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureTotalIncomeConcepts (ProcessConfigSetCzModule module)
@@ -142,14 +136,14 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_INCOME_NETTO, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureNettoDeductsConcepts (ProcessConfigSetCzModule module)
@@ -160,63 +154,63 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_GENERAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_SOLIDARY, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_WITHHOLD_GENERAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_HEALTH_EMPLOYEE_GENERAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_HEALTH_EMPLOYEE_MANDATORY, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_SOCIAL_EMPLOYEE_GENERAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_SOCIAL_EMPLOYEE_PENSION, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_GARANT_EMPLOYEE_PENSION, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureBasisHealthConcepts (ProcessConfigSetCzModule module)
@@ -227,35 +221,35 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_HEALTH_INCOME_PARTICIP, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_HEALTH_BASIS_GENERAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_HEALTH_BASIS_MANDATORY, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_HEALTH_BASIS_LEGALCAP, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureBasisSocialConcepts (ProcessConfigSetCzModule module)
@@ -266,35 +260,35 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_SOCIAL_INCOME_PARTICIP, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_SOCIAL_BASIS_GENERAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_SOCIAL_BASIS_PENSION, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_SOCIAL_BASIS_LEGALCAP, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureBasisGarantConcepts (ProcessConfigSetCzModule module)
@@ -305,28 +299,28 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_GARANT_INCOME_PARTICIP, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_GARANT_BASIS_PENSION, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_GARANT_BASIS_LEGALCAP, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureBasisTaxingConcepts (ProcessConfigSetCzModule module)
@@ -337,21 +331,21 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept (
 				ConfigSetCzConceptName.REF_TAXING_INCOME_HEALTH, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept (
 				ConfigSetCzConceptName.REF_TAXING_INCOME_SOCIAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureBasisAdvancesConcepts (ProcessConfigSetCzModule module)
@@ -362,35 +356,35 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept (
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_HEALTH, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept (
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_SOCIAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept (
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_BASIS_GENERAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept (
 				ConfigSetCzConceptName.REF_TAXING_ADVANCES_BASIS_SOLIDARY, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureBasisWithholdConcepts (ProcessConfigSetCzModule module)
@@ -401,28 +395,28 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_WITHHOLD_HEALTH, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_WITHHOLD_SOCIAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_WITHHOLD_BASIS_GENERAL, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureAllowanceTaxisConcepts (ProcessConfigSetCzModule module)
@@ -433,28 +427,28 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_ALLOWANCE_DISABILITY, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_ALLOWANCE_STUDYING, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_ALLOWANCE_CHILD, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 
 		private static void ConfigureRebateTaxisConcepts (ProcessConfigSetCzModule module)
@@ -465,21 +459,21 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_REBATE_CHILD, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_TAXING_BONUS_CHILD, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				DEFAULT_EVALUATION); 
 		}
 	}
 }

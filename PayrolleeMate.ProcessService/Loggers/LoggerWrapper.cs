@@ -38,6 +38,14 @@ namespace PayrolleeMate.ProcessService.Logers
 			}
 		}
 
+		public static void LogResultStream (IProcessServiceLogger logger, IResultStream results, string testName)
+		{
+			if (logger != null) 
+			{
+				logger.LogResultStream (results, testName);
+			}
+		}
+
 		public static void LogAppendMessageInfo (IProcessServiceLogger logger, string message, string testName)
 		{
 			if (logger != null) 

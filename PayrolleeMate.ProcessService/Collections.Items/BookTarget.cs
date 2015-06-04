@@ -58,7 +58,7 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 		{
 			throw new NotImplementedException ();
 		}
-		public IResultStream Evaluate (IProcessConfig config, IEngineProfile engine, IResultStream results)
+		public IBookResult[] Evaluate (IProcessConfig config, IEngineProfile engine, IResultStream results)
 		{
 			return __concept.CallEvaluate(config, engine, __article, __element, __values, results);
 		}

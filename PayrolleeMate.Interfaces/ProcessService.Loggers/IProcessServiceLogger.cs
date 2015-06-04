@@ -8,6 +8,8 @@ namespace PayrolleeMate.ProcessService.Interfaces.Loggers
 		void LogEvaluationStream (ITargetStream targets, string testName);
 
 		void LogEvaluationList (IBookTarget[] targets, string testName);
+
+		void LogResultStream (IResultStream results, string testName);
 	}
 }
 

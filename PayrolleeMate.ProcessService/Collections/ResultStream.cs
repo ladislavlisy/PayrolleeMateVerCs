@@ -15,7 +15,7 @@ namespace PayrolleeMate.ProcessService
 			return new ResultStream(results);
 		}
 
-		public ResultStream(IDictionary<IBookIndex, IBookResult> results)
+		private ResultStream(IDictionary<IBookIndex, IBookResult> results)
 		{
 			this.__results = results;
 		}
@@ -29,12 +29,12 @@ namespace PayrolleeMate.ProcessService
 			return __results;
 		}
 
-		public IResultStream BuildResultStream (IDictionary<IBookIndex, IBookResult> resultDict)
+		public IResultStream AggregateResultList (IBookResult[] resultList)
 		{
-			var results = __results.Union(resultDict, new BookIndexComparer()).
-					ToDictionary(key => key.Key, val => val.Value);
+			var results = resultList.Select(x => x).
+				ToDictionary(key => key.Element(), val => val);
 
-			return new ResultStream(results);
+			return BuildResultStream(results);
 		}
 
 		public IBookResult GetResultBy (uint articleCode)
@@ -43,6 +43,15 @@ namespace PayrolleeMate.ProcessService
 		}
 
 		#endregion
+
+		private IResultStream BuildResultStream (IDictionary<IBookIndex, IBookResult> resultDict)
+		{
+			var results = __results.Union(resultDict, new BookIndexComparer()).
+				ToDictionary(key => key.Key, val => val.Value);
+
+			return new ResultStream(results);
+		}
+
 	}
 }
 
