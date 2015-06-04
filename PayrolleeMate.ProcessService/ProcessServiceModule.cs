@@ -40,8 +40,6 @@ namespace PayrolleeMate.ProcessService
 
 		public IResultStream EvaluateTargetsToResults ()
 		{
-			//var results = ResultStream.CreateEmptyStream ();
-
 			var targets = Targets.CreateEvaluationStream (ConfigModule);
 
 			LoggerWrapper.LogEvaluationStream (Logger, targets, "EvaluateTargets");
