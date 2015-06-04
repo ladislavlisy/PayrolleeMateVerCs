@@ -19,10 +19,12 @@ namespace Tests.ProcessConfig.Collections
 	{
 		IProcessConfig testConfig = null;
 
+		IProcessConfigLogger logger = null;
+
 		[TestFixtureSetUp]
 		public void TestSetup()
 		{
-			IProcessConfigLogger logger = new TestConfigLogger ("TestArticleCollection");
+			logger = new TestConfigLogger ("TestArticleCollection");
 
 			testConfig = ProcessConfigSetCzModule.CreateModule(logger);
 
@@ -43,6 +45,16 @@ namespace Tests.ProcessConfig.Collections
 			Assert.AreSame (typeof(UnknownArticle), testTypeOfArticle);
 
 			Assert.AreEqual (testArticle.ArticleCode(), testSpecName.Code);
+		}
+
+		[Test ()]
+		public void Should_Return_SortedArticles_From_Models ()
+		{
+			var sortArticlesList = testConfig.ArticleList ();
+
+			Array.Sort (sortArticlesList, ArticleDependencyComparer.CompareArticles);
+
+			logger.LogArticlesNames (sortArticlesList, "SortedArticles");
 		}
 	}
 }

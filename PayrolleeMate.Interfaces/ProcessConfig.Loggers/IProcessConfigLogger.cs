@@ -22,6 +22,8 @@ namespace PayrolleeMate.ProcessConfig.Interfaces.Loggers
 		void LogPendingArticles (IPayrollArticle article, SymbolName[] callings, IPayrollArticle[] articles, string testName);
 
 		void LogRelatedArticles (IPayrollArticle article, IPayrollArticle[] articles, string testName);
+
+		void LogArticlesNames (IPayrollArticle[] articles, string testName);
 	}
 }
 

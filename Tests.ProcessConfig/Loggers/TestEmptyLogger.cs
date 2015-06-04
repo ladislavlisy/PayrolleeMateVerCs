@@ -53,7 +53,10 @@ namespace Tests.ProcessConfig.Logers
 		public void LogRelatedArticles (IPayrollArticle article, IPayrollArticle[] articles, string testName)
 		{
 		}
-
+			
+		public void LogArticlesNames (IPayrollArticle[] articles, string testName)
+		{
+		}
 		#endregion
 	}
 }

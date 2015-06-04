@@ -8,6 +8,7 @@ using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 using PayrolleeMate.ProcessConfig.Logers;
 using PayrolleeMate.Common.Interfaces;
+using System.Linq;
 
 namespace PayrolleeMate.ProcessConfig
 {
@@ -31,6 +32,16 @@ namespace PayrolleeMate.ProcessConfig
 		public PayrollArticleCollection<AIDX> ArticlesCollection { get; protected set; }
 
 		public PayrollConceptCollection<CIDX> ConceptsCollection { get; protected set; }
+
+		public IPayrollArticle[] ArticleList ()
+		{
+			return ArticlesCollection.Models.Select(x => x.Value).ToArray();
+		}
+
+		public IPayrollConcept[] ConceptList ()
+		{
+			return ConceptsCollection.Models.Select(x => x.Value).ToArray();
+		}
 
 		public IPayrollArticle ArticleFromModels(Assembly assemblyConfigSet, uint articleCode)
 		{

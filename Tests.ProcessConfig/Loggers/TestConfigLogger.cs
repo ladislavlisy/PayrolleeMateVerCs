@@ -12,6 +12,7 @@ using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 using PayrolleeMate.ProcessConfigSetCz;
 using PayrolleeMate.ProcessConfigSetCz.Constants;
 using PayrolleeMate.ProcessConfigSetCz.Collections;
+using PayrolleeMate.ProcessConfig.Factories;
 
 namespace Tests.ProcessConfig.Logers
 {
@@ -122,7 +123,7 @@ namespace Tests.ProcessConfig.Logers
 
 					IPayrollConcept concept = ModelConceptsLogger.FindConceptForCode(concepts, article.ConceptCode());
 
-					string lineDefinition = ModelConceptsLogger.LogConceptInfo(concept, article);
+					string lineDefinition = ModelConceptsLogger.LogConceptNames(concept, article);
 
 					logWriter.WriteLine(lineDefinition);
 				}
@@ -255,6 +256,27 @@ namespace Tests.ProcessConfig.Logers
 					logWriter.WriteLine (lineDefinition);
 				}
 
+				logWriter.WriteLine ("--- end ---");
+			}
+		}
+
+		public void LogArticlesNames (IPayrollArticle[] articles, string testName)
+		{
+			OpenLogStream (testName);
+
+			using (StreamWriter logWriter = new StreamWriter (LogFileStream)) 
+			{
+				string lineDefinition = "\n--- begin ---";
+
+				foreach (var article in articles) 
+				{
+					lineDefinition += ModelConceptsLogger.LogArticleNames(article);
+				}
+
+				if (lineDefinition.Length > 0) 
+				{
+					logWriter.WriteLine (lineDefinition);
+				}
 				logWriter.WriteLine ("--- end ---");
 			}
 		}
@@ -436,6 +458,28 @@ namespace Tests.ProcessConfig.Logers
 				lineDefinition += LogSummaryArticlesInfo(article);
 
 				lineDefinition += LogSpecValuesInfo(concept);
+
+				return lineDefinition;
+			}
+
+			public static string LogConceptNames(IPayrollConcept concept, IPayrollArticle article)
+			{
+				string lineDefinition = string.Format ("\n{0}", PayrollArticleFactory.ClassNameFor (article.ArticleName ()));
+
+				return lineDefinition;
+			}
+
+			public static string LogArticleNames(IPayrollArticle article)
+			{
+				string articleName = PayrollArticleFactory.ClassNameFor (article.ArticleName ());
+
+				string lineDefinition = string.Format ("\npublic static GeneralModule.EvaluateDelegate {0}Evaluation = (config, engine, article, element, values, results) =>", articleName);
+
+				lineDefinition += " {\n";
+
+				lineDefinition += "\treturn BookResultBase.EMPTY_RESULT_LIST;\n";
+
+				lineDefinition += "};\n";
 
 				return lineDefinition;
 			}

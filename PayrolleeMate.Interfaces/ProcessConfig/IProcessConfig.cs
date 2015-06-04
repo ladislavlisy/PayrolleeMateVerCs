@@ -10,6 +10,10 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 
 		IPayrollConcept FindConcept(uint conceptCode);
 
+		IPayrollArticle[] ArticleList();
+
+		IPayrollConcept[] ConceptList();
+
 		IPayrollArticle ConfigureArticle (SymbolName article, 
 			SymbolName concept, ProcessCategory category, 
 			SymbolName[] pendingNames, SymbolName[] summaryNames,
