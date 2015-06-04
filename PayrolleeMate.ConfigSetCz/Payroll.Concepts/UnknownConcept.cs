@@ -13,7 +13,8 @@ namespace PayrolleeMate.ProcessConfig.Payroll.Concepts
 		{
 		}
 
-		public override IResultStream CallEvaluate(IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results)
+		public override IResultStream CallEvaluate(IProcessConfig config, IEngineProfile engine, 
+			IPayrollArticle article, IBookIndex element, ITargetValues values, IResultStream results)
 		{
 			return results;
 		}

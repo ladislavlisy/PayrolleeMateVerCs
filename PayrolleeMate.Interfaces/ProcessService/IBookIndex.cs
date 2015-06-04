@@ -2,7 +2,7 @@
 
 namespace PayrolleeMate.ProcessService.Interfaces
 {
-	public interface IBookIndex : IBookParty
+	public interface IBookIndex : IBookParty, IComparable<IBookIndex>
 	{
 		IBookParty GetParty ();
 

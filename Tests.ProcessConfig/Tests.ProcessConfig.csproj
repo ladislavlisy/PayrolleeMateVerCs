@@ -45,6 +45,7 @@
     <Compile Include="Factories\TestConceptFactory.cs" />
     <Compile Include="Loggers\TestConfigLogger.cs" />
     <Compile Include="Loggers\TestEmptyLogger.cs" />
+    <Compile Include="Collections\TestArticleDependencySort.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

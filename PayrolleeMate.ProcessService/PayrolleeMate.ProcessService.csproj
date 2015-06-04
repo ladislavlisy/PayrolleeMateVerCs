@@ -39,6 +39,7 @@
     <Compile Include="Collections.Items\BookTarget.cs" />
     <Compile Include="Collections\ResultStream.cs" />
     <Compile Include="Loggers\LoggerWrapper.cs" />
+    <Compile Include="Comparers\BookIndexComparer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -57,5 +58,6 @@
     <Folder Include="Collections.Items\" />
     <Folder Include="Loggers\" />
     <Folder Include="Builders\" />
+    <Folder Include="Comparers\" />
   </ItemGroup>
 </Project>

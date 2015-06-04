@@ -4,7 +4,7 @@ using PayrolleeMate.ProcessConfig.Constants;
 
 namespace PayrolleeMate.ProcessConfig.Interfaces
 {
-	public interface IPayrollArticle
+	public interface IPayrollArticle : IComparable<IPayrollArticle>
 	{
 		SymbolName ArticleSymbol();
 

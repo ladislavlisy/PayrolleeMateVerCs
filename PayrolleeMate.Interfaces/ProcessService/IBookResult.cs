@@ -1,10 +1,11 @@
 ﻿using System;
+using PayrolleeMate.ProcessConfig.Interfaces;
 
 namespace PayrolleeMate.ProcessService.Interfaces
 {
 	public interface IBookResult
 	{
-		IBookTarget Target ();
+		IPayrollArticle Article ();
 	}
 }
 

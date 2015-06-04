@@ -12,13 +12,15 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 {
 	public class BookTarget : IBookTarget
 	{
-		public BookTarget(IBookIndex bookElement, IPayrollArticle bookArticle, IPayrollConcept bookConcept, ITargetValues values)
+		public BookTarget(IBookIndex bookElement, IPayrollArticle bookArticle, IPayrollConcept bookConcept, ITargetValues bookValues)
 		{
 			__element = bookElement;
 
 			__article = bookArticle;
 
 			__concept = bookConcept;
+
+			__values = bookValues;
 		}
 
 		private IBookIndex __element = null;
@@ -27,6 +29,7 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 
 		private IPayrollArticle __article = null;
 
+		private ITargetValues __values = null; 
 
 		#region IBookTarget implementation
 
@@ -55,9 +58,9 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 		{
 			throw new NotImplementedException ();
 		}
-		public IResultStream Evaluate (IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results)
+		public IResultStream Evaluate (IProcessConfig config, IEngineProfile engine, IResultStream results)
 		{
-			throw new NotImplementedException ();
+			return __concept.CallEvaluate(config, engine, __article, __element, __values, results);
 		}
 		public IBookParty GetContractParty ()
 		{

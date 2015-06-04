@@ -8,6 +8,8 @@ namespace PayrolleeMate.ProcessService.Interfaces
 		IDictionary<IBookIndex, IBookResult> Results ();
 
 		IBookResult GetResultBy(uint articleCode);
+
+		IResultStream BuildResultStream (IDictionary<IBookIndex, IBookResult> resultDict);
 	}
 }
 

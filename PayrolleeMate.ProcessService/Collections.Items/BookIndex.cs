@@ -49,8 +49,13 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 
 		override public int CompareTo(object other)
 		{
-			BookIndex otherIndex = other as BookIndex;
+			IBookIndex otherIndex = other as IBookIndex;
 
+			return CompareTo (otherIndex);
+		}
+
+		public int CompareTo(IBookIndex otherIndex)
+		{
 			if (!base.isEqualToParty(otherIndex))
 			{
 				return base.CompareTo(otherIndex);

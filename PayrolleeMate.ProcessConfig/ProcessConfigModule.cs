@@ -7,6 +7,7 @@ using PayrolleeMate.ProcessConfig.General;
 using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 using PayrolleeMate.ProcessConfig.Logers;
+using PayrolleeMate.Common.Interfaces;
 
 namespace PayrolleeMate.ProcessConfig
 {
@@ -70,7 +71,7 @@ namespace PayrolleeMate.ProcessConfig
 		public IPayrollConcept ConfigureConcept (SymbolName concept, 
 			bool nodeContract, bool nodePosition, bool qualContract, bool qualPosition,
 			string targetValues, string resultValues, 
-			GeneralPayrollConcept.EvaluateDelegate evaluate)
+			GeneralModule.EvaluateDelegate evaluate)
 		{
 			return ConceptsCollection.ConfigureConcept (
 				concept, nodeContract, nodePosition, qualContract, qualPosition,

@@ -10,6 +10,7 @@ using PayrolleeMate.ProcessConfig.Factories;
 using PayrolleeMate.ProcessService.Interfaces;
 using PayrolleeMate.ProcessConfig.General;
 using PayrolleeMate.ProcessConfig.Builders;
+using PayrolleeMate.Common.Interfaces;
 
 namespace PayrolleeMate.ProcessConfig.Collections
 {
@@ -45,7 +46,7 @@ namespace PayrolleeMate.ProcessConfig.Collections
 		public IPayrollConcept ConfigureConcept (SymbolName concept, 
 			bool nodeContract, bool nodePosition, bool qualContract, bool qualPosition,
 			string targetValues, string resultValues, 
-			GeneralPayrollConcept.EvaluateDelegate evaluate)
+			GeneralModule.EvaluateDelegate evaluate)
 		{
 			IPayrollConcept conceptInstance = GeneralPayrollConcept.CreateConcept (
 				concept, nodeContract, nodePosition, qualContract, qualPosition,

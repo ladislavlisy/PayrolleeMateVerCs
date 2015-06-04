@@ -5,6 +5,8 @@ using System.Linq;
 using PayrolleeMate.Common;
 using PayrolleeMate.ProcessService.Collection.Items;
 using PayrolleeMate.ProcessConfig.Interfaces;
+using PayrolleeMate.EngineService.Interfaces;
+using PayrolleeMate.ProcessService.Comparers;
 
 namespace PayrolleeMate.ProcessService.Collections
 {
@@ -208,6 +210,29 @@ namespace PayrolleeMate.ProcessService.Collections
 
 		}
 
+		class ResultsStreamBuilder
+		{
+			public static IResultStream EvaluateTargetsToResults(IDictionary<IBookIndex, IBookTarget> targets, IProcessConfig config, IEngineProfile engine)
+			{
+				IResultStream emptyResults = ResultStream.CreateEmptyStream();
+
+				var results = targets.Aggregate(emptyResults,
+					(agr, target) => EvaluateTarget(agr, target.Value, config, engine));
+				
+				return results;
+			}
+
+			private static IResultStream EvaluateTarget(
+				IResultStream resultStream, IBookTarget target, IProcessConfig config, IEngineProfile engine)
+			{
+				var targetResults = target.Evaluate(config, engine, resultStream);
+
+				var results = resultStream.BuildResultStream(targetResults.Results());
+
+				return results;
+			}
+		}
+
 		public static ITargetStream CreateEmptyStream()
 		{
 			var targets = new Dictionary<IBookIndex, IBookTarget>();
@@ -329,6 +354,15 @@ namespace PayrolleeMate.ProcessService.Collections
 			var lastIndex = BookIndex.GetEmpty();
 
 			return new TargetStream(targetsEval, lastParty, lastIndex);
+		}
+
+		public IResultStream EvaluateToResultStream (IProcessConfig config, IEngineProfile engine)
+		{
+			var targets = __targets;
+
+			var results = ResultsStreamBuilder.EvaluateTargetsToResults (targets, config, engine);
+
+			return results;
 		}
 
 		private IDictionary<IBookIndex, IBookTarget> __targets = null;

@@ -6,7 +6,7 @@ using PayrolleeMate.ProcessConfig.Comparers;
 
 namespace PayrolleeMate.ProcessConfig.General
 {
-	public class GeneralPayrollArticle : SymbolName, IPayrollArticle, IComparable<IPayrollArticle>
+	public class GeneralPayrollArticle : SymbolName, IPayrollArticle
 	{
 		public static readonly SymbolName[] EMPTY_ARTICLE_NAMES = {};
 

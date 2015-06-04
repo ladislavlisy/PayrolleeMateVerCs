@@ -4,23 +4,26 @@ using PayrolleeMate.ProcessService.Interfaces.Loggers;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessService.Logers;
 using System.Linq;
+using PayrolleeMate.EngineService.Interfaces;
 
 namespace PayrolleeMate.ProcessService
 {
 	public class ProcessServiceModule : IProcessService
 	{
-		public static IProcessService CreateModule(ITargetStream targets, IProcessConfig configModule, IProcessServiceLogger logger)
+		public static IProcessService CreateModule(ITargetStream targets, IProcessConfig configModule, IEngineProfile engineModule, IProcessServiceLogger logger)
 		{
-			IProcessService module = new ProcessServiceModule (targets, configModule, logger);
+			IProcessService module = new ProcessServiceModule (targets, configModule, engineModule, logger);
 
 			return module;
 		}
 
-		private ProcessServiceModule (ITargetStream targets, IProcessConfig configModule, IProcessServiceLogger logger)
+		private ProcessServiceModule (ITargetStream targets, IProcessConfig configModule, IEngineProfile engineModule, IProcessServiceLogger logger)
 		{
 			Targets = targets;
 
 			ConfigModule = configModule;
+
+			EngineModule = engineModule;
 
 			Logger = logger;
 		}
@@ -29,23 +32,21 @@ namespace PayrolleeMate.ProcessService
 
 		protected IProcessConfig ConfigModule { get; private set; }
 
+		protected IEngineProfile EngineModule { get; private set; }
+
 		protected IProcessServiceLogger Logger { get; private set; }
 
 		#region IProcessService implementation
 
 		public IResultStream EvaluateTargetsToResults ()
 		{
-			var results = ResultStream.CreateEmptyStream ();
+			//var results = ResultStream.CreateEmptyStream ();
 
 			var targets = Targets.CreateEvaluationStream (ConfigModule);
 
-			var sortout = targets.Targets ().Select(x => x.Value).ToArray();
-
-			var sortval = sortout.OrderBy(x => x.Article()).ToArray();
-
 			LoggerWrapper.LogEvaluationStream (Logger, targets, "EvaluateTargets");
 
-			LoggerWrapper.LogEvaluationList (Logger, sortval, "EvaluateTargets");
+			var results = targets.EvaluateToResultStream (ConfigModule, EngineModule);
 
 			return results;
 		}

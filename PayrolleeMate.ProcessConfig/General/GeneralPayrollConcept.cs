@@ -4,18 +4,17 @@ using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.Common;
 using PayrolleeMate.ProcessService.Interfaces;
 using PayrolleeMate.EngineService.Interfaces;
+using PayrolleeMate.Common.Interfaces;
 
 namespace PayrolleeMate.ProcessConfig.General
 {
 	public class GeneralPayrollConcept : SymbolName, IPayrollConcept
 	{
-		public delegate IResultStream EvaluateDelegate (IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results);
-
 		public static readonly char[] VALUES_SEPARATOR = { ',' };
 
 		public static IPayrollConcept CreateConcept (SymbolName concept, 
 			bool nodeContract, bool nodePosition, bool qualContract, bool qualPosition,
-			string targetValues, string resultValues, EvaluateDelegate evaluate)
+			string targetValues, string resultValues, GeneralModule.EvaluateDelegate evaluate)
 		{
 			IPayrollConcept conceptInstance = new GeneralPayrollConcept (concept, 
 				nodeContract, nodePosition,	qualContract, qualPosition, targetValues, resultValues, evaluate);
@@ -25,7 +24,7 @@ namespace PayrolleeMate.ProcessConfig.General
 
 		public GeneralPayrollConcept (SymbolName concept, 
 			bool nodeContract, bool nodePosition, bool qualContract, bool qualPosition,
-			string targetValues, string resultValues, EvaluateDelegate evaluate) : base(concept.Code, concept.Name)
+			string targetValues, string resultValues, GeneralModule.EvaluateDelegate evaluate) : base(concept.Code, concept.Name)
 		{
 			__contractNode = nodeContract;
 
@@ -47,7 +46,7 @@ namespace PayrolleeMate.ProcessConfig.General
 
 		private string[] __resultValues;
 
-		private EvaluateDelegate __evaluate = null;
+		private GeneralModule.EvaluateDelegate __evaluate = null;
 
 		private bool __contractNode = false;
 
@@ -115,11 +114,12 @@ namespace PayrolleeMate.ProcessConfig.General
 			return new IBookParty[] { emptyNode };
 		}
 
-		public virtual IResultStream CallEvaluate(IProcessConfig config, IEngineProfile engine, IBookIndex element, IResultStream results)
+		public virtual IResultStream CallEvaluate(IProcessConfig config, IEngineProfile engine, 
+			IPayrollArticle article, IBookIndex element, ITargetValues values, IResultStream results)
 		{
 			if (__evaluate != null)
 			{
-				return __evaluate (config, engine, element, results);
+				return __evaluate (config, engine, article, element, values, results);
 			}
 			return results;
 		}

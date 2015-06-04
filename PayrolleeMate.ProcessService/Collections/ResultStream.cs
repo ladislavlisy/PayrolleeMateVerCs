@@ -1,6 +1,8 @@
 ﻿using System;
 using PayrolleeMate.ProcessService.Interfaces;
 using System.Collections.Generic;
+using PayrolleeMate.ProcessService.Comparers;
+using System.Linq;
 
 namespace PayrolleeMate.ProcessService
 {
@@ -25,6 +27,14 @@ namespace PayrolleeMate.ProcessService
 		public IDictionary<IBookIndex, IBookResult> Results ()
 		{
 			return __results;
+		}
+
+		public IResultStream BuildResultStream (IDictionary<IBookIndex, IBookResult> resultDict)
+		{
+			var results = __results.Union(resultDict, new BookIndexComparer()).
+					ToDictionary(key => key.Key, val => val.Value);
+
+			return new ResultStream(results);
 		}
 
 		public IBookResult GetResultBy (uint articleCode)

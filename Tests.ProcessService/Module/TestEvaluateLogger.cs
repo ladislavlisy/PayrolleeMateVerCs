@@ -8,13 +8,20 @@ using PayrolleeMate.ProcessService.Interfaces;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessService.Collections;
 using PayrolleeMate.ProcessConfigSetCz.Constants;
+using PayrolleeMate.EngineService.Interfaces;
+using PayrolleeMate.EngineService;
+using PayrolleeMate.Common.Periods;
 
 namespace Tests.ProcessService
 {
 	[TestFixture ()]
 	public class TestEvaluateLogger
 	{
+		private static readonly MonthPeriod testPeriod = new MonthPeriod (2015, 1);
+
 		IProcessConfig testConfig = null;
+
+		IEngineService testEngine = null;
 
 		IProcessServiceLogger serviceLog = null; 
 		
@@ -24,6 +31,8 @@ namespace Tests.ProcessService
 			serviceLog = new TestTargetsLogger ("TestTargetsCollection");
 
 			testConfig = ProcessConfigSetCzModule.CreateModule(null);
+
+			testEngine = EngineServiceModule.CreateModule ();
 
 			testConfig.InitModule ();
 		}
@@ -39,7 +48,9 @@ namespace Tests.ProcessService
 				AddTargetIntoPosition(ConfigSetCzArticleName.REF_SALARY_BASE, emptyValues, testConfig).
 				AddTargetIntoPosition(ConfigSetCzArticleName.REF_INCOME_GROSS, emptyValues, testConfig);
 
-			IProcessService testModule = ProcessServiceModule.CreateModule(targets, testConfig, serviceLog);
+			IEngineProfile testProfile = testEngine.BuildEngineProfile (testPeriod);
+
+			IProcessService testModule = ProcessServiceModule.CreateModule(targets, testConfig, testProfile, serviceLog);
 
 			IResultStream results = testModule.EvaluateTargetsToResults ();
 

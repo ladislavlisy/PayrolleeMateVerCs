@@ -1,5 +1,9 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfigSetCz.Constants;
+using PayrolleeMate.Common.Interfaces;
+using System.Collections.Generic;
+using PayrolleeMate.ProcessService.Interfaces;
+using PayrolleeMate.ProcessService.Patterns;
 
 namespace PayrolleeMate.ProcessConfigSetCz
 {
@@ -46,6 +50,15 @@ namespace PayrolleeMate.ProcessConfigSetCz
 			ConfigureRebateTaxisConcepts (module);
 		}
 
+		private static GeneralModule.EvaluateDelegate dummyEvaluation = (config, engine, article, element, values, results) => {
+
+			IBookResult result = new EmptyBookResult(article);
+
+			IDictionary<IBookIndex, IBookResult> defaultResults = new Dictionary<IBookIndex, IBookResult>() { {element, result} };
+
+			return results.BuildResultStream(defaultResults);
+		};
+			
 		private static void ConfigureContractTermConcepts (ProcessConfigSetCzModule module)
 		{
 			module.ConfigureConcept(
@@ -54,7 +67,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"", 
 				"", 
-				null); 
+				dummyEvaluation); 
 			module.ConfigureConcept(
 				ConfigSetCzConceptName.REF_POSITION_EMPL_TERM, 
 				DEFAULTS_CONCEPT, POSITION_CONCEPT,
