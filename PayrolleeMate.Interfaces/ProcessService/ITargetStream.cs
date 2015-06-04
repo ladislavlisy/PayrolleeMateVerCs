@@ -11,9 +11,15 @@ namespace PayrolleeMate.ProcessService.Interfaces
 		IDictionary<IBookIndex, IBookTarget> Targets ();
 
 		ITargetStream AddNewContractsTarget (SymbolName article, ITargetValues values, IProcessConfig config);
+
 		ITargetStream AddNewPositionsTarget (SymbolName article, ITargetValues values, IProcessConfig config);
+
+		ITargetStream AddTargetIntoSubLevel (SymbolName article, ITargetValues values, IProcessConfig config);
+
 		ITargetStream AddTargetIntoContract (SymbolName article, ITargetValues values, IProcessConfig config);
+
 		ITargetStream AddTargetIntoPosition (SymbolName article, ITargetValues values, IProcessConfig config);
+
 		ITargetStream AddTargetIntoSumLevel (SymbolName article, ITargetValues values, IProcessConfig config);
 
 		ITargetStream CreateEvaluationStream (IProcessConfig configModule);

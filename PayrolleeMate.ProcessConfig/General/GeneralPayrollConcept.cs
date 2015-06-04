@@ -115,6 +115,40 @@ namespace PayrolleeMate.ProcessConfig.General
 			return new IBookParty[] { emptyNode };
 		}
 
+		public IBookParty GetTargetParty (IBookParty lastParty)
+		{
+			if (__positionNode == false && __contractNode == true) 
+			{
+				return lastParty.GetNonContractParty();
+			}
+			else if (__positionNode == true) 
+			{
+				return lastParty.GetNonPositionParty();
+			}
+			else if (__positionQual == true) 
+			{
+				return lastParty.GetPositionParty();
+			}
+			else if (__contractQual == true) 
+			{
+				return lastParty.GetContractParty();
+			}
+			return lastParty.GetNonContractParty();
+		}
+
+		public IBookParty GetNextTargetParty (IBookIndex lastIndex)
+		{
+			if (__positionNode == false && __contractNode == true) 
+			{
+				return lastIndex.GetNewContractParty (lastIndex.CodeOrder ());
+			}
+			else if (__positionNode == true) 
+			{
+				return lastIndex.GetNewPositionParty (lastIndex.CodeOrder ());
+			}
+			return lastIndex.GetParty();
+		}
+
 		public virtual IBookResult[] CallEvaluate(IProcessConfig config, IEngineProfile engine, 
 			IPayrollArticle article, IBookIndex element, ITargetValues values, IResultStream results)
 		{

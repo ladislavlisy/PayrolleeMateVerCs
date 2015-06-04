@@ -285,6 +285,30 @@ namespace PayrolleeMate.ProcessService.Collections
 			return new TargetStream(nextFacts, nextParty, nextIndex);
 		}
 
+		public ITargetStream AddTargetIntoSubLevel(SymbolName article, ITargetValues values, IProcessConfig config)
+		{
+			uint articleCode = article.Code;
+
+			IPayrollArticle targetArticle = config.FindArticle (articleCode);
+
+			uint conceptCode = targetArticle.ConceptCode ();
+
+			IPayrollConcept targetConcept = config.FindConcept (conceptCode);
+
+			IBookParty addParty = targetConcept.GetTargetParty (LastParty ());
+
+			var retTuple = TargetsTupleComposer.AddTargetBySymbol(Targets(),
+				addParty, article, values, config);
+
+			var nextFacts = retTuple.Item2;
+
+			var nextIndex = retTuple.Item1;
+
+			var nextParty = targetConcept.GetNextTargetParty (nextIndex);
+
+			return new TargetStream(nextFacts, nextParty, nextIndex);
+		}
+
 		public ITargetStream AddTargetIntoContract(SymbolName article, ITargetValues values, IProcessConfig config)
 		{
 			var addParty = LastParty().GetContractParty();
