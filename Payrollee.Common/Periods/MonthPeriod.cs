@@ -57,6 +57,47 @@ namespace PayrolleeMate.Common.Periods
 			return (Math.Max(0, YearInt() - 2000)*12 + MonthInt());
 		}
 
+		public int DaysInMonth()
+		{
+			return DateTime.DaysInMonth(YearInt(), MonthInt());
+		}
+
+		public DateTime BeginOfMonth()
+		{
+			return new DateTime(YearInt(), MonthInt(), 1);
+		}
+
+		public DateTime EndOfMonth()
+		{
+			return new DateTime(YearInt(), MonthInt(), DaysInMonth());
+		}
+
+		public DateTime DateOfMonth(int dayOrdinal)
+		{
+			int periodDay = Math.Min (Math.Max (1, dayOrdinal), DaysInMonth ());
+
+			return new DateTime(YearInt(), MonthInt(), periodDay);
+		}
+
+		public int WeekDayOfMonth(int dayOrdinal)
+		{
+			DateTime periodDate = DateOfMonth(dayOrdinal);
+
+			return DayOfWeekMonToSun(periodDate);
+		}
+
+		public static int DayOfWeekMonToSun(DateTime periodDate)
+		{
+			int periodDateCwd = (int)periodDate.DayOfWeek;
+			// DayOfWeek Sunday = 0,
+			// Monday = 1, Tuesday = 2, Wednesday = 3, Thursday = 4, Friday = 5, Saturday = 6, 
+			if (periodDateCwd == 0)
+			{
+				periodDateCwd = 7;
+			}
+			return periodDateCwd;
+		}
+
 		public string Description()
 		{
 			DateTime firstPeriodDay = new DateTime(YearInt(), MonthInt(), 1);
