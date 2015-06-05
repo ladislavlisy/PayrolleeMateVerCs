@@ -3,7 +3,7 @@ using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService
 {
-	public interface IPeriodSocialGuides
+	public interface IFactualSocialGuides
 	{
 		Int32 PeriodMandatoryBasis (MonthPeriod period);
 

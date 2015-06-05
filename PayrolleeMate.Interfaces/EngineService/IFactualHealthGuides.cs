@@ -3,7 +3,7 @@ using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService
 {
-	public interface IPeriodHealthGuides
+	public interface IFactualHealthGuides
 	{
 		Int32 PeriodMandatoryBasis (MonthPeriod period, bool isMinBaseRequired);
 

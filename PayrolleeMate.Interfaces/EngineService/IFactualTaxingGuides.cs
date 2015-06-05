@@ -3,7 +3,7 @@ using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService
 {
-	public interface IPeriodTaxingGuides
+	public interface IFactualTaxingGuides
 	{
 		Int32 PeriodPayerBasicAllowance (MonthPeriod period); 
 

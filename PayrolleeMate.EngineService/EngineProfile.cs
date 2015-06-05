@@ -5,14 +5,18 @@ namespace PayrolleeMate.EngineService
 {
 	public class EngineProfile : IEngineProfile
 	{
-		public EngineProfile (ITaxingEngine taxing, IHealthEngine health, ISocialEngine social)
+		public EngineProfile (IPeriodEngine period, ITaxingEngine taxing, IHealthEngine health, ISocialEngine social)
 		{
+			__periodEngine = period;
+
 			__taxingEngine = taxing;
 
 			__healthEngine = health;
 
 			__socialEngine = social;
 		}
+
+		private IPeriodEngine __periodEngine;
 
 		private ITaxingEngine __taxingEngine;
 
@@ -22,6 +26,11 @@ namespace PayrolleeMate.EngineService
 
 
 		#region IEngineProfile implementation
+
+		public IPeriodEngine Period ()
+		{
+			return __periodEngine;
+		}
 
 		public ITaxingEngine Taxing ()
 		{

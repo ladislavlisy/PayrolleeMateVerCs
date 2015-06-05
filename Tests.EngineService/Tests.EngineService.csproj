@@ -74,12 +74,15 @@
     <Compile Include="Social\TestSocialGuidelinesDeny2015.cs" />
     <Compile Include="Health\TestHealthGuidelinesMeet2015.cs" />
     <Compile Include="Health\TestHealthGuidelinesDeny2015.cs" />
+    <Compile Include="Period\TestPeriodConstants2015.cs" />
+    <Compile Include="Period\TestPeriodService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Taxing\" />
     <Folder Include="Social\" />
     <Folder Include="Health\" />
+    <Folder Include="Period\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PayrolleeMate.EngineService\PayrolleeMate.EngineService.csproj">

@@ -69,6 +69,12 @@
     <Compile Include="Core\EngineGeneralGuides.cs" />
     <Compile Include="Exceptions\EngineServicePeriodException.cs" />
     <Compile Include="EngineServiceModule.cs" />
+    <Compile Include="Engines.Period\PeriodEnginePrototype.cs" />
+    <Compile Include="Engines.Period\PeriodEnginesHistory.cs" />
+    <Compile Include="Engines.Period\PeriodGuides.cs" />
+    <Compile Include="Engines.Period\PeriodOperations.cs" />
+    <Compile Include="History.PeriodEngines\PeriodEngine2015.cs" />
+    <Compile Include="Constants\PeriodProperties.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -81,6 +87,8 @@
     <Folder Include="History.HealthEngines\" />
     <Folder Include="History.SocialEngines\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Engines.Period\" />
+    <Folder Include="History.PeriodEngines\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">

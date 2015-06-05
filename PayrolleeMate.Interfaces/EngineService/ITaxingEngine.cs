@@ -5,7 +5,7 @@ using PayrolleeMate.EngineService.Constants;
 
 namespace PayrolleeMate.EngineService.Interfaces
 {
-	public interface ITaxingEngine : IPeriodTaxingGuides
+	public interface ITaxingEngine : IFactualTaxingGuides
 	{
 		ITaxingGuides Guides();
 

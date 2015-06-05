@@ -5,7 +5,7 @@ using PayrolleeMate.EngineService.Constants;
 
 namespace PayrolleeMate.EngineService.Interfaces
 {
-	public interface ISocialEngine : IPeriodSocialGuides
+	public interface ISocialEngine : IFactualSocialGuides
 	{
 		ISocialGuides Guides ();
 

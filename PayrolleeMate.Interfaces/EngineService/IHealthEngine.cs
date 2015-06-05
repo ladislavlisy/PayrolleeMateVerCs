@@ -5,7 +5,7 @@ using PayrolleeMate.EngineService.Constants;
 
 namespace PayrolleeMate.EngineService.Interfaces
 {
-	public interface IHealthEngine : IPeriodHealthGuides
+	public interface IHealthEngine : IFactualHealthGuides
 	{
 		IHealthGuides Guides ();
 

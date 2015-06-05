@@ -36,9 +36,6 @@
     <Compile Include="EngineService\IEngineService.cs" />
     <Compile Include="EngineService\IHealthEngine.cs" />
     <Compile Include="EngineService\IHealthGuides.cs" />
-    <Compile Include="EngineService\IPeriodHealthGuides.cs" />
-    <Compile Include="EngineService\IPeriodSocialGuides.cs" />
-    <Compile Include="EngineService\IPeriodTaxingGuides.cs" />
     <Compile Include="EngineService\ISocialEngine.cs" />
     <Compile Include="EngineService\ISocialGuides.cs" />
     <Compile Include="EngineService\ITaxingEngine.cs" />
@@ -69,6 +66,12 @@
     <Compile Include="Common\GeneralModule.cs" />
     <Compile Include="ProcessService.Patterns\BookResultBase.cs" />
     <Compile Include="ProcessService.Patterns\EmptyBookResult.cs" />
+    <Compile Include="EngineService\IFactualHealthGuides.cs" />
+    <Compile Include="EngineService\IFactualSocialGuides.cs" />
+    <Compile Include="EngineService\IFactualTaxingGuides.cs" />
+    <Compile Include="EngineService\IFactualPeriodGuides.cs" />
+    <Compile Include="EngineService\IPeriodEngine.cs" />
+    <Compile Include="EngineService\IPeriodGuides.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
