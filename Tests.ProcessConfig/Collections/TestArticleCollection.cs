@@ -54,7 +54,7 @@ namespace Tests.ProcessConfig.Collections
 
 			Array.Sort (sortArticlesList, ArticleDependencyComparer.CompareArticles);
 
-			logger.LogArticlesNames (sortArticlesList, "SortedArticles");
+			logger.LogArticlesNames (sortArticlesList, testConfig.ConceptModels(), "SortedArticles");
 		}
 	}
 }

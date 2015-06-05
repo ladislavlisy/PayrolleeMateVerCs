@@ -260,7 +260,7 @@ namespace Tests.ProcessConfig.Logers
 			}
 		}
 
-		public void LogArticlesNames (IPayrollArticle[] articles, string testName)
+		public void LogArticlesNames (IPayrollArticle[] articles, IDictionary<uint, IPayrollConcept> concepts, string testName)
 		{
 			OpenLogStream (testName);
 
@@ -270,7 +270,17 @@ namespace Tests.ProcessConfig.Logers
 
 				foreach (var article in articles) 
 				{
-					lineDefinition += ModelConceptsLogger.LogArticleNames(article);
+					lineDefinition += ModelConceptsLogger.LogArticleEvalNames(article);
+				}
+
+				foreach (var article in articles) 
+				{
+					IPayrollConcept concept = ModelConceptsLogger.FindConceptForCode(concepts, article.ConceptCode());
+
+					if (concept.TargetValues ().Length > 0) 
+					{
+						lineDefinition += ModelConceptsLogger.LogArticleValuesNames (article);
+					}
 				}
 
 				if (lineDefinition.Length > 0) 
@@ -469,7 +479,7 @@ namespace Tests.ProcessConfig.Logers
 				return lineDefinition;
 			}
 
-			public static string LogArticleNames(IPayrollArticle article)
+			public static string LogArticleEvalNames(IPayrollArticle article)
 			{
 				string articleName = PayrollArticleFactory.ClassNameFor (article.ArticleName ());
 
@@ -480,6 +490,21 @@ namespace Tests.ProcessConfig.Logers
 				lineDefinition += "\treturn BookResultBase.EMPTY_RESULT_LIST;\n";
 
 				lineDefinition += "};\n";
+
+				return lineDefinition;
+			}
+
+			public static string LogArticleValuesNames(IPayrollArticle article)
+			{
+				string articleName = PayrollArticleFactory.ClassNameFor (article.ArticleName ());
+
+				string lineDefinition = string.Format ("\npublic static ITargetValues Create{0}Values()", articleName);
+
+				lineDefinition += " {\n";
+
+				lineDefinition += "\treturn new TargetValues (dateFrom, dateEnds, timeWeekly, timeWorked, timeMissed, amountMonthly,\n\t\t\t\tcodeInterests, codeResidency, codeMandatory, codeStatement, codeHandicaps, codeCardinals);\n";
+
+				lineDefinition += "}\n";
 
 				return lineDefinition;
 			}

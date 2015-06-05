@@ -23,7 +23,7 @@ namespace PayrolleeMate.ProcessConfig.Interfaces.Loggers
 
 		void LogRelatedArticles (IPayrollArticle article, IPayrollArticle[] articles, string testName);
 
-		void LogArticlesNames (IPayrollArticle[] articles, string testName);
+		void LogArticlesNames (IPayrollArticle[] articles, IDictionary<uint, IPayrollConcept> concepts, string testName);
 	}
 }
 

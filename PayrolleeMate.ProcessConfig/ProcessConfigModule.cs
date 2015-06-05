@@ -9,6 +9,7 @@ using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 using PayrolleeMate.ProcessConfig.Logers;
 using PayrolleeMate.Common.Interfaces;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace PayrolleeMate.ProcessConfig
 {
@@ -38,9 +39,19 @@ namespace PayrolleeMate.ProcessConfig
 			return ArticlesCollection.Models.Select(x => x.Value).ToArray();
 		}
 
+		public IDictionary<uint, IPayrollArticle> ArticleModels ()
+		{
+			return ArticlesCollection.Models.ToDictionary(key => key.Key, val => val.Value);
+		}
+
 		public IPayrollConcept[] ConceptList ()
 		{
 			return ConceptsCollection.Models.Select(x => x.Value).ToArray();
+		}
+
+		public IDictionary<uint, IPayrollConcept> ConceptModels ()
+		{
+			return ConceptsCollection.Models.ToDictionary(key => key.Key, val => val.Value);
 		}
 
 		public IPayrollArticle ArticleFromModels(Assembly assemblyConfigSet, uint articleCode)

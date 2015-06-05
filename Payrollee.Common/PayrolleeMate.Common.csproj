@@ -43,6 +43,7 @@
     <Compile Include="Core\SymbolName.cs" />
     <Compile Include="Libs\StringRubyExtension.cs" />
     <Compile Include="Collections\GeneralCollection.cs" />
+    <Compile Include="Rounding\PayRounding.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

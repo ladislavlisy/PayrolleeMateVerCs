@@ -72,6 +72,7 @@
     <Compile Include="EngineService\IFactualPeriodGuides.cs" />
     <Compile Include="EngineService\IPeriodEngine.cs" />
     <Compile Include="EngineService\IPeriodGuides.cs" />
+    <Compile Include="ProcessService.Patterns\TargetValuesBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

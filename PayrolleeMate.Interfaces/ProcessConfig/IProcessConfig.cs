@@ -1,6 +1,7 @@
 ﻿using System;
 using PayrolleeMate.Common;
 using PayrolleeMate.ProcessConfig.Constants;
+using System.Collections.Generic;
 
 namespace PayrolleeMate.ProcessConfig.Interfaces
 {
@@ -12,7 +13,11 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 
 		IPayrollArticle[] ArticleList();
 
+		IDictionary<uint, IPayrollArticle> ArticleModels ();
+
 		IPayrollConcept[] ConceptList();
+
+		IDictionary<uint, IPayrollConcept> ConceptModels ();
 
 		IPayrollArticle ConfigureArticle (SymbolName article, 
 			SymbolName concept, ProcessCategory category, 

@@ -11,7 +11,7 @@ namespace PayrolleeMate.ProcessConfig.General
 {
 	public class GeneralPayrollConcept : SymbolName, IPayrollConcept
 	{
-		public static readonly char[] VALUES_SEPARATOR = { ',' };
+		public static readonly char[] VALUES_SEPARATOR = { '|' };
 
 		public static IPayrollConcept CreateConcept (SymbolName concept, 
 			bool nodeContract, bool nodePosition, bool qualContract, bool qualPosition,
@@ -35,9 +35,9 @@ namespace PayrolleeMate.ProcessConfig.General
 
 			__positionQual = qualPosition;
 
-			__targetValues = targetValues.Split(VALUES_SEPARATOR);
+			__targetValues = targetValues.Split(VALUES_SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
 
-			__resultValues = resultValues.Split(VALUES_SEPARATOR);
+			__resultValues = resultValues.Split(VALUES_SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
 
 			__evaluate = evaluate;
 

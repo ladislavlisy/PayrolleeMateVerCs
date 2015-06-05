@@ -80,11 +80,11 @@ namespace PayrolleeMate.ProcessConfig.Logers
 			}
 		}
 
-		public static void LogArticlesNames (IProcessConfigLogger logger, IPayrollArticle[] articles, string testName)
+		public static void LogArticlesNames (IProcessConfigLogger logger, IPayrollArticle[] articles, IDictionary<uint, IPayrollConcept> concepts, string testName)
 		{
 			if (logger != null) 
 			{
-				logger.LogArticlesNames (articles, testName);
+				logger.LogArticlesNames (articles, concepts, testName);
 			}
 		}
 
