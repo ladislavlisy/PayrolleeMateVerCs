@@ -3,6 +3,7 @@ using PayrolleeMate.Common.Interfaces;
 using PayrolleeMate.ProcessService.Interfaces;
 using System.Collections.Generic;
 using PayrolleeMate.ProcessService.Patterns;
+using PayrolleeMate.ProcessConfig.Interfaces;
 
 namespace PayrolleeMate.ProcessConfigSetCz.Evaluations
 {
@@ -15,9 +16,7 @@ namespace PayrolleeMate.ProcessConfigSetCz.Evaluations
 
 		public static GeneralModule.EvaluateDelegate CloneEvaluation = (config, engine, article, element, values, results) => {
 
-			IBookResult result = new EmptyBookResult(element, article);
-
-			IBookResult[] evaluatedResults = new IBookResult[] { result };
+			IBookResult[] evaluatedResults = ResultListBuilder.BuildListWithEmptyResult(element, article);
 
 			return evaluatedResults;
 		};
@@ -233,6 +232,25 @@ namespace PayrolleeMate.ProcessConfigSetCz.Evaluations
 		public static GeneralModule.EvaluateDelegate IncomeNettoEvaluation = (config, engine, article, element, values, results) => {
 			return BookResultBase.EMPTY_RESULT_LIST;
 		};
+	}
+
+	static class ResultListBuilder
+	{
+		public static IBookResult[] BuildListWithEmptyResult(IBookIndex element, IPayrollArticle article)
+		{
+			IBookResult result = BookResult.CreateEmptyResult(element, article);
+
+			IBookResult[] resultList = BuildListWithResult(result);
+
+			return resultList;
+		}
+
+		public static IBookResult[] BuildListWithResult(IBookResult result)
+		{
+			IBookResult[] evaluatedResults = new IBookResult[] { result };
+
+			return evaluatedResults;
+		}
 	}
 }
 

@@ -4,7 +4,7 @@ using PayrolleeMate.ProcessService.Interfaces;
 
 namespace PayrolleeMate.ProcessService.Patterns
 {
-	public class BookResultBase : IBookResult
+	public abstract class BookResultBase : IBookResult
 	{
 		public static readonly IBookResult[] EMPTY_RESULT_LIST = { };
 
@@ -30,6 +30,8 @@ namespace PayrolleeMate.ProcessService.Patterns
 		{
 			return __article;
 		}
+			
+		public abstract IResultValues Values ();
 
 		#endregion
 	}

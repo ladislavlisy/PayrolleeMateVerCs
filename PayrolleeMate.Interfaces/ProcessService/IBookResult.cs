@@ -8,6 +8,8 @@ namespace PayrolleeMate.ProcessService.Interfaces
 		IBookIndex Element ();
 
 		IPayrollArticle Article ();
+
+		IResultValues Values ();
 	}
 }
 

@@ -44,6 +44,9 @@
     <Compile Include="ProcessConfigSetCzArticles.cs" />
     <Compile Include="ProcessConfigSetCzConcepts.cs" />
     <Compile Include="Payroll.Evaluations\ConfigSetCzEvaluations.cs" />
+    <Compile Include="Payroll.Evaluations\TargetValues.cs" />
+    <Compile Include="Payroll.Evaluations\ResultValues.cs" />
+    <Compile Include="Payroll.Evaluations\BookResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

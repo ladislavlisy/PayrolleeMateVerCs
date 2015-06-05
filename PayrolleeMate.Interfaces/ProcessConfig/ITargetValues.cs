@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayrolleeMate.ProcessService.Interfaces
+namespace PayrolleeMate.ProcessConfig.Interfaces
 {
 	public interface ITargetValues
 	{

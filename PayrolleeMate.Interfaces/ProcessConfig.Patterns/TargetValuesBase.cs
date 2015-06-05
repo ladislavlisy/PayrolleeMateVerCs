@@ -1,7 +1,7 @@
 ﻿using System;
-using PayrolleeMate.ProcessService.Interfaces;
+using PayrolleeMate.ProcessConfig.Interfaces;
 
-namespace PayrolleeMate.ProcessService.Patterns
+namespace PayrolleeMate.ProcessConfig.Patterns
 {
 	public class TargetValuesBase : ITargetValues
 	{

@@ -9,6 +9,15 @@ namespace PayrolleeMate.ProcessService.Patterns
 		public EmptyBookResult (IBookIndex element, IPayrollArticle article) : base(element, article)
 		{
 		}
+
+		#region implemented abstract members of BookResultBase
+
+		public override IResultValues Values ()
+		{
+			return null;
+		}
+
+		#endregion
 	}
 }
 

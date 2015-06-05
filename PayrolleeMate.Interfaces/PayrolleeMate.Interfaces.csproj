@@ -48,8 +48,6 @@
     <Compile Include="ProcessConfig\IProcessConfig.cs" />
     <Compile Include="ProcessService\IBookTarget.cs" />
     <Compile Include="ProcessService\IBookResult.cs" />
-    <Compile Include="ProcessService\ITargetValues.cs" />
-    <Compile Include="ProcessService\IResultValues.cs" />
     <Compile Include="ProcessService\ITargetStream.cs" />
     <Compile Include="ProcessService\IResultStream.cs" />
     <Compile Include="EngineService.Constants\WorkRelationTerms.cs" />
@@ -65,14 +63,16 @@
     <Compile Include="Common\IGeneralLogger.cs" />
     <Compile Include="Common\GeneralModule.cs" />
     <Compile Include="ProcessService.Patterns\BookResultBase.cs" />
-    <Compile Include="ProcessService.Patterns\EmptyBookResult.cs" />
     <Compile Include="EngineService\IFactualHealthGuides.cs" />
     <Compile Include="EngineService\IFactualSocialGuides.cs" />
     <Compile Include="EngineService\IFactualTaxingGuides.cs" />
     <Compile Include="EngineService\IFactualPeriodGuides.cs" />
     <Compile Include="EngineService\IPeriodEngine.cs" />
     <Compile Include="EngineService\IPeriodGuides.cs" />
-    <Compile Include="ProcessService.Patterns\TargetValuesBase.cs" />
+    <Compile Include="ProcessConfig\ITargetValues.cs" />
+    <Compile Include="ProcessConfig\IResultValues.cs" />
+    <Compile Include="ProcessConfig.Patterns\ResultValuesBase.cs" />
+    <Compile Include="ProcessConfig.Patterns\TargetValuesBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -86,6 +86,7 @@
     <Folder Include="ProcessService.Loggers\" />
     <Folder Include="Common\" />
     <Folder Include="ProcessService.Patterns\" />
+    <Folder Include="ProcessConfig.Patterns\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Payrollee.Common\PayrolleeMate.Common.csproj">
