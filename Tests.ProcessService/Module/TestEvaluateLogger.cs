@@ -12,6 +12,7 @@ using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.EngineService;
 using PayrolleeMate.Common.Periods;
 using PayrolleeMate.ProcessConfigSetCz.Evaluations;
+using PayrolleeMate.ProcessService.Items;
 
 namespace Tests.ProcessService
 {
