@@ -1,7 +1,7 @@
 ﻿using System;
-using PayrolleeMate.ProcessConfig.Interfaces;
+using PayrolleeMate.ProcessService.Interfaces;
 
-namespace PayrolleeMate.ProcessService.Interfaces
+namespace PayrolleeMate.ProcessConfig.Interfaces
 {
 	public interface IBookResult
 	{

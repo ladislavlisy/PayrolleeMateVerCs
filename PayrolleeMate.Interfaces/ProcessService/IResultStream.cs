@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PayrolleeMate.ProcessConfig.Interfaces;
 
 namespace PayrolleeMate.ProcessService.Interfaces
 {

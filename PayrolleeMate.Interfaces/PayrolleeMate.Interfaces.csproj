@@ -47,7 +47,6 @@
     <Compile Include="ProcessService\IBookParty.cs" />
     <Compile Include="ProcessConfig\IProcessConfig.cs" />
     <Compile Include="ProcessService\IBookTarget.cs" />
-    <Compile Include="ProcessService\IBookResult.cs" />
     <Compile Include="ProcessService\ITargetStream.cs" />
     <Compile Include="ProcessService\IResultStream.cs" />
     <Compile Include="EngineService.Constants\WorkRelationTerms.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="ProcessConfig\IResultValues.cs" />
     <Compile Include="ProcessConfig.Patterns\ResultValuesBase.cs" />
     <Compile Include="ProcessConfig.Patterns\TargetValuesBase.cs" />
+    <Compile Include="ProcessConfig\IBookResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

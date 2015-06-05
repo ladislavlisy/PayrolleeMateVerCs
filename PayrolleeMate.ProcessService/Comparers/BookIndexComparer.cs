@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PayrolleeMate.ProcessService.Interfaces;
+using PayrolleeMate.ProcessConfig.Interfaces;
 
 namespace PayrolleeMate.ProcessService.Comparers
 {
