@@ -12,7 +12,7 @@ using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.EngineService;
 using PayrolleeMate.Common.Periods;
 using PayrolleeMate.ProcessConfigSetCz.Evaluations;
-using PayrolleeMate.ProcessService.Items;
+using PayrolleeMate.ProcessConfig.Builders;
 
 namespace Tests.ProcessService
 {
@@ -42,18 +42,18 @@ namespace Tests.ProcessService
 		[Test ()]
 		public void Should_Return_Valid_Result_Stream ()
 		{
-			ITargetValues contractValues = TargetValues.CreateContractEmplTermValues(null, null);
+			ITargetValues contractValues = TargetValueBuilder.CreateContractEmplTermValues(null, null);
 
-			ITargetValues positionValues = TargetValues.CreatePositionEmplTermValues(null, null);
+			ITargetValues positionValues = TargetValueBuilder.CreatePositionEmplTermValues(null, null);
 
-			ITargetValues salaryValues = TargetValues.CreateSalaryBaseValues(10000m);
+			ITargetValues positionSalary = TargetValueBuilder.CreateSalaryBaseValues(10000m);
 
 			ITargetValues emptyValues = null;
 
 			ITargetStream targets = TargetStream.CreateEmptyStream ().
 				AddNewContractsTarget(ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, contractValues, testConfig).
 				AddNewPositionsTarget(ConfigSetCzArticleName.REF_POSITION_EMPL_TERM, positionValues, testConfig).
-				AddTargetIntoPosition(ConfigSetCzArticleName.REF_SALARY_BASE, salaryValues, testConfig).
+				AddTargetIntoPosition(ConfigSetCzArticleName.REF_SALARY_BASE, positionSalary, testConfig).
 				AddTargetIntoPosition(ConfigSetCzArticleName.REF_INCOME_GROSS, emptyValues, testConfig);
 
 			IEngineProfile testProfile = testEngine.BuildEngineProfile (testPeriod);

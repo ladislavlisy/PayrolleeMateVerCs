@@ -3,7 +3,6 @@ using PayrolleeMate.ProcessConfigSetCz.Constants;
 using PayrolleeMate.Common.Interfaces;
 using System.Collections.Generic;
 using PayrolleeMate.ProcessService.Interfaces;
-using PayrolleeMate.ProcessService.Patterns;
 using PayrolleeMate.ProcessConfigSetCz.Evaluations;
 
 namespace PayrolleeMate.ProcessConfigSetCz

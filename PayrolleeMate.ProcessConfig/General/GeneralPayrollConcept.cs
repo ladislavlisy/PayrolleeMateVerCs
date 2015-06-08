@@ -5,7 +5,8 @@ using PayrolleeMate.Common;
 using PayrolleeMate.ProcessService.Interfaces;
 using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Interfaces;
-using PayrolleeMate.ProcessService.Patterns;
+using PayrolleeMate.ProcessConfig.Items;
+using PayrolleeMate.ProcessConfig.Builders;
 
 namespace PayrolleeMate.ProcessConfig.General
 {
@@ -156,7 +157,7 @@ namespace PayrolleeMate.ProcessConfig.General
 			{
 				return __evaluate (config, engine, article, element, values, results);
 			}
-			return BookResultBase.EMPTY_RESULT_LIST;
+			return BookResultBuilder.EMPTY_RESULT_LIST;
 		}
 		#endregion
 	}

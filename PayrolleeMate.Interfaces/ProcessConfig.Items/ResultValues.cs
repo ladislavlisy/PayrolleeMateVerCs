@@ -1,7 +1,7 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.Interfaces;
 
-namespace PayrolleeMate.ProcessConfig.Patterns
+namespace PayrolleeMate.ProcessConfig.Items
 {
 	public class ResultValuesBase : IResultValues
 	{

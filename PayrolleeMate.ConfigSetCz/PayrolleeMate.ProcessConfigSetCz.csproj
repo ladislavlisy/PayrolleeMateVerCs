@@ -44,8 +44,8 @@
     <Compile Include="ProcessConfigSetCzArticles.cs" />
     <Compile Include="ProcessConfigSetCzConcepts.cs" />
     <Compile Include="Payroll.Evaluations\ConfigSetCzEvaluations.cs" />
-    <Compile Include="Payroll.Evaluations\ResultValues.cs" />
-    <Compile Include="Payroll.Evaluations\BookResult.cs" />
+    <Compile Include="Payroll.Builders\TargetValueBuilder.cs" />
+    <Compile Include="Payroll.Builders\ResultValueBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -68,5 +68,6 @@
     <Folder Include="Payroll.Constants\" />
     <Folder Include="Payroll.Collections\" />
     <Folder Include="Payroll.Evaluations\" />
+    <Folder Include="Payroll.Builders\" />
   </ItemGroup>
 </Project>

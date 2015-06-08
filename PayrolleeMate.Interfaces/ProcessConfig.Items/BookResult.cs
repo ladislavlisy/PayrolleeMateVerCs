@@ -2,22 +2,24 @@
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessService.Interfaces;
 
-namespace PayrolleeMate.ProcessService.Patterns
+namespace PayrolleeMate.ProcessConfig.Items
 {
-	public abstract class BookResultBase : IBookResult
+	public class BookResult : IBookResult
 	{
-		public static readonly IBookResult[] EMPTY_RESULT_LIST = { };
-
-		public BookResultBase (IBookIndex element, IPayrollArticle article)
+		public BookResult (IBookIndex element, IPayrollArticle article, IResultValues values)
 		{
 			__element = element;
 
 			__article = article;
+
+			__values = values;
 		}
 		 
 		private IBookIndex __element = null;
 
 		private IPayrollArticle __article = null;
+
+		private IResultValues __values = null;
 
 		#region IBookResult implementation
 
@@ -31,7 +33,10 @@ namespace PayrolleeMate.ProcessService.Patterns
 			return __article;
 		}
 			
-		public abstract IResultValues Values ();
+		public IResultValues Values ()
+		{
+			return __values;
+		}
 
 		#endregion
 	}

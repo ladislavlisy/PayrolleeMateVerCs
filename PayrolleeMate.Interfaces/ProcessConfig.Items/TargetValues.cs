@@ -1,11 +1,11 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.Interfaces;
 
-namespace PayrolleeMate.ProcessConfig.Patterns
+namespace PayrolleeMate.ProcessConfig.Items
 {
-	public class TargetValuesBase : ITargetValues
+	public class TargetValues : ITargetValues
 	{
-		public TargetValuesBase ()
+		public TargetValues ()
 		{
 			__dateFrom = null;
 
@@ -32,7 +32,7 @@ namespace PayrolleeMate.ProcessConfig.Patterns
 			__codeCardinals = 0;
 		}
 
-		public TargetValuesBase (DateTime? dateFrom, DateTime? dateEnds, Int32 timeWeekly, Int32 timeWorked, Int32 timeMissed,
+		public TargetValues (DateTime? dateFrom, DateTime? dateEnds, Int32 timeWeekly, Int32 timeWorked, Int32 timeMissed,
 			decimal amountMonthly, uint interests, uint residency, uint mandatory, uint statement, uint handicaps, uint cardinals)
 		{
 			__dateFrom = dateFrom;
