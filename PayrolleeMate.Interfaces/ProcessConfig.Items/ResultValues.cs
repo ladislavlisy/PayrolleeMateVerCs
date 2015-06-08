@@ -14,35 +14,7 @@ namespace PayrolleeMate.ProcessConfig.Items
 			Int32 recordTime, decimal recordAmount, decimal recordIncome, 
 			decimal income, decimal payments, decimal deducted)
 		{
-			__contractType = targetValues.ContractType ();
-
-			__healthWorkType = targetValues.HealthWorkType ();
-
-			__socialWorkType = targetValues.SocialWorkType ();
-
-			__dateFrom = targetValues.DateFrom ();
-
-			__dateEnds = targetValues.DateEnds ();
-
-			__timesheetWeekly = targetValues.TimesheetWeekly ();
-
-			__timesheetWorked = targetValues.TimesheetWorked ();
-
-			__timesheetAbsent = targetValues.TimesheetAbsent ();
-
-			__amountMonthly = targetValues.AmountMonthly ();
-
-			__codeInterests = targetValues.CodeInterests ();
-
-			__codeResidency = targetValues.CodeResidency ();
-
-			__codeMandatory = targetValues.CodeMandatory ();
-
-			__codeStatement = targetValues.CodeStatement ();
-
-			__codeHandicaps = targetValues.CodeHandicaps ();
-
-			__codeCardinals = targetValues.CodeCardinals ();
+			CopyTargetsToResults (targetValues);
 
 			__periodDayFromOrdinal = dayFromOrdinal;
 
@@ -298,6 +270,44 @@ namespace PayrolleeMate.ProcessConfig.Items
 		}
 
 		#endregion
+
+		private void CopyTargetsToResults(ITargetValues targetValues)
+		{
+			if (targetValues == null) 
+			{
+				return;
+			}
+
+			__contractType = targetValues.ContractType ();
+
+			__healthWorkType = targetValues.HealthWorkType ();
+
+			__socialWorkType = targetValues.SocialWorkType ();
+
+			__dateFrom = targetValues.DateFrom ();
+
+			__dateEnds = targetValues.DateEnds ();
+
+			__timesheetWeekly = targetValues.TimesheetWeekly ();
+
+			__timesheetWorked = targetValues.TimesheetWorked ();
+
+			__timesheetAbsent = targetValues.TimesheetAbsent ();
+
+			__amountMonthly = targetValues.AmountMonthly ();
+
+			__codeInterests = targetValues.CodeInterests ();
+
+			__codeResidency = targetValues.CodeResidency ();
+
+			__codeMandatory = targetValues.CodeMandatory ();
+
+			__codeStatement = targetValues.CodeStatement ();
+
+			__codeHandicaps = targetValues.CodeHandicaps ();
+
+			__codeCardinals = targetValues.CodeCardinals ();
+		}
 	}
 }
 

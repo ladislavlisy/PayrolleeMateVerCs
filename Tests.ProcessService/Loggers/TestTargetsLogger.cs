@@ -213,14 +213,125 @@ namespace Tests.ProcessService.Loggers
 				string lineDefinition = string.Format("\n--- {0} - {1} - {2} - {3}", 
 					article.ArticleName(), article.ConceptName(), article.ArticleCode(), element.ToString());
 
+				foreach (var targetValue in result.TargetValues()) 
+				{
+					lineDefinition += string.Format("\n\t--> {0} - {1}", targetValue, LogValueInfo(targetValue, result.Values()));
+				}
+
 				foreach (var resultValue in result.ResultValues()) 
 				{
-					lineDefinition += string.Format("\n\t--- {0} - {1}", resultValue, "VALUE_NULL");
+					lineDefinition += string.Format("\n\t<-- {0} - {1}", resultValue, LogValueInfo(resultValue, result.Values()));
 				}
 
 				return lineDefinition;
 			}
 
+			public static string LogValueInfo(string value, IResultValues result)
+			{
+				switch (value) 
+				{
+				case "contract_type":
+					return LogObjectString (result.ContractType ());
+
+				case "health_work":
+					return LogObjectString (result.HealthWorkType ());
+
+				case "social_work":
+					return LogObjectString (result.SocialWorkType ());
+
+				case "date_from":
+					return LogObjectString (result.DateFrom ());
+				case "date_ends":
+					return LogObjectString (result.DateEnds ());
+				case "timesheet_weekly":
+					return LogObjectString (result.TimesheetWeekly ());
+
+				case "timesheet_worked":
+					return LogObjectString (result.TimesheetWorked ());
+
+				case "timesheet_absent":
+					return LogObjectString (result.TimesheetAbsent ());
+
+				case "amount_monthly":
+					return LogObjectString (result.AmountMonthly ());
+
+				case "code_interests":
+					return LogObjectString (result.CodeInterests ());
+
+				case "code_residency":
+					return LogObjectString (result.CodeResidency ());
+
+				case "code_mandatory": 
+					return LogObjectString (result.CodeMandatory ());
+
+				case "code_statement": 
+					return LogObjectString (result.CodeStatement ());
+
+				case "code_handicaps": 
+					return LogObjectString (result.CodeHandicaps ());
+
+				case "code_cardinals": 
+					return LogObjectString (result.CodeCardinals ());
+				
+				// RESULTS
+				case "day_ordinal_from": 
+					return LogObjectString (result.PeriodDayFromOrdinal ());
+
+				case "day_ordinal_ends": 
+					return LogObjectString (result.PeriodDayEndsOrdinal ());
+
+				case "shift_timetable": 
+					return LogObjectString (result.ShiftTimetable ());
+
+				case "work_timetable": 
+					return LogObjectString (result.WorkTimetable ());
+
+				case "over_timetable": 
+					return LogObjectString (result.OverTimetable ());
+
+				case "absence_timetable": 
+					return LogObjectString (result.AbsenceTimetable ());
+
+				case "worktime_counts": 
+					return LogObjectString (result.WorktimeCount ());
+
+				case "overtime_counts": 
+					return LogObjectString (result.OvertimeCount ());
+
+				case "absence_counts": 
+					return LogObjectString (result.AbsenceCount ());
+
+				case "record_time": 
+					return LogObjectString (result.RecordTime ());
+
+				case "record_amount": 
+					return LogObjectString (result.RecordAmount ());
+
+				case "record_income": 
+					return LogObjectString (result.RecordIncome ());
+
+				case "amount_income": 
+					return LogObjectString (result.AmountIncome ());
+
+				case "amount_payments": 
+					return LogObjectString (result.AmountPayments ());
+
+				case "amount_deducted": 
+					return LogObjectString (result.AmountDeducted ());
+
+				default:
+					return "NULL";
+				}
+			}
+
+			public static string LogObjectString(object value)
+			{
+				if (value == null) 
+				{
+					return "NULL";
+				}
+				return value.ToString ();
+			}
 		}
 
 	}

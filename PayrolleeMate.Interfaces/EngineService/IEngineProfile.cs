@@ -5,7 +5,7 @@ namespace PayrolleeMate.EngineService.Interfaces
 {
 	public interface IEngineProfile
 	{
-		MonthPeriod PayrollMonth ();
+		MonthPeriod PayrunPeriod ();
 		IPeriodEngine Period ();
 		ITaxingEngine Taxing ();
 		IHealthEngine Health ();

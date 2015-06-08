@@ -62,8 +62,8 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				ConfigSetCzConceptName.REF_CONTRACT_EMPL_TERM, 
 				CONTRACT_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
-				"date_from|date_ends", 
-				"", 
+				"contract_type|health_work|social_work|date_from|date_ends", 
+				"day_ordinal_from|day_ordinal_ends", 
 				ConfigSetCzEvaluations.ContractEmplTermEvaluation); 
 			
 			module.ConfigureConcept(
@@ -71,7 +71,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, POSITION_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"date_from|date_ends", 
-				"", 
+				"day_ordinal_from|day_ordinal_ends", 
 				ConfigSetCzEvaluations.PositionEmplTermEvaluation); 
 		}
 
@@ -82,7 +82,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"timesheet_weekly", 
-				"", 
+				"shift_timetable", 
 				ConfigSetCzEvaluations.ScheduleWorkEvaluation); 
 			
 			module.ConfigureConcept(
@@ -90,7 +90,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"shift_timetable", 
 				ConfigSetCzEvaluations.TimesheetScheduleEvaluation); 
 			
 			module.ConfigureConcept(
@@ -98,7 +98,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"work_timetable", 
 				ConfigSetCzEvaluations.TimesheetWorkingEvaluation); 
 			
 			module.ConfigureConcept(
@@ -106,7 +106,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"absence_timetable", 
 				ConfigSetCzEvaluations.TimesheetAbsenceEvaluation); 
 			
 			module.ConfigureConcept(
@@ -114,7 +114,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"timesheet_worked", 
-				"", 
+				"worktime_counts", 
 				ConfigSetCzEvaluations.TimehoursWorkingEvaluation); 
 			
 			module.ConfigureConcept(
@@ -122,7 +122,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"timesheet_absent", 
-				"", 
+				"absence_counts", 
 				ConfigSetCzEvaluations.TimehoursAbsenceEvaluation); 
 		}
 
@@ -133,7 +133,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"amount_monthly", 
-				"", 
+				"record_time|amount_payments", 
 				ConfigSetCzEvaluations.SalaryBaseEvaluation); 
 		}
 
@@ -144,7 +144,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.IncomeGrossEvaluation); 
 			
 			module.ConfigureConcept(
@@ -152,7 +152,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.IncomeNettoEvaluation); 
 		}
 
@@ -163,7 +163,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"amount_deducted", 
 				ConfigSetCzEvaluations.TaxingAdvancesTotalEvaluation); 
 			
 			module.ConfigureConcept(
@@ -171,7 +171,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"amount_deducted", 
 				ConfigSetCzEvaluations.TaxingAdvancesGeneralEvaluation); 
 			
 			module.ConfigureConcept(
@@ -179,7 +179,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"amount_deducted", 
 				ConfigSetCzEvaluations.TaxingAdvancesSolidaryEvaluation); 
 			
 			module.ConfigureConcept(
@@ -187,7 +187,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"amount_deducted", 
 				ConfigSetCzEvaluations.TaxingWithholdGeneralEvaluation); 
 			
 			module.ConfigureConcept(
@@ -195,7 +195,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"amount_deducted", 
 				ConfigSetCzEvaluations.HealthEmployeeGeneralEvaluation); 
 			
 			module.ConfigureConcept(
@@ -203,7 +203,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"amount_deducted", 
 				ConfigSetCzEvaluations.HealthEmployeeMandatoryEvaluation); 
 			
 			module.ConfigureConcept(
@@ -211,7 +211,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"amount_deducted", 
 				ConfigSetCzEvaluations.SocialEmployeeGeneralEvaluation); 
 			
 			module.ConfigureConcept(
@@ -219,7 +219,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"amount_deducted", 
 				ConfigSetCzEvaluations.SocialEmployeePensionEvaluation); 
 			
 			module.ConfigureConcept(
@@ -227,7 +227,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES, 
-				"", 
+				"amount_deducted", 
 				ConfigSetCzEvaluations.GarantEmployeePensionEvaluation); 
 		}
 
@@ -238,7 +238,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"code_interests|code_residency|code_mandatory", 
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.HealthIncomeSubjectEvaluation); 
 			
 			module.ConfigureConcept(
@@ -246,7 +246,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.HealthIncomeParticipEvaluation); 
 			
 			module.ConfigureConcept(
@@ -254,7 +254,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.HealthBasisGeneralEvaluation); 
 			
 			module.ConfigureConcept(
@@ -262,7 +262,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.HealthBasisMandatoryEvaluation); 
 			
 			module.ConfigureConcept(
@@ -270,7 +270,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.HealthBasisLegalcapEvaluation); 
 		}
 
@@ -281,7 +281,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"code_interests|code_residency", 
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.SocialIncomeSubjectEvaluation); 
 			
 			module.ConfigureConcept(
@@ -289,7 +289,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.SocialIncomeParticipEvaluation); 
 			
 			module.ConfigureConcept(
@@ -297,7 +297,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.SocialBasisGeneralEvaluation); 
 			
 			module.ConfigureConcept(
@@ -305,7 +305,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.SocialBasisPensionEvaluation); 
 			
 			module.ConfigureConcept(
@@ -313,7 +313,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.SocialBasisLegalcapEvaluation); 
 		}
 
@@ -324,7 +324,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"code_interests", 
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.GarantIncomeSubjectEvaluation); 
 			
 			module.ConfigureConcept(
@@ -332,7 +332,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.GarantIncomeParticipEvaluation); 
 			
 			module.ConfigureConcept(
@@ -340,7 +340,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.GarantBasisPensionEvaluation); 
 			
 			module.ConfigureConcept(
@@ -348,7 +348,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.GarantBasisLegalcapEvaluation); 
 		}
 
@@ -359,7 +359,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				"code_interests|code_residency|code_statement", 
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingIncomeSubjectEvaluation); 
 			
 			module.ConfigureConcept (
@@ -367,7 +367,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingIncomeHealthEvaluation); 
 			
 			module.ConfigureConcept (
@@ -375,7 +375,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingIncomeSocialEvaluation); 
 		}
 
@@ -386,7 +386,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingAdvancesIncomeEvaluation); 
 			
 			module.ConfigureConcept (
@@ -394,7 +394,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingAdvancesHealthEvaluation); 
 			
 			module.ConfigureConcept (
@@ -402,7 +402,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingAdvancesSocialEvaluation); 
 			
 			module.ConfigureConcept (
@@ -410,7 +410,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingAdvancesBasisGeneralEvaluation); 
 			
 			module.ConfigureConcept (
@@ -418,7 +418,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingAdvancesBasisSolidaryEvaluation); 
 		}
 
@@ -429,7 +429,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingWithholdIncomeEvaluation); 
 			
 			module.ConfigureConcept(
@@ -437,7 +437,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingWithholdHealthEvaluation); 
 			
 			module.ConfigureConcept(
@@ -445,7 +445,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingWithholdSocialEvaluation); 
 			
 			module.ConfigureConcept(
@@ -453,7 +453,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"record_income", 
 				ConfigSetCzEvaluations.TaxingWithholdBasisGeneralEvaluation); 
 		}
 
@@ -464,7 +464,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"code_interests", 
-				"", 
+				"record_amount", 
 				ConfigSetCzEvaluations.TaxingAllowancePayerEvaluation); 
 			
 			module.ConfigureConcept(
@@ -472,7 +472,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"code_interests|code_handicaps", 
-				"", 
+				"record_amount", 
 				ConfigSetCzEvaluations.TaxingAllowanceDisabilityEvaluation); 
 			
 			module.ConfigureConcept(
@@ -480,7 +480,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"code_interests", 
-				"", 
+				"record_amount", 
 				ConfigSetCzEvaluations.TaxingAllowanceStudyingEvaluation); 
 			
 			module.ConfigureConcept(
@@ -488,7 +488,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				"code_interests|code_cardinals|code_handicaps", 
-				"", 
+				"record_amount", 
 				ConfigSetCzEvaluations.TaxingAllowanceChildEvaluation); 
 		}
 
@@ -499,7 +499,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"amount_payments", 
 				ConfigSetCzEvaluations.TaxingRebatePayerEvaluation); 
 			
 			module.ConfigureConcept(
@@ -507,7 +507,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"amount_payments", 
 				ConfigSetCzEvaluations.TaxingRebateChildEvaluation); 
 			
 			module.ConfigureConcept(
@@ -515,7 +515,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				DEFAULTS_QUALIFIED, DEFAULTS_QUALIFIED,
 				NO_TARGET_VALUES,  
-				"", 
+				"amount_payments", 
 				ConfigSetCzEvaluations.TaxingBonusChildEvaluation); 
 		}
 	}

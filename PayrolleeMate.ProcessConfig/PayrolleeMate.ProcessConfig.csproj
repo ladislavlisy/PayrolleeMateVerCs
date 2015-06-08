@@ -44,7 +44,6 @@
     <Compile Include="Builders\ArticleListBuilder.cs" />
     <Compile Include="Builders\ArticleDependencyBuilder.cs" />
     <Compile Include="Comparers\ArticleDependencyComparer.cs" />
-    <Compile Include="Builders\BookResultBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

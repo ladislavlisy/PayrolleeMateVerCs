@@ -483,7 +483,7 @@ namespace Tests.ProcessConfig.Logers
 			{
 				string articleName = PayrollArticleFactory.ClassNameFor (article.ArticleName ());
 
-				string lineDefinition = string.Format ("\npublic static GeneralModule.EvaluateDelegate {0}Evaluation = (config, engine, article, element, values, results) =>", articleName);
+				string lineDefinition = string.Format ("\npublic static GeneralModule.EvaluateDelegate {0}Evaluation = (concept, config, engine, article, element, targets, results) =>", articleName);
 
 				lineDefinition += " {\n";
 

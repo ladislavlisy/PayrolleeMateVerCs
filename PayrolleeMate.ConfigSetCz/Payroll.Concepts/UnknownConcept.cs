@@ -6,6 +6,7 @@ using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.ProcessConfig.Items;
 using PayrolleeMate.ProcessConfig.Builders;
+using PayrolleeMate.Common.Interfaces;
 
 namespace PayrolleeMate.ProcessConfig.Payroll.Concepts
 {
@@ -18,7 +19,7 @@ namespace PayrolleeMate.ProcessConfig.Payroll.Concepts
 		public override IBookResult[] CallEvaluate(IProcessConfig config, IEngineProfile engine, 
 			IPayrollArticle article, IBookIndex element, ITargetValues values, IResultStream results)
 		{
-			return BookResultBuilder.EMPTY_RESULT_LIST;
+			return GeneralModule.EMPTY_RESULT_LIST;
 		}
 
 	}

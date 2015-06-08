@@ -46,6 +46,7 @@
     <Compile Include="Payroll.Evaluations\ConfigSetCzEvaluations.cs" />
     <Compile Include="Payroll.Builders\TargetValueBuilder.cs" />
     <Compile Include="Payroll.Builders\ResultValueBuilder.cs" />
+    <Compile Include="Payroll.Builders\BookResultBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -155,9 +155,9 @@ namespace PayrolleeMate.ProcessConfig.General
 		{
 			if (__evaluate != null)
 			{
-				return __evaluate (config, engine, article, element, values, results);
+				return __evaluate (this, config, engine, article, element, values, results);
 			}
-			return BookResultBuilder.EMPTY_RESULT_LIST;
+			return GeneralModule.EMPTY_RESULT_LIST;
 		}
 		#endregion
 	}
