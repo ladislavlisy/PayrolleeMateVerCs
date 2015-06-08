@@ -18,7 +18,7 @@ using PayrolleeMate.EngineService.Constants;
 namespace Tests.ProcessService
 {
 	[TestFixture ()]
-	public class TestEvaluateLogger
+	public class TestEvaluateSalary
 	{
 		private static readonly MonthPeriod testPeriod = new MonthPeriod (2015, 1);
 
@@ -27,11 +27,11 @@ namespace Tests.ProcessService
 		IEngineService testEngine = null;
 
 		IProcessServiceLogger serviceLog = null; 
-		
+
 		[TestFixtureSetUp]
 		public void TestSetup()
 		{
-			serviceLog = new TestTargetsLogger ("TestTargetsCollection");
+			serviceLog = new TestTargetsLogger ("TestEvaluteSalary");
 
 			testConfig = ProcessConfigSetCzModule.CreateModule(null);
 
@@ -54,7 +54,7 @@ namespace Tests.ProcessService
 
 			ITargetValues positionValues = TargetValueBuilder.CreatePositionEmplTermValues(null, null);
 
-			ITargetValues positionSalary = TargetValueBuilder.CreateSalaryBaseValues(10000m);
+			ITargetValues positionSalary = TargetValueBuilder.CreateSalaryBaseValues(15000m);
 
 			ITargetValues emptyValues = null;
 

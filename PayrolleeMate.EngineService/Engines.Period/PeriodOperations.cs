@@ -8,10 +8,6 @@ namespace PayrolleeMate.EngineService
 	{
 		public const Int32 TIME_MULTIPLY_SIXTY = 60;
 
-		public const uint TERM_BEG_FINISHED = 32;
-
-		public const uint TERM_END_FINISHED =  0;
-
 		public static int WorkingSecondsDaily (int workingHours)
 		{
 			Int32 secondsInHour = (TIME_MULTIPLY_SIXTY * TIME_MULTIPLY_SIXTY);
@@ -28,7 +24,7 @@ namespace PayrolleeMate.EngineService
 
 		public static uint DateFromInPeriod(MonthPeriod period, DateTime? dateFrom)
 		{
-			uint dayTermFrom = TERM_BEG_FINISHED;
+			uint dayTermFrom = MonthPeriod.TERM_BEG_FINISHED;
 
 			DateTime periodDateBeg = new DateTime((int)period.Year(), (int)period.Month(), 1);
 
@@ -46,7 +42,7 @@ namespace PayrolleeMate.EngineService
 
 		public static uint DateEndsInPeriod(MonthPeriod period, DateTime? dateEnds)
 		{
-			uint dayTermEnd = TERM_END_FINISHED;
+			uint dayTermEnd = MonthPeriod.TERM_END_FINISHED;
 			uint daysPeriod = (uint)DateTime.DaysInMonth((int)period.Year(), (int)period.Month());
 
 			DateTime periodDateEnd = new DateTime((int)period.Year(), (int)period.Month(), (int)daysPeriod);

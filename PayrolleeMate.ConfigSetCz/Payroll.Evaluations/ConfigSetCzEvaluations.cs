@@ -22,6 +22,8 @@ namespace PayrolleeMate.ProcessConfigSetCz.Evaluations
 		};
 
 		public static GeneralModule.EvaluateDelegate ContractEmplTermEvaluation = (config, engine, article, element, values, results) => {
+			uint dayFromOrdinal = engine.Period().DayFromOrdinal(engine.PayrollMonth(), values.DateFrom());
+
 			return BookResultBuilder.EMPTY_RESULT_LIST;
 		};
 

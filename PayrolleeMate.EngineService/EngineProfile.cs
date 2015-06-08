@@ -1,12 +1,15 @@
 ﻿using System;
 using PayrolleeMate.EngineService.Interfaces;
+using PayrolleeMate.Common.Periods;
 
 namespace PayrolleeMate.EngineService
 {
 	public class EngineProfile : IEngineProfile
 	{
-		public EngineProfile (IPeriodEngine period, ITaxingEngine taxing, IHealthEngine health, ISocialEngine social)
+		public EngineProfile (MonthPeriod payrollMonth, IPeriodEngine period, ITaxingEngine taxing, IHealthEngine health, ISocialEngine social)
 		{
+			__payrollMonth = payrollMonth;
+
 			__periodEngine = period;
 
 			__taxingEngine = taxing;
@@ -15,6 +18,8 @@ namespace PayrolleeMate.EngineService
 
 			__socialEngine = social;
 		}
+
+		private MonthPeriod __payrollMonth;
 
 		private IPeriodEngine __periodEngine;
 
@@ -26,6 +31,11 @@ namespace PayrolleeMate.EngineService
 
 
 		#region IEngineProfile implementation
+
+		public MonthPeriod PayrollMonth ()
+		{
+			return __payrollMonth;
+		}
 
 		public IPeriodEngine Period ()
 		{

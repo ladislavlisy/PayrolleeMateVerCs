@@ -1,5 +1,6 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.Interfaces;
+using PayrolleeMate.EngineService.Constants;
 
 namespace PayrolleeMate.ProcessConfig.Items
 {
@@ -7,6 +8,12 @@ namespace PayrolleeMate.ProcessConfig.Items
 	{
 		public TargetValues ()
 		{
+			__contractType = WorkRelationTerms.WORKTERM_EMPLOYMENT_1;
+
+			__healthWorkType = WorkHealthTerms.HEALTH_TERM_EMPLOYMENT;
+
+			__socialWorkType = WorkSocialTerms.SOCIAL_TERM_EMPLOYMENT;
+
 			__dateFrom = null;
 
 			__dateEnds = null;
@@ -15,7 +22,7 @@ namespace PayrolleeMate.ProcessConfig.Items
 
 			__timesheetWorked = 0;
 
-			__timesheetMissed = 0;
+			__timesheetAbsent = 0;
 
 			__amountMonthly = 0m;
 
@@ -32,9 +39,16 @@ namespace PayrolleeMate.ProcessConfig.Items
 			__codeCardinals = 0;
 		}
 
-		public TargetValues (DateTime? dateFrom, DateTime? dateEnds, Int32 timeWeekly, Int32 timeWorked, Int32 timeMissed,
+		public TargetValues (WorkRelationTerms contract, WorkHealthTerms healthType, WorkSocialTerms socialType,
+			DateTime? dateFrom, DateTime? dateEnds, Int32 timeWeekly, Int32 timeWorked, Int32 timeAbsent,
 			decimal amountMonthly, uint interests, uint residency, uint mandatory, uint statement, uint handicaps, uint cardinals)
 		{
+			__contractType = contract;
+
+			__healthWorkType = healthType;
+
+			__socialWorkType = socialType;
+
 			__dateFrom = dateFrom;
 
 			__dateEnds = dateEnds;
@@ -43,7 +57,7 @@ namespace PayrolleeMate.ProcessConfig.Items
 
 			__timesheetWorked = timeWorked;
 
-			__timesheetMissed = timeMissed;
+			__timesheetAbsent = timeAbsent;
 
 			__amountMonthly = amountMonthly;
 
@@ -60,6 +74,12 @@ namespace PayrolleeMate.ProcessConfig.Items
 			__codeCardinals = cardinals;
 		}
 
+		protected WorkRelationTerms __contractType = WorkRelationTerms.WORKTERM_EMPLOYMENT_1;
+
+		protected WorkHealthTerms __healthWorkType = WorkHealthTerms.HEALTH_TERM_EMPLOYMENT;
+
+		protected WorkSocialTerms __socialWorkType = WorkSocialTerms.SOCIAL_TERM_EMPLOYMENT;
+
 		protected DateTime? __dateFrom = null;
 
 		protected DateTime? __dateEnds = null;
@@ -68,7 +88,7 @@ namespace PayrolleeMate.ProcessConfig.Items
 
 		protected Int32 __timesheetWorked = 0;
 
-		protected Int32 __timesheetMissed = 0;
+		protected Int32 __timesheetAbsent = 0;
 
 		protected decimal __amountMonthly = 0m;
 
@@ -85,6 +105,21 @@ namespace PayrolleeMate.ProcessConfig.Items
 		protected uint __codeCardinals = 0;
 
 		#region ITargetValues implementation
+
+		public WorkRelationTerms ContractType ()
+		{
+			return __contractType;
+		}
+
+		public WorkHealthTerms HealthWorkType ()
+		{
+			return __healthWorkType;
+		}
+
+		public WorkSocialTerms SocialWorkType ()
+		{
+			return __socialWorkType;
+		}
 
 		public DateTime? DateFrom ()
 		{
@@ -106,9 +141,9 @@ namespace PayrolleeMate.ProcessConfig.Items
 			return __timesheetWorked;
 		}
 
-		public Int32 TimesheetMissed ()
+		public Int32 TimesheetAbsent ()
 		{
-			return __timesheetMissed;
+			return __timesheetAbsent;
 		}
 
 		public decimal AmountMonthly ()

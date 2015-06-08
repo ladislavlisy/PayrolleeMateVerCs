@@ -502,7 +502,7 @@ namespace Tests.ProcessConfig.Logers
 
 				lineDefinition += " {\n";
 
-				lineDefinition += "\treturn new TargetValues (dateFrom, dateEnds, timeWeekly, timeWorked, timeMissed, amountMonthly,\n\t\t\t\tcodeInterests, codeResidency, codeMandatory, codeStatement, codeHandicaps, codeCardinals);\n";
+				lineDefinition += "\treturn new TargetValues (dateFrom, dateEnds, timeWeekly, timeWorked, timeAbsent, amountMonthly,\n\t\t\t\tcodeInterests, codeResidency, codeMandatory, codeStatement, codeHandicaps, codeCardinals);\n";
 
 				lineDefinition += "}\n";
 

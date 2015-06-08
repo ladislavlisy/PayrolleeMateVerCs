@@ -121,7 +121,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				ConfigSetCzConceptName.REF_TIMEHOURS_ABSENCE, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
-				"timesheet_missed", 
+				"timesheet_absent", 
 				"", 
 				ConfigSetCzEvaluations.TimehoursAbsenceEvaluation); 
 		}

@@ -1,9 +1,16 @@
 ﻿using System;
+using PayrolleeMate.EngineService.Constants;
 
 namespace PayrolleeMate.ProcessConfig.Interfaces
 {
 	public interface ITargetValues
 	{
+		WorkRelationTerms ContractType ();
+
+		WorkHealthTerms HealthWorkType ();
+
+		WorkSocialTerms SocialWorkType ();
+
 		DateTime? DateFrom ();
 
 		DateTime? DateEnds ();
@@ -12,7 +19,7 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 
 		Int32 TimesheetWorked ();
 
-		Int32 TimesheetMissed ();
+		Int32 TimesheetAbsent ();
 
 		decimal AmountMonthly ();
 

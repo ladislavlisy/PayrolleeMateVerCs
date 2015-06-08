@@ -6,6 +6,10 @@ namespace PayrolleeMate.Common.Periods
 	{
 		public static readonly uint PRESENT = 0;
 
+		public const uint TERM_BEG_FINISHED = 32;
+
+		public const uint TERM_END_FINISHED =  0;
+
 		public static MonthPeriod Empty()
 		{
 			return new MonthPeriod(PRESENT);

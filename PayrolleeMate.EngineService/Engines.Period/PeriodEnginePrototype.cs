@@ -19,6 +19,16 @@ namespace PayrolleeMate.EngineService.Engines.Period
 		{
 			return __guides;
 		}
+			
+		public uint DayFromOrdinal (MonthPeriod period, DateTime? dateFrom)
+		{
+			return PeriodOperations.DateFromInPeriod(period, dateFrom);
+		}
+
+		public uint DayEndsOrdinal (MonthPeriod period, DateTime? dateEnds)
+		{
+			return PeriodOperations.DateEndsInPeriod(period, dateEnds);
+		}
 
 		#endregion
 

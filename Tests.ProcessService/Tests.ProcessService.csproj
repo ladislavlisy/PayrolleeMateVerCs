@@ -59,6 +59,7 @@
     <Compile Include="Module\TestEvaluateLogger.cs" />
     <Compile Include="Loggers\TestTargetsLogger.cs" />
     <Compile Include="Loggers\TestEmptyLogger.cs" />
+    <Compile Include="Module\TestEvaluateSalary.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PayrolleeMate.ProcessService\PayrolleeMate.ProcessService.csproj">

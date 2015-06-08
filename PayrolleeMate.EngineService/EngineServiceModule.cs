@@ -36,7 +36,7 @@ namespace PayrolleeMate.EngineService
 			IHealthEngine healthEngine = HistoryOfHealth.ResolveEngine (period);
 			ISocialEngine socialEngine = HistoryOfSocial.ResolveEngine (period);
 
-			return new EngineProfile(periodEngine, taxingEngine, healthEngine, socialEngine);
+			return new EngineProfile(period, periodEngine, taxingEngine, healthEngine, socialEngine);
 		}
 
 		private IEnginesHistory<IPeriodEngine> HistoryOfPeriod { get; set; }

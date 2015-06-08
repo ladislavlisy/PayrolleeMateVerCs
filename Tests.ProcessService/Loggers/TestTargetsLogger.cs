@@ -195,7 +195,7 @@ namespace Tests.ProcessService.Loggers
 
 				foreach (var result in results)
 				{
-					lineDefinition += LogArticleInfo (result.Value);
+					lineDefinition += LogResultInfo (result.Value);
 				}
 				lineDefinition += "\n";
 
@@ -204,7 +204,7 @@ namespace Tests.ProcessService.Loggers
 				return lineDefinition;
 			}
 
-			public static string LogArticleInfo(IBookResult result)
+			public static string LogResultInfo(IBookResult result)
 			{
 				IPayrollArticle article = result.Article ();
 
@@ -212,6 +212,11 @@ namespace Tests.ProcessService.Loggers
 
 				string lineDefinition = string.Format("\n--- {0} - {1} - {2} - {3}", 
 					article.ArticleName(), article.ConceptName(), article.ArticleCode(), element.ToString());
+
+				foreach (var resultValue in result.ResultValues()) 
+				{
+					lineDefinition += string.Format("\n\t--- {0} - {1}", resultValue, "VALUE_NULL");
+				}
 
 				return lineDefinition;
 			}

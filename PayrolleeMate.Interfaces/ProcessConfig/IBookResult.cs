@@ -10,6 +10,11 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 		IPayrollArticle Article ();
 
 		IResultValues Values ();
+
+		string[] TargetValues();
+
+		string[] ResultValues();
+
 	}
 }
 
