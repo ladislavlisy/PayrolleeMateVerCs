@@ -73,6 +73,7 @@
     <Compile Include="ProcessConfig.Items\ResultValues.cs" />
     <Compile Include="ProcessConfig.Items\TargetValues.cs" />
     <Compile Include="ProcessConfig.Items\BookResult.cs" />
+    <Compile Include="ProcessService\ICodeIndex.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

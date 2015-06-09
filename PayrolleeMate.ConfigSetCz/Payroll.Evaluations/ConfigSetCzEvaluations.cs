@@ -34,10 +34,10 @@ namespace PayrolleeMate.ProcessConfigSetCz.Evaluations
 		};
 
 		public static GeneralModule.EvaluateDelegate PositionEmplTermEvaluation = (concept, config, engine, article, element, targets, results) => {
-			var listOfDayFromOrdinal = results.Results().Where(x => x.Key.CodeOrder()==element.ContractOrder()).
+			var listOfDayFromOrdinal = results.Results().Where(x => x.Key.GetIndex().Equals(element.ContractIndex())).
 				Select(c => c.Value.Values().PeriodDayFromOrdinal()).ToArray();
 			
-			var listOfDayEndsOrdinal = results.Results().Where(x => x.Key.CodeOrder()==element.ContractOrder()).
+			var listOfDayEndsOrdinal = results.Results().Where(x => x.Key.GetIndex().Equals(element.ContractIndex())).
 				Select(c => c.Value.Values().PeriodDayEndsOrdinal()).ToArray();
 			
 			var contractDayFromOrdinal = listOfDayFromOrdinal.Aggregate(0u, (agr, c) => agr > 0u ? agr : c);

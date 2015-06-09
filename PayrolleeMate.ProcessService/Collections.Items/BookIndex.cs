@@ -5,46 +5,43 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 {
 	public class BookIndex : BookParty, IBookIndex
 	{
-		public static readonly uint UNKNOWN_CODE = 0;
-
-		public static readonly uint UNKNOWN_ORDER = 0;
-
-		private uint __code = UNKNOWN_CODE;
-
-		private uint __codeOrder = UNKNOWN_ORDER;
+		private ICodeIndex __index = CodeIndex.GetEmpty();
 
 		public static new BookIndex GetEmpty()
 		{
-			return new BookIndex(BookParty.GetEmpty(), UNKNOWN_CODE, UNKNOWN_ORDER);
+			return new BookIndex(BookParty.GetEmpty(), CodeIndex.UNKNOWN_CODE, CodeIndex.UNKNOWN_ORDER);
 		}
 
 		public IBookParty GetParty()
 		{
-			return new BookParty(ContractOrder(), PositionOrder());
+			return new BookParty(ContractIndex(), PositionIndex());
 		}
 
 		public BookIndex(IBookParty party, uint code, uint codeOrder)
-			: base(party.ContractOrder(), party.PositionOrder())
+			: base(party.ContractIndex(), party.PositionIndex())
 		{
-			this.__code = code;
-			this.__codeOrder = codeOrder;
+			this.__index = new CodeIndex(code, codeOrder);
 		}
 
-		public BookIndex(uint contractOrder, uint positionOrder, uint code, uint codeOrder)
-			: base(contractOrder, positionOrder)
+		public BookIndex(ICodeIndex contractIndex, ICodeIndex positionIndex, uint code, uint codeOrder)
+			: base(contractIndex, positionIndex)
 		{
-			this.__code = code;
-			this.__codeOrder = codeOrder;
+			this.__index = new CodeIndex(code, codeOrder);
+		}
+
+		public ICodeIndex GetIndex() 
+		{
+			return __index;
 		}
 
 		public uint Code() 
 		{
-			return __code;
+			return __index.Code();
 		}
 
 		public uint CodeOrder() 
 		{
-			return __codeOrder; 
+			return __index.CodeOrder(); 
 		}
 
 		override public int CompareTo(object other)
@@ -56,23 +53,18 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 
 		public int CompareTo(IBookIndex otherIndex)
 		{
-			if (!base.isEqualToParty(otherIndex))
+			bool equalsPartyIndex = base.isEqualToParty (otherIndex);
+
+			if (equalsPartyIndex)
 			{
-				return base.CompareTo(otherIndex);
+				return (this.GetIndex().CompareTo(otherIndex.GetIndex()));
 			}
-			else
-			if (this.Code() != otherIndex.Code())
-			{
-				return this.Code().CompareTo(otherIndex.Code());
-			}
-			return (this.CodeOrder().CompareTo(otherIndex.CodeOrder()));
+			return base.CompareTo(otherIndex);
 		}
 
 		public bool isEqualToOrder(IBookIndex other)
 		{
-			return (base.isEqualToParty(other)
-				&& this.Code() == other.Code()
-				&& this.CodeOrder() == other.CodeOrder());
+			return (base.isEqualToParty(other) && this.GetIndex().Equals(other.GetIndex()));
 		}
 
 		public override bool Equals(object other)
@@ -94,9 +86,7 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 
 			result = base.GetHashCode();
 
-			result += prime * result + (int)this.Code();
-
-			result += prime * result + (int)this.CodeOrder();
+			result += prime * result + (int)this.GetIndex().GetHashCode();
 
 			return result;
 		}
@@ -104,10 +94,9 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 		public override string ToString()
 		{
 			return "<<" +
-				":CON:" + this.ContractOrder().ToString() + 
-				":POS:" + this.PositionOrder().ToString() + 
-				":ORD:" + this.CodeOrder().ToString() + 
-				">>";
+				":CON:" + this.ContractIndex().ToString() + 
+				":POS:" + this.PositionIndex().ToString() + 
+				">> - " + this.GetIndex().ToString();
 		}
 	}
 }

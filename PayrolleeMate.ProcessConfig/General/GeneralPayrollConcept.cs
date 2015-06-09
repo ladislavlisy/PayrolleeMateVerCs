@@ -89,7 +89,7 @@ namespace PayrolleeMate.ProcessConfig.General
 		{
 			if (__positionNode == false && __contractNode == true) 
 			{
-				return element.GetNewContractParty (element.CodeOrder ());
+				return element.GetNewContractParty (element.Code (), element.CodeOrder ());
 			}
 			return null;
 		}
@@ -98,7 +98,7 @@ namespace PayrolleeMate.ProcessConfig.General
 		{
 			if (__positionNode == true) 
 			{
-				return element.GetNewPositionParty (element.CodeOrder ());
+				return element.GetNewPositionParty (element.Code (), element.CodeOrder ());
 			}
 			return null;
 		}
@@ -141,11 +141,11 @@ namespace PayrolleeMate.ProcessConfig.General
 		{
 			if (__positionNode == false && __contractNode == true) 
 			{
-				return lastIndex.GetNewContractParty (lastIndex.CodeOrder ());
+				return lastIndex.GetNewContractParty (lastIndex.Code (), lastIndex.CodeOrder ());
 			}
 			else if (__positionNode == true) 
 			{
-				return lastIndex.GetNewPositionParty (lastIndex.CodeOrder ());
+				return lastIndex.GetNewPositionParty (lastIndex.Code (), lastIndex.CodeOrder ());
 			}
 			return lastIndex.GetParty();
 		}

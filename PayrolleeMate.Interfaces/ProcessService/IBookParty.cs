@@ -6,19 +6,19 @@ namespace PayrolleeMate.ProcessService.Interfaces
 	{
 		IBookParty GetContractParty ();
 
-		IBookParty GetNewContractParty (uint order);
+		IBookParty GetNewContractParty (uint indexCode, uint codeOrder);
 
 		IBookParty GetPositionParty ();
 
-		IBookParty GetNewPositionParty (uint order);
+		IBookParty GetNewPositionParty (uint indexCode, uint codeOrder);
 
 		IBookParty GetNonContractParty ();
 
 		IBookParty GetNonPositionParty ();
 
-		uint ContractOrder ();
+		ICodeIndex ContractIndex ();
 
-		uint PositionOrder ();
+		ICodeIndex PositionIndex ();
 
 		bool isEqualToParty (IBookParty other);
 	}

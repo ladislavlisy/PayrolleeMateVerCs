@@ -264,7 +264,7 @@ namespace PayrolleeMate.ProcessService.Collections
 
 			var nextIndex = retTuple.Item1;
 
-			var nextParty = nextIndex.GetNewContractParty(nextIndex.CodeOrder());
+			var nextParty = nextIndex.GetNewContractParty(nextIndex.Code(), nextIndex.CodeOrder());
 
 			return new TargetStream(nextFacts, nextParty, nextIndex);
 		}
@@ -280,7 +280,7 @@ namespace PayrolleeMate.ProcessService.Collections
 
 			var nextIndex = retTuple.Item1;
 
-			var nextParty = nextIndex.GetNewPositionParty(nextIndex.CodeOrder());
+			var nextParty = nextIndex.GetNewPositionParty(nextIndex.Code(), nextIndex.CodeOrder());
 
 			return new TargetStream(nextFacts, nextParty, nextIndex);
 		}

@@ -5,42 +5,46 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 {
 	public class BookParty : IBookParty, IComparable
 	{
-		public static readonly uint UNKNOWN_CONTRACT = 0;
+		public static readonly ICodeIndex UNKNOWN_CONTRACT = CodeIndex.GetEmpty();
 
-		public static readonly uint UNKNOWN_POSITION = 0;
+		public static readonly ICodeIndex UNKNOWN_POSITION = CodeIndex.GetEmpty();
 
-		private uint __contractOrder = UNKNOWN_CONTRACT;
-		private uint __positionOrder = UNKNOWN_POSITION;
+		private ICodeIndex __contractIndex = UNKNOWN_CONTRACT;
+		private ICodeIndex __positionIndex = UNKNOWN_POSITION;
 
 		public static IBookParty GetEmpty()
 		{
 			return new BookParty(UNKNOWN_CONTRACT, UNKNOWN_POSITION);
 		}
 
-		public BookParty(uint contractOrder, uint positionOrder)
+		public BookParty(ICodeIndex contractIndex, ICodeIndex positionIndex)
 		{
-			this.__contractOrder = contractOrder;
-			this.__positionOrder = positionOrder;
+			this.__contractIndex = contractIndex;
+			this.__positionIndex = positionIndex;
 		}
 
 		public IBookParty GetContractParty()
 		{
-			return new BookParty(ContractOrder(), UNKNOWN_POSITION);
+			return new BookParty(ContractIndex(), UNKNOWN_POSITION);
 		}
 
-		public IBookParty GetNewContractParty(uint order)
+		public IBookParty GetNewContractParty(uint indexCode, uint codeOrder)
 		{
-			return new BookParty(order, UNKNOWN_POSITION);
+			ICodeIndex contractPartyIndex = new CodeIndex (indexCode, codeOrder);
+
+			return new BookParty(contractPartyIndex, UNKNOWN_POSITION);
 		}
 
 		public IBookParty GetPositionParty()
 		{
-			return new BookParty(ContractOrder(), PositionOrder());
+			return new BookParty(ContractIndex(), PositionIndex());
 		}
 
-		public IBookParty GetNewPositionParty(uint order)
+		public IBookParty GetNewPositionParty(uint indexCode, uint codeOrder)
 		{
-			return new BookParty(ContractOrder(), order);
+			ICodeIndex positionPartyIndex = new CodeIndex (indexCode, codeOrder);
+
+			return new BookParty(ContractIndex(), positionPartyIndex);
 		}
 
 		public IBookParty GetNonContractParty()
@@ -50,34 +54,39 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 
 		public IBookParty GetNonPositionParty()
 		{
-			return new BookParty(ContractOrder(), UNKNOWN_POSITION);
+			return new BookParty(ContractIndex(), UNKNOWN_POSITION);
 		}
 
-		public uint ContractOrder () 
+		public ICodeIndex ContractIndex () 
 		{
-			return __contractOrder;
+			return __contractIndex;
 		}
 
-		public uint PositionOrder () 
+		public ICodeIndex PositionIndex () 
 		{
-			return __positionOrder;
+			return __positionIndex;
 		}
 
 		virtual public int CompareTo(object other)
 		{
-			BookParty otherParty = other as BookParty;
+			IBookParty otherParty = other as IBookParty;
 
-			if (this.ContractOrder() != otherParty.ContractOrder())
+			bool equalsContractIndex = this.ContractIndex ().Equals (otherParty.ContractIndex ());
+
+			if (equalsContractIndex)
 			{
-				return this.ContractOrder().CompareTo(otherParty.ContractOrder());
+				return this.PositionIndex().CompareTo(otherParty.PositionIndex());
 			}
-			return this.PositionOrder().CompareTo(otherParty.PositionOrder());
+			return this.ContractIndex().CompareTo(otherParty.ContractIndex());
 		}
 
 		public bool isEqualToParty(IBookParty other)
 		{
-			return (this.ContractOrder() == other.ContractOrder() && 
-				this.PositionOrder() == other.PositionOrder());
+			bool equalsContractIndex = this.ContractIndex ().Equals (other.ContractIndex ());
+
+			bool equalsPositionIndex = this.PositionIndex ().Equals (other.PositionIndex ());
+
+			return (equalsContractIndex && equalsPositionIndex);
 		}
 
 		public override bool Equals(object other)
@@ -87,7 +96,7 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 			if (other == null || this.GetType() != other.GetType())
 				return false;
 
-			BookParty otherParty = other as BookParty;
+			IBookParty otherParty = other as IBookParty;
 
 			return this.isEqualToParty(otherParty);
 		}
@@ -97,9 +106,9 @@ namespace PayrolleeMate.ProcessService.Collection.Items
 			int prime = 31;
 			int result = 1;
 
-			result += prime * result + (int)this.ContractOrder();
+			result += prime * result + (int)this.ContractIndex().GetHashCode();
 
-			result += prime * result + (int)this.PositionOrder();
+			result += prime * result + (int)this.PositionIndex().GetHashCode();
 
 			return result;
 		}

@@ -40,6 +40,7 @@
     <Compile Include="Collections\ResultStream.cs" />
     <Compile Include="Loggers\LoggerWrapper.cs" />
     <Compile Include="Comparers\BookIndexComparer.cs" />
+    <Compile Include="Collections.Items\CodeIndex.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

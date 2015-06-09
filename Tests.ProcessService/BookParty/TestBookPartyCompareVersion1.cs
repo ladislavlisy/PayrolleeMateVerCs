@@ -2,23 +2,26 @@
 using System;
 using PayrolleeMate.ProcessService.Collection.Items;
 using PayrolleeMate.ProcessConfig.Constants;
+using PayrolleeMate.ProcessService.Interfaces;
 
 namespace Tests.ProcessService
 {
 	[TestFixture ()]
 	public class TestBookPartyCompareVersion1
 	{
+		const uint PARTY_CODE_DEFAULT = 101;
+
 		BookParty partyOne { get; set; }
 		BookParty partyTwo { get; set; }
 
 		[TestFixtureSetUp]
 		public void TestSetup()
 		{
-			uint contractOrderOne = 1;
-			uint positionOrderOne = 1;
+			ICodeIndex contractOrderOne = new CodeIndex (PARTY_CODE_DEFAULT, 1);
+			ICodeIndex positionOrderOne = new CodeIndex (PARTY_CODE_DEFAULT, 1);
 
-			uint contractOrderTwo = 2;
-			uint positionOrderTwo = 1;
+			ICodeIndex contractOrderTwo = new CodeIndex (PARTY_CODE_DEFAULT, 2);
+			ICodeIndex positionOrderTwo = new CodeIndex (PARTY_CODE_DEFAULT, 1);
 
 			partyOne = new BookParty(contractOrderOne, positionOrderOne);
 			partyTwo = new BookParty(contractOrderTwo, positionOrderTwo);
