@@ -81,7 +81,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				ConfigSetCzConceptName.REF_SCHEDULE_WORK, 
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
-				"timesheet_weekly", 
+				"timesheet_weekly|workdays_weekly", 
 				"shift_timetable", 
 				ConfigSetCzEvaluations.ScheduleWorkEvaluation); 
 			

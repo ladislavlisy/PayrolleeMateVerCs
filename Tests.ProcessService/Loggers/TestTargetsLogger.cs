@@ -4,6 +4,7 @@ using PayrolleeMate.ProcessService.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 using PayrolleeMate.ProcessConfig.Interfaces;
+using System.Linq;
 
 namespace Tests.ProcessService.Loggers
 {
@@ -241,10 +242,15 @@ namespace Tests.ProcessService.Loggers
 
 				case "date_from":
 					return LogObjectString (result.DateFrom ());
+
 				case "date_ends":
 					return LogObjectString (result.DateEnds ());
+
 				case "timesheet_weekly":
 					return LogObjectString (result.TimesheetWeekly ());
+
+				case "workdays_weekly":
+					return LogObjectString (result.WorkdaysWeekly ());
 
 				case "timesheet_worked":
 					return LogObjectString (result.TimesheetWorked ());
@@ -281,16 +287,16 @@ namespace Tests.ProcessService.Loggers
 					return LogObjectString (result.PeriodDayEndsOrdinal ());
 
 				case "shift_timetable": 
-					return LogObjectString (result.ShiftTimetable ());
+					return LogInt32String (result.ShiftTimetable ());
 
 				case "work_timetable": 
-					return LogObjectString (result.WorkTimetable ());
+					return LogInt32String (result.WorkTimetable ());
 
 				case "over_timetable": 
-					return LogObjectString (result.OverTimetable ());
+					return LogInt32String (result.OverTimetable ());
 
 				case "absence_timetable": 
-					return LogObjectString (result.AbsenceTimetable ());
+					return LogInt32String (result.AbsenceTimetable ());
 
 				case "worktime_counts": 
 					return LogObjectString (result.WorktimeCount ());
@@ -331,6 +337,28 @@ namespace Tests.ProcessService.Loggers
 					return "NULL";
 				}
 				return value.ToString ();
+			}
+
+			public static string LogInt32String(Int32[] values)
+			{
+				if (values == null) 
+				{
+					return "NULL";
+				}
+				string valueInfo = values.Aggregate("[ ", (agr, x) => agr + x.ToString() + ", ");
+
+				return valueInfo + " ]";
+			}
+
+			public static string LogArrayString(object[] values)
+			{
+				if (values == null) 
+				{
+					return "NULL";
+				}
+				string valueInfo = values.Aggregate("[ ", (agr, x) => agr + x.ToString() + ", ");
+
+				return valueInfo + " ]";
 			}
 		}
 

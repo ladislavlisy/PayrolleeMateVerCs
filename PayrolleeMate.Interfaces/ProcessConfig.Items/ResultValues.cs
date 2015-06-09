@@ -7,6 +7,24 @@ namespace PayrolleeMate.ProcessConfig.Items
 {
 	public class ResultValues : IResultValues
 	{
+		public const uint NULL_DAY_ORDINAL = 0;
+
+		public static readonly Int32[] NULL_TIME_TABLE = { };
+
+		public const Int32 NULL_TIME_COUNTS = 0;
+
+		public const decimal NULL_AMOUNT = 0m;
+
+		public const decimal NULL_INCOME = 0m;
+
+		public static IResultValues GetEmpty()
+		{
+			return new ResultValues (null, NULL_DAY_ORDINAL, NULL_DAY_ORDINAL, 
+				NULL_TIME_TABLE, NULL_TIME_TABLE, NULL_TIME_TABLE, NULL_TIME_TABLE, 
+				NULL_TIME_COUNTS, NULL_TIME_COUNTS, NULL_TIME_COUNTS, 
+				NULL_TIME_COUNTS, NULL_AMOUNT, NULL_INCOME, NULL_INCOME, NULL_AMOUNT, NULL_AMOUNT);
+		}
+
 		public ResultValues (ITargetValues targetValues,
 			uint dayFromOrdinal, uint dayEndsOrdinal,
 			Int32[] shiftTable, Int32[] workTable, Int32[] overTable, Int32[] absenceTable,
@@ -60,6 +78,8 @@ namespace PayrolleeMate.ProcessConfig.Items
 		protected DateTime? __dateEnds = null;
 
 		protected Int32 __timesheetWeekly = 0;
+
+		protected Int32 __workdaysWeekly = 0;
 
 		protected Int32 __timesheetWorked = 0;
 
@@ -224,6 +244,11 @@ namespace PayrolleeMate.ProcessConfig.Items
 			return __timesheetWeekly;
 		}
 
+		public Int32 WorkdaysWeekly ()
+		{
+			return __workdaysWeekly;
+		}
+
 		public Int32 TimesheetWorked ()
 		{
 			return __timesheetWorked;
@@ -289,6 +314,8 @@ namespace PayrolleeMate.ProcessConfig.Items
 			__dateEnds = targetValues.DateEnds ();
 
 			__timesheetWeekly = targetValues.TimesheetWeekly ();
+
+			__workdaysWeekly = targetValues.WorkdaysWeekly ();
 
 			__timesheetWorked = targetValues.TimesheetWorked ();
 

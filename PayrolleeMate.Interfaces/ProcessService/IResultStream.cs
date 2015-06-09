@@ -11,6 +11,14 @@ namespace PayrolleeMate.ProcessService.Interfaces
 		IBookResult GetResultBy(uint articleCode);
 
 		IResultStream AggregateResultList (IBookResult[] resultList);
+
+		IResultValues GetContractResult (ICodeIndex contract);
+
+		IResultValues GetPositionResult (IBookParty position);
+
+		IList<IResultValues> GetContractPartyResultList (ICodeIndex contract, uint articleCode);
+
+		IList<IResultValues> GetPositionPartyResultList (IBookParty position, uint articleCode);
 	}
 }
 

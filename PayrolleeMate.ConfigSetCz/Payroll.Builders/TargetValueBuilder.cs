@@ -17,6 +17,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		private static readonly DateTime? NULL_DATE_FROM = null;
 		private static readonly DateTime? NULL_DATE_ENDS = null;
 		private const Int32 NULL_TIME_WEEKLY = 0;
+		private const Int32 NULL_DAYS_WEEKLY = 0;
 		private const Int32 NULL_TIME_WORKED = 0;
 		private const Int32 NULL_TIME_ABSENT = 0;
 		private const decimal NULL_AMOUNT_MONTHLY = 0m;
@@ -32,7 +33,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 			DateTime? dateFrom, DateTime? dateEnds)
 		{
 			return new TargetValues (contract, healthType, socialType,
-				dateFrom, dateEnds, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				dateFrom, dateEnds, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				NULL_CODE_INTERESTS, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
@@ -40,15 +41,15 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreatePositionEmplTermValues(DateTime? dateFrom, DateTime? dateEnds) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				dateFrom, dateEnds, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				dateFrom, dateEnds, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				NULL_CODE_INTERESTS, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
 
-		public static ITargetValues CreateScheduleWorkValues(Int32 timeWeekly) 
+		public static ITargetValues CreateScheduleWorkValues(Int32 timeWeekly, Int32 daysWeekly) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, timeWeekly, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, timeWeekly, daysWeekly, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				NULL_CODE_INTERESTS, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
@@ -56,7 +57,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateTimehoursWorkingValues(Int32 timeWorked) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, timeWorked, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, timeWorked, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				NULL_CODE_INTERESTS, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
@@ -64,7 +65,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateTimehoursAbsenceValues(Int32 timeAbsent) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_TIME_WORKED, timeAbsent, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, timeAbsent, 
 				NULL_AMOUNT_MONTHLY,
 				NULL_CODE_INTERESTS, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
@@ -72,7 +73,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateSalaryBaseValues(decimal amountMonthly) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				amountMonthly,
 				NULL_CODE_INTERESTS, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
@@ -80,7 +81,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateHealthIncomeSubjectValues(uint codeInterests, uint codeResidency, uint codeMandatory) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				codeInterests, codeResidency, codeMandatory, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
@@ -88,7 +89,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateSocialIncomeSubjectValues(uint codeInterests, uint codeResidency) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				codeInterests, codeResidency, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
@@ -96,7 +97,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateGarantIncomeSubjectValues(uint codeInterests) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				codeInterests, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
@@ -104,7 +105,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateTaxingIncomeSubjectValues(uint codeInterests, uint codeResidency, uint codeStatement) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				codeInterests, codeResidency, NULL_CODE_MANDATORY, codeStatement, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
@@ -112,7 +113,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateTaxingAllowancePayerValues(uint codeInterests) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				codeInterests, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}
@@ -120,7 +121,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateTaxingAllowanceChildValues(uint codeInterests, uint codeHandicaps, uint codeCardinals) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				codeInterests, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, codeHandicaps, codeCardinals);
 		}
@@ -128,7 +129,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateTaxingAllowanceDisabilityValues(uint codeInterests, uint codeHandicaps) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				codeInterests, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, codeHandicaps, NULL_CODE_CARDINALS);
 		}
@@ -136,7 +137,7 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		public static ITargetValues CreateTaxingAllowanceStudyingValues(uint codeInterests) 
 		{
 			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
-				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
 				NULL_AMOUNT_MONTHLY,
 				codeInterests, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
 		}

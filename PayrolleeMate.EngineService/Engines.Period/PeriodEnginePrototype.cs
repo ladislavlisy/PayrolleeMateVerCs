@@ -30,6 +30,16 @@ namespace PayrolleeMate.EngineService.Engines.Period
 			return PeriodOperations.DateEndsInPeriod(period, dateEnds);
 		}
 
+		public Int32[] WeekWorkSchedule (MonthPeriod period, Int32 secondsWeekly, Int32 workdaysWeekly)
+		{
+			return PeriodOperations.WeekSchedule(period, secondsWeekly, workdaysWeekly);
+		}
+
+		public Int32[] MonthWorkSchedule (MonthPeriod period, Int32[] weekSchedule)
+		{
+			return PeriodOperations.MonthSchedule(period, weekSchedule);
+		}
+
 		#endregion
 
 		#region IFactualPeriodGuides implementation

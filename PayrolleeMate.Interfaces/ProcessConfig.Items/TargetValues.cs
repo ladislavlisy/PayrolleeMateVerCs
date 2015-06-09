@@ -20,6 +20,8 @@ namespace PayrolleeMate.ProcessConfig.Items
 
 			__timesheetWeekly = 0;
 
+			__workdaysWeekly = 0;
+
 			__timesheetWorked = 0;
 
 			__timesheetAbsent = 0;
@@ -40,7 +42,7 @@ namespace PayrolleeMate.ProcessConfig.Items
 		}
 
 		public TargetValues (WorkRelationTerms contract, WorkHealthTerms healthType, WorkSocialTerms socialType,
-			DateTime? dateFrom, DateTime? dateEnds, Int32 timeWeekly, Int32 timeWorked, Int32 timeAbsent,
+			DateTime? dateFrom, DateTime? dateEnds, Int32 timeWeekly, Int32 daysWeekly, Int32 timeWorked, Int32 timeAbsent,
 			decimal amountMonthly, uint interests, uint residency, uint mandatory, uint statement, uint handicaps, uint cardinals)
 		{
 			__contractType = contract;
@@ -54,6 +56,8 @@ namespace PayrolleeMate.ProcessConfig.Items
 			__dateEnds = dateEnds;
 
 			__timesheetWeekly = timeWeekly;
+
+			__workdaysWeekly = daysWeekly;
 
 			__timesheetWorked = timeWorked;
 
@@ -85,6 +89,8 @@ namespace PayrolleeMate.ProcessConfig.Items
 		protected DateTime? __dateEnds = null;
 
 		protected Int32 __timesheetWeekly = 0;
+
+		protected Int32 __workdaysWeekly = 0;
 
 		protected Int32 __timesheetWorked = 0;
 
@@ -134,6 +140,11 @@ namespace PayrolleeMate.ProcessConfig.Items
 		public Int32 TimesheetWeekly ()
 		{
 			return __timesheetWeekly;
+		}
+
+		public Int32 WorkdaysWeekly ()
+		{
+			return __workdaysWeekly;
 		}
 
 		public Int32 TimesheetWorked ()

@@ -54,6 +54,11 @@ namespace Tests.ProcessService
 
 			ITargetValues positionValues = TargetValueBuilder.CreatePositionEmplTermValues(null, null);
 
+			Int32 weeklyWorkDaysScheduled = 5;
+			Int32 weeklyWorkTimeInSeconds = PeriodOperations.WorkingSecondsWeekly (weeklyWorkDaysScheduled, 8);
+
+			ITargetValues positionSchedule = TargetValueBuilder.CreateScheduleWorkValues(weeklyWorkTimeInSeconds, weeklyWorkDaysScheduled);
+
 			ITargetValues positionSalary = TargetValueBuilder.CreateSalaryBaseValues(15000m);
 
 			ITargetValues emptyValues = null;
@@ -62,6 +67,7 @@ namespace Tests.ProcessService
 				AddNewContractsTarget(ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, contractValues, testConfig).
 				AddNewPositionsTarget(ConfigSetCzArticleName.REF_POSITION_EMPL_TERM, positionValues, testConfig).
 				AddTargetIntoPosition(ConfigSetCzArticleName.REF_SALARY_BASE, positionSalary, testConfig).
+				AddTargetIntoPosition(ConfigSetCzArticleName.REF_SCHEDULE_WORK, positionSchedule, testConfig).
 				AddTargetIntoPosition(ConfigSetCzArticleName.REF_INCOME_GROSS, emptyValues, testConfig);
 
 			IEngineProfile testProfile = testEngine.BuildEngineProfile (testPeriod);

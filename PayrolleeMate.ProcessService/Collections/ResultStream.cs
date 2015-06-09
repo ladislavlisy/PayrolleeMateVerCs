@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using PayrolleeMate.ProcessService.Comparers;
 using System.Linq;
 using PayrolleeMate.ProcessConfig.Interfaces;
+using PayrolleeMate.ProcessConfig.Items;
 
 namespace PayrolleeMate.ProcessService
 {
@@ -41,6 +42,44 @@ namespace PayrolleeMate.ProcessService
 		public IBookResult GetResultBy (uint articleCode)
 		{
 			throw new NotImplementedException ();
+		}
+
+		public IResultValues GetContractResult (ICodeIndex contract)
+		{
+			var resultsList = __results.Where(x => x.Key.GetIndex().Equals(contract)).
+				Select(c => c.Value.Values()).ToArray();
+
+			var partyResult = resultsList.DefaultIfEmpty(ResultValues.GetEmpty()).FirstOrDefault();
+
+			return partyResult;
+		}
+
+		public IResultValues GetPositionResult (IBookParty position)
+		{
+			var resultsList = __results.Where(x => x.Key.ContractIndex().Equals(position.ContractIndex()) && 
+				x.Key.GetIndex().Equals(position.PositionIndex())).
+				Select(c => c.Value.Values()).ToArray();
+
+			var partyResult = resultsList.DefaultIfEmpty(ResultValues.GetEmpty()).FirstOrDefault();
+
+			return partyResult;
+		}
+
+		public IList<IResultValues> GetContractPartyResultList (ICodeIndex contract, uint articleCode)
+		{
+			var resultsList = __results.Where(x => x.Key.ContractIndex().Equals(contract) && x.Key.Code()==articleCode).
+				Select(c => c.Value.Values()).ToList();
+
+			return resultsList;
+		}
+
+		public IList<IResultValues> GetPositionPartyResultList (IBookParty position, uint articleCode)
+		{
+			var resultsList = __results.Where(x => x.Key.ContractIndex().Equals(position.ContractIndex()) && 
+				x.Key.PositionIndex().Equals(position.PositionIndex()) && x.Key.Code()==articleCode).
+				Select(c => c.Value.Values()).ToArray();
+
+			return resultsList;
 		}
 
 		#endregion

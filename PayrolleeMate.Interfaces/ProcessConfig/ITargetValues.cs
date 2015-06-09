@@ -17,6 +17,8 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 
 		Int32 TimesheetWeekly ();
 
+		Int32 WorkdaysWeekly ();
+
 		Int32 TimesheetWorked ();
 
 		Int32 TimesheetAbsent ();
