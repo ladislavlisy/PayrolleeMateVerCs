@@ -70,9 +70,9 @@ namespace PayrolleeMate.ProcessConfigSetCz.Evaluations
 		{
 			uint scheduleCode = ConfigSetCzArticleCode.ARTICLE_SCHEDULE_WORK.Code();
 
-			var weekSchedule = ResultValuesExtractor.GetShiftTimetable(results, element.GetParty(), scheduleCode);
+			var scheduleHours = ResultValuesExtractor.GetShiftTimetable(results, element.GetParty(), scheduleCode);
 
-			var monthSchedule = engine.Period().MonthWorkSchedule(engine.PayrunPeriod(), weekSchedule);
+			var monthSchedule = engine.Period().MonthWorkSchedule(engine.PayrunPeriod(), scheduleHours);
 
 			IBookResult[] evalResults = ResultListBuilder.BuildTimesheetScheduleResult(concept, element, article, 
 				targets, monthSchedule);
@@ -82,35 +82,93 @@ namespace PayrolleeMate.ProcessConfigSetCz.Evaluations
 
 		public static GeneralModule.EvaluateDelegate TimesheetWorkingEvaluation = (concept, config, engine, article, element, targets, results) => 
 		{
-			IBookResult[] evalResults = ResultListBuilder.BuildListWithCloneResult(concept, element, article, targets);
+			uint dayFromPosition = ResultValuesExtractor.GetPositionDayFrom(results, element.GetParty());
+
+			uint dayEndsPosition = ResultValuesExtractor.GetPositionDayEnds(results, element.GetParty());
+
+			uint timaeheetCode = ConfigSetCzArticleCode.ARTICLE_TIMESHEET_SCHEDULE.Code();
+
+			var timesheetHours = ResultValuesExtractor.GetShiftTimetable(results, element.GetParty(), timaeheetCode);
+
+			var monthSchedule = engine.Period().TimesheetWorkSchedule(engine.PayrunPeriod(), timesheetHours, dayFromPosition, dayEndsPosition);
+
+			IBookResult[] evalResults = ResultListBuilder.BuildTimesheetWorkingResult(concept, element, article, 
+				targets, monthSchedule);
 
 			return evalResults;
 		};
 
 		public static GeneralModule.EvaluateDelegate TimesheetAbsenceEvaluation = (concept, config, engine, article, element, targets, results) => 
 		{
-			IBookResult[] evalResults = ResultListBuilder.BuildListWithCloneResult(concept, element, article, targets);
+			uint dayFromPosition = ResultValuesExtractor.GetPositionDayFrom(results, element.GetParty());
+
+			uint dayEndsPosition = ResultValuesExtractor.GetPositionDayEnds(results, element.GetParty());
+
+			uint dayFromAbsence = Math.Max(32, dayFromPosition);
+
+			uint dayEndsAbsence = Math.Min( 0, dayEndsPosition);
+
+			Int32[] absenceHours = new Int32[] {};
+
+			var monthSchedule = engine.Period().TimesheetAbsenceSchedule(engine.PayrunPeriod(), absenceHours, dayFromAbsence, dayEndsAbsence);
+
+			IBookResult[] evalResults = ResultListBuilder.BuildTimesheetAbsenceResult(concept, element, article, 
+				targets, monthSchedule);
 
 			return evalResults;
 		};
 
 		public static GeneralModule.EvaluateDelegate TimehoursWorkingEvaluation = (concept, config, engine, article, element, targets, results) => 
 		{
-			IBookResult[] evalResults = ResultListBuilder.BuildListWithCloneResult(concept, element, article, targets);
+			uint timaeheetCode = ConfigSetCzArticleCode.ARTICLE_TIMESHEET_WORKING.Code();
+
+			var timesheetHours = ResultValuesExtractor.GetSumWorkingTimetable(results, element.GetParty(), timaeheetCode);
+
+			IBookResult[] evalResults = ResultListBuilder.BuildTimehoursWorkingResult(concept, element, article, 
+				targets, timesheetHours);
 
 			return evalResults;
 		};
 
 		public static GeneralModule.EvaluateDelegate TimehoursAbsenceEvaluation = (concept, config, engine, article, element, targets, results) => 
 		{
-			IBookResult[] evalResults = ResultListBuilder.BuildListWithCloneResult(concept, element, article, targets);
+			uint timaeheetCode = ConfigSetCzArticleCode.ARTICLE_TIMESHEET_ABSENCE.Code();
+
+			var timesheetHours = ResultValuesExtractor.GetSumAbsenceTimetable(results, element.GetParty(), timaeheetCode);
+
+			IBookResult[] evalResults = ResultListBuilder.BuildTimehoursAbsenceResult(concept, element, article, 
+				targets, timesheetHours);
 
 			return evalResults;
 		};
 
 		public static GeneralModule.EvaluateDelegate SalaryBaseEvaluation = (concept, config, engine, article, element, targets, results) => 
 		{
-			IBookResult[] evalResults = ResultListBuilder.BuildListWithCloneResult(concept, element, article, targets);
+			uint sumtimeHoursCode = ConfigSetCzArticleCode.ARTICLE_TIMESHEET_SCHEDULE.Code();
+
+			uint workingHoursCode = ConfigSetCzArticleCode.ARTICLE_TIMEHOURS_WORKING.Code();
+
+			uint absenceHoursCode = ConfigSetCzArticleCode.ARTICLE_TIMEHOURS_ABSENCE.Code();
+
+			var sumtimeMonthHours = ResultValuesExtractor.GetSumShiftTimetable(results, element.GetParty(), sumtimeHoursCode);
+
+			var workingMonthHours = ResultValuesExtractor.GetWorkingHours(results, element.GetParty(), workingHoursCode);
+
+			var absenceMonthHours = ResultValuesExtractor.GetAbsenceHours(results, element.GetParty(), absenceHoursCode);
+
+			var salaryAmountMonth = targets.AmountMonthly();
+
+			var resultSalaryHours = engine.Period().TotalHoursForSalary(engine.PayrunPeriod(), 
+				sumtimeMonthHours, workingMonthHours, absenceMonthHours);
+			
+			var factorMonthSalary = engine.Period().SalaryAmountWorkingTime(engine.PayrunPeriod(), salaryAmountMonth, 
+				sumtimeMonthHours, workingMonthHours, absenceMonthHours);
+			
+			var resultMonthSalary = engine.Period().SalaryAmountWorkingTime(engine.PayrunPeriod(), salaryAmountMonth, 
+				sumtimeMonthHours, workingMonthHours, absenceMonthHours);
+
+			IBookResult[] evalResults = ResultListBuilder.BuildSalaryBaseResult(concept, element, article, 
+				targets, factorMonthSalary, resultMonthSalary, resultSalaryHours);
 
 			return evalResults;
 		};
@@ -285,7 +343,12 @@ namespace PayrolleeMate.ProcessConfigSetCz.Evaluations
 
 		public static GeneralModule.EvaluateDelegate IncomeGrossEvaluation = (concept, config, engine, article, element, targets, results) => 
 		{
-			IBookResult[] evalResults = ResultListBuilder.BuildListWithCloneResult(concept, element, article, targets);
+			uint summaryCode = ConfigSetCzArticleCode.ARTICLE_INCOME_GROSS.Code();
+
+			var summaryIncome = ResultValuesExtractor.GetSummaryPaymentAmount(results, element.ContractIndex(), summaryCode);
+
+			IBookResult[] evalResults = ResultListBuilder.BuildIncomeGrossResult(concept, element, article, 
+				targets, summaryIncome);
 
 			return evalResults;
 		};
@@ -333,6 +396,69 @@ namespace PayrolleeMate.ProcessConfigSetCz.Evaluations
 
 			return resultValue;
 		}
+
+		public static Int32 GetSumShiftTimetable (IResultStream results, IBookParty position, uint articleCode)
+		{
+			var resultList = results.GetPositionPartyResultList(position, articleCode);
+
+			var resultHours = resultList.Select(x => x.ShiftTimetable()).DefaultIfEmpty(ResultValues.NULL_TIME_TABLE).FirstOrDefault();
+
+			var resultValue = resultHours.Aggregate (0, (agr, x) => (agr + x));
+
+			return resultValue;
+		}
+
+		public static Int32 GetSumWorkingTimetable (IResultStream results, IBookParty position, uint articleCode)
+		{
+			var resultList = results.GetPositionPartyResultList(position, articleCode);
+
+			var resultHours = resultList.Select(x => x.WorkTimetable()).DefaultIfEmpty(ResultValues.NULL_TIME_TABLE).FirstOrDefault();
+
+			var resultValue = resultHours.Aggregate (0, (agr, x) => (agr + x));
+
+			return resultValue;
+		}
+
+		public static Int32 GetSumAbsenceTimetable (IResultStream results, IBookParty position, uint articleCode)
+		{
+			var resultList = results.GetPositionPartyResultList(position, articleCode);
+
+			var resultHours = resultList.Select(x => x.AbsenceTimetable()).DefaultIfEmpty(ResultValues.NULL_TIME_TABLE).FirstOrDefault();
+
+			var resultValue = resultHours.Aggregate (0, (agr, x) => (agr + x));
+
+			return resultValue;
+		}
+
+		public static Int32 GetWorkingHours (IResultStream results, IBookParty position, uint articleCode)
+		{
+			var resultList = results.GetPositionPartyResultList(position, articleCode);
+
+			var resultValue = resultList.Select(x => x.WorktimeCount()).DefaultIfEmpty(ResultValues.NULL_TIME_COUNTS).FirstOrDefault();
+
+			return resultValue;
+		}
+			
+		public static Int32 GetAbsenceHours (IResultStream results, IBookParty position, uint articleCode)
+		{
+			var resultList = results.GetPositionPartyResultList(position, articleCode);
+
+			var resultValue = resultList.Select(x => x.AbsenceCount()).DefaultIfEmpty(ResultValues.NULL_TIME_COUNTS).FirstOrDefault();
+
+			return resultValue;
+		}
+
+		public static decimal GetSummaryPaymentAmount (IResultStream results, ICodeIndex contract, uint articleCode)
+		{
+			var resultList = results.GetContractPartySummaryList(contract, articleCode);
+
+			var resultAmounts = resultList.Select(x => x.AmountPayments()).ToArray();
+
+			var resultValue = resultAmounts.Aggregate (0m, (agr, x) => (decimal.Add(agr, x)));
+
+			return resultValue;
+		}
+
 	}
 
 	static class ResultListBuilder
@@ -389,6 +515,68 @@ namespace PayrolleeMate.ProcessConfigSetCz.Evaluations
 			ITargetValues targets, Int32[] timeTable)
 		{
 			IBookResult result = BookResultBuilder.CreateTimesheetScheduleResult(concept, element, article, targets, timeTable);
+
+			IBookResult[] resultList = BuildListWithResult(result);
+
+			return resultList;
+		}
+
+		public static IBookResult[] BuildTimesheetWorkingResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, 
+			ITargetValues targets, Int32[] timeTable)
+		{
+			IBookResult result = BookResultBuilder.CreateWorkTimetableResult(concept, element, article, targets, timeTable);
+
+			IBookResult[] resultList = BuildListWithResult(result);
+
+			return resultList;
+		}
+
+		public static IBookResult[] BuildTimesheetAbsenceResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, 
+			ITargetValues targets, Int32[] timeTable)
+		{
+			IBookResult result = BookResultBuilder.CreateAbsenceTimetableResult(concept, element, article, targets, timeTable);
+
+			IBookResult[] resultList = BuildListWithResult(result);
+
+			return resultList;
+		}
+
+		public static IBookResult[] BuildTimehoursWorkingResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, 
+			ITargetValues targets, Int32 timeValue)
+		{
+			IBookResult result = BookResultBuilder.CreateWorktimeCountResult(concept, element, article, targets, timeValue);
+
+			IBookResult[] resultList = BuildListWithResult(result);
+
+			return resultList;
+		}
+
+		public static IBookResult[] BuildTimehoursAbsenceResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, 
+			ITargetValues targets, Int32 timeValue)
+		{
+			IBookResult result = BookResultBuilder.CreateAbsenceCountResult(concept, element, article, targets, timeValue);
+
+			IBookResult[] resultList = BuildListWithResult(result);
+
+			return resultList;
+		}
+
+		public static IBookResult[] BuildSalaryBaseResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, 
+			ITargetValues targets, decimal factorValue, decimal amountValue, Int32 recordWorking)
+		{
+			IBookResult result = BookResultBuilder.CreateMonthlyAmountPaymentsResult(concept, element, article, targets, 
+				factorValue, amountValue, recordWorking);
+
+			IBookResult[] resultList = BuildListWithResult(result);
+
+			return resultList;
+		}
+
+		public static IBookResult[] BuildIncomeGrossResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, 
+			ITargetValues targets, decimal incomeValue)
+		{
+			IBookResult result = BookResultBuilder.CreateRecordIncomeResult(concept, element, article, targets, 
+				incomeValue);
 
 			IBookResult[] resultList = BuildListWithResult(result);
 

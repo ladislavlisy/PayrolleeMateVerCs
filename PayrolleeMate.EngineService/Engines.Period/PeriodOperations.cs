@@ -100,7 +100,30 @@ namespace PayrolleeMate.EngineService
 		{
 			int dayOfWeek = DayOfWeekFromOrdinal(dayOrdinal, periodBeginCwd);
 
-			return weekSchedule[dayOfWeek-1];
+			int indexWeek = (dayOfWeek - 1);
+
+			if (indexWeek < 0 || indexWeek >= weekSchedule.Length) 
+			{
+				return 0;
+			}
+			return weekSchedule[indexWeek];
+		}
+
+		private static Int32 SecondsFromScheduleSeq(MonthPeriod period, Int32[] timeTable, int dayOrdinal, uint dayFromOrd, uint dayEndsOrd)
+		{
+			if (dayOrdinal < dayFromOrd || dayOrdinal > dayEndsOrd)
+			{
+				return 0;
+			}
+
+			int indexTable = (dayOrdinal - (Int32)dayFromOrd);
+
+			if (indexTable < 0 || indexTable >= timeTable.Length)
+			{
+				return 0;
+			}
+				
+			return timeTable[indexTable];
 		}
 
 		private static int DayOfWeekFromOrdinal(int dayOrdinal, int periodBeginCwd)
@@ -114,11 +137,21 @@ namespace PayrolleeMate.EngineService
 			return dayOfWeek;
 		}
 
-		public static Int32[] TimesheetSchedule(Int32[] monthSchedule, uint dayOrdFrom, uint dayOrdEnds)
+		public static Int32[] TimesheetSchedule(MonthPeriod period, Int32[] monthSchedule, uint dayOrdFrom, uint dayOrdEnds)
 		{
 			Int32[] timeSheet = monthSchedule.Select((x, i) => (HoursFromCalendar(dayOrdFrom, dayOrdEnds, i, x))).ToArray();
 
 			return timeSheet;
+		}
+
+		public static Int32[] TimesheetAbsence(MonthPeriod period, Int32[] absenceSchedule, uint dayOrdFrom, uint dayOrdEnds)
+		{
+			int periodDaysCount = period.DaysInMonth();
+
+			Int32[] monthSchedule = Enumerable.Range(1, periodDaysCount).
+				Select( (x) => (SecondsFromScheduleSeq(period, absenceSchedule, x, dayOrdFrom, dayOrdEnds))).ToArray();
+
+			return monthSchedule;
 		}
 
 		private static int HoursFromCalendar(uint dayOrdFrom, uint dayOrdEnds, int dayIndex, Int32 workSeconds)

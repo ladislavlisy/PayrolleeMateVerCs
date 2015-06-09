@@ -68,7 +68,7 @@ namespace Tests.ProcessService
 				AddNewPositionsTarget(ConfigSetCzArticleName.REF_POSITION_EMPL_TERM, positionValues, testConfig).
 				AddTargetIntoPosition(ConfigSetCzArticleName.REF_SALARY_BASE, positionSalary, testConfig).
 				AddTargetIntoPosition(ConfigSetCzArticleName.REF_SCHEDULE_WORK, positionSchedule, testConfig).
-				AddTargetIntoPosition(ConfigSetCzArticleName.REF_INCOME_GROSS, emptyValues, testConfig);
+				AddTargetIntoContract(ConfigSetCzArticleName.REF_INCOME_GROSS, emptyValues, testConfig);
 
 			IEngineProfile testProfile = testEngine.BuildEngineProfile (testPeriod);
 

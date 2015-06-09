@@ -50,6 +50,100 @@ namespace PayrolleeMate.ProcessConfig.Builders
 
 			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
 		}
+
+		public static IBookResult CreateWorkTimetableResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, Int32[] timeTable)
+		{
+			IResultValues results = ResultValueBuilder.BuildWorkTimetableResult (targets, timeTable);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+		public static IBookResult CreateOverTimetableResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, Int32[] timeTable)
+		{
+			IResultValues results = ResultValueBuilder.BuildOverTimetableResult (targets, timeTable);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+		public static IBookResult CreateAbsenceTimetableResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, Int32[] timeTable)
+		{
+			IResultValues results = ResultValueBuilder.BuildAbsenceTimetableResult (targets, timeTable);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+		public static IBookResult CreateWorktimeCountResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, Int32 timeValue)
+		{
+			IResultValues results = ResultValueBuilder.BuildWorktimeCountResult (targets, timeValue);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+		public static IBookResult CreateOvertimeCountResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, Int32 timeValue)
+		{
+			IResultValues results = ResultValueBuilder.BuildOvertimeCountResult (targets, timeValue);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+		public static IBookResult CreateAbsenceCountResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, Int32 timeValue)
+		{
+			IResultValues results = ResultValueBuilder.BuildAbsenceCountResult (targets, timeValue);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+
+		public static IBookResult CreateRecordTimeResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, Int32 timeValue)
+		{
+			IResultValues results = ResultValueBuilder.BuildRecordTimeResult (targets, timeValue);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+		public static IBookResult CreateRecordAmountResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, decimal amountValue)
+		{
+			IResultValues results = ResultValueBuilder.BuildRecordAmountResult (targets, amountValue);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+		public static IBookResult CreateRecordIncomeResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, decimal incomeValue)
+		{
+			IResultValues results = ResultValueBuilder.BuildRecordIncomeResult (targets, incomeValue);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+
+		public static IBookResult CreateAmountIncomeResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, decimal amountValue)
+		{
+			IResultValues results = ResultValueBuilder.BuildAmountIncomeResult (targets, amountValue);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+		public static IBookResult CreateAmountPaymentsResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, decimal amountValue)
+		{
+			IResultValues results = ResultValueBuilder.BuildAmountPaymentsResult (targets, amountValue);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+		public static IBookResult CreateMonthlyAmountPaymentsResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, 
+			decimal factorValue, decimal amountValue, Int32 recordHours)
+		{
+			IResultValues results = ResultValueBuilder.BuildMonthlyAmountPaymentsResult (targets, factorValue, amountValue, recordHours);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
+
+		public static IBookResult CreateAmountDeductedResult (IPayrollConcept concept, IBookIndex element, IPayrollArticle article, ITargetValues targets, decimal amountValue)
+		{
+			IResultValues results = ResultValueBuilder.BuildAmountDeductedResult (targets, amountValue);
+
+			return new BookResult (element, article, results, concept.TargetValues(), concept.ResultValues());
+		}
 	}
 }
 

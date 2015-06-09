@@ -1,6 +1,7 @@
 ﻿using System;
 using PayrolleeMate.EngineService.Interfaces;
 using PayrolleeMate.Common.Periods;
+using PayrolleeMate.Common.Rounding;
 
 namespace PayrolleeMate.EngineService.Engines.Period
 {
@@ -38,6 +39,31 @@ namespace PayrolleeMate.EngineService.Engines.Period
 		public Int32[] MonthWorkSchedule (MonthPeriod period, Int32[] weekSchedule)
 		{
 			return PeriodOperations.MonthSchedule(period, weekSchedule);
+		}
+
+		public Int32[] TimesheetWorkSchedule (MonthPeriod period, Int32[] monthSchedule, uint dayFrom, uint dayEnds)
+		{
+			return PeriodOperations.TimesheetSchedule(period, monthSchedule, dayFrom, dayEnds);
+		}
+
+		public Int32[] TimesheetAbsenceSchedule (MonthPeriod period, Int32[] absenceHours, uint dayFrom, uint dayEnds)
+		{
+			return PeriodOperations.TimesheetAbsence(period, absenceHours, dayFrom, dayEnds);
+		}
+
+		public Int32 TotalHoursForSalary (MonthPeriod period, Int32 fulltimeHour, Int32 workingHours, Int32 absenceHours)
+		{
+			return PayRounding.TotalHoursForPayment(fulltimeHour, workingHours, absenceHours);
+		}
+
+		public decimal SalaryAmountFullSchedule (MonthPeriod period, decimal amountMonthly)
+		{
+			return PayRounding.FactorizeAmount(amountMonthly, 1m);
+		}
+
+		public decimal SalaryAmountWorkingTime (MonthPeriod period, decimal amountMonthly, Int32 fulltimeHour, Int32 workingHours, Int32 absenceHours)
+		{
+			return PayRounding.MonthlyAmountWithWorkingHours(amountMonthly, 1m, fulltimeHour, workingHours, absenceHours);
 		}
 
 		#endregion

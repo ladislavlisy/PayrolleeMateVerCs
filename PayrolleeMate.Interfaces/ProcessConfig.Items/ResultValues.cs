@@ -145,42 +145,42 @@ namespace PayrolleeMate.ProcessConfig.Items
 			return __periodDayEndsOrdinal;
 		}
 
-		public int[] ShiftTimetable ()
+		public Int32[] ShiftTimetable ()
 		{
 			return __shiftTimetable;
 		}
 
-		public int[] WorkTimetable ()
+		public Int32[] WorkTimetable ()
 		{
 			return __workTimetable;
 		}
 
-		public int[] OverTimetable ()
+		public Int32[] OverTimetable ()
 		{
 			return __overTimetable;
 		}
 
-		public int[] AbsenceTimetable ()
+		public Int32[] AbsenceTimetable ()
 		{
 			return __absenceTimetable;
 		}
 
-		public int WorktimeCount ()
+		public Int32 WorktimeCount ()
 		{
 			return __worktimeCount;
 		}
 
-		public int OvertimeCount ()
+		public Int32 OvertimeCount ()
 		{
 			return __overtimeCount;
 		}
 
-		public int AbsenceCount ()
+		public Int32 AbsenceCount ()
 		{
 			return __absenceCount;
 		}
 
-		public decimal RecordTime ()
+		public Int32 RecordTime ()
 		{
 			return __recordTime;
 		}

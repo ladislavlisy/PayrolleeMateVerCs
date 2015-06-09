@@ -23,7 +23,7 @@ namespace PayrolleeMate.ProcessConfig.Interfaces
 		Int32 AbsenceCount ();
 
 
-		decimal RecordTime ();
+		Int32 RecordTime ();
 
 		decimal RecordAmount ();
 

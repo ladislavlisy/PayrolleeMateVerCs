@@ -5,6 +5,7 @@ using PayrolleeMate.ProcessService.Comparers;
 using System.Linq;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Items;
+using PayrolleeMate.Common;
 
 namespace PayrolleeMate.ProcessService
 {
@@ -46,7 +47,7 @@ namespace PayrolleeMate.ProcessService
 
 		public IResultValues GetContractResult (ICodeIndex contract)
 		{
-			var resultsList = __results.Where(x => x.Key.GetIndex().Equals(contract)).
+			var resultsList = __results.Where(x => ResultListUtils.IsEqualToContractArticle(contract, x.Key)).
 				Select(c => c.Value.Values()).ToArray();
 
 			var partyResult = resultsList.DefaultIfEmpty(ResultValues.GetEmpty()).FirstOrDefault();
@@ -56,8 +57,7 @@ namespace PayrolleeMate.ProcessService
 
 		public IResultValues GetPositionResult (IBookParty position)
 		{
-			var resultsList = __results.Where(x => x.Key.ContractIndex().Equals(position.ContractIndex()) && 
-				x.Key.GetIndex().Equals(position.PositionIndex())).
+			var resultsList = __results.Where(x => ResultListUtils.IsEqualToPositionArticle(position, x.Key)).
 				Select(c => c.Value.Values()).ToArray();
 
 			var partyResult = resultsList.DefaultIfEmpty(ResultValues.GetEmpty()).FirstOrDefault();
@@ -67,7 +67,8 @@ namespace PayrolleeMate.ProcessService
 
 		public IList<IResultValues> GetContractPartyResultList (ICodeIndex contract, uint articleCode)
 		{
-			var resultsList = __results.Where(x => x.Key.ContractIndex().Equals(contract) && x.Key.Code()==articleCode).
+			var resultsList = __results.Where(x => ResultListUtils.IsEqualToContractParty(contract, x.Key) && 
+				x.Key.Code()==articleCode).
 				Select(c => c.Value.Values()).ToList();
 
 			return resultsList;
@@ -75,8 +76,26 @@ namespace PayrolleeMate.ProcessService
 
 		public IList<IResultValues> GetPositionPartyResultList (IBookParty position, uint articleCode)
 		{
-			var resultsList = __results.Where(x => x.Key.ContractIndex().Equals(position.ContractIndex()) && 
-				x.Key.PositionIndex().Equals(position.PositionIndex()) && x.Key.Code()==articleCode).
+			var resultsList = __results.Where(x => ResultListUtils.IsEqualToPositionParty(position, x.Key) && 
+				x.Key.Code()==articleCode).
+				Select(c => c.Value.Values()).ToArray();
+
+			return resultsList;
+		}
+
+		public IList<IResultValues> GetContractPartySummaryList (ICodeIndex contract, uint summaryCode)
+		{
+			var resultsList = __results.Where(x => ResultListUtils.IsEqualToContractParty(contract, x.Key) && 
+				ResultListUtils.SummaryArticlesFilter(x.Value.Article(), summaryCode)).
+				Select(c => c.Value.Values()).ToArray();
+
+			return resultsList;
+		}
+
+		public IList<IResultValues> GetPositionPartySummaryList (IBookParty position, uint summaryCode)
+		{
+			var resultsList = __results.Where(x => ResultListUtils.IsEqualToPositionParty(position, x.Key) && 
+				ResultListUtils.SummaryArticlesFilter(x.Value.Article(), summaryCode)).
 				Select(c => c.Value.Values()).ToArray();
 
 			return resultsList;
@@ -92,6 +111,46 @@ namespace PayrolleeMate.ProcessService
 			return new ResultStream(results);
 		}
 
+		private static class ResultListUtils
+		{
+			public static bool IsEqualToContractArticle(ICodeIndex contract, IBookIndex element)
+			{
+				return element.GetIndex().Equals(contract);
+			}
+
+			public static bool IsEqualToPositionArticle(IBookParty position, IBookIndex element)
+			{
+				return element.ContractIndex().Equals(position.ContractIndex()) && 
+					element.GetIndex().Equals(position.PositionIndex());
+			}
+
+			public static bool IsEqualToContractParty(ICodeIndex contract, IBookIndex element)
+			{
+				return element.ContractIndex().Equals(contract);
+			}
+
+			public static bool IsEqualToPositionParty(IBookParty position, IBookIndex element)
+			{
+				return element.ContractIndex().Equals(position.ContractIndex()) && 
+					element.PositionIndex().Equals(position.PositionIndex());
+			}
+
+			public static bool SummaryArticlesFilter(IPayrollArticle article, uint summaryCode)
+			{
+				return CountSummaryArticles(article.SummaryArticleNames(), summaryCode) != 0;
+			}
+
+			private static int CountSummaryArticles(SymbolName[] articles, uint articleCode)
+			{
+				if (articles == null)
+				{
+					return 0;
+				}
+				SymbolName[] _articles = articles.Where(x => x.Code == articleCode).ToArray<SymbolName>();
+
+				return _articles.Length;
+			}		
+		}
 	}
 }
 

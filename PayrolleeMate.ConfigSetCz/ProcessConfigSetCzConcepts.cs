@@ -133,7 +133,7 @@ namespace PayrolleeMate.ProcessConfigSetCz
 				DEFAULTS_CONCEPT, DEFAULTS_CONCEPT,
 				CONTRACT_QUALIFIED, POSITION_QUALIFIED,
 				"amount_monthly", 
-				"record_time|amount_payments", 
+				"record_amount|record_time|amount_payments", 
 				ConfigSetCzEvaluations.SalaryBaseEvaluation); 
 		}
 
