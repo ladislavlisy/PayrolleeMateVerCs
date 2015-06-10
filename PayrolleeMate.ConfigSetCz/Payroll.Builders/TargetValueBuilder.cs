@@ -28,6 +28,14 @@ namespace PayrolleeMate.ProcessConfig.Builders
 		private const uint NULL_CODE_HANDICAPS = 0;
 		private const uint NULL_CODE_CARDINALS = 0;
 
+		public static ITargetValues CreateEmptyValues() 
+		{
+			return new TargetValues (DEFAULT_CONTRACT_TYPE, DEFAULT_HEALTH_TYPE, DEFAULT_SOCIAL_TYPE,
+				NULL_DATE_FROM, NULL_DATE_ENDS, NULL_TIME_WEEKLY, NULL_DAYS_WEEKLY, NULL_TIME_WORKED, NULL_TIME_ABSENT, 
+				NULL_AMOUNT_MONTHLY,
+				NULL_CODE_INTERESTS, NULL_CODE_RESIDENCY, NULL_CODE_MANDATORY, NULL_CODE_STATEMENT, NULL_CODE_HANDICAPS, NULL_CODE_CARDINALS);
+		}
+
 		public static ITargetValues CreateContractEmplTermValues(WorkRelationTerms contract, 
 			WorkHealthTerms healthType, WorkSocialTerms socialType,
 			DateTime? dateFrom, DateTime? dateEnds)

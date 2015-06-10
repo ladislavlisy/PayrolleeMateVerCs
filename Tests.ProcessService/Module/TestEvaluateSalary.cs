@@ -61,7 +61,7 @@ namespace Tests.ProcessService
 
 			ITargetValues positionSalary = TargetValueBuilder.CreateSalaryBaseValues(15000m);
 
-			ITargetValues emptyValues = null;
+			ITargetValues emptyValues = TargetValueBuilder.CreateEmptyValues();
 
 			ITargetStream targets = TargetStream.CreateEmptyStream ().
 				AddNewContractsTarget(ConfigSetCzArticleName.REF_CONTRACT_EMPL_TERM, contractValues, testConfig).

@@ -270,6 +270,11 @@ namespace Tests.ProcessConfig.Logers
 
 				foreach (var article in articles) 
 				{
+					lineDefinition += ModelConceptsLogger.LogArticleInfo(article);
+				}
+
+				foreach (var article in articles) 
+				{
 					lineDefinition += ModelConceptsLogger.LogArticleEvalNames(article);
 				}
 
@@ -455,6 +460,15 @@ namespace Tests.ProcessConfig.Logers
 					baseInstance = models[conceptCode];
 				}
 				return baseInstance;
+			}
+
+			public static string LogArticleInfo(IPayrollArticle article)
+			{
+				string calcDefinition = Enum.ToObject(typeof(ProcessCategory), article.Category()).ToString();
+
+				string lineDefinition = string.Format("{0}\t{1}\n", article.ArticleName(), calcDefinition);
+
+				return lineDefinition;
 			}
 
 			public static string LogConceptInfo(IPayrollConcept concept, IPayrollArticle article)
