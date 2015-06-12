@@ -271,6 +271,17 @@ namespace Tests.ProcessConfig.Logers
 				foreach (var article in articles) 
 				{
 					lineDefinition += ModelConceptsLogger.LogArticleInfo(article);
+
+					IPayrollConcept concept = ModelConceptsLogger.FindConceptForCode(concepts, article.ConceptCode());
+
+					foreach (string target in concept.TargetValues ()) 
+					{
+						lineDefinition += string.Format("{0} - {1}\n", "TARGET", target);
+					}
+					foreach (string result in concept.ResultValues ()) 
+					{
+						lineDefinition += string.Format("{0} - {1}\n", "RESULT", result);
+					}
 				}
 
 				foreach (var article in articles) 
