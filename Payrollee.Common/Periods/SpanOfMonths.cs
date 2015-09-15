@@ -5,12 +5,12 @@ namespace PayrolleeMate.Common.Periods
 {
 	public class SpanOfMonths : IComparable
 	{
-		public static SpanOfMonths Year(UInt16 year)
+		public static SpanOfMonths CreateFromYear(UInt16 year)
 		{
 			return new SpanOfMonths(MonthPeriod.BeginYear(year), MonthPeriod.EndYear(year));
 		}
 
-		public static SpanOfMonths Month(MonthPeriod period)
+		public static SpanOfMonths CreateFromMonth(MonthPeriod period)
 		{
 			return new SpanOfMonths(period, period);
 		}

@@ -29,7 +29,7 @@ namespace Tests.EngineService
 		[Test ()]
 		public void Should_return_HealthEngine2015_for_ClassName_when_Year_2015()
 		{          
-			SpanOfYears span = SpanOfYears.Year(2015);
+			SpanOfYears span = SpanOfYears.CreateFromYear(2015);
 
 			string testClassName = EngineFactory<IHealthEngine>.ClassNameFor(CLASS_NAME_PREFIX, span);
 

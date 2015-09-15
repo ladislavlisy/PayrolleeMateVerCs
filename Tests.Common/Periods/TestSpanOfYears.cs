@@ -37,7 +37,7 @@ namespace Tests.Common.Rounding
 				new SpanOfYears(2016, 2016),
 				new SpanOfYears(2017, 2099)
 			};
-			SpanOfYears[] testIntervalArray = testYearArray.ToArray ();
+			SpanOfYears[] testIntervalArray = testYearArray.ToYearsIntervalList ();
 			Assert.AreEqual (expIntervalArray, testIntervalArray);
 		}
 
@@ -50,7 +50,7 @@ namespace Tests.Common.Rounding
 
 			MonthPeriod testPeriod = new MonthPeriod (2011, 1);
 			SpanOfYears expInterval = new SpanOfYears(2011, 2011);
-			SpanOfYears testInterval = testYearArray.SpanForPeriod (testPeriod);
+			SpanOfYears testInterval = testYearArray.YearsIntervalForPeriod (testPeriod);
 			Assert.AreEqual (expInterval, testInterval);
 		}
 
@@ -63,7 +63,7 @@ namespace Tests.Common.Rounding
 
 			MonthPeriod testPeriod = new MonthPeriod (2016, 1);
 			SpanOfYears expInterval = new SpanOfYears(2016, 2016);
-			SpanOfYears testInterval = testYearArray.SpanForPeriod (testPeriod);
+			SpanOfYears testInterval = testYearArray.YearsIntervalForPeriod (testPeriod);
 			Assert.AreEqual (expInterval, testInterval);
 		}
 
@@ -76,7 +76,7 @@ namespace Tests.Common.Rounding
 
 			MonthPeriod testPeriod = new MonthPeriod (2013, 1);
 			SpanOfYears expInterval = new SpanOfYears(2012, 2013);
-			SpanOfYears testInterval = testYearArray.SpanForPeriod (testPeriod);
+			SpanOfYears testInterval = testYearArray.YearsIntervalForPeriod (testPeriod);
 			Assert.AreEqual (expInterval, testInterval);
 		}
 
@@ -89,7 +89,7 @@ namespace Tests.Common.Rounding
 
 			MonthPeriod testPeriod = new MonthPeriod (2018, 1);
 			SpanOfYears expInterval = new SpanOfYears(2017, 2099);
-			SpanOfYears testInterval = testYearArray.SpanForPeriod (testPeriod);
+			SpanOfYears testInterval = testYearArray.YearsIntervalForPeriod (testPeriod);
 			Assert.AreEqual (expInterval, testInterval);
 		}
 	}

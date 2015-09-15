@@ -10,6 +10,26 @@ namespace PayrolleeMate.Common.Periods
 
 		public const uint TERM_END_FINISHED =  0;
 
+		public const int  WEEKSUN_SUNDAY =  0;
+
+		public const int  WEEKMON_SUNDAY =  7;
+
+		public static int DayOfWeekMonToSun(int periodDateCwd)
+		{
+			// DayOfWeek Sunday = 0,
+			// Monday = 1, Tuesday = 2, Wednesday = 3, Thursday = 4, Friday = 5, Saturday = 6, 
+			if (periodDateCwd == WEEKSUN_SUNDAY) {
+				return WEEKMON_SUNDAY;
+			} else {
+				return periodDateCwd;
+			}
+		}
+
+		public static MonthPeriod CreateFromYearAndMonth(uint year, byte month)
+		{
+			return new MonthPeriod(year*100 + month);
+		}
+
 		public static MonthPeriod Empty()
 		{
 			return new MonthPeriod(PRESENT);
@@ -87,19 +107,9 @@ namespace PayrolleeMate.Common.Periods
 		{
 			DateTime periodDate = DateOfMonth(dayOrdinal);
 
-			return DayOfWeekMonToSun(periodDate);
-		}
-
-		public static int DayOfWeekMonToSun(DateTime periodDate)
-		{
 			int periodDateCwd = (int)periodDate.DayOfWeek;
-			// DayOfWeek Sunday = 0,
-			// Monday = 1, Tuesday = 2, Wednesday = 3, Thursday = 4, Friday = 5, Saturday = 6, 
-			if (periodDateCwd == 0)
-			{
-				periodDateCwd = 7;
-			}
-			return periodDateCwd;
+
+			return DayOfWeekMonToSun(periodDateCwd);
 		}
 
 		public string Description()

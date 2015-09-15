@@ -2,7 +2,7 @@
 using System;
 using PayrolleeMate.Common.Periods;
 
-namespace Tests.Common.Rounding
+namespace Tests.Common.Periods
 {
 	[TestFixture ()]
 	public class TestMonthPeriod
@@ -107,6 +107,7 @@ namespace Tests.Common.Rounding
 			Assert.AreEqual(testPeriodOne.YearInt(), 2014);
 			Assert.AreEqual(testPeriodOne.MonthInt(), 1);
 		}
+		[Test]
 		public void Should_Return_Periods_Year_And_Month_2014_02()
 		{
 			MonthPeriod testPeriodTwo = new MonthPeriod (testPeriodCodeFeb);
@@ -116,6 +117,18 @@ namespace Tests.Common.Rounding
 
 			Assert.AreEqual(testPeriodTwo.YearInt(), 2014);
 			Assert.AreEqual(testPeriodTwo.MonthInt(), 2);
+		}
+		[Test]
+		public void Should_Return_Periods_Month_And_Year_Description() {
+			MonthPeriod testPeriodJan = new MonthPeriod (testPeriodCodeJan);
+			MonthPeriod testPeriodFeb = new MonthPeriod (testPeriodCodeFeb);
+			MonthPeriod testPeriod501 = new MonthPeriod (testPeriodCode501);
+			MonthPeriod testPeriod402 = new MonthPeriod (testPeriodCode402);
+
+			Assert.AreEqual(testPeriodJan.Description(), "January 2014");
+			Assert.AreEqual(testPeriodFeb.Description(), "February 2014");
+			Assert.AreEqual(testPeriod501.Description(), "January 2015");
+			Assert.AreEqual(testPeriod402.Description(), "February 2014");
 		}
 	}
 }

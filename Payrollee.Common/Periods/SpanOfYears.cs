@@ -5,12 +5,12 @@ namespace PayrolleeMate.Common.Periods
 {
 	public class SpanOfYears : IComparable
 	{
-		public static SpanOfYears Year(UInt16 year)
+		public static SpanOfYears CreateFromYear(UInt16 year)
 		{
 			return new SpanOfYears(year, year);
 		}
 
-		public static SpanOfYears Years(UInt16 from, UInt16 upto)
+		public static SpanOfYears CreateFromYearToYear(UInt16 from, UInt16 upto)
 		{
 			return new SpanOfYears(from, upto);
 		}
