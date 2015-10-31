@@ -54,16 +54,16 @@ namespace PayrolleeMate.Common.Periods
 		{
 			SpanOfMonths other = obj as SpanOfMonths;
 
-			if (this.PeriodFrom != other.PeriodFrom)
+			if (this.PeriodFrom.Equals(other.PeriodFrom))
 			{
-				return this.PeriodFrom.CompareTo(other.PeriodFrom);
+				return (this.PeriodUpto.CompareTo(other.PeriodUpto));
 			}
-			return (this.PeriodUpto.CompareTo(other.PeriodUpto));
+			return this.PeriodFrom.CompareTo(other.PeriodFrom);
 		}
 
 		public bool isEqualToInterval(SpanOfMonths other)
 		{
-			return (this.PeriodFrom == other.PeriodFrom && this.PeriodUpto == other.PeriodUpto);
+			return (this.PeriodFrom.Equals(other.PeriodFrom) && this.PeriodUpto.Equals(other.PeriodUpto));
 		}
 
 		public override bool Equals(object obj)
@@ -91,7 +91,7 @@ namespace PayrolleeMate.Common.Periods
 		{
 			StringBuilder classNameBuilder = new StringBuilder(PeriodFrom.ToString());
 
-			if(PeriodFrom != PeriodUpto)
+			if(!PeriodFrom.Equals(PeriodUpto))
 			{
 				classNameBuilder.Append("to").Append(PeriodUpto.ToString());
 			}

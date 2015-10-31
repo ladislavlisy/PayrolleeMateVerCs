@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayrolleeMate.Common
+namespace PayrolleeMate.Common.Core
 {
 	public class SymbolName : IComparable
 	{
@@ -29,7 +29,7 @@ namespace PayrolleeMate.Common
 
 			SymbolName other = obj as SymbolName;
 
-			return this.Code == other.Code && this.Name.Equals(other.Name);
+			return this.Code == other.Code;
 		}
 
 		public override int GetHashCode()

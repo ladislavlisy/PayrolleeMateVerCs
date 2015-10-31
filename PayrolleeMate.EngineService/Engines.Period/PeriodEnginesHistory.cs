@@ -12,7 +12,7 @@ namespace PayrolleeMate.EngineService.Engines.Period
 
 		private const ushort DEFAULT_YEAR = 2015;
 
-		private readonly ushort[] SPAN_HISTORY = new ushort[] {DEFAULT_YEAR};
+		private readonly ushort[] SPAN_HISTORY = new ushort[] {DEFAULT_YEAR, DEFAULT_YEAR};
 
 		private PeriodEnginesHistory ()
 		{

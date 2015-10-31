@@ -5,7 +5,7 @@ using PayrolleeMate.ProcessService.Comparers;
 using System.Linq;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Items;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 
 namespace PayrolleeMate.ProcessService
 {

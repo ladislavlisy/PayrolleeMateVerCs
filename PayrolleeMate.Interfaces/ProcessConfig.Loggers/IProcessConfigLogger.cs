@@ -2,7 +2,7 @@
 using PayrolleeMate.ProcessConfig.Interfaces;
 using System.Collections.Generic;
 using System.IO;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 using PayrolleeMate.Common.Interfaces;
 
 namespace PayrolleeMate.ProcessConfig.Interfaces.Loggers

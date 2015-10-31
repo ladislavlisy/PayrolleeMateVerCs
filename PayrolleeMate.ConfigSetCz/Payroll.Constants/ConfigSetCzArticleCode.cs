@@ -1,6 +1,6 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.Constants;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 
 namespace PayrolleeMate.ProcessConfigSetCz.Constants
 {

@@ -2,7 +2,7 @@
 using PayrolleeMate.ProcessService.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 using PayrolleeMate.ProcessService.Collection.Items;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.EngineService.Interfaces;

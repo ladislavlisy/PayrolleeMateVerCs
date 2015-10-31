@@ -1,7 +1,7 @@
 ﻿using System;
 using PayrolleeMate.ProcessService.Interfaces;
 using PayrolleeMate.EngineService.Interfaces;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 
 namespace PayrolleeMate.ProcessConfig.Interfaces
 {

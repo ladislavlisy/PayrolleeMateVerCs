@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace PayrolleeMate.Common.Periods
 {
@@ -114,8 +115,9 @@ namespace PayrolleeMate.Common.Periods
 
 		public string Description()
 		{
+			CultureInfo enCultureInfo = new CultureInfo("en-US");
 			DateTime firstPeriodDay = new DateTime(YearInt(), MonthInt(), 1);
-			return firstPeriodDay.ToString("MMMM yyyy");
+			return firstPeriodDay.ToString("MMMM yyyy", enCultureInfo);
 		}
 
 		public static bool operator <(MonthPeriod x, MonthPeriod y)

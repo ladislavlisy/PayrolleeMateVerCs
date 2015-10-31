@@ -1,5 +1,5 @@
 ﻿using System;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 using PayrolleeMate.ProcessConfig.Constants;
 using System.Collections.Generic;
 

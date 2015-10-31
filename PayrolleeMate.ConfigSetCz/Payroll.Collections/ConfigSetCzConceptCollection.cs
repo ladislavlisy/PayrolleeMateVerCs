@@ -1,6 +1,6 @@
 using System;
 using System.Reflection;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 using PayrolleeMate.ProcessConfig;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Collections;

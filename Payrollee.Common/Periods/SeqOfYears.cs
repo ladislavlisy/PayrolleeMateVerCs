@@ -8,86 +8,45 @@ namespace PayrolleeMate.Common.Periods
 		public static readonly UInt16 END_YEAR_ARRAY = 2100;
 		public static readonly UInt16 END_YEAR_INTER = 2099;
 
-		public UInt16[] Milestones { get; private set; }
+		public SpanOfYears[] Milestones { get; private set; }
+
+		static UInt16 TransformZeroToUpto(UInt16 year)
+		{
+			return (year == 0 ? SeqOfYears.END_YEAR_ARRAY : year);
+		}
+
+		private static SpanOfYears TransformYearsToSpans(UInt16 yearFrom, UInt16 yearUpto)
+		{
+			UInt16 tranUpto = SeqOfYears.TransformZeroToUpto(yearUpto);
+			UInt16 spanUpto = (tranUpto == yearFrom ? tranUpto : (UInt16)(tranUpto - 1u));
+			return new SpanOfYears(yearFrom, spanUpto);
+		}
 
 		public SeqOfYears (UInt16[] years)
 		{
-			this.Milestones = years.OrderBy(x => (x==0 ? END_YEAR_ARRAY : x)).ToArray();
+			UInt16[] sortedYears = years.OrderBy((x) => SeqOfYears.TransformZeroToUpto(x)).ToArray();
+			int beginsCount = sortedYears.Length - 1;
+			UInt16[] beginsYears = sortedYears.Take(beginsCount).ToArray();
+			UInt16[] finishYears = sortedYears.Skip(1).ToArray();
+			UInt16[][] sortedZiped = beginsYears.Zip(finishYears, (x, y) => new UInt16[] {x, y}).ToArray();
+			this.Milestones = sortedZiped.Select((x) => SeqOfYears.TransformYearsToSpans(x.First(), x.Last())).ToArray();
+		}
+
+		private static bool SelectForPeriod(SpanOfYears span, MonthPeriod period) 
+		{
+			return period.Year() >= span.YearFrom && period.Year() <= span.YearUpto;
 		}
 
 		public SpanOfYears YearsIntervalForPeriod(MonthPeriod period)
 		{
-			SpanOfYears validSpan = Milestones.Aggregate (new SpanOfYears (), (agr, x) => {
-				UInt16 intFrom = agr.YearFrom;
-				UInt16 intUpto = agr.YearUpto;
-				UInt16 intYear = x;
-				if (x == 0)
-				{
-					intYear = END_YEAR_ARRAY;
-				}
-				if (period.Year() >= intYear)
-				{
-					intFrom = intYear;
-				}
-				if (period.Year() < intYear && intUpto == 0)
-				{
-					intUpto = (UInt16)(intYear-1);
-				}
-				return new SpanOfYears(intFrom, intUpto);
-			});
-			return validSpan;
+			SpanOfYears[] validSpan = Milestones.Where((x) => SeqOfYears.SelectForPeriod(x, period)).ToArray();
+			SpanOfYears firstSpan = validSpan.FirstOrDefault();
+			return firstSpan == null ? SpanOfYears.Empty() : firstSpan;
 		}
 
-		public SpanOfYears[] ToYearsIntervalList()
+		public SpanOfYears[] YearsIntervalList()
 		{
-			SpanOfYears[] history = Milestones.Aggregate (new SpanOfYears[0], (agr, x) => {
-				SpanOfYears[] firstPart = agr.TakeWhile((y) => (y.YearUpto != 0)).ToArray();
-				if (agr.Length == 0)
-				{
-					return firstPart.Concat( new SpanOfYears[] { 
-						new SpanOfYears(x, 0) 
-					} ).ToArray();
-				}
-				else
-				{
-					SpanOfYears lastPart = agr.Last();	
-
-					if (x == 0)
-					{
-						UInt16 historyFrom = lastPart.YearFrom;
-						UInt16 historyUpto = END_YEAR_INTER;
-
-						return firstPart.Concat( new SpanOfYears[] { 
-							new SpanOfYears(historyFrom, historyUpto)
-						} ).ToArray();
-					}
-					else
-					{
-						UInt16 historyFrom = lastPart.YearFrom;
-						UInt16 historyUpto = Math.Max((UInt16)(x-1), historyFrom);
-
-						return firstPart.Concat( new SpanOfYears[] { 
-							new SpanOfYears(historyFrom, historyUpto),
-							new SpanOfYears(x, 0) 
-						} ).ToArray();
-					}
-				}
-			});
-
-			SpanOfYears lastHistoryPart = history.Last();	
-
-			if (lastHistoryPart.YearUpto == 0)
-			{
-				SpanOfYears[] firstHistoryPart = history.TakeWhile((y) => (y.YearUpto != 0)).ToArray();
-
-				UInt16 historyFrom = lastHistoryPart.YearFrom;
-				UInt16 historyUpto = lastHistoryPart.YearFrom;
-
-				return firstHistoryPart.Concat( new SpanOfYears[] { 
-					new SpanOfYears(historyFrom, historyUpto)
-				} ).ToArray();
-			}
-			return history;
+			return Milestones.ToArray();
 		}
 	}
 }

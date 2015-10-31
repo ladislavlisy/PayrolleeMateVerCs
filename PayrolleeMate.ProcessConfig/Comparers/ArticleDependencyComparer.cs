@@ -1,7 +1,7 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using System.Linq;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 
 namespace PayrolleeMate.ProcessConfig.Comparers
 {

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Payroll.Concepts;

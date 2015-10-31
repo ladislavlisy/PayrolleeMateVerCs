@@ -14,7 +14,7 @@ namespace PayrolleeMate.EngineService.Engines.Health
 
 		private const ushort DEFAULT_YEAR = 2015;
 
-		private readonly ushort[] SPAN_HISTORY = new ushort[] {2011, 2012, 2013, 2014, DEFAULT_YEAR};
+		private readonly ushort[] SPAN_HISTORY = new ushort[] {2011, 2012, 2013, 2014, DEFAULT_YEAR, DEFAULT_YEAR};
 
 		private HealthEnginesHistory ()
 		{

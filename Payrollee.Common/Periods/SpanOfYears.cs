@@ -15,6 +15,11 @@ namespace PayrolleeMate.Common.Periods
 			return new SpanOfYears(from, upto);
 		}
 
+		public static SpanOfYears Empty()
+		{
+			return new SpanOfYears();
+		}
+
 		public UInt16 YearFrom { get; private set; }
 		public UInt16 YearUpto { get; private set; }
 

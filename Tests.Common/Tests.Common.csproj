@@ -45,6 +45,7 @@
     <Compile Include="Rounding\TestIntegerRoundingUp.cs" />
     <Compile Include="Periods\TestMonthPeriod.cs" />
     <Compile Include="Periods\TestSpanOfYears.cs" />
+    <Compile Include="Core\TestSymbolName.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -56,6 +57,7 @@
   <ItemGroup>
     <Folder Include="Rounding\" />
     <Folder Include="Periods\" />
+    <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

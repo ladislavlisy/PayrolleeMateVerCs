@@ -1,7 +1,7 @@
 ﻿using System;
 using PayrolleeMate.ProcessConfig.Interfaces;
 using System.Collections.Generic;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 using PayrolleeMate.ProcessConfig.Interfaces.Loggers;
 
 namespace Tests.ProcessConfig.Logers

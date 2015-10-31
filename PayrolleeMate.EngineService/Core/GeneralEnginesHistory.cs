@@ -16,7 +16,7 @@ namespace PayrolleeMate.EngineService.Core
 		{
 			SeqOfYears history = new SeqOfYears (History());
 
-			InitWithHistory (history.ToYearsIntervalList());
+			InitWithHistory (history.YearsIntervalList());
 
 			MonthPeriod defaultPeriod =  MonthPeriod.BeginYear(DefaultYear());
 

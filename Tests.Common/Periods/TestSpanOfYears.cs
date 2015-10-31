@@ -2,7 +2,7 @@
 using System;
 using PayrolleeMate.Common.Periods;
 
-namespace Tests.Common.Rounding
+namespace Tests.Common.Periods
 {
 	[TestFixture ()]
 	public class TestSpanOfYears
@@ -37,7 +37,7 @@ namespace Tests.Common.Rounding
 				new SpanOfYears(2016, 2016),
 				new SpanOfYears(2017, 2099)
 			};
-			SpanOfYears[] testIntervalArray = testYearArray.ToYearsIntervalList ();
+			SpanOfYears[] testIntervalArray = testYearArray.YearsIntervalList ();
 			Assert.AreEqual (expIntervalArray, testIntervalArray);
 		}
 

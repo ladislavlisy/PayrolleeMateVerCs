@@ -4,7 +4,7 @@ using PayrolleeMate.ProcessConfig.Interfaces;
 using PayrolleeMate.ProcessConfigSetCz.Constants;
 using System.Reflection;
 using PayrolleeMate.ProcessConfig.Collections;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 using PayrolleeMate.ProcessConfig.Payroll.Articles;
 
 namespace PayrolleeMate.ProcessConfigSetCz.Collections

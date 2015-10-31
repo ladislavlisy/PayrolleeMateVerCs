@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
-using PayrolleeMate.Common;
+using PayrolleeMate.Common.Core;
 using PayrolleeMate.Common.Collection;
 using PayrolleeMate.ProcessConfig.Constants;
 using PayrolleeMate.ProcessConfig.Interfaces;
